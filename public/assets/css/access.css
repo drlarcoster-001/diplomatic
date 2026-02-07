@@ -1,0 +1,73 @@
+/*
+ * MÓDULO: USUARIOS, ROLES Y ACCESO
+ * Archivo: public/assets/css/access.css
+ * Propósito: estilos del login y dashboard base del sistema.
+ */
+
+:root{
+  --dp-bg: #f5f7fb;
+  --dp-card: #ffffff;
+  --dp-text: #1f2937;
+  --dp-muted: #6b7280;
+  --dp-border: rgba(0,0,0,.08);
+  --dp-primary: #0d6efd;
+}
+
+html, body{
+  height: 100%;
+}
+
+body{
+  background: var(--dp-bg);
+  color: var(--dp-text);
+}
+
+.dp-auth-container{
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dp-card{
+  background: var(--dp-card);
+  border: 1px solid var(--dp-border);
+  border-radius: 18px;
+}
+
+.dp-shadow{
+  box-shadow: 0 12px 32px rgba(17, 24, 39, .08);
+}
+
+.dp-title{
+  font-weight: 700;
+  letter-spacing: .3px;
+}
+
+.dp-subtitle{
+  color: var(--dp-muted);
+  font-size: .95rem;
+}
+
+.dp-brand{
+  font-weight: 800;
+  letter-spacing: .5px;
+}
+
+.dp-footer{
+  color: var(--dp-muted);
+  font-size: .85rem;
+}
+
+.form-control{
+  border-radius: 12px;
+}
+
+.form-control:focus{
+  box-shadow: 0 0 0 .25rem rgba(13,110,253,.15);
+}
+
+.btn{
+  border-radius: 14px;
+  font-weight: 500;
+}
