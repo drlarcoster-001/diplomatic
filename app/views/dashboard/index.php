@@ -2,15 +2,26 @@
 /**
  * MÓDULO: USUARIOS, ROLES Y ACCESO
  * Archivo: app/views/dashboard/index.php
- * Propósito: Página principal del dashboard, que incluye el layout base.
- * Nota: Este archivo utiliza el layout común para el dashboard.
+ * Propósito: Dashboard base (usa layout con sidebar + topnav).
  */
 
 declare(strict_types=1);
 
-$content = '
-  <h2 class="mb-4">Bienvenido, ' . htmlspecialchars($_SESSION['user']['name']) . '!</h2>
-  <p>Este es el panel de control principal. Aquí puedes gestionar tus diplomados, ver estadísticas y más.</p>
-';
+$userName = $_SESSION['user']['name'] ?? 'Usuario';
 
-include __DIR__ . '/../layout.php'; // Incluye el layout con topnav y sidebar
+ob_start();
+?>
+<div class="row">
+  <div class="col-12">
+    <div class="card dp-shadow">
+      <div class="card-body">
+        <h4 class="mb-2">Bienvenido, <?= htmlspecialchars($userName) ?></h4>
+        <div class="text-muted">Panel principal del sistema (base). Desde aquí vamos habilitando módulos progresivamente.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<?php
+$content = ob_get_clean();
+
+include __DIR__ . '/../layout.php';

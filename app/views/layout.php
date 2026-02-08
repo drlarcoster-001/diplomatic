@@ -2,47 +2,45 @@
 /**
  * MÓDULO: USUARIOS, ROLES Y ACCESO
  * Archivo: app/views/layout.php
- * Propósito: Layout base para el sistema (sidebar + topnav).
- * Nota: Este archivo es el layout común donde se incluirán el sidebar y el topnav.
+ * Propósito: Layout del panel (Sidebar + TopNav + Contenido). Carga CSS/JS del panel.
  */
 
 declare(strict_types=1);
 
+$basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
+$content  = $content ?? '';
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DIPLOMATIC · Dashboard</title>
+  <title>DIPLOMATIC · Panel</title>
 
-  <!-- Bootstrap CSS (CDN) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- CSS del Módulo 1 -->
-  <link href="<?= $basePath ?>/assets/css/access.css" rel="stylesheet">
-  <link href="<?= $basePath ?>/assets/css/dashboard.css" rel="stylesheet">
+
+  <!-- CSS Panel (único) -->
+  <link href="<?= htmlspecialchars($basePath) ?>/assets/css/panel.css?v=<?= time() ?>" rel="stylesheet">
 </head>
+
 <body class="bg-light">
 
-  <!-- INCLUYE EL SIDEBAR -->
   <?php include __DIR__ . '/sidebar.php'; ?>
 
-  <div class="main-content">
-    <!-- INCLUYE EL TOPNAV -->
+  <!-- Overlay -->
+  <div id="dpOverlay" class="dp-overlay" aria-hidden="true"></div>
+
+  <main class="dp-main">
     <?php include __DIR__ . '/topnav.php'; ?>
 
-    <!-- CONTENIDO DINÁMICO (dependerá de la vista) -->
-    <div class="container py-5">
-      <?php echo $content; ?>
+    <div class="container-fluid px-3 px-md-4 py-4">
+      <?= $content ?>
     </div>
-  </div>
+  </main>
 
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- SweetAlert2 -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <!-- JS del módulo -->
-  <script src="<?= $basePath ?>/assets/js/access.js"></script>
+
+  <!-- JS Panel (único) -->
+  <script src="<?= htmlspecialchars($basePath) ?>/assets/js/panel.js?v=<?= time() ?>"></script>
 </body>
 </html>
