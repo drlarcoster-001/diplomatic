@@ -27,9 +27,10 @@ final class Bootstrap
     // -- RUTAS DEL PANEL --
     $router->get('/dashboard', [DashboardController::class, 'index']);
 
-    // -- RUTAS DE USUARIOS (NUEVAS) --
-    $router->get('/users', [UsersController::class, 'index']);
-    $router->get('/users/create', [UsersController::class, 'create']); // Para el botón nuevo
+// Rutas de Usuarios
+$router->get('/users', [\App\Controllers\UsersController::class, 'index']);
+$router->post('/users/save', [\App\Controllers\UsersController::class, 'save']);
+$router->post('/users/delete', [\App\Controllers\UsersController::class, 'delete']);
 
     $router->dispatch();
   }

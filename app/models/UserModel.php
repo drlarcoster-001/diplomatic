@@ -1,8 +1,8 @@
 <?php
 /**
- * MÓDULO: USUARIOS, ROLES Y ACCESO
+ * MÓDULO: USUARIOS
  * Archivo: app/models/UserModel.php
- * Propósito: Lógica de base de datos para usuarios.
+ * Cambio: La función update YA NO toca la contraseña.
  */
 
 declare(strict_types=1);
@@ -14,110 +14,97 @@ use PDO;
 
 final class UserModel
 {
-    /**
-     * Busca un usuario por email para el login.
-     * Incluye el campo 'role' y 'password_hash'.
-     */
-    public function findByEmail(string $email): ?array
+    // --- LOGIN ---
+    public function verifyLogin(string $email, string $password): array
     {
         $pdo = Database::getConnection();
-        // IMPORTANTE: Aquí seleccionamos 'role'
-        $sql = "SELECT id, user_type, status, first_name, last_name, email, password_hash, role
-                FROM tbl_users
-                WHERE email = :email LIMIT 1";
+        $email = trim($email);
         
+        $sql = "SELECT id, first_name, last_name, email, password_hash, role, user_type, status 
+                FROM tbl_users WHERE email = :email LIMIT 1";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([':email' => $email]);
-        
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $row ?: null;
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$user) return ['ok' => false, 'message' => 'Credenciales incorrectas.'];
+        if (($user['status'] ?? '') !== 'ACTIVE') return ['ok' => false, 'message' => 'Usuario inactivo.'];
+        if (!password_verify($password, (string)$user['password_hash'])) return ['ok' => false, 'message' => 'Credenciales incorrectas.'];
+
+        return ['ok' => true, 'user' => $user];
     }
 
-    /**
-     * Obtiene todos los usuarios para el listado.
-     */
-    public function getAllUsers(): array
+    // --- LISTAR ---
+    public function getAll(): array
     {
         $pdo = Database::getConnection();
-        $sql = "SELECT id, user_type, status, first_name, last_name, email, role, created_at
-                FROM tbl_users
-                WHERE status != 'INACTIVE' 
-                ORDER BY created_at DESC";
-        
+        $sql = "SELECT id, first_name, last_name, document_id as cedula, phone, email, role, status, created_at 
+                FROM tbl_users WHERE status != 'INACTIVE' ORDER BY created_at DESC";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
-        
         return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
     }
 
-    /**
-     * Crea un nuevo usuario (usado por el Admin).
-     */
+    // --- VALIDAR DUPLICADOS (Inteligente) ---
+    // Si enviamos $excludeId, ignora ese usuario (vital para editar sin errores)
+    public function exists(string $email, string $cedula, int $excludeId = 0): bool
+    {
+        $pdo = Database::getConnection();
+        $sql = "SELECT id FROM tbl_users WHERE (email = :email OR document_id = :cedula) AND id != :id LIMIT 1";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':email' => $email, ':cedula' => $cedula, ':id' => $excludeId]);
+        return (bool)$stmt->fetch();
+    }
+
+    // --- CREAR (Requiere Password) ---
     public function create(array $data): bool
     {
         $pdo = Database::getConnection();
-
-        // 1. Verificar duplicados
-        $check = $this->findByEmail($data['email']);
-        if ($check) {
-            return false; // El correo ya existe
-        }
-
-        // 2. Insertar nuevo registro
-        $sql = "INSERT INTO tbl_users (first_name, last_name, email, password_hash, role, user_type, status, created_at) 
-                VALUES (:fname, :lname, :email, :pass, :role, :utype, :status, NOW())";
-
-        $stmt = $pdo->prepare($sql);
+        $sql = "INSERT INTO tbl_users (first_name, last_name, document_id, phone, email, password_hash, role, user_type, status, created_at) 
+                VALUES (:fname, :lname, :cedula, :phone, :email, :pass, :role, 'INTERNAL', 'ACTIVE', NOW())";
         
+        $stmt = $pdo->prepare($sql);
         return $stmt->execute([
-            ':fname'  => $data['first_name'],
-            ':lname'  => $data['last_name'],
-            ':email'  => $data['email'],
-            ':pass'   => $data['password'],
-            ':role'   => $data['role'],
-            ':utype'  => $data['user_type'],
-            ':status' => $data['status']
+            ':fname' => $data['first_name'], ':lname' => $data['last_name'],
+            ':cedula' => $data['document_id'], ':phone' => $data['phone'],
+            ':email' => $data['email'], ':pass' => $data['password'],
+            ':role' => $data['role']
         ]);
     }
 
-    /**
-     * Verifica credenciales y devuelve los datos del usuario + ROL.
-     */
-    public function verifyLogin(string $email, string $password): array
+    // --- ACTUALIZAR (SIN PASSWORD) ---
+    public function update(int $id, array $data): bool
     {
-        $email = trim($email);
+        $pdo = Database::getConnection();
         
-        if ($email === '' || $password === '') {
-            return ['ok' => false, 'message' => 'Debe ingresar correo y contraseña.', 'user' => null];
-        }
+        // Solo actualizamos datos personales y rol. La contraseña se ignora aquí.
+        $sql = "UPDATE tbl_users SET 
+                first_name = :fname, 
+                last_name = :lname, 
+                document_id = :cedula, 
+                phone = :phone, 
+                email = :email, 
+                role = :role 
+                WHERE id = :id";
+        
+        $stmt = $pdo->prepare($sql);
+        
+        return $stmt->execute([
+            ':id'    => $id,
+            ':fname' => $data['first_name'],
+            ':lname' => $data['last_name'],
+            ':cedula'=> $data['document_id'],
+            ':phone' => $data['phone'],
+            ':email' => $data['email'],
+            ':role'  => $data['role']
+        ]);
+    }
 
-        $user = $this->findByEmail($email);
-
-        if (!$user) {
-            return ['ok' => false, 'message' => 'Credenciales inválidas.', 'user' => null];
-        }
-
-        if (($user['status'] ?? '') !== 'ACTIVE') {
-            return ['ok' => false, 'message' => 'Usuario inactivo o suspendido.', 'user' => null];
-        }
-
-        if (!password_verify($password, (string)$user['password_hash'])) {
-            return ['ok' => false, 'message' => 'Credenciales inválidas.', 'user' => null];
-        }
-
-        // Retornamos los datos limpios, incluyendo el ROL
-        return [
-            'ok' => true,
-            'message' => 'Acceso concedido.',
-            'user' => [
-                'id' => (int)$user['id'],
-                'first_name' => (string)$user['first_name'],
-                'last_name' => (string)$user['last_name'],
-                'email' => (string)$user['email'],
-                'user_type' => (string)$user['user_type'],
-                'role' => (string)$user['role'], // <--- CRÍTICO
-                'status' => (string)$user['status'],
-            ],
-        ];
+    // --- ELIMINAR ---
+    public function delete(int $id): bool
+    {
+        $pdo = Database::getConnection();
+        $sql = "UPDATE tbl_users SET status = 'INACTIVE' WHERE id = :id";
+        $stmt = $pdo->prepare($sql);
+        return $stmt->execute([':id' => $id]);
     }
 }
