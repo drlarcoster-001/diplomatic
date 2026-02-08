@@ -2,8 +2,7 @@
 /**
  * MÓDULO: USUARIOS, ROLES Y ACCESO
  * Archivo: app/controllers/AuthController.php
- * Propósito: Controlador de login/logout para la autenticación del sistema.
- * Nota: Delegación al Model para la validación de credenciales.
+ * Propósito: Controlador de login/logout.
  */
 
 declare(strict_types=1);
@@ -15,12 +14,8 @@ use App\Models\UserModel;
 
 final class AuthController extends Controller
 {
-  /**
-   * Muestra la vista de login si el usuario no está autenticado
-   */
   public function showLogin(): void
   {
-    // Si ya está autenticado, lo mandamos al dashboard
     if (!empty($_SESSION['user']['id'])) {
       $this->redirect('/dashboard');
     }
@@ -28,21 +23,12 @@ final class AuthController extends Controller
     $this->view('auth/login');
   }
 
-  /**
-   * Procesa el login con las credenciales del usuario
-   */
   public function doLogin(): void
   {
     $email = (string)($_POST['email'] ?? '');
     $password = (string)($_POST['password'] ?? '');
 
-    // Instanciamos el modelo de usuario
     $model = new UserModel();
-
-    /**
-     * La validación de credenciales y el estado del usuario
-     * se realiza en el modelo (UserModel).
-     */
     $result = $model->verifyLogin($email, $password);
 
     if (!$result['ok']) {
@@ -50,33 +36,36 @@ final class AuthController extends Controller
       $this->redirect('/');
     }
 
-    // Recuperamos los datos del usuario
     $u = $result['user'];
 
-    // Almacenamos los datos del usuario en la sesión
+    // AQUÍ GUARDAMOS EL ROL EN LA SESIÓN
     $_SESSION['user'] = [
       'id' => $u['id'],
       'name' => trim($u['first_name'] . ' ' . $u['last_name']),
       'email' => $u['email'],
       'user_type' => $u['user_type'],
+      'role' => $u['role'], // <--- ESTA LÍNEA ES VITAL
       'status' => $u['status'],
     ];
 
-    // Redirigimos al dashboard
     $this->redirect('/dashboard');
   }
 
-  /**
-   * Función para cerrar sesión
-   */
   public function logout(): void
   {
-    // Limpiar los datos de sesión del usuario
-    unset($_SESSION['user']);
+    // Borramos todo rastro de sesión
+    $_SESSION = [];
     
-    // Regenerar el ID de sesión para evitar el uso de IDs antiguos
-    session_regenerate_id(true);
+    if (ini_get("session.use_cookies")) {
+        $params = session_get_cookie_params();
+        setcookie(session_name(), '', time() - 42000,
+            $params["path"], $params["domain"],
+            $params["secure"], $params["httponly"]
+        );
+    }
 
+    session_destroy();
+    
     // Redirigir al login
     $this->redirect('/');
   }

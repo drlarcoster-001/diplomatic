@@ -1,0 +1,36 @@
+/**
+ * MÓDULO: USUARIOS
+ * Archivo: public/assets/css/users.css
+ * Propósito: Ajustes visuales de la tabla y botones de acción.
+ */
+
+/* Alineación vertical centrada para toda la tabla */
+#usersTable th,
+#usersTable td {
+  vertical-align: middle;
+  white-space: nowrap; /* Evita que los textos se rompan en líneas */
+}
+
+/* Ajuste de los botones de acción (Editar/Borrar) */
+#usersTable .btn-group .btn {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+/* Badge de roles con tamaño uniforme */
+.badge {
+  min-width: 80px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+/* Avatar circular */
+.user-avatar {
+  width: 40px; 
+  height: 40px;
+  font-size: 0.9rem;
+}
