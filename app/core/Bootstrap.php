@@ -27,12 +27,14 @@ final class Bootstrap
 
     // -- RUTAS DEL PANEL --
     $router->get('/dashboard', [DashboardController::class, 'index']);
+    $router->get('/settings', [\App\Controllers\SettingsController::class, 'index']);
 
     // -- RUTAS DE USUARIOS (El orden importa) --
     // Aseguramos que el path sea exactamente '/users'
     $router->get('/users', [UsersController::class, 'index']);
     $router->post('/users/save', [UsersController::class, 'save']);
     $router->post('/users/delete', [UsersController::class, 'delete']);
+
 
     $router->dispatch();
   }
