@@ -34,3 +34,19 @@
   height: 40px;
   font-size: 0.9rem;
 }
+
+/* public/assets/css/users.css */
+.avatar-circle {
+    width: 40px; height: 40px; background: #0d6efd; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; font-size: 14px; font-weight: bold; text-transform: uppercase;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.avatar-circle-lg { width: 110px; height: 110px; font-size: 32px; margin: 0 auto; }
+
+.avatar-img { object-fit: cover; }
+.avatar-img-lg { object-fit: cover; background: #eee; }
+
+.bg-light-custom { background-color: #f8f9fa; border: 1px solid #dee2e6; }
+.form-label { font-size: 0.85rem; margin-bottom: 0.3rem; }

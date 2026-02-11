@@ -39,8 +39,8 @@ $userRole = strtoupper($_SESSION['user']['role'] ?? '');
       </div>
 
       <a href="<?= htmlspecialchars($basePath) ?>/users"
-         class="list-group-item list-group-item-action bg-dark text-white border-0 py-2 px-4">
-        <i class="bi bi-people-fill me-2 text-primary"></i> Usuarios
+        class="list-group-item list-group-item-action bg-dark text-white border-0 py-2 px-4">
+          <i class="bi bi-people-fill me-2 text-primary"></i> Usuarios
       </a>
       
       <?php endif; ?>

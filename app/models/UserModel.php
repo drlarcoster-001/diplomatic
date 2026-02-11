@@ -2,7 +2,8 @@
 /**
  * MÓDULO: USUARIOS
  * Archivo: app/models/UserModel.php
- * Cambio: La función update YA NO toca la contraseña.
+ * Propósito: Gestionar la lógica de datos de tbl_users, incluyendo perfil extendido y avatar.
+ * Cambio: Integración de campos address, provenance, undergraduate_degree y avatar.
  */
 
 declare(strict_types=1);
@@ -14,13 +15,15 @@ use PDO;
 
 final class UserModel
 {
-    // --- LOGIN ---
+    /**
+     * Verifica credenciales y devuelve datos básicos del usuario.
+     */
     public function verifyLogin(string $email, string $password): array
     {
         $pdo = Database::getConnection();
         $email = trim($email);
         
-        $sql = "SELECT id, first_name, last_name, email, password_hash, role, user_type, status 
+        $sql = "SELECT id, first_name, last_name, email, password_hash, role, user_type, status, avatar 
                 FROM tbl_users WHERE email = :email LIMIT 1";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([':email' => $email]);
@@ -33,19 +36,23 @@ final class UserModel
         return ['ok' => true, 'user' => $user];
     }
 
-    // --- LISTAR ---
+    /**
+     * Obtiene todos los usuarios activos con sus datos extendidos.
+     */
     public function getAll(): array
     {
         $pdo = Database::getConnection();
-        $sql = "SELECT id, first_name, last_name, document_id as cedula, phone, email, role, status, created_at 
+        $sql = "SELECT id, first_name, last_name, document_id as cedula, phone, email, role, status, 
+                       address, provenance, undergraduate_degree, avatar, created_at 
                 FROM tbl_users WHERE status != 'INACTIVE' ORDER BY created_at DESC";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
     }
 
-    // --- VALIDAR DUPLICADOS (Inteligente) ---
-    // Si enviamos $excludeId, ignora ese usuario (vital para editar sin errores)
+    /**
+     * Valida duplicados de Email o Cédula (ignora el ID actual al editar).
+     */
     public function exists(string $email, string $cedula, int $excludeId = 0): bool
     {
         $pdo = Database::getConnection();
@@ -55,51 +62,76 @@ final class UserModel
         return (bool)$stmt->fetch();
     }
 
-    // --- CREAR (Requiere Password) ---
+    /**
+     * Inserta un nuevo usuario con perfil de preinscripción.
+     */
     public function create(array $data): bool
     {
         $pdo = Database::getConnection();
-        $sql = "INSERT INTO tbl_users (first_name, last_name, document_id, phone, email, password_hash, role, user_type, status, created_at) 
-                VALUES (:fname, :lname, :cedula, :phone, :email, :pass, :role, 'INTERNAL', 'ACTIVE', NOW())";
+        $sql = "INSERT INTO tbl_users (
+                    first_name, last_name, document_id, phone, email, password_hash, 
+                    role, user_type, status, address, provenance, undergraduate_degree, avatar, created_at
+                ) VALUES (
+                    :fname, :lname, :cedula, :phone, :email, :pass, 
+                    :role, 'INTERNAL', 'ACTIVE', :address, :provenance, :degree, :avatar, NOW()
+                )";
         
         $stmt = $pdo->prepare($sql);
         return $stmt->execute([
-            ':fname' => $data['first_name'], ':lname' => $data['last_name'],
-            ':cedula' => $data['document_id'], ':phone' => $data['phone'],
-            ':email' => $data['email'], ':pass' => $data['password'],
-            ':role' => $data['role']
+            ':fname'      => $data['first_name'],
+            ':lname'      => $data['last_name'],
+            ':cedula'     => $data['document_id'],
+            ':phone'      => $data['phone'],
+            ':email'      => $data['email'],
+            ':pass'       => $data['password'],
+            ':role'       => $data['role'],
+            ':address'    => $data['address'] ?? null,
+            ':provenance' => $data['provenance'] ?? null,
+            ':degree'     => $data['undergraduate_degree'] ?? null,
+            ':avatar'     => $data['avatar'] ?? 'default_avatar.png'
         ]);
     }
 
-    // --- ACTUALIZAR (SIN PASSWORD) ---
+    /**
+     * Actualiza los datos del usuario. La contraseña no se toca en este flujo.
+     */
     public function update(int $id, array $data): bool
     {
         $pdo = Database::getConnection();
         
-        // Solo actualizamos datos personales y rol. La contraseña se ignora aquí.
         $sql = "UPDATE tbl_users SET 
                 first_name = :fname, 
                 last_name = :lname, 
                 document_id = :cedula, 
                 phone = :phone, 
                 email = :email, 
-                role = :role 
+                role = :role,
+                address = :address,
+                provenance = :provenance,
+                undergraduate_degree = :degree,
+                avatar = :avatar 
                 WHERE id = :id";
         
         $stmt = $pdo->prepare($sql);
         
         return $stmt->execute([
-            ':id'    => $id,
-            ':fname' => $data['first_name'],
-            ':lname' => $data['last_name'],
-            ':cedula'=> $data['document_id'],
-            ':phone' => $data['phone'],
-            ':email' => $data['email'],
-            ':role'  => $data['role']
+            ':id'       => $id,
+            ':fname'    => $data['first_name'],
+            ':lname'    => $data['last_name'],
+            ':cedula'   => $data['document_id'],
+            ':phone'    => $data['phone'],
+            ':email'    => $data['email'],
+            ':role'     => $data['role'],
+            ':address'  => $data['address'] ?? null,
+            ':provenance'=> $data['provenance'] ?? null,
+            ':degree'   => $data['undergraduate_degree'] ?? null,
+            ':avatar'   => $data['avatar'] ?? 'default_avatar.png'
         ]);
     }
 
-    // --- ELIMINAR ---
+    /**
+     * Desactivación lógica de usuario (Soft Delete).
+     */
     public function delete(int $id): bool
     {
         $pdo = Database::getConnection();
