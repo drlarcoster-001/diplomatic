@@ -2,8 +2,8 @@
 /**
  * MÓDULO: USUARIOS
  * Archivo: app/models/UserModel.php
- * Propósito: Gestionar la lógica de datos de tbl_users, incluyendo perfil extendido y avatar.
- * Cambio: Integración de campos address, provenance, undergraduate_degree y avatar.
+ * Propósito: Gestión de persistencia para la tabla tbl_users.
+ * Integra la lógica de autenticación y el perfil completo del usuario.
  */
 
 declare(strict_types=1);
@@ -13,130 +13,76 @@ namespace App\Models;
 use App\Core\Database;
 use PDO;
 
-final class UserModel
+class UserModel 
 {
-    /**
-     * Verifica credenciales y devuelve datos básicos del usuario.
-     */
-    public function verifyLogin(string $email, string $password): array
+    private $db;
+
+    public function __construct() 
     {
-        $pdo = Database::getConnection();
-        $email = trim($email);
-        
-        $sql = "SELECT id, first_name, last_name, email, password_hash, role, user_type, status, avatar 
-                FROM tbl_users WHERE email = :email LIMIT 1";
-        $stmt = $pdo->prepare($sql);
+        $this->db = (new Database())->getConnection();
+    }
+
+    /**
+     * Verifica las credenciales de acceso.
+     */
+    public function verifyLogin(string $email, string $password): array|bool 
+    {
+        $sql = "SELECT * FROM tbl_users WHERE email = :email AND status = 'ACTIVE' LIMIT 1";
+        $stmt = $this->db->prepare($sql);
         $stmt->execute([':email' => $email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (!$user) return ['ok' => false, 'message' => 'Credenciales incorrectas.'];
-        if (($user['status'] ?? '') !== 'ACTIVE') return ['ok' => false, 'message' => 'Usuario inactivo.'];
-        if (!password_verify($password, (string)$user['password_hash'])) return ['ok' => false, 'message' => 'Credenciales incorrectas.'];
-
-        return ['ok' => true, 'user' => $user];
+        if ($user && password_verify($password, $user['password_hash'])) {
+            unset($user['password_hash']);
+            $this->db->prepare("UPDATE tbl_users SET last_login_at = NOW() WHERE id = ?")->execute([$user['id']]);
+            return $user;
+        }
+        return false;
     }
 
     /**
-     * Obtiene todos los usuarios activos con sus datos extendidos.
+     * Obtiene usuarios activos y suspendidos únicamente.
+     * Excluye los marcados como INACTIVE.
      */
-    public function getAll(): array
+    public function getAll(): array 
     {
-        $pdo = Database::getConnection();
-        $sql = "SELECT id, first_name, last_name, document_id as cedula, phone, email, role, status, 
-                       address, provenance, undergraduate_degree, avatar, created_at 
-                FROM tbl_users WHERE status != 'INACTIVE' ORDER BY created_at DESC";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+        $sql = "SELECT * FROM tbl_users WHERE status != 'INACTIVE' ORDER BY created_at DESC";
+        return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Valida duplicados de Email o Cédula (ignora el ID actual al editar).
-     */
-    public function exists(string $email, string $cedula, int $excludeId = 0): bool
+    public function create(array $data): bool 
     {
-        $pdo = Database::getConnection();
-        $sql = "SELECT id FROM tbl_users WHERE (email = :email OR document_id = :cedula) AND id != :id LIMIT 1";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([':email' => $email, ':cedula' => $cedula, ':id' => $excludeId]);
-        return (bool)$stmt->fetch();
-    }
-
-    /**
-     * Inserta un nuevo usuario con perfil de preinscripción.
-     */
-    public function create(array $data): bool
-    {
-        $pdo = Database::getConnection();
         $sql = "INSERT INTO tbl_users (
-                    first_name, last_name, document_id, phone, email, password_hash, 
-                    role, user_type, status, address, provenance, undergraduate_degree, avatar, created_at
+                    user_type, status, first_name, last_name, email, role, 
+                    phone, document_id, address, provenance, 
+                    undergraduate_degree, avatar, password_hash
                 ) VALUES (
-                    :fname, :lname, :cedula, :phone, :email, :pass, 
-                    :role, 'INTERNAL', 'ACTIVE', :address, :provenance, :degree, :avatar, NOW()
+                    :user_type, :status, :first_name, :last_name, :email, :role, 
+                    :phone, :document_id, :address, :provenance, 
+                    :undergraduate_degree, :avatar, :password_hash
                 )";
-        
-        $stmt = $pdo->prepare($sql);
-        return $stmt->execute([
-            ':fname'      => $data['first_name'],
-            ':lname'      => $data['last_name'],
-            ':cedula'     => $data['document_id'],
-            ':phone'      => $data['phone'],
-            ':email'      => $data['email'],
-            ':pass'       => $data['password'],
-            ':role'       => $data['role'],
-            ':address'    => $data['address'] ?? null,
-            ':provenance' => $data['provenance'] ?? null,
-            ':degree'     => $data['undergraduate_degree'] ?? null,
-            ':avatar'     => $data['avatar'] ?? 'default_avatar.png'
-        ]);
+        return $this->db->prepare($sql)->execute($data);
     }
 
-    /**
-     * Actualiza los datos del usuario. La contraseña no se toca en este flujo.
-     */
-    public function update(int $id, array $data): bool
+    public function update(int $id, array $data): bool 
     {
-        $pdo = Database::getConnection();
-        
         $sql = "UPDATE tbl_users SET 
-                first_name = :fname, 
-                last_name = :lname, 
-                document_id = :cedula, 
-                phone = :phone, 
-                email = :email, 
-                role = :role,
-                address = :address,
-                provenance = :provenance,
-                undergraduate_degree = :degree,
-                avatar = :avatar 
+                    user_type = :user_type, status = :status, first_name = :first_name, 
+                    last_name = :last_name, email = :email, role = :role, 
+                    phone = :phone, document_id = :document_id, address = :address, 
+                    provenance = :provenance, undergraduate_degree = :undergraduate_degree, 
+                    avatar = :avatar 
                 WHERE id = :id";
-        
-        $stmt = $pdo->prepare($sql);
-        
-        return $stmt->execute([
-            ':id'       => $id,
-            ':fname'    => $data['first_name'],
-            ':lname'    => $data['last_name'],
-            ':cedula'   => $data['document_id'],
-            ':phone'    => $data['phone'],
-            ':email'    => $data['email'],
-            ':role'     => $data['role'],
-            ':address'  => $data['address'] ?? null,
-            ':provenance'=> $data['provenance'] ?? null,
-            ':degree'   => $data['undergraduate_degree'] ?? null,
-            ':avatar'   => $data['avatar'] ?? 'default_avatar.png'
-        ]);
+        $data['id'] = $id;
+        return $this->db->prepare($sql)->execute($data);
     }
 
     /**
-     * Desactivación lógica de usuario (Soft Delete).
+     * Baja lógica: Cambia el estado a INACTIVE.
      */
-    public function delete(int $id): bool
+    public function delete(int $id): bool 
     {
-        $pdo = Database::getConnection();
         $sql = "UPDATE tbl_users SET status = 'INACTIVE' WHERE id = :id";
-        $stmt = $pdo->prepare($sql);
-        return $stmt->execute([':id' => $id]);
+        return $this->db->prepare($sql)->execute([':id' => $id]);
     }
 }

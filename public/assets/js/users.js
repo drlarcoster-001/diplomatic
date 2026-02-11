@@ -1,30 +1,28 @@
 /**
  * MÓDULO: USUARIOS
  * Archivo: public/assets/js/users.js
- * Propósito: Gestión de lógica de cliente para CRUD de usuarios, carga de archivos y UI.
+ * Propósito: Gestión de lógica de cliente y UI dinámica.
+ * Soporta la lógica de iniciales automáticas y previsualización de Avatar.
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // 1. SELECTORES PRINCIPALES
     const userForm = document.getElementById('userForm');
     const avatarInput = document.getElementById('avatarInput');
     const avatarPreview = document.getElementById('avatarPreview');
     const modalElement = document.getElementById('userModal');
     
-    // Inicializamos la instancia de Bootstrap Modal para controlarla mediante JS
     let bModal = null;
     if (modalElement) {
         bModal = bootstrap.Modal.getOrCreateInstance(modalElement);
     }
 
-    // 2. VISTA PREVIA DEL AVATAR (EN TIEMPO REAL)
+    // Previsualización de imagen al cargar archivo
     if (avatarInput && avatarPreview) {
         avatarInput.addEventListener('change', function() {
             if (this.files && this.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     avatarPreview.src = e.target.result;
-                    // Al cargar una nueva imagen, nos aseguramos de que sea visible
                     avatarPreview.classList.remove('d-none');
                 };
                 reader.readAsDataURL(this.files[0]);
@@ -32,19 +30,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 3. ENVÍO DEL FORMULARIO (GUARDAR / ACTUALIZAR)
+    // Envío del formulario vía Fetch
     if (userForm) {
         userForm.addEventListener('submit', function(e) {
             e.preventDefault();
-
-            // Usamos FormData para empaquetar archivos y texto
             const formData = new FormData(userForm);
             const submitBtn = userForm.querySelector('button[type="submit"]');
 
-            // Feedback visual: Bloqueamos el botón
             submitBtn.disabled = true;
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Guardando...';
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Procesando...';
 
             fetch(userForm.action, {
                 method: 'POST',
@@ -53,140 +47,107 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(res => res.json())
             .then(data => {
                 if (data.ok) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: '¡Operación Exitosa!',
-                        text: data.msg,
-                        timer: 1500,
-                        showConfirmButton: false
-                    }).then(() => {
-                        if (bModal) bModal.hide();
-                        window.location.reload(); // Recarga para ver cambios y nuevas iniciales/fotos
-                    });
+                    Swal.fire({ icon: 'success', title: data.msg, timer: 1500, showConfirmButton: false })
+                    .then(() => window.location.reload());
                 } else {
                     Swal.fire('Error', data.msg, 'error');
                     submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalText;
+                    submitBtn.innerHTML = 'Guardar Usuario';
                 }
             })
             .catch(err => {
-                console.error("Error en la petición:", err);
-                Swal.fire('Error Técnico', 'No se pudo procesar la solicitud en el servidor.', 'error');
+                console.error("Error:", err);
+                Swal.fire('Error', 'No se pudo procesar la solicitud', 'error');
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = originalText;
             });
         });
     }
 });
 
 /**
- * Prepara el formulario para un nuevo registro.
+ * Limpia el formulario y resetea la vista previa del avatar.
  */
 function resetForm() {
     const form = document.getElementById('userForm');
     if (form) form.reset();
 
     document.getElementById('userId').value = '';
-    document.getElementById('currentAvatar').value = '';
+    document.getElementById('currentAvatar').value = 'default_avatar.png';
     document.getElementById('modalTitle').innerText = 'Nuevo Usuario';
     
-    // Restauramos imagen por defecto
     const preview = document.getElementById('avatarPreview');
-    if (preview) preview.src = BASE_PATH + '/assets/img/avatars/default_avatar.png';
+    if (preview) {
+        preview.src = BASE_PATH + '/assets/img/avatars/default_avatar.png';
+    }
     
-    // Mostramos campo de contraseña para nuevos usuarios
-    const passContainer = document.getElementById('passContainer');
-    if (passContainer) {
-        passContainer.style.display = 'block';
-        document.getElementById('password').setAttribute('required', 'required');
+    if (document.getElementById('passContainer')) {
+        document.getElementById('passContainer').style.display = 'block';
+        document.getElementById('password').required = true;
     }
 }
 
 /**
- * Carga los datos de un usuario en el modal para edición.
- * Versión Segura (Evita errores de 'null')
+ * Carga los datos del usuario en el modal, incluyendo los campos nuevos.
  */
 function editUser(u) {
     resetForm();
     
-    // 1. Elementos Obligatorios (Deben existir en index.php)
     document.getElementById('modalTitle').innerText = 'Editar Usuario';
     document.getElementById('userId').value = u.id;
     document.getElementById('firstName').value = u.first_name || '';
     document.getElementById('lastName').value = u.last_name || '';
     document.getElementById('email').value = u.email || '';
-    
-    // 2. Elementos Flexibles (Si no existen, el código no se rompe)
-    const setVal = (id, val) => {
-        const el = document.getElementById(id);
-        if (el) el.value = val || '';
-    };
+    document.getElementById('documentId').value = u.document_id || '';
+    document.getElementById('phone').value = u.phone || '';
+    document.getElementById('userType').value = u.user_type || 'INTERNAL';
+    document.getElementById('role').value = u.role || 'PARTICIPANT';
+    document.getElementById('status').value = u.status || 'ACTIVE';
+    document.getElementById('provenance').value = u.provenance || '';
+    document.getElementById('undergraduateDegree').value = u.undergraduate_degree || '';
+    document.getElementById('address').value = u.address || '';
+    document.getElementById('currentAvatar').value = u.avatar || 'default_avatar.png';
 
-    setVal('documentId', u.cedula || u.document_id);
-    setVal('phone', u.phone);
-    setVal('provenance', u.provenance);
-    setVal('undergraduateDegree', u.undergraduate_degree);
-    setVal('address', u.address);
-    setVal('role', u.role);
-    setVal('currentAvatar', u.avatar);
-
-    // 3. Gestión de la Imagen Preview
+    // Lógica para la previsualización del avatar en el modal
     const preview = document.getElementById('avatarPreview');
     if (preview) {
-        const imgName = (u.avatar && u.avatar !== 'default_avatar.png') ? u.avatar : 'default_avatar.png';
-        preview.src = BASE_PATH + '/assets/img/avatars/' + imgName;
+        const imgPath = (u.avatar && u.avatar !== 'default_avatar.png') 
+                        ? '/assets/img/avatars/' + u.avatar 
+                        : '/assets/img/avatars/default_avatar.png';
+        preview.src = BASE_PATH + imgPath;
     }
 
-    // 4. Ocultar contraseña en edición
-    const passContainer = document.getElementById('passContainer');
-    if (passContainer) passContainer.style.display = 'none';
-    
-    const passInput = document.getElementById('password');
-    if (passInput) passInput.required = false;
+    // Ocultar contraseña en edición
+    if (document.getElementById('passContainer')) {
+        document.getElementById('passContainer').style.display = 'none';
+        document.getElementById('password').required = false;
+    }
 
-    // 5. Mostrar Modal
     const modalEl = document.getElementById('userModal');
     if (modalEl) {
-        const instance = bootstrap.Modal.getOrCreateInstance(modalEl);
-        instance.show();
+        bootstrap.Modal.getOrCreateInstance(modalEl).show();
     }
 }
 
 /**
- * Ejecuta la eliminación lógica (Soft Delete) del usuario.
- * @param {number} id - ID del usuario a desactivar.
+ * Confirmación de eliminación.
  */
 function deleteUser(id) {
     Swal.fire({
-        title: '¿Estás seguro?',
-        text: "El usuario será desactivado y no podrá acceder al sistema.",
+        title: '¿Confirmar eliminación?',
+        text: "El usuario será marcado como INACTIVO.",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#d33',
-        cancelButtonColor: '#6c757d',
-        confirmButtonText: 'Sí, eliminar',
-        cancelButtonText: 'Cancelar'
+        confirmButtonText: 'Sí, eliminar'
     }).then((result) => {
         if (result.isConfirmed) {
             const formData = new FormData();
             formData.append('id', id);
-
-            fetch(BASE_PATH + '/users/delete', {
-                method: 'POST',
-                body: formData
-            })
+            fetch(BASE_PATH + '/users/delete', { method: 'POST', body: formData })
             .then(res => res.json())
             .then(data => {
-                if (data.ok) {
-                    Swal.fire('¡Eliminado!', 'El usuario ha sido dado de baja.', 'success')
-                    .then(() => window.location.reload());
-                } else {
-                    Swal.fire('Error', data.msg || 'No se pudo completar la acción.', 'error');
-                }
-            })
-            .catch(err => {
-                console.error("Error:", err);
-                Swal.fire('Error', 'Fallo de conexión con el servidor.', 'error');
+                if (data.ok) window.location.reload();
+                else Swal.fire('Error', data.msg, 'error');
             });
         }
     });
