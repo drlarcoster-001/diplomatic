@@ -1,0 +1,40 @@
+/**
+ * MÓDULO - public/assets/css/whatsapp_manual.css
+ * Estilos visuales para el submódulo de WhatsApp Manual.
+ */
+
+.accordion-item {
+    border: 1px solid rgba(0,0,0,.08) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,.02);
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    box-shadow: none;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+    border-color: rgba(0,0,0,.125);
+}
+
+.form-control:focus {
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 0.25rem rgba(46, 125, 50, 0.1);
+}
+
+.btn-success {
+    background-color: #25d366;
+    border-color: #25d366;
+}
+
+.btn-success:hover {
+    background-color: #1ebe57;
+    border-color: #1ebe57;
+}
+
+.form-check-input:checked {
+    background-color: #25d366;
+    border-color: #25d366;
+}

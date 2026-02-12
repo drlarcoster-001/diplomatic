@@ -13,6 +13,7 @@ use App\Controllers\AuthController;
 use App\Controllers\DashboardController;
 use App\Controllers\UsersController;
 use App\Controllers\SettingsController;
+use App\Controllers\SettingsWhatsappController;
 
 final class Bootstrap
 {
@@ -35,6 +36,10 @@ final class Bootstrap
     $router->post('/settings/test-correo', [SettingsController::class, 'testCorreo']);
     $router->get('/settings/empresa', [\App\Controllers\SettingsCompanyController::class, 'index']);
     $router->post('/settings/empresa/save', [\App\Controllers\SettingsCompanyController::class, 'save']);
+    $router->get('/settings/whatsapp', [\App\Controllers\SettingsWhatsappController::class, 'index']);
+    $router->post('/settings/whatsapp/save-template', [\App\Controllers\SettingsWhatsappController::class, 'saveTemplate']);
+    $router->post('/settings/whatsapp/log', [\App\Controllers\SettingsWhatsappController::class, 'logSend']);
+
 
     // -- RUTAS DE USUARIOS --
     $router->get('/users', [UsersController::class, 'index']);
