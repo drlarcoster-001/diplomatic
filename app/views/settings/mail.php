@@ -1,8 +1,7 @@
 <?php
 /**
- * MÓDULO: CONFIGURACIÓN
- * Archivo: app/views/settings/mail.php
- * Propósito: Configuración detallada de correo con selector de protocolo y navegación.
+ * MÓDULO - app/views/settings/mail.php
+ * Vista de configuración de correo.
  */
 $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
 $conf = [];
@@ -11,16 +10,14 @@ $ins = $conf['INSCRIPCION'] ?? [];
 $doc = $conf['DOCUMENTOS'] ?? [];
 ?>
 
-<link rel="stylesheet" href="<?= htmlspecialchars($basePath) ?>/assets/css/settings.css?v=<?= time() ?>">
-
-<div class="mb-4 d-flex align-items-center justify-content-between flex-wrap gap-2">
+<div class="mb-4 d-flex align-items-center justify-content-between">
     <div>
         <h2 class="h4 fw-bold mb-0 text-dark">Servidores de Correo</h2>
-        <p class="text-muted small mb-0">Configuración para Inscripciones y Certificados.</p>
+        <p class="text-muted small mb-0">Gestión de SMTP y plantillas.</p>
     </div>
     <div class="d-flex gap-2">
         <a class="btn btn-outline-secondary btn-sm px-3" href="<?= htmlspecialchars($basePath) ?>/settings">
-            <i class="bi bi-arrow-left me-1"></i> Volver al Menú
+            <i class="bi bi-arrow-left me-1"></i> Volver
         </a>
         <button type="button" class="btn btn-primary btn-sm px-4 shadow-sm" onclick="saveActiveSettings()">
             <i class="bi bi-save2 me-1"></i> Guardar Todo
@@ -28,93 +25,78 @@ $doc = $conf['DOCUMENTOS'] ?? [];
     </div>
 </div>
 
-<ul class="nav nav-pills nav-fill gap-3 mb-4 p-2 bg-light rounded shadow-sm" id="mailTabs">
-    <li class="nav-item">
-        <button class="nav-link active py-3 fw-bold fs-5 shadow-sm" data-bs-toggle="tab" data-bs-target="#pane-ins" type="button">
-            <i class="bi bi-person-plus-fill me-2"></i> Inscripción
-        </button>
-    </li>
-    <li class="nav-item">
-        <button class="nav-link py-3 fw-bold fs-5 shadow-sm" data-bs-toggle="tab" data-bs-target="#pane-doc" type="button">
-            <i class="bi bi-file-earmark-pdf-fill me-2"></i> Certificados
-        </button>
-    </li>
+<ul class="nav nav-pills nav-fill gap-3 mb-4 p-2 bg-light rounded shadow-sm">
+    <li class="nav-item"><button class="nav-link active py-3 fw-bold fs-5" data-bs-toggle="tab" data-bs-target="#pane-ins" type="button">Inscripción</button></li>
+    <li class="nav-item"><button class="nav-link py-3 fw-bold fs-5" data-bs-toggle="tab" data-bs-target="#pane-doc" type="button">Certificados</button></li>
 </ul>
 
 <div class="tab-content">
     <div class="tab-pane fade show active" id="pane-ins" role="tabpanel">
         <form id="form-ins" data-basepath="<?= htmlspecialchars($basePath) ?>">
             <input type="hidden" name="tipo_correo" value="INSCRIPCION">
-            <?php renderMailForm($ins, 'ins'); ?>
+            <?php renderF($ins, 'ins'); ?>
         </form>
     </div>
     <div class="tab-pane fade" id="pane-doc" role="tabpanel">
         <form id="form-doc" data-basepath="<?= htmlspecialchars($basePath) ?>">
             <input type="hidden" name="tipo_correo" value="DOCUMENTOS">
-            <?php renderMailForm($doc, 'doc'); ?>
+            <?php renderF($doc, 'doc'); ?>
         </form>
     </div>
 </div>
 
-<?php function renderMailForm($data, $prefix) { ?>
+<?php function renderF($d, $p) { ?>
 <div class="row g-4">
     <div class="col-lg-5">
         <div class="card shadow-sm p-4 border-0 rounded-4">
             <h5 class="fw-bold mb-3 border-bottom pb-2">Proveedor SMTP</h5>
-            <div class="row g-2 mb-4">
-                <?php 
-                $provs = [['id'=>'GMAIL','n'=>'Gmail','i'=>'bi-google'],['id'=>'OUTLOOK','n'=>'Outlook','i'=>'bi-microsoft'],['id'=>'YAHOO','n'=>'Yahoo','i'=>'bi-envelope'],['id'=>'CUSTOM','n'=>'Personalizada','i'=>'bi-gear']];
-                foreach($provs as $p): ?>
+            <div class="row g-2 mb-3">
+                <?php $vs = [['GMAIL','bi-google'],['OUTLOOK','bi-microsoft'],['YAHOO','bi-envelope'],['CUSTOM','bi-gear']]; 
+                foreach($vs as $v): ?>
                 <div class="col-6">
-                    <label class="card h-100 p-2 border shadow-sm provider-label" style="cursor:pointer">
-                        <div class="d-flex flex-column align-items-center text-center gap-1">
-                            <i class="bi <?= $p['i'] ?> fs-3 text-primary"></i>
-                            <span class="small fw-bold"><?= $p['n'] ?></span>
-                            <input type="radio" name="<?= $prefix ?>_provider" value="<?= $p['id'] ?>" class="form-check-input mt-1">
-                        </div>
+                    <label class="card h-100 p-2 border shadow-sm text-center" style="cursor:pointer">
+                        <i class="bi <?= $v[1] ?> fs-3 text-primary"></i><br>
+                        <span class="small fw-bold"><?= $v[0] ?></span>
+                        <input type="radio" name="<?= $p ?>_provider" value="<?= $v[0] ?>" class="form-check-input mt-1">
                     </label>
                 </div>
                 <?php endforeach; ?>
             </div>
 
             <div class="protocol-group mb-3 d-none">
-                <label class="small fw-bold mb-1">Protocolo de Servidor</label>
+                <label class="small fw-bold mb-1 text-primary">Protocolo</label>
                 <select name="protocolo" class="form-select form-select-sm bg-light">
-                    <option value="SMTP" selected>SMTP (Recomendado)</option>
-                    <option value="POP3">POP3</option>
+                    <option value="SMTP" selected>SMTP (Saliente)</option>
+                    <option value="POP3">POP3 (Entrante)</option>
                 </select>
             </div>
 
             <div class="row g-2">
-                <div class="col-12"><label class="small fw-bold">From Email</label><input type="email" name="from_email" class="form-control" value="<?= $data['from_email'] ?? '' ?>"></div>
-                <div class="col-12"><label class="small fw-bold">From Name</label><input type="text" name="from_name" class="form-control" value="<?= $data['from_name'] ?? 'Diplomatic' ?>"></div>
-                <div class="col-12"><label class="small fw-bold">SMTP Host</label><input type="text" name="smtp_host" class="form-control" value="<?= $data['smtp_host'] ?? '' ?>"></div>
-                <div class="col-6"><label class="small fw-bold">Puerto</label><input type="number" name="smtp_port" class="form-control" value="<?= $data['smtp_port'] ?? '465' ?>"></div>
+                <div class="col-12"><label class="small fw-bold">From Email</label><input type="email" name="from_email" class="form-control" value="<?= $d['from_email'] ?? '' ?>"></div>
+                <div class="col-12"><label class="small fw-bold">From Name</label><input type="text" name="from_name" class="form-control" value="<?= $d['from_name'] ?? '' ?>"></div>
+                <div class="col-12"><label class="small fw-bold">SMTP Host</label><input type="text" name="smtp_host" class="form-control" value="<?= $d['smtp_host'] ?? '' ?>"></div>
+                <div class="col-6"><label class="small fw-bold">Puerto</label><input type="number" name="smtp_port" class="form-control" value="<?= $d['smtp_port'] ?? '465' ?>"></div>
                 <div class="col-6"><label class="small fw-bold">Seguridad</label>
                     <select name="smtp_security" class="form-select">
-                        <option value="SSL" <?= ($data['smtp_security'] ?? '') == 'SSL' ? 'selected' : '' ?>>SSL</option>
-                        <option value="TLS" <?= ($data['smtp_security'] ?? '') == 'TLS' ? 'selected' : '' ?>>TLS</option>
+                        <option value="SSL" <?= ($d['smtp_security']??'')=='SSL'?'selected':''?>>SSL</option>
+                        <option value="TLS" <?= ($d['smtp_security']??'')=='TLS'?'selected':''?>>TLS</option>
                     </select>
                 </div>
-                <div class="col-12"><label class="small fw-bold">Usuario SMTP</label><input type="text" name="smtp_user" class="form-control" value="<?= $data['smtp_user'] ?? '' ?>"></div>
-                <div class="col-12"><label class="small fw-bold">Password</label><input type="password" name="smtp_password" class="form-control" value="<?= $data['smtp_password'] ?? '' ?>"></div>
+                <div class="col-12"><label class="small fw-bold">Usuario</label><input type="text" name="smtp_user" class="form-control" value="<?= $d['smtp_user'] ?? '' ?>"></div>
+                <div class="col-12"><label class="small fw-bold">Password</label><input type="password" name="smtp_password" class="form-control" value="<?= $d['smtp_password'] ?? '' ?>"></div>
             </div>
-            <button type="button" class="btn btn-outline-primary w-100 mt-4 py-2" onclick="testActiveSettings('f-<?= $prefix ?>')">
-                <i class="bi bi-send-fill me-2"></i> Enviar correo de prueba
-            </button>
+            <button type="button" class="btn btn-outline-primary w-100 mt-4" onclick="testActiveSettings('form-<?= $p ?>')">Probar Conexión</button>
         </div>
     </div>
     <div class="col-lg-7">
         <div class="card shadow-sm p-4 border-0 rounded-4 h-100">
-            <h5 class="fw-bold mb-3 border-bottom pb-2">Personalización de Plantilla</h5>
-            <label class="small fw-bold">Asunto del Correo</label>
-            <input type="text" name="asunto" class="form-control mb-3" value="<?= $data['asunto'] ?? '' ?>">
-            <label class="small fw-bold">Contenido (HTML)</label>
-            <textarea name="contenido" class="form-control" rows="18"><?= $data['contenido'] ?? '' ?></textarea>
+            <h5 class="fw-bold mb-3 border-bottom pb-2">Plantilla</h5>
+            <label class="small fw-bold">Asunto</label><input type="text" name="asunto" class="form-control mb-3" value="<?= $d['asunto'] ?? '' ?>">
+            <label class="small fw-bold">Contenido (HTML)</label><textarea name="contenido" class="form-control mb-3" rows="18"><?= $d['contenido'] ?? '' ?></textarea>
+            <button type="button" class="btn btn-outline-success w-100" onclick="testActiveSettings('form-<?= $p ?>')">Probar esta plantilla</button>
         </div>
     </div>
 </div>
 <?php } ?>
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="<?= htmlspecialchars($basePath) ?>/assets/js/settings.js?v=<?= time() ?>"></script>

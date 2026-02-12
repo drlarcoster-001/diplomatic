@@ -1,8 +1,8 @@
 <?php
 /**
- * MÓDULO: CONFIGURACIÓN
- * Archivo: app/controllers/SettingsController.php
- * Propósito: Controlador central para gestión de SMTP y navegación de ajustes.
+ * MÓDULO - app/controllers/SettingsController.php
+ * Controlador de configuración del sistema.
+ * Gestiona la persistencia de ajustes SMTP y las pruebas de conectividad.
  */
 
 declare(strict_types=1);
@@ -25,50 +25,67 @@ final class SettingsController extends Controller
 
     public function __construct()
     {
-        if (session_status() === PHP_SESSION_NONE) session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         $this->db = (new Database())->getConnection();
     }
 
     public function index(): void
     {
-        $this->view('settings/index', ['title' => 'Ajustes']);
+        $this->view('settings/index', ['title' => 'Ajustes Generales']);
     }
 
     public function correo(): void
     {
         $stmt = $this->db->query("SELECT * FROM tbl_email_settings");
         $settings = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $this->view('settings/mail', ['settings' => $settings]);
+
+        $this->view('settings/mail', [
+            'title' => 'Configuración de Correo',
+            'settings' => $settings
+        ]);
     }
 
     public function saveCorreo(): void
     {
         if (ob_get_length()) ob_clean(); 
         header('Content-Type: application/json');
+        
         try {
             $sql = "INSERT INTO tbl_email_settings 
                     (tipo_correo, smtp_host, smtp_port, smtp_security, smtp_user, smtp_password, from_name, from_email, asunto, contenido) 
                     VALUES (:tipo, :host, :port, :security, :user, :pass, :f_name, :f_email, :asunto, :contenido)
                     ON DUPLICATE KEY UPDATE 
-                    smtp_host=:host, smtp_port=:port, smtp_security=:security, smtp_user=:user, 
-                    smtp_password=:pass, from_name=:f_name, from_email=:f_email, asunto=:asunto, contenido=:contenido";
+                    smtp_host=:u_host, smtp_port=:u_port, smtp_security=:u_security, smtp_user=:u_user, 
+                    smtp_password=:u_pass, from_name=:u_f_name, from_email=:u_f_email, asunto=:u_asunto, contenido=:u_contenido";
 
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
-                ':tipo'      => $_POST['tipo_correo'] ?? 'INSCRIPCION',
-                ':host'      => $_POST['smtp_host'] ?? '',
-                ':port'      => (int)($_POST['smtp_port'] ?? 465),
-                ':security'  => $_POST['smtp_security'] ?? 'SSL',
-                ':user'      => $_POST['smtp_user'] ?? '',
-                ':pass'      => $_POST['smtp_password'] ?? '',
-                ':f_name'    => $_POST['from_name'] ?? 'Diplomatic',
-                ':f_email'   => $_POST['from_email'] ?? '',
-                ':asunto'    => $_POST['asunto'] ?? '',
-                ':contenido' => $_POST['contenido'] ?? ''
+                ':tipo'         => $_POST['tipo_correo'] ?? 'INSCRIPCION',
+                ':host'         => $_POST['smtp_host'] ?? '',
+                ':port'         => (int)($_POST['smtp_port'] ?? 465),
+                ':security'     => $_POST['smtp_security'] ?? 'SSL',
+                ':user'         => $_POST['smtp_user'] ?? '',
+                ':pass'         => $_POST['smtp_password'] ?? '',
+                ':f_name'       => $_POST['from_name'] ?? '',
+                ':f_email'      => $_POST['from_email'] ?? '',
+                ':asunto'       => $_POST['asunto'] ?? '',
+                ':contenido'    => $_POST['contenido'] ?? '',
+                ':u_host'       => $_POST['smtp_host'] ?? '',
+                ':u_port'       => (int)($_POST['smtp_port'] ?? 465),
+                ':u_security'   => $_POST['smtp_security'] ?? 'SSL',
+                ':u_user'       => $_POST['smtp_user'] ?? '',
+                ':u_pass'       => $_POST['smtp_password'] ?? '',
+                ':u_f_name'     => $_POST['from_name'] ?? '',
+                ':u_f_email'    => $_POST['from_email'] ?? '',
+                ':u_asunto'     => $_POST['asunto'] ?? '',
+                ':u_contenido'  => $_POST['contenido'] ?? ''
             ]);
-            echo json_encode(['ok' => true, 'msg' => 'Configuración guardada']);
+
+            echo json_encode(['ok' => true, 'msg' => 'Configuración guardada correctamente']);
         } catch (\Throwable $e) {
-            echo json_encode(['ok' => false, 'msg' => $e->getMessage()]);
+            echo json_encode(['ok' => false, 'msg' => 'Error: ' . $e->getMessage()]);
         }
         exit;
     }
@@ -77,6 +94,7 @@ final class SettingsController extends Controller
     {
         if (ob_get_length()) ob_clean();
         header('Content-Type: application/json');
+        
         try {
             $mail = new PHPMailer(true);
             $mail->isSMTP();
@@ -86,11 +104,14 @@ final class SettingsController extends Controller
             $mail->Password   = $_POST['smtp_password'];
             $mail->SMTPSecure = ($_POST['smtp_security'] === 'SSL') ? PHPMailer::ENCRYPTION_SMTPS : PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port       = (int)$_POST['smtp_port'];
+            $mail->CharSet    = 'UTF-8';
+
             $mail->setFrom($_POST['from_email'], $_POST['from_name']);
             $mail->addAddress($_POST['email_test']);
             $mail->isHTML(true);
-            $mail->Subject = 'Prueba SMTP Diplomatic';
-            $mail->Body    = "Exito al conectar con mail.plataformadiplomados.com";
+            $mail->Subject = $_POST['asunto'] ?: 'Prueba SMTP Diplomatic';
+            $mail->Body    = $_POST['contenido'] ?: 'Mensaje de prueba enviado desde el sistema.';
+
             $mail->send();
             echo json_encode(['ok' => true, 'msg' => '¡Correo enviado con éxito!']);
         } catch (Exception $e) {
