@@ -13,6 +13,7 @@ namespace App\Core;
 use App\Controllers\AuthController;
 use App\Controllers\DashboardController;
 use App\Controllers\UsersController;
+use App\Controllers\SettingsController;
 
 final class Bootstrap
 {
@@ -27,14 +28,13 @@ final class Bootstrap
 
     // -- RUTAS DEL PANEL --
     $router->get('/dashboard', [DashboardController::class, 'index']);
-    $router->get('/settings', [\App\Controllers\SettingsController::class, 'index']);
+    $router->get('/settings', [SettingsController::class, 'index']);
+    $router->get('/settings/correo', [SettingsController::class, 'correo']); // Añadido para la ruta de correo
 
     // -- RUTAS DE USUARIOS (El orden importa) --
-    // Aseguramos que el path sea exactamente '/users'
     $router->get('/users', [UsersController::class, 'index']);
     $router->post('/users/save', [UsersController::class, 'save']);
     $router->post('/users/delete', [UsersController::class, 'delete']);
-
 
     $router->dispatch();
   }

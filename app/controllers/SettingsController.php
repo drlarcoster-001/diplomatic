@@ -15,10 +15,15 @@ final class SettingsController extends Controller
 {
     public function __construct()
     {
-        // Validación estricta de sesión y ROL
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $userId   = $_SESSION['user']['id']   ?? null;
         $userRole = strtoupper(trim($_SESSION['user']['role'] ?? ''));
 
-        if (empty($_SESSION['user']['id']) || $userRole !== 'ADMIN') {
+        // Permitir acceso si el usuario está autenticado y es ADMIN
+        if (!$userId || $userRole !== 'ADMIN') {
             $projectRoot = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
             header("Location: " . $projectRoot . "/dashboard");
             exit;
@@ -29,6 +34,13 @@ final class SettingsController extends Controller
     {
         $this->view('settings/index', [
             'title' => 'Configuración del Sistema'
+        ]);
+    }
+
+    public function correo(): void
+    {
+        $this->view('settings/mail', [
+            'title' => 'Configuración de Correo'
         ]);
     }
 }

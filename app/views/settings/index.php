@@ -14,15 +14,19 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
 </div>
 
 <div class="row g-4 settings-grid-container">
-    <div class="col-md-6 col-lg-3">
-        <div class="card h-100 settings-card shadow-sm p-4 text-center">
-            <div class="settings-icon-wrapper bg-primary bg-opacity-10 text-primary">
-                <i class="bi bi-envelope-at fs-2"></i>
-            </div>
-            <h5>Correo</h5>
-            <p class="small text-muted mb-0">SMTP y notificaciones.</p>
+<div class="col-md-6 col-lg-3">
+    <a href="<?= htmlspecialchars($basePath) ?>/settings/correo"
+       class="card h-100 settings-card shadow-sm p-4 text-center">
+        <div class="settings-icon-wrapper bg-primary bg-opacity-10 text-primary">
+            <i class="bi bi-envelope-at fs-2"></i>
         </div>
-    </div>
+        <h5>Correo</h5>
+        <p class="small text-muted mb-0">SMTP y notificaciones.</p>
+    </a>
+</div>
+
+
+
     <div class="col-md-6 col-lg-3">
         <div class="card h-100 settings-card shadow-sm p-4 text-center">
             <div class="settings-icon-wrapper bg-success bg-opacity-10 text-success">
