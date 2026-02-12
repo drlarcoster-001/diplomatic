@@ -2,7 +2,7 @@
 /**
  * MÓDULO - app/controllers/SettingsController.php
  * Controlador de configuración del sistema.
- * Diferencia entre pruebas de conexión técnica y pruebas de plantillas dinámicas.
+ * Soporte para persistencia de protocolo (SMTP/POP3) y etiquetas dinámicas.
  */
 
 declare(strict_types=1);
@@ -43,16 +43,20 @@ final class SettingsController extends Controller
         if (ob_get_length()) ob_clean(); 
         header('Content-Type: application/json');
         try {
+            $tipo = $_POST['tipo_correo'] ?? 'INSCRIPCION';
+            
+            // AÑADIMOS 'protocolo' A LA CONSULTA
             $sql = "INSERT INTO tbl_email_settings 
-                    (tipo_correo, smtp_host, smtp_port, smtp_security, smtp_user, smtp_password, from_name, from_email, asunto, contenido) 
-                    VALUES (:tipo, :host, :port, :security, :user, :pass, :f_name, :f_email, :asunto, :contenido)
+                    (tipo_correo, protocolo, smtp_host, smtp_port, smtp_security, smtp_user, smtp_password, from_name, from_email, asunto, contenido) 
+                    VALUES (:tipo, :prot, :host, :port, :security, :user, :pass, :f_name, :f_email, :asunto, :contenido)
                     ON DUPLICATE KEY UPDATE 
-                    smtp_host=:u_host, smtp_port=:u_port, smtp_security=:u_security, smtp_user=:u_user, 
+                    protocolo=:u_prot, smtp_host=:u_host, smtp_port=:u_port, smtp_security=:u_security, smtp_user=:u_user, 
                     smtp_password=:u_pass, from_name=:u_f_name, from_email=:u_f_email, asunto=:u_asunto, contenido=:u_contenido";
 
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
-                ':tipo'         => $_POST['tipo_correo'] ?? 'INSCRIPCION',
+                ':tipo'         => $tipo,
+                ':prot'         => $_POST['protocolo'] ?? 'SMTP',
                 ':host'         => $_POST['smtp_host'] ?? '',
                 ':port'         => (int)($_POST['smtp_port'] ?? 465),
                 ':security'     => $_POST['smtp_security'] ?? 'SSL',
@@ -62,6 +66,7 @@ final class SettingsController extends Controller
                 ':f_email'      => $_POST['from_email'] ?? '',
                 ':asunto'       => $_POST['asunto'] ?? '',
                 ':contenido'    => $_POST['contenido'] ?? '',
+                ':u_prot'       => $_POST['protocolo'] ?? 'SMTP',
                 ':u_host'       => $_POST['smtp_host'] ?? '',
                 ':u_port'       => (int)($_POST['smtp_port'] ?? 465),
                 ':u_security'   => $_POST['smtp_security'] ?? 'SSL',
@@ -99,24 +104,19 @@ final class SettingsController extends Controller
             $mail->isHTML(true);
 
             $mode = $_POST['mode'] ?? 'connection';
+            $tags = [
+                '{nombre}' => 'Juan', '{apellido}' => 'Pérez', '{plataforma}' => 'Diplomatic',
+                '{link_activacion}' => '<a href="#" style="background:#0d6efd;color:#fff;padding:8px 15px;text-decoration:none;border-radius:4px;">Activar mi cuenta</a>',
+                '{nombre_diplomado}' => 'Diplomado en Gestión', '{link_descarga}' => '<a href="#">Descargar</a>',
+                '{correo_soporte}' => $_POST['from_email'], '{telefono_soporte}' => '+58 412-0000000'
+            ];
 
             if ($mode === 'connection') {
-                // MENSAJE DE CONEXIÓN PURO
                 $mail->Subject = "Prueba de Conexión - Diplomatic";
                 $mail->Body    = "Si usted ha recibido este mensaje, su conexión está funcionando.";
             } else {
-                // MENSAJE DE PLANTILLA CON ETIQUETAS
-                $tags = [
-                    '{nombre}'           => 'Juan',
-                    '{apellido}'         => 'Pérez',
-                    '{plataforma}'       => 'Diplomatic Online',
-                    '{link_activacion}'  => '<a href="#" style="background:#0d6efd; color:#fff; padding:8px 15px; text-decoration:none; border-radius:4px;">Activar mi cuenta</a>',
-                    '{nombre_diplomado}' => 'Diplomado en Gestión Pública',
-                    '{link_descarga}'    => '<a href="#" style="color:#198754; font-weight:bold;">Descargar Certificado</a>'
-                ];
                 $asunto  = str_replace(array_keys($tags), array_values($tags), $_POST['asunto']);
                 $mensaje = str_replace(array_keys($tags), array_values($tags), $_POST['contenido']);
-                
                 $mail->Subject = $asunto ?: 'Prueba de Plantilla';
                 $mail->Body    = nl2br($mensaje);
             }

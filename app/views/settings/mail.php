@@ -9,8 +9,6 @@ $ins = $conf['INSCRIPCION'] ?? [];
 $doc = $conf['DOCUMENTOS'] ?? [];
 ?>
 
-<link rel="stylesheet" href="<?= htmlspecialchars($basePath) ?>/assets/css/settings.css?v=<?= time() ?>">
-
 <div class="mb-4 d-flex align-items-center justify-content-between">
     <div>
         <h2 class="h4 fw-bold mb-0">Servidores de Correo</h2>
@@ -18,7 +16,7 @@ $doc = $conf['DOCUMENTOS'] ?? [];
     </div>
     <div class="d-flex gap-2">
         <a class="btn btn-outline-secondary btn-sm px-3" href="<?= htmlspecialchars($basePath) ?>/settings">Volver</a>
-        <button type="button" class="btn btn-primary btn-sm px-4 shadow-sm" onclick="saveActiveSettings()">Guardar Todo</button>
+        <button type="button" class="btn btn-primary btn-sm px-4" onclick="saveActiveSettings()">Guardar Todo</button>
     </div>
 </div>
 
@@ -28,13 +26,13 @@ $doc = $conf['DOCUMENTOS'] ?? [];
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade show active" id="pane-ins" role="tabpanel">
+    <div class="tab-pane fade show active" id="pane-ins">
         <form id="form-ins" data-basepath="<?= htmlspecialchars($basePath) ?>">
             <input type="hidden" name="tipo_correo" value="INSCRIPCION">
             <?php renderF($ins, 'ins'); ?>
         </form>
     </div>
-    <div class="tab-pane fade" id="pane-doc" role="tabpanel">
+    <div class="tab-pane fade" id="pane-doc">
         <form id="form-doc" data-basepath="<?= htmlspecialchars($basePath) ?>">
             <input type="hidden" name="tipo_correo" value="DOCUMENTOS">
             <?php renderF($doc, 'doc'); ?>
@@ -42,11 +40,18 @@ $doc = $conf['DOCUMENTOS'] ?? [];
     </div>
 </div>
 
-<?php function renderF($d, $p) { ?>
+<?php function renderF($d, $p) { 
+    // Lógica para detectar el proveedor actual
+    $host = $d['smtp_host'] ?? '';
+    $currentProv = 'CUSTOM';
+    if ($host === 'smtp.gmail.com') $currentProv = 'GMAIL';
+    elseif ($host === 'smtp.office365.com') $currentProv = 'OUTLOOK';
+    elseif ($host === 'smtp.mail.yahoo.com') $currentProv = 'YAHOO';
+?>
 <div class="row g-4">
     <div class="col-lg-5">
         <div class="card shadow-sm p-4 border-0 rounded-4">
-            <h5 class="fw-bold mb-3 border-bottom pb-2">Configuración SMTP</h5>
+            <h5 class="fw-bold mb-3 border-bottom pb-2">Proveedor SMTP</h5>
             <div class="row g-2 mb-3">
                 <?php $vs = [['GMAIL','bi-google'],['OUTLOOK','bi-microsoft'],['YAHOO','bi-envelope'],['CUSTOM','bi-gear']]; 
                 foreach($vs as $v): ?>
@@ -54,24 +59,25 @@ $doc = $conf['DOCUMENTOS'] ?? [];
                     <label class="card h-100 p-2 border shadow-sm text-center" style="cursor:pointer">
                         <i class="bi <?= $v[1] ?> fs-3 text-primary"></i><br>
                         <span class="small fw-bold"><?= $v[0] ?></span>
-                        <input type="radio" name="<?= $p ?>_provider" value="<?= $v[0] ?>" class="form-check-input mt-1">
+                        <input type="radio" name="<?= $p ?>_provider" value="<?= $v[0] ?>" 
+                               class="form-check-input mt-1" <?= ($currentProv === $v[0]) ? 'checked' : '' ?>>
                     </label>
                 </div>
                 <?php endforeach; ?>
             </div>
 
-            <div class="protocol-group mb-3 d-none">
+            <div class="protocol-group mb-3 <?= ($currentProv !== 'CUSTOM') ? 'd-none' : '' ?>">
                 <label class="small fw-bold mb-1 text-primary">Protocolo</label>
                 <select name="protocolo" class="form-select form-select-sm bg-light">
-                    <option value="SMTP" selected>SMTP</option>
-                    <option value="POP3">POP3</option>
+                    <option value="SMTP" <?= (($d['protocolo']??'')==='SMTP')?'selected':'' ?>>SMTP (Saliente)</option>
+                    <option value="POP3" <?= (($d['protocolo']??'')==='POP3')?'selected':'' ?>>POP3 (Entrante)</option>
                 </select>
             </div>
 
             <div class="row g-2">
                 <div class="col-12"><label class="small fw-bold">From Email</label><input type="email" name="from_email" class="form-control" value="<?= $d['from_email'] ?? '' ?>"></div>
                 <div class="col-12"><label class="small fw-bold">From Name</label><input type="text" name="from_name" class="form-control" value="<?= $d['from_name'] ?? '' ?>"></div>
-                <div class="col-12"><label class="small fw-bold">SMTP Host</label><input type="text" name="smtp_host" class="form-control" value="<?= $d['smtp_host'] ?? '' ?>"></div>
+                <div class="col-12"><label class="small fw-bold">SMTP Host</label><input type="text" name="smtp_host" class="form-control" value="<?= $host ?>"></div>
                 <div class="col-6"><label class="small fw-bold">Puerto</label><input type="number" name="smtp_port" class="form-control" value="<?= $d['smtp_port'] ?? '465' ?>"></div>
                 <div class="col-6"><label class="small fw-bold">Seguridad</label>
                     <select name="smtp_security" class="form-select">
@@ -82,24 +88,16 @@ $doc = $conf['DOCUMENTOS'] ?? [];
                 <div class="col-12"><label class="small fw-bold">Usuario</label><input type="text" name="smtp_user" class="form-control" value="<?= $d['smtp_user'] ?? '' ?>"></div>
                 <div class="col-12"><label class="small fw-bold">Password</label><input type="password" name="smtp_password" class="form-control" value="<?= $d['smtp_password'] ?? '' ?>"></div>
             </div>
-            <button type="button" class="btn btn-outline-primary w-100 mt-4 py-2" onclick="testActiveSettings('form-<?= $p ?>', 'connection')">
-                <i class="bi bi-send-check me-1"></i> Probar Conexión
-            </button>
+            <button type="button" class="btn btn-outline-primary w-100 mt-4" onclick="testActiveSettings('form-<?= $p ?>', 'connection')">Probar Conexión</button>
         </div>
     </div>
     <div class="col-lg-7">
         <div class="card shadow-sm p-4 border-0 rounded-4 h-100">
-            <h5 class="fw-bold mb-3 border-bottom pb-2">Personalización</h5>
-            <div class="alert alert-info py-2 small mb-3">
-                <strong>Etiquetas:</strong> {nombre}, {apellido}, {plataforma}, {link_activacion}, {nombre_diplomado}, {link_descarga}.
-            </div>
-            <label class="small fw-bold">Asunto</label>
-            <input type="text" name="asunto" class="form-control mb-3" value="<?= $d['asunto'] ?? '' ?>">
-            <label class="small fw-bold">Cuerpo (HTML)</label>
-            <textarea name="contenido" class="form-control mb-3" rows="18"><?= $d['contenido'] ?? '' ?></textarea>
-            <button type="button" class="btn btn-outline-success w-100 py-2 mt-auto" onclick="testActiveSettings('form-<?= $p ?>', 'template')">
-                <i class="bi bi-envelope-paper-fill me-1"></i> Probar esta plantilla
-            </button>
+            <h5 class="fw-bold mb-3 border-bottom pb-2">Plantilla</h5>
+            <div class="alert alert-info py-2 small mb-3">Etiquetas: {nombre}, {apellido}, {plataforma}, {link_activacion}</div>
+            <label class="small fw-bold">Asunto</label><input type="text" name="asunto" class="form-control mb-3" value="<?= $d['asunto'] ?? '' ?>">
+            <label class="small fw-bold">Contenido (HTML)</label><textarea name="contenido" class="form-control mb-3" rows="18"><?= $d['contenido'] ?? '' ?></textarea>
+            <button type="button" class="btn btn-outline-success w-100" onclick="testActiveSettings('form-<?= $p ?>', 'template')">Probar esta plantilla</button>
         </div>
     </div>
 </div>
