@@ -33,6 +33,8 @@ final class Bootstrap
     $router->get('/settings/correo', [SettingsController::class, 'correo']);
     $router->post('/settings/save-correo', [SettingsController::class, 'saveCorreo']);
     $router->post('/settings/test-correo', [SettingsController::class, 'testCorreo']);
+    $router->get('/settings/empresa', [\App\Controllers\SettingsCompanyController::class, 'index']);
+    $router->post('/settings/empresa/save', [\App\Controllers\SettingsCompanyController::class, 'save']);
 
     // -- RUTAS DE USUARIOS --
     $router->get('/users', [UsersController::class, 'index']);
