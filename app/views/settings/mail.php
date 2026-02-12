@@ -1,7 +1,6 @@
 <?php
 /**
  * MÓDULO - app/views/settings/mail.php
- * Vista de configuración de correo.
  */
 $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
 $conf = [];
@@ -10,24 +9,22 @@ $ins = $conf['INSCRIPCION'] ?? [];
 $doc = $conf['DOCUMENTOS'] ?? [];
 ?>
 
+<link rel="stylesheet" href="<?= htmlspecialchars($basePath) ?>/assets/css/settings.css?v=<?= time() ?>">
+
 <div class="mb-4 d-flex align-items-center justify-content-between">
     <div>
-        <h2 class="h4 fw-bold mb-0 text-dark">Servidores de Correo</h2>
-        <p class="text-muted small mb-0">Gestión de SMTP y plantillas.</p>
+        <h2 class="h4 fw-bold mb-0">Servidores de Correo</h2>
+        <p class="text-muted small mb-0">Configura SMTP y plantillas dinámicas.</p>
     </div>
     <div class="d-flex gap-2">
-        <a class="btn btn-outline-secondary btn-sm px-3" href="<?= htmlspecialchars($basePath) ?>/settings">
-            <i class="bi bi-arrow-left me-1"></i> Volver
-        </a>
-        <button type="button" class="btn btn-primary btn-sm px-4 shadow-sm" onclick="saveActiveSettings()">
-            <i class="bi bi-save2 me-1"></i> Guardar Todo
-        </button>
+        <a class="btn btn-outline-secondary btn-sm px-3" href="<?= htmlspecialchars($basePath) ?>/settings">Volver</a>
+        <button type="button" class="btn btn-primary btn-sm px-4 shadow-sm" onclick="saveActiveSettings()">Guardar Todo</button>
     </div>
 </div>
 
-<ul class="nav nav-pills nav-fill gap-3 mb-4 p-2 bg-light rounded shadow-sm">
-    <li class="nav-item"><button class="nav-link active py-3 fw-bold fs-5" data-bs-toggle="tab" data-bs-target="#pane-ins" type="button">Inscripción</button></li>
-    <li class="nav-item"><button class="nav-link py-3 fw-bold fs-5" data-bs-toggle="tab" data-bs-target="#pane-doc" type="button">Certificados</button></li>
+<ul class="nav nav-pills nav-fill gap-2 mb-4 p-1 bg-light rounded shadow-sm">
+    <li class="nav-item"><button class="nav-link active py-2 fw-bold" data-bs-toggle="tab" data-bs-target="#pane-ins" type="button">Inscripción</button></li>
+    <li class="nav-item"><button class="nav-link py-2 fw-bold" data-bs-toggle="tab" data-bs-target="#pane-doc" type="button">Certificados</button></li>
 </ul>
 
 <div class="tab-content">
@@ -49,7 +46,7 @@ $doc = $conf['DOCUMENTOS'] ?? [];
 <div class="row g-4">
     <div class="col-lg-5">
         <div class="card shadow-sm p-4 border-0 rounded-4">
-            <h5 class="fw-bold mb-3 border-bottom pb-2">Proveedor SMTP</h5>
+            <h5 class="fw-bold mb-3 border-bottom pb-2">Configuración SMTP</h5>
             <div class="row g-2 mb-3">
                 <?php $vs = [['GMAIL','bi-google'],['OUTLOOK','bi-microsoft'],['YAHOO','bi-envelope'],['CUSTOM','bi-gear']]; 
                 foreach($vs as $v): ?>
@@ -66,8 +63,8 @@ $doc = $conf['DOCUMENTOS'] ?? [];
             <div class="protocol-group mb-3 d-none">
                 <label class="small fw-bold mb-1 text-primary">Protocolo</label>
                 <select name="protocolo" class="form-select form-select-sm bg-light">
-                    <option value="SMTP" selected>SMTP (Saliente)</option>
-                    <option value="POP3">POP3 (Entrante)</option>
+                    <option value="SMTP" selected>SMTP</option>
+                    <option value="POP3">POP3</option>
                 </select>
             </div>
 
@@ -85,15 +82,24 @@ $doc = $conf['DOCUMENTOS'] ?? [];
                 <div class="col-12"><label class="small fw-bold">Usuario</label><input type="text" name="smtp_user" class="form-control" value="<?= $d['smtp_user'] ?? '' ?>"></div>
                 <div class="col-12"><label class="small fw-bold">Password</label><input type="password" name="smtp_password" class="form-control" value="<?= $d['smtp_password'] ?? '' ?>"></div>
             </div>
-            <button type="button" class="btn btn-outline-primary w-100 mt-4" onclick="testActiveSettings('form-<?= $p ?>')">Probar Conexión</button>
+            <button type="button" class="btn btn-outline-primary w-100 mt-4 py-2" onclick="testActiveSettings('form-<?= $p ?>', 'connection')">
+                <i class="bi bi-send-check me-1"></i> Probar Conexión
+            </button>
         </div>
     </div>
     <div class="col-lg-7">
         <div class="card shadow-sm p-4 border-0 rounded-4 h-100">
-            <h5 class="fw-bold mb-3 border-bottom pb-2">Plantilla</h5>
-            <label class="small fw-bold">Asunto</label><input type="text" name="asunto" class="form-control mb-3" value="<?= $d['asunto'] ?? '' ?>">
-            <label class="small fw-bold">Contenido (HTML)</label><textarea name="contenido" class="form-control mb-3" rows="18"><?= $d['contenido'] ?? '' ?></textarea>
-            <button type="button" class="btn btn-outline-success w-100" onclick="testActiveSettings('form-<?= $p ?>')">Probar esta plantilla</button>
+            <h5 class="fw-bold mb-3 border-bottom pb-2">Personalización</h5>
+            <div class="alert alert-info py-2 small mb-3">
+                <strong>Etiquetas:</strong> {nombre}, {apellido}, {plataforma}, {link_activacion}, {nombre_diplomado}, {link_descarga}.
+            </div>
+            <label class="small fw-bold">Asunto</label>
+            <input type="text" name="asunto" class="form-control mb-3" value="<?= $d['asunto'] ?? '' ?>">
+            <label class="small fw-bold">Cuerpo (HTML)</label>
+            <textarea name="contenido" class="form-control mb-3" rows="18"><?= $d['contenido'] ?? '' ?></textarea>
+            <button type="button" class="btn btn-outline-success w-100 py-2 mt-auto" onclick="testActiveSettings('form-<?= $p ?>', 'template')">
+                <i class="bi bi-envelope-paper-fill me-1"></i> Probar esta plantilla
+            </button>
         </div>
     </div>
 </div>

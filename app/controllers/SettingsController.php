@@ -2,7 +2,7 @@
 /**
  * MÓDULO - app/controllers/SettingsController.php
  * Controlador de configuración del sistema.
- * Gestiona la persistencia de ajustes SMTP y las pruebas de conectividad.
+ * Diferencia entre pruebas de conexión técnica y pruebas de plantillas dinámicas.
  */
 
 declare(strict_types=1);
@@ -25,33 +25,23 @@ final class SettingsController extends Controller
 
     public function __construct()
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        if (session_status() === PHP_SESSION_NONE) session_start();
         $this->db = (new Database())->getConnection();
     }
 
-    public function index(): void
-    {
-        $this->view('settings/index', ['title' => 'Ajustes Generales']);
-    }
+    public function index(): void { $this->view('settings/index', ['title' => 'Ajustes']); }
 
     public function correo(): void
     {
         $stmt = $this->db->query("SELECT * FROM tbl_email_settings");
         $settings = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        $this->view('settings/mail', [
-            'title' => 'Configuración de Correo',
-            'settings' => $settings
-        ]);
+        $this->view('settings/mail', ['settings' => $settings]);
     }
 
     public function saveCorreo(): void
     {
         if (ob_get_length()) ob_clean(); 
         header('Content-Type: application/json');
-        
         try {
             $sql = "INSERT INTO tbl_email_settings 
                     (tipo_correo, smtp_host, smtp_port, smtp_security, smtp_user, smtp_password, from_name, from_email, asunto, contenido) 
@@ -82,7 +72,6 @@ final class SettingsController extends Controller
                 ':u_asunto'     => $_POST['asunto'] ?? '',
                 ':u_contenido'  => $_POST['contenido'] ?? ''
             ]);
-
             echo json_encode(['ok' => true, 'msg' => 'Configuración guardada correctamente']);
         } catch (\Throwable $e) {
             echo json_encode(['ok' => false, 'msg' => 'Error: ' . $e->getMessage()]);
@@ -94,7 +83,6 @@ final class SettingsController extends Controller
     {
         if (ob_get_length()) ob_clean();
         header('Content-Type: application/json');
-        
         try {
             $mail = new PHPMailer(true);
             $mail->isSMTP();
@@ -109,13 +97,34 @@ final class SettingsController extends Controller
             $mail->setFrom($_POST['from_email'], $_POST['from_name']);
             $mail->addAddress($_POST['email_test']);
             $mail->isHTML(true);
-            $mail->Subject = $_POST['asunto'] ?: 'Prueba SMTP Diplomatic';
-            $mail->Body    = $_POST['contenido'] ?: 'Mensaje de prueba enviado desde el sistema.';
+
+            $mode = $_POST['mode'] ?? 'connection';
+
+            if ($mode === 'connection') {
+                // MENSAJE DE CONEXIÓN PURO
+                $mail->Subject = "Prueba de Conexión - Diplomatic";
+                $mail->Body    = "Si usted ha recibido este mensaje, su conexión está funcionando.";
+            } else {
+                // MENSAJE DE PLANTILLA CON ETIQUETAS
+                $tags = [
+                    '{nombre}'           => 'Juan',
+                    '{apellido}'         => 'Pérez',
+                    '{plataforma}'       => 'Diplomatic Online',
+                    '{link_activacion}'  => '<a href="#" style="background:#0d6efd; color:#fff; padding:8px 15px; text-decoration:none; border-radius:4px;">Activar mi cuenta</a>',
+                    '{nombre_diplomado}' => 'Diplomado en Gestión Pública',
+                    '{link_descarga}'    => '<a href="#" style="color:#198754; font-weight:bold;">Descargar Certificado</a>'
+                ];
+                $asunto  = str_replace(array_keys($tags), array_values($tags), $_POST['asunto']);
+                $mensaje = str_replace(array_keys($tags), array_values($tags), $_POST['contenido']);
+                
+                $mail->Subject = $asunto ?: 'Prueba de Plantilla';
+                $mail->Body    = nl2br($mensaje);
+            }
 
             $mail->send();
             echo json_encode(['ok' => true, 'msg' => '¡Correo enviado con éxito!']);
         } catch (Exception $e) {
-            echo json_encode(['ok' => false, 'msg' => $mail->ErrorInfo]);
+            echo json_encode(['ok' => false, 'msg' => 'Fallo: ' . $mail->ErrorInfo]);
         }
         exit;
     }
