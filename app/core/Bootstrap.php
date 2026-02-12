@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace App\Core;
 
-// Importamos las clases para que el Router las reconozca por su nombre completo
 use App\Controllers\AuthController;
 use App\Controllers\DashboardController;
 use App\Controllers\UsersController;
@@ -28,10 +27,14 @@ final class Bootstrap
 
     // -- RUTAS DEL PANEL --
     $router->get('/dashboard', [DashboardController::class, 'index']);
+    
+    // -- RUTAS DE CONFIGURACIÓN (Corregidas y completadas) --
     $router->get('/settings', [SettingsController::class, 'index']);
-    $router->get('/settings/correo', [SettingsController::class, 'correo']); // Añadido para la ruta de correo
+    $router->get('/settings/correo', [SettingsController::class, 'correo']);
+    $router->post('/settings/save-correo', [SettingsController::class, 'saveCorreo']);
+    $router->post('/settings/test-correo', [SettingsController::class, 'testCorreo']);
 
-    // -- RUTAS DE USUARIOS (El orden importa) --
+    // -- RUTAS DE USUARIOS --
     $router->get('/users', [UsersController::class, 'index']);
     $router->post('/users/save', [UsersController::class, 'save']);
     $router->post('/users/delete', [UsersController::class, 'delete']);
