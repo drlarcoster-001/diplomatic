@@ -2,18 +2,20 @@
 /**
  * MÓDULO: USUARIOS, ROLES Y ACCESO
  * Archivo: app/views/topnav.php
- * Propósito: Barra superior con menú dinámico según ROL (Admin vs Usuario).
+ * Propósito: Barra superior con menú dinámico y soporte para Avatar real o iniciales.
  */
 
 declare(strict_types=1);
 
-$basePath  = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
+$basePath   = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
 
-$userName  = $_SESSION['user']['name'] ?? 'Usuario';
-$userEmail = $_SESSION['user']['email'] ?? '';
-$userRole  = strtoupper($_SESSION['user']['role'] ?? 'USER'); // Capturamos el Rol
-$initials  = '';
+$userName   = $_SESSION['user']['name'] ?? 'Usuario';
+$userEmail  = $_SESSION['user']['email'] ?? '';
+$userRole   = strtoupper($_SESSION['user']['role'] ?? 'USER');
+$userAvatar = $_SESSION['user']['avatar'] ?? 'default_avatar.png'; // Capturamos el avatar de la sesión
 
+// Lógica de Iniciales (Respaldo si no hay imagen)
+$initials = '';
 if ($userName !== '') {
   $parts = preg_split('/\s+/', trim($userName));
   $initials = strtoupper(substr($parts[0] ?? 'U', 0, 1) . substr($parts[1] ?? '', 0, 1));
@@ -21,6 +23,10 @@ if ($userName !== '') {
 } else {
   $initials = 'U';
 }
+
+// Ruta física y URL del avatar
+$avatarURL = $basePath . '/assets/img/avatars/' . $userAvatar;
+$avatarPath = __DIR__ . '/../../public/assets/img/avatars/' . $userAvatar;
 ?>
 
 <nav class="navbar dp-topnav bg-white border-bottom sticky-top">
@@ -37,22 +43,33 @@ if ($userName !== '') {
     </div>
 
     <div class="dropdown">
-      <button class="btn btn-light border dp-userbtn dropdown-toggle"
+      <button class="btn btn-light border dp-userbtn dropdown-toggle d-flex align-items-center gap-2"
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false">
-        <span class="dp-avatar" aria-hidden="true"><?= htmlspecialchars($initials) ?></span>
+        
+        <?php if ($userAvatar !== 'default_avatar.png' && file_exists($avatarPath)): ?>
+            <img src="<?= $avatarURL ?>" class="rounded-circle" style="width: 24px; height: 24px; object-fit: cover;" alt="Avatar">
+        <?php else: ?>
+            <span class="dp-avatar" aria-hidden="true"><?= htmlspecialchars($initials) ?></span>
+        <?php endif; ?>
+
         <span class="d-none d-sm-inline"><?= htmlspecialchars($userName) ?></span>
       </button>
 
       <ul class="dropdown-menu dropdown-menu-end shadow-sm" style="min-width: 280px;">
         <li class="px-3 pt-2 pb-2">
           <div class="d-flex align-items-center gap-2">
-            <span class="dp-avatar dp-avatar-lg" aria-hidden="true"><?= htmlspecialchars($initials) ?></span>
+            <?php if ($userAvatar !== 'default_avatar.png' && file_exists($avatarPath)): ?>
+                <img src="<?= $avatarURL ?>" class="rounded-circle border" style="width: 48px; height: 48px; object-fit: cover;">
+            <?php else: ?>
+                <span class="dp-avatar dp-avatar-lg" aria-hidden="true"><?= htmlspecialchars($initials) ?></span>
+            <?php endif; ?>
+
             <div>
-              <div class="fw-semibold"><?= htmlspecialchars($userName) ?></div>
+              <div class="fw-semibold text-truncate" style="max-width: 180px;"><?= htmlspecialchars($userName) ?></div>
               <?php if ($userEmail !== ''): ?>
-                <div class="text-muted small"><?= htmlspecialchars($userEmail) ?></div>
+                <div class="text-muted small text-truncate" style="max-width: 180px;"><?= htmlspecialchars($userEmail) ?></div>
               <?php endif; ?>
             </div>
           </div>

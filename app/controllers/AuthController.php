@@ -2,7 +2,7 @@
 /**
  * MODULE: USERS, ROLES & ACCESS
  * File: app/controllers/AuthController.php
- * Propósito: Gestión de acceso con auditoría de intentos fallidos y éxitos.
+ * Propósito: Gestión de acceso con auditoría y carga de avatar en sesión.
  */
 
 declare(strict_types=1);
@@ -40,7 +40,7 @@ final class AuthController extends Controller
                 'module'      => 'AUTH',
                 'action'      => 'LOGIN_FAILED',
                 'description' => 'Intento fallido para el correo: ' . $email . '. Motivo: ' . ($result['message'] ?? 'Credenciales inválidas'),
-                'event_type'  => 'SECURITY' // Rojo en consola
+                'event_type'  => 'SECURITY'
             ]);
 
             $_SESSION['error'] = $result['message'];
@@ -50,7 +50,7 @@ final class AuthController extends Controller
 
         $u = $result['user'];
 
-        // GUARDAMOS LA SESIÓN PRIMERO
+        // GUARDAMOS LA SESIÓN CON EL AVATAR
         $_SESSION['user'] = [
             'id'        => $u['id'],
             'name'      => trim($u['first_name'] . ' ' . $u['last_name']),
@@ -58,15 +58,15 @@ final class AuthController extends Controller
             'user_type' => $u['user_type'],
             'role'      => strtoupper($u['role']), 
             'status'    => $u['status'],
+            'avatar'    => $u['avatar'] ?? 'default_avatar.png', // <-- CORRECCIÓN AQUÍ
         ];
 
         // --- CASO 2: LOGIN EXITOSO ---
-        // Al estar ya la sesión guardada, el log capturará correctamente el user_id
         AuditService::log([
             'module'      => 'AUTH',
             'action'      => 'LOGIN',
             'description' => 'Inicio de sesión exitoso: ' . $_SESSION['user']['name'],
-            'event_type'  => 'SUCCESS' // Verde en consola
+            'event_type'  => 'SUCCESS'
         ]);
 
         $this->redirect('/dashboard');
