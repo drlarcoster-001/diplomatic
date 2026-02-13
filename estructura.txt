@@ -3,32 +3,39 @@
 
  Directorio de C:\xampp\htdocs\diplomatic
 
-11/02/2026  08:16 a.ÿm.    <DIR>          .
+12/02/2026  08:19 a.ÿm.    <DIR>          .
 08/02/2026  01:37 a.ÿm.    <DIR>          ..
-11/02/2026  01:12 a.ÿm.    <DIR>          app
-11/02/2026  08:16 a.ÿm.    <DIR>          db
-12/02/2026  05:26 a.ÿm.                 0 estructura.txt
+13/02/2026  07:02 a.ÿm.    <DIR>          app
+13/02/2026  06:53 a.ÿm.    <DIR>          db
+13/02/2026  07:04 a.ÿm.                 0 estructura.txt
 11/02/2026  01:12 a.ÿm.    <DIR>          public
 11/02/2026  01:12 a.ÿm.                30 README.md
-11/02/2026  01:12 a.ÿm.    <DIR>          tools
+12/02/2026  08:10 a.ÿm.    <DIR>          tools
                2 archivos             30 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git
 
-11/02/2026  08:16 a.ÿm.    <DIR>          ..
-11/02/2026  09:40 a.ÿm.                54 COMMIT_EDITMSG
-11/02/2026  09:42 a.ÿm.               398 config
+12/02/2026  08:19 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.                67 COMMIT_EDITMSG
+12/02/2026  01:44 p.ÿm.               308 config
 07/02/2026  03:33 p.ÿm.                73 description
-11/02/2026  08:16 a.ÿm.               105 FETCH_HEAD
+12/02/2026  08:17 a.ÿm.               105 FETCH_HEAD
+13/02/2026  06:56 a.ÿm.    <DIR>          gk
 08/02/2026  12:26 a.ÿm.                21 HEAD
 07/02/2026  03:33 p.ÿm.    <DIR>          hooks
-11/02/2026  09:40 a.ÿm.             4.446 index
+13/02/2026  06:53 a.ÿm.            13.926 index
 07/02/2026  03:33 p.ÿm.    <DIR>          info
 07/02/2026  03:33 p.ÿm.    <DIR>          logs
-11/02/2026  09:40 a.ÿm.    <DIR>          objects
-11/02/2026  08:16 a.ÿm.                41 ORIG_HEAD
+13/02/2026  06:53 a.ÿm.    <DIR>          objects
+12/02/2026  08:17 a.ÿm.                41 ORIG_HEAD
 07/02/2026  07:17 p.ÿm.    <DIR>          refs
-               7 archivos          5.138 bytes
+               7 archivos         14.541 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\gk
+
+13/02/2026  06:56 a.ÿm.    <DIR>          .
+13/02/2026  06:56 a.ÿm.               106 config
+               1 archivos            106 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\hooks
 
@@ -58,9 +65,9 @@
  Directorio de C:\xampp\htdocs\diplomatic\.git\logs
 
 07/02/2026  03:33 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.             3.774 HEAD
+13/02/2026  06:53 a.ÿm.             5.747 HEAD
 07/02/2026  07:17 p.ÿm.    <DIR>          refs
-               1 archivos          3.774 bytes
+               1 archivos          5.747 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\logs\refs
 
@@ -74,8 +81,8 @@
 
 07/02/2026  03:34 p.ÿm.    <DIR>          .
 07/02/2026  07:17 p.ÿm.    <DIR>          ..
-11/02/2026  09:40 a.ÿm.             2.339 main
-               1 archivos          2.339 bytes
+13/02/2026  06:53 a.ÿm.             4.154 main
+               1 archivos          4.154 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\logs\refs\remotes
 
@@ -88,211 +95,426 @@
 
 07/02/2026  07:17 p.ÿm.    <DIR>          .
 07/02/2026  07:17 p.ÿm.    <DIR>          ..
-11/02/2026  09:40 a.ÿm.             1.332 main
-               1 archivos          1.332 bytes
+13/02/2026  06:53 a.ÿm.             2.664 main
+               1 archivos          2.664 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects
 
-11/02/2026  09:40 a.ÿm.    <DIR>          .
-07/02/2026  10:33 p.ÿm.    <DIR>          0a
-11/02/2026  09:04 a.ÿm.    <DIR>          0c
+13/02/2026  06:53 a.ÿm.    <DIR>          .
+12/02/2026  01:44 p.ÿm.    <DIR>          00
+12/02/2026  09:13 a.ÿm.    <DIR>          02
+12/02/2026  09:13 a.ÿm.    <DIR>          03
+12/02/2026  09:13 a.ÿm.    <DIR>          04
+12/02/2026  11:59 a.ÿm.    <DIR>          05
+12/02/2026  10:23 a.ÿm.    <DIR>          06
+12/02/2026  09:13 a.ÿm.    <DIR>          08
+12/02/2026  09:13 a.ÿm.    <DIR>          09
+12/02/2026  10:23 a.ÿm.    <DIR>          0a
+12/02/2026  10:28 a.ÿm.    <DIR>          0b
+12/02/2026  09:13 a.ÿm.    <DIR>          0c
 08/02/2026  11:36 a.ÿm.    <DIR>          10
-11/02/2026  09:40 a.ÿm.    <DIR>          11
+12/02/2026  10:28 a.ÿm.    <DIR>          11
+12/02/2026  09:13 a.ÿm.    <DIR>          14
 07/02/2026  10:33 p.ÿm.    <DIR>          16
+12/02/2026  01:44 p.ÿm.    <DIR>          18
+12/02/2026  10:23 a.ÿm.    <DIR>          1c
+12/02/2026  10:23 a.ÿm.    <DIR>          1d
 07/02/2026  07:02 p.ÿm.    <DIR>          1e
-11/02/2026  08:14 a.ÿm.    <DIR>          1f
+12/02/2026  09:14 a.ÿm.    <DIR>          1f
+12/02/2026  12:00 p.ÿm.    <DIR>          20
+12/02/2026  09:13 a.ÿm.    <DIR>          21
+12/02/2026  09:34 a.ÿm.    <DIR>          22
 10/02/2026  10:37 p.ÿm.    <DIR>          23
 11/02/2026  09:40 a.ÿm.    <DIR>          24
-11/02/2026  09:04 a.ÿm.    <DIR>          2b
+13/02/2026  06:53 a.ÿm.    <DIR>          28
+12/02/2026  09:13 a.ÿm.    <DIR>          29
+12/02/2026  09:13 a.ÿm.    <DIR>          2b
 11/02/2026  09:04 a.ÿm.    <DIR>          2d
 11/02/2026  08:11 a.ÿm.    <DIR>          2e
-11/02/2026  09:40 a.ÿm.    <DIR>          33
-11/02/2026  09:04 a.ÿm.    <DIR>          34
+13/02/2026  06:53 a.ÿm.    <DIR>          2f
+12/02/2026  10:28 a.ÿm.    <DIR>          32
+12/02/2026  12:00 p.ÿm.    <DIR>          33
+12/02/2026  09:13 a.ÿm.    <DIR>          34
+12/02/2026  09:13 a.ÿm.    <DIR>          35
+12/02/2026  09:13 a.ÿm.    <DIR>          36
 11/02/2026  08:11 a.ÿm.    <DIR>          38
 07/02/2026  07:02 p.ÿm.    <DIR>          39
-07/02/2026  07:02 p.ÿm.    <DIR>          3a
+12/02/2026  09:13 a.ÿm.    <DIR>          3a
 07/02/2026  10:33 p.ÿm.    <DIR>          3b
-08/02/2026  11:36 a.ÿm.    <DIR>          3c
-08/02/2026  11:36 a.ÿm.    <DIR>          3e
-07/02/2026  10:33 p.ÿm.    <DIR>          3f
-11/02/2026  09:04 a.ÿm.    <DIR>          40
-11/02/2026  09:40 a.ÿm.    <DIR>          41
+12/02/2026  12:00 p.ÿm.    <DIR>          3c
+12/02/2026  09:13 a.ÿm.    <DIR>          3d
+12/02/2026  09:13 a.ÿm.    <DIR>          3e
+12/02/2026  01:44 p.ÿm.    <DIR>          3f
+12/02/2026  10:23 a.ÿm.    <DIR>          40
+12/02/2026  11:59 a.ÿm.    <DIR>          41
 11/02/2026  08:14 a.ÿm.    <DIR>          42
 08/02/2026  10:08 a.ÿm.    <DIR>          43
+12/02/2026  09:13 a.ÿm.    <DIR>          45
 11/02/2026  09:04 a.ÿm.    <DIR>          46
-07/02/2026  10:33 p.ÿm.    <DIR>          48
-07/02/2026  07:02 p.ÿm.    <DIR>          49
-11/02/2026  08:11 a.ÿm.    <DIR>          4d
+12/02/2026  09:34 a.ÿm.    <DIR>          47
+12/02/2026  09:34 a.ÿm.    <DIR>          48
+12/02/2026  07:47 a.ÿm.    <DIR>          49
+12/02/2026  01:44 p.ÿm.    <DIR>          4c
+12/02/2026  09:13 a.ÿm.    <DIR>          4d
 11/02/2026  09:04 a.ÿm.    <DIR>          4e
+12/02/2026  09:13 a.ÿm.    <DIR>          4f
 11/02/2026  09:39 a.ÿm.    <DIR>          50
+12/02/2026  09:13 a.ÿm.    <DIR>          51
+12/02/2026  09:13 a.ÿm.    <DIR>          52
 11/02/2026  08:11 a.ÿm.    <DIR>          53
 11/02/2026  08:14 a.ÿm.    <DIR>          54
-07/02/2026  07:02 p.ÿm.    <DIR>          55
+12/02/2026  09:14 a.ÿm.    <DIR>          55
 11/02/2026  09:39 a.ÿm.    <DIR>          56
-11/02/2026  09:39 a.ÿm.    <DIR>          58
-11/02/2026  09:40 a.ÿm.    <DIR>          5a
+12/02/2026  10:28 a.ÿm.    <DIR>          58
+12/02/2026  10:23 a.ÿm.    <DIR>          5a
+12/02/2026  09:13 a.ÿm.    <DIR>          5b
 08/02/2026  11:36 a.ÿm.    <DIR>          5c
 11/02/2026  08:14 a.ÿm.    <DIR>          5e
+12/02/2026  09:14 a.ÿm.    <DIR>          60
 07/02/2026  07:02 p.ÿm.    <DIR>          61
-11/02/2026  08:11 a.ÿm.    <DIR>          62
-07/02/2026  07:02 p.ÿm.    <DIR>          63
-11/02/2026  08:11 a.ÿm.    <DIR>          64
+12/02/2026  09:13 a.ÿm.    <DIR>          62
+12/02/2026  09:13 a.ÿm.    <DIR>          63
+12/02/2026  12:00 p.ÿm.    <DIR>          64
+12/02/2026  01:44 p.ÿm.    <DIR>          65
 11/02/2026  08:14 a.ÿm.    <DIR>          66
-07/02/2026  10:33 p.ÿm.    <DIR>          67
-07/02/2026  10:33 p.ÿm.    <DIR>          68
+12/02/2026  09:13 a.ÿm.    <DIR>          67
+12/02/2026  10:28 a.ÿm.    <DIR>          68
 07/02/2026  07:02 p.ÿm.    <DIR>          69
-11/02/2026  09:04 a.ÿm.    <DIR>          6b
-11/02/2026  09:39 a.ÿm.    <DIR>          6c
-11/02/2026  09:39 a.ÿm.    <DIR>          6d
+12/02/2026  07:46 a.ÿm.    <DIR>          6b
+12/02/2026  12:00 p.ÿm.    <DIR>          6c
+12/02/2026  09:13 a.ÿm.    <DIR>          6d
 08/02/2026  10:06 a.ÿm.    <DIR>          6e
-07/02/2026  07:02 p.ÿm.    <DIR>          70
+12/02/2026  10:23 a.ÿm.    <DIR>          6f
+12/02/2026  09:13 a.ÿm.    <DIR>          70
+12/02/2026  09:13 a.ÿm.    <DIR>          71
 08/02/2026  11:36 a.ÿm.    <DIR>          72
-08/02/2026  10:08 a.ÿm.    <DIR>          74
+12/02/2026  01:44 p.ÿm.    <DIR>          73
+12/02/2026  01:44 p.ÿm.    <DIR>          74
 08/02/2026  10:08 a.ÿm.    <DIR>          77
-10/02/2026  10:39 p.ÿm.    <DIR>          78
+12/02/2026  01:44 p.ÿm.    <DIR>          78
+12/02/2026  09:13 a.ÿm.    <DIR>          79
 08/02/2026  10:08 a.ÿm.    <DIR>          7a
 07/02/2026  10:33 p.ÿm.    <DIR>          7e
+12/02/2026  09:34 a.ÿm.    <DIR>          80
 11/02/2026  09:04 a.ÿm.    <DIR>          82
+13/02/2026  06:53 a.ÿm.    <DIR>          83
 07/02/2026  10:33 p.ÿm.    <DIR>          84
-08/02/2026  10:06 a.ÿm.    <DIR>          85
-08/02/2026  11:36 a.ÿm.    <DIR>          86
-07/02/2026  10:33 p.ÿm.    <DIR>          88
+13/02/2026  06:53 a.ÿm.    <DIR>          85
+12/02/2026  09:34 a.ÿm.    <DIR>          86
+13/02/2026  06:53 a.ÿm.    <DIR>          88
 11/02/2026  09:04 a.ÿm.    <DIR>          89
-07/02/2026  07:02 p.ÿm.    <DIR>          8c
-11/02/2026  09:40 a.ÿm.    <DIR>          8e
+12/02/2026  09:13 a.ÿm.    <DIR>          8a
+12/02/2026  09:13 a.ÿm.    <DIR>          8c
+12/02/2026  01:44 p.ÿm.    <DIR>          8e
 11/02/2026  08:11 a.ÿm.    <DIR>          8f
-07/02/2026  07:02 p.ÿm.    <DIR>          92
-11/02/2026  08:11 a.ÿm.    <DIR>          93
+12/02/2026  01:44 p.ÿm.    <DIR>          92
+12/02/2026  09:13 a.ÿm.    <DIR>          93
 08/02/2026  10:08 a.ÿm.    <DIR>          95
-11/02/2026  08:16 a.ÿm.    <DIR>          98
+12/02/2026  09:13 a.ÿm.    <DIR>          96
+12/02/2026  09:13 a.ÿm.    <DIR>          97
+12/02/2026  09:13 a.ÿm.    <DIR>          98
+12/02/2026  01:44 p.ÿm.    <DIR>          9a
 11/02/2026  08:14 a.ÿm.    <DIR>          9b
-08/02/2026  10:08 a.ÿm.    <DIR>          9d
-08/02/2026  10:08 a.ÿm.    <DIR>          9e
+12/02/2026  12:00 p.ÿm.    <DIR>          9d
+12/02/2026  09:13 a.ÿm.    <DIR>          9e
 07/02/2026  07:02 p.ÿm.    <DIR>          9f
-11/02/2026  09:40 a.ÿm.    <DIR>          a0
+12/02/2026  11:59 a.ÿm.    <DIR>          a0
 07/02/2026  07:02 p.ÿm.    <DIR>          a1
-07/02/2026  10:33 p.ÿm.    <DIR>          a3
+12/02/2026  11:59 a.ÿm.    <DIR>          a3
+12/02/2026  12:00 p.ÿm.    <DIR>          a4
 07/02/2026  07:02 p.ÿm.    <DIR>          a5
-08/02/2026  11:36 a.ÿm.    <DIR>          a7
-11/02/2026  09:40 a.ÿm.    <DIR>          a8
+12/02/2026  10:28 a.ÿm.    <DIR>          a6
+12/02/2026  09:13 a.ÿm.    <DIR>          a7
+12/02/2026  09:13 a.ÿm.    <DIR>          a8
+12/02/2026  09:13 a.ÿm.    <DIR>          ac
+13/02/2026  06:53 a.ÿm.    <DIR>          ad
 08/02/2026  10:08 a.ÿm.    <DIR>          ae
 08/02/2026  10:06 a.ÿm.    <DIR>          af
+13/02/2026  06:53 a.ÿm.    <DIR>          b0
+12/02/2026  09:13 a.ÿm.    <DIR>          b1
+12/02/2026  01:44 p.ÿm.    <DIR>          b2
+12/02/2026  09:13 a.ÿm.    <DIR>          b3
 07/02/2026  10:33 p.ÿm.    <DIR>          b5
 10/02/2026  10:39 p.ÿm.    <DIR>          b6
 08/02/2026  10:06 a.ÿm.    <DIR>          b7
+13/02/2026  06:53 a.ÿm.    <DIR>          b8
 07/02/2026  07:02 p.ÿm.    <DIR>          b9
+13/02/2026  06:53 a.ÿm.    <DIR>          ba
+12/02/2026  09:13 a.ÿm.    <DIR>          bb
+12/02/2026  01:44 p.ÿm.    <DIR>          bc
 11/02/2026  08:14 a.ÿm.    <DIR>          be
 08/02/2026  10:06 a.ÿm.    <DIR>          c1
 11/02/2026  08:14 a.ÿm.    <DIR>          c2
-11/02/2026  08:16 a.ÿm.    <DIR>          c4
-08/02/2026  11:36 a.ÿm.    <DIR>          c5
+12/02/2026  10:23 a.ÿm.    <DIR>          c4
+12/02/2026  09:13 a.ÿm.    <DIR>          c5
+12/02/2026  12:00 p.ÿm.    <DIR>          c7
+12/02/2026  07:46 a.ÿm.    <DIR>          c8
 08/02/2026  11:36 a.ÿm.    <DIR>          c9
+13/02/2026  06:53 a.ÿm.    <DIR>          ca
+12/02/2026  09:13 a.ÿm.    <DIR>          cb
+12/02/2026  09:13 a.ÿm.    <DIR>          cc
+12/02/2026  10:28 a.ÿm.    <DIR>          cd
 07/02/2026  07:02 p.ÿm.    <DIR>          ce
-11/02/2026  09:04 a.ÿm.    <DIR>          cf
-08/02/2026  10:06 a.ÿm.    <DIR>          d1
-11/02/2026  09:39 a.ÿm.    <DIR>          d4
-07/02/2026  07:02 p.ÿm.    <DIR>          d6
-08/02/2026  10:08 a.ÿm.    <DIR>          d8
+12/02/2026  11:59 a.ÿm.    <DIR>          cf
+12/02/2026  09:13 a.ÿm.    <DIR>          d0
+12/02/2026  09:13 a.ÿm.    <DIR>          d1
+12/02/2026  09:13 a.ÿm.    <DIR>          d2
+12/02/2026  10:28 a.ÿm.    <DIR>          d4
+12/02/2026  12:00 p.ÿm.    <DIR>          d5
+12/02/2026  09:13 a.ÿm.    <DIR>          d6
+12/02/2026  01:44 p.ÿm.    <DIR>          d7
+13/02/2026  06:53 a.ÿm.    <DIR>          d8
 11/02/2026  08:14 a.ÿm.    <DIR>          da
-11/02/2026  09:40 a.ÿm.    <DIR>          de
-11/02/2026  09:39 a.ÿm.    <DIR>          df
+12/02/2026  09:13 a.ÿm.    <DIR>          dc
+12/02/2026  11:59 a.ÿm.    <DIR>          de
+12/02/2026  09:13 a.ÿm.    <DIR>          df
+12/02/2026  09:34 a.ÿm.    <DIR>          e0
+13/02/2026  06:53 a.ÿm.    <DIR>          e2
 11/02/2026  09:04 a.ÿm.    <DIR>          e3
-08/02/2026  11:36 a.ÿm.    <DIR>          e6
+12/02/2026  11:59 a.ÿm.    <DIR>          e4
+12/02/2026  09:13 a.ÿm.    <DIR>          e6
+13/02/2026  06:53 a.ÿm.    <DIR>          e7
+12/02/2026  09:34 a.ÿm.    <DIR>          e8
+13/02/2026  06:53 a.ÿm.    <DIR>          ea
 11/02/2026  08:14 a.ÿm.    <DIR>          eb
 08/02/2026  10:06 a.ÿm.    <DIR>          ec
 11/02/2026  08:16 a.ÿm.    <DIR>          ee
-11/02/2026  09:40 a.ÿm.    <DIR>          f1
-08/02/2026  10:06 a.ÿm.    <DIR>          f2
+13/02/2026  06:53 a.ÿm.    <DIR>          ef
+12/02/2026  09:13 a.ÿm.    <DIR>          f1
+12/02/2026  10:23 a.ÿm.    <DIR>          f2
+12/02/2026  09:13 a.ÿm.    <DIR>          f4
 07/02/2026  07:02 p.ÿm.    <DIR>          f5
 11/02/2026  08:14 a.ÿm.    <DIR>          f6
+13/02/2026  06:53 a.ÿm.    <DIR>          f7
+13/02/2026  06:53 a.ÿm.    <DIR>          f8
 07/02/2026  07:02 p.ÿm.    <DIR>          f9
 08/02/2026  10:08 a.ÿm.    <DIR>          fa
-07/02/2026  07:02 p.ÿm.    <DIR>          fc
-11/02/2026  08:11 a.ÿm.    <DIR>          fd
+12/02/2026  07:47 a.ÿm.    <DIR>          fc
+12/02/2026  12:00 p.ÿm.    <DIR>          fd
 11/02/2026  09:40 a.ÿm.    <DIR>          fe
 07/02/2026  03:33 p.ÿm.    <DIR>          info
 07/02/2026  03:33 p.ÿm.    <DIR>          pack
                0 archivos              0 bytes
 
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\00
+
+12/02/2026  01:44 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  01:44 p.ÿm.               166 fdecab4885658e70fcd24eca1b2ac4230f4217
+               1 archivos            166 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\02
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               846 8f5bc49693b7339371b1350a3db9aa001452ad
+               1 archivos            846 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\03
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             1.099 d491165b586c70d9eaab7ca25fc08f95de761e
+               1 archivos          1.099 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\04
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             1.152 031a9b911ecd8ac68f0e426eca981d33818166
+12/02/2026  09:13 a.ÿm.               886 d262c7243aad8c53eb4823207fbab1eb1362fa
+               2 archivos          2.038 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\05
+
+12/02/2026  11:59 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  11:59 a.ÿm.               580 549efd3573cbfee00982eba9dfb5cdef4a042a
+               1 archivos            580 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\06
+
+12/02/2026  10:23 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               167 100bf79377602fda122ce162af0514e3c8f96b
+12/02/2026  10:23 a.ÿm.               160 29a3080d4002a968adf7551ec8ff2c210b3516
+               2 archivos            327 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\08
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               760 a6b733312c9c530614e2335f169d148856e409
+               1 archivos            760 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\09
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               706 c1a2cfefaa986c846b41743e856c945beff3cd
+               1 archivos            706 bytes
+
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\0a
 
-07/02/2026  10:33 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  10:23 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  10:33 p.ÿm.               152 158205416d4b681dd4dca62e8d4c9fb93e10ed
-               1 archivos            152 bytes
+12/02/2026  10:23 a.ÿm.               146 6135bf8a25a4e67371fb20494e22947872135e
+               2 archivos            298 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\0b
+
+12/02/2026  10:28 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               654 2a72d52486210e0b8b3c8ceabb10843e1b1409
+12/02/2026  10:28 a.ÿm.               275 3b01543460107a33e8f91de602f86a93405458
+12/02/2026  09:13 a.ÿm.               944 5280f75e6f5e3939e1a062bc2eca7316bdba65
+12/02/2026  10:28 a.ÿm.               166 9db14a5be0a53ef9517c92db9f80605816c6e1
+12/02/2026  09:13 a.ÿm.               946 9de0f1274bbd4f85d316b477abc65d0306e14d
+               5 archivos          2.985 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\0c
 
-11/02/2026  09:04 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  09:04 a.ÿm.               115 3554e8bb4faa7ed1315b649ce052359d93673a
 11/02/2026  09:04 a.ÿm.               128 40e45c03955290aa4ffe9d2530bcc348edec5e
+12/02/2026  09:13 a.ÿm.                99 494d0163c33d392f26bb80b7b088cb7b42aa63
 07/02/2026  10:33 p.ÿm.               204 7ef4c7df46c43ae8f5802a332af3fa22125a82
-               3 archivos            447 bytes
+               4 archivos            546 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\10
 
 08/02/2026  11:36 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:11 a.ÿm.                45 880063057d9881de4d42973f1b57c2c024df9b
 08/02/2026  11:36 a.ÿm.               483 d8e6af47a2ba1ba0a0c8e1d6a0e0ce9ffc3f2f
                2 archivos            528 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\11
 
-11/02/2026  09:40 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  10:28 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  09:40 a.ÿm.                99 3854e5b2b635c23b15aa6e3f9f63af180e9f1b
+12/02/2026  10:28 a.ÿm.             2.104 b88f2c8ac62468e092cda4fed1a8dfef89dc6c
 11/02/2026  08:11 a.ÿm.               307 e5369f261769abd9312ecd29bc6d551abe176c
-               2 archivos            406 bytes
+               3 archivos          2.510 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\14
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             1.109 1da552eb0cb075d4022ac68fdf61302dd04c53
+12/02/2026  07:46 a.ÿm.               551 ca5b9d0737783b8f2f14ed7318a80b914b6b07
+               2 archivos          1.660 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\16
 
 07/02/2026  10:33 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  10:33 p.ÿm.               524 80961c72762fa587c13cdaac5e131b58e68f3a
                1 archivos            524 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\18
+
+12/02/2026  01:44 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             4.156 6fe9fe47ab7843e1929015cd083a209a36c309
+12/02/2026  01:44 p.ÿm.               150 dcdf7a867dafe27a8a388ebbadc1e60dcb778f
+               2 archivos          4.306 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\1c
+
+12/02/2026  10:23 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  10:23 a.ÿm.               166 a290216c86f24cf099cc6843ec83f1879bfd5a
+               1 archivos            166 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\1d
+
+12/02/2026  10:23 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  10:23 a.ÿm.               275 6854a6ad25a56a35c0589d4a33df6c143124c9
+               1 archivos            275 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\1e
 
 07/02/2026  07:02 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:11 a.ÿm.             1.012 be5f89ed4045c3a6859729bea3d7cfb97e8c77
                1 archivos          1.012 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\1f
 
-11/02/2026  08:14 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:14 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:14 a.ÿm.               219 48d45bb5ceef19228632e108293b5477da7a19
-               1 archivos            219 bytes
+12/02/2026  09:14 a.ÿm.               188 64584f8b202496207bd4497cd465e1db2ecd2a
+               2 archivos            407 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\20
+
+12/02/2026  12:00 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  12:00 p.ÿm.               179 44a8ec32337c2d4723d5120faec5ae43799c29
+               1 archivos            179 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\21
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               787 2a11f13562def0b3e9d21cc4ac921ae95708f0
+               1 archivos            787 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\22
+
+12/02/2026  09:34 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:34 a.ÿm.                83 479315152b28d4470b2f739da296156917e21b
+               1 archivos             83 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\23
 
 10/02/2026  10:37 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:16 a.ÿm.             2.507 c9914a2c52d58bf6123a4ae5c0e2bfb02b0231
                1 archivos          2.507 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\24
 
 11/02/2026  09:40 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  09:40 a.ÿm.               167 3ed7c992609bb32215db6c1999b7839d87985c
 11/02/2026  09:04 a.ÿm.               242 fb8690cc6b3ede09029028f8b800f26bf7213c
                2 archivos            409 bytes
 
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\28
+
+13/02/2026  06:53 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.               209 cd89eaaab0ff61211acacaa60068b8c40357eb
+12/02/2026  09:13 a.ÿm.             1.163 f044894f44a651d6d185ff40f3f5a2da483bcf
+               2 archivos          1.372 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\29
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               899 5a47f95cb257fd3cb2e4f44011934a3db4f157
+               1 archivos            899 bytes
+
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\2b
 
-11/02/2026  09:04 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  09:04 a.ÿm.                54 69e82d29e9cd52af79e429cdb1e8f93547bf87
-               1 archivos             54 bytes
+12/02/2026  09:13 a.ÿm.            54.015 b3578c7e0d9672767bb38b16c9e4e4945bb5c8
+               2 archivos         54.069 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\2d
 
 11/02/2026  09:04 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 08/02/2026  10:08 a.ÿm.               115 6166d308704cfd778cf54e213ae2bc6494ed48
 11/02/2026  09:04 a.ÿm.             1.405 851931234564915f05e21f5f72de924b52d304
 11/02/2026  08:16 a.ÿm.             2.995 bcaba4fc24ee4a148e5506b4fada2f9cf4f782
@@ -301,565 +523,890 @@
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\2e
 
 11/02/2026  08:11 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:11 a.ÿm.               719 a75ace5aefc73db12dc9c4d5defee26c2ee8f2
                1 archivos            719 bytes
 
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\2f
+
+13/02/2026  06:53 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               152 d6feeafea742003ea9778239cd216b334d7554
+13/02/2026  06:53 a.ÿm.               166 e6c0674085c5e98e62ceaf00d364adf4428271
+               2 archivos            318 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\32
+
+12/02/2026  10:28 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  10:28 a.ÿm.             1.031 08c4e43e114e6527424dc9bda1e883df069d32
+12/02/2026  09:14 a.ÿm.               127 346e6035c482449d9ab2858f09ff8676786516
+12/02/2026  09:13 a.ÿm.             1.422 7dfbafaf259a9f7a129e5fa3add6a69ac7065e
+               3 archivos          2.580 bytes
+
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\33
 
-11/02/2026  09:40 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  12:00 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  09:40 a.ÿm.                57 1202765db6dec86276d5b9962cc8e79abfcb2c
+12/02/2026  10:28 a.ÿm.                98 14dbc18a52bbc46a67f94516e17736ff02954b
 11/02/2026  08:11 a.ÿm.             1.333 521eacf583d5dcb0c8b1d4473c5b1693b7ef35
+12/02/2026  09:13 a.ÿm.             1.347 9ee5753b7fc4080508e8acd300a7e6b797b784
 07/02/2026  07:02 p.ÿm.               760 cfd25bedb8faec889b193ce3eeb3d4d00e4d32
-               3 archivos          2.150 bytes
+12/02/2026  12:00 p.ÿm.               167 dd65b72f138f1a459e0492c7cf90908009006d
+               6 archivos          3.762 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\34
 
-11/02/2026  09:04 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               731 684855a5da7e7b7e53bb840bf64fd178aa57ef
 07/02/2026  07:02 p.ÿm.               451 e083f0754aeae7fc3da5361c52fada891c3153
 11/02/2026  09:04 a.ÿm.               208 f6b443fc4d45af1f11c8ad6903cf75c15468e7
-               2 archivos            659 bytes
+               3 archivos          1.390 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\35
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             1.131 b3320a16b73ad186e92c756ef849c242b92dea
+12/02/2026  09:13 a.ÿm.               816 e4e7000e987e87619b52d167dbab731adc20cc
+               2 archivos          1.947 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\36
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               731 94f344ab58a0a8f802b7880797854a2b67aa41
+               1 archivos            731 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\38
 
 11/02/2026  08:11 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:11 a.ÿm.             3.738 56c7564f797aa997c2c321255a4af983035338
                1 archivos          3.738 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\39
 
 07/02/2026  07:02 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  07:02 p.ÿm.               217 f876d85e35c33d96f07e3dd5b7a1f7e6085a90
                1 archivos            217 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\3a
 
-07/02/2026  07:02 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               193 63a1dac0332533f00e75d6f14f64dfe9dba795
 07/02/2026  07:02 p.ÿm.               658 8c99b720d4a5bd23ead2b7c49ee0214c305986
-               1 archivos            658 bytes
+               2 archivos            851 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\3b
 
 07/02/2026  10:33 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:11 a.ÿm.               495 afac445a589dc1e9562f8923104c464549e699
                1 archivos            495 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\3c
 
-08/02/2026  11:36 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  12:00 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             1.096 45bc1c35b5df8e98b537913d6b1698e27b171e
 08/02/2026  11:36 a.ÿm.                54 51286d2bc185227d64ee749eb4be01d88908a4
-               1 archivos             54 bytes
+12/02/2026  12:00 p.ÿm.               208 ed673826ab6f6923c2fe2304243312b73f8770
+               3 archivos          1.358 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\3d
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               987 ea055bbc28be71b11112f208c3de8a7df3128e
+               1 archivos            987 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\3e
 
-08/02/2026  11:36 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             1.105 00c25963274b4a67c2d22ba60e7f6df900443b
 08/02/2026  11:36 a.ÿm.               167 38db529cfbfd427cc8c58c8bc3c8d40ef746f0
-               1 archivos            167 bytes
+               2 archivos          1.272 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\3f
 
-07/02/2026  10:33 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  01:44 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  07:02 p.ÿm.               144 3151ce01d9fb76c52a7cf99e43dcf9a3a5aee1
+12/02/2026  09:13 a.ÿm.               737 3ab3760916280824084bcff39a3778d7372282
+12/02/2026  01:44 p.ÿm.               208 4f026333b5e3ed11998101ff4e3ada0b3381d0
 07/02/2026  10:33 p.ÿm.                97 a88f05ca10f63926feb181b25e86536712bc5b
-               2 archivos            241 bytes
+12/02/2026  09:34 a.ÿm.             2.011 d301dec815c16c786a43e27e0f64d89c27a01d
+               5 archivos          3.197 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\40
 
-11/02/2026  09:04 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  10:23 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  09:04 a.ÿm.               118 01814b5d760dbda814cb027fe91f7b1dbfe392
 08/02/2026  10:08 a.ÿm.               242 5f732b2a107f82c8bfe6521980af9a20c7eb30
-               2 archivos            360 bytes
+12/02/2026  10:23 a.ÿm.             2.088 f660500285d5f53817ca1b24eb2108cafe8662
+               3 archivos          2.448 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\41
 
-11/02/2026  09:40 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  11:59 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  07:02 p.ÿm.               350 280d1d1c6612df23c74a277af7c9697146abab
+12/02/2026  11:59 a.ÿm.               230 9c924e3f1dae0db291759febc17f158a770aae
 11/02/2026  09:40 a.ÿm.               274 cc97173dbef4ee5e9efb6aef05be79f5f71166
-               2 archivos            624 bytes
+12/02/2026  07:47 a.ÿm.               218 e82f607d7e39337ee7b7d84238f4ffc7573ea9
+               4 archivos          1.072 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\42
 
 11/02/2026  08:14 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:14 a.ÿm.                50 5b4df76b3ee9869c7a47b143cb62a1465fc598
                1 archivos             50 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\43
 
 08/02/2026  10:08 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 08/02/2026  10:08 a.ÿm.               116 c78d1861e96dfd386319dfb00a4e56cf52c61d
                1 archivos            116 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\45
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               977 bef9155386fa0009f5f2f1f9dbe2d67a7bb7bb
+               1 archivos            977 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\46
 
 11/02/2026  09:04 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  09:04 a.ÿm.             2.937 029f2a07e883ab051dc895a5b8917189c86c3b
                1 archivos          2.937 bytes
 
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\47
+
+12/02/2026  09:34 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             1.396 3651080410de5f1557b5070497e45f5b1a1adf
+12/02/2026  09:34 a.ÿm.               167 b2bc57d1a2c7f082a8d758b4a86f68be305f0b
+               2 archivos          1.563 bytes
+
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\48
 
-07/02/2026  10:33 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:34 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  10:33 p.ÿm.                71 39f6e9a45f5a873aa553f11386e0d7c418628b
-               1 archivos             71 bytes
+12/02/2026  09:34 a.ÿm.               274 ad9b0adf7ffa2c7f9c707a578a9f8341b60ba9
+               2 archivos            345 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\49
 
-07/02/2026  07:02 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  07:47 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  07:47 a.ÿm.               167 df4b40c346c54aecb507ece43a8068950244d9
 07/02/2026  07:02 p.ÿm.               420 fc293d1ed4d53e8007eb7163a16af27aabcdb2
-               1 archivos            420 bytes
+               2 archivos            587 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\4c
+
+12/02/2026  01:44 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  01:44 p.ÿm.               218 4819566f0d120dcb48fceca8d88ce7a348261b
+               1 archivos            218 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\4d
 
-11/02/2026  08:11 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               538 894ec49934dbdb8a3e279e179a04bc8227cbca
+12/02/2026  09:13 a.ÿm.                96 c1aa18d3b99b1bdf2dd02b6e516af3b7c1f588
 11/02/2026  08:11 a.ÿm.             2.514 dadfe68b79090d5eab9332e997cf8021c1a102
-               1 archivos          2.514 bytes
+               3 archivos          3.148 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\4e
 
 11/02/2026  09:04 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  10:33 p.ÿm.               926 5fc8418c7ab72bd2cdface2224b86f6276cde4
 11/02/2026  09:04 a.ÿm.               166 b009701ea9a6cbbf525e7d5aca9137d7ebd61c
                2 archivos          1.092 bytes
 
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\4f
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               705 115b1c5818240b787d058245495094dc795704
+12/02/2026  09:13 a.ÿm.             3.068 34026dfa6310767529d0763f92c990894b1a3a
+12/02/2026  09:13 a.ÿm.               555 bd73cb0e972491a06f8c2eaf202166c1005ab0
+               3 archivos          4.328 bytes
+
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\50
 
 11/02/2026  09:39 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  07:02 p.ÿm.                89 75c75bb74064375489ea2936ec3042f5221327
 11/02/2026  09:39 a.ÿm.               521 af442bbd1a1933cfe5caff19c16250952d693d
                2 archivos            610 bytes
 
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\51
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             1.065 fe403b40b51ca97784f06b3994bb1817a5dac0
+               1 archivos          1.065 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\52
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             1.100 39865a6f8b4c95e968432b1f30aff55878e165
+               1 archivos          1.100 bytes
+
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\53
 
 11/02/2026  08:11 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:11 a.ÿm.             1.638 0f890fee47497ce924ac16193714e8852a6578
                1 archivos          1.638 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\54
 
 11/02/2026  08:14 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:14 a.ÿm.               202 a60e7d5ffc53ed41720d21b688ebac05389527
                1 archivos            202 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\55
 
-07/02/2026  07:02 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:14 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               758 2167ef62c18d2fc0ae764e51462767488734cf
+12/02/2026  09:14 a.ÿm.               208 64e76d9655c52db538017909e0206675a50c38
+12/02/2026  09:13 a.ÿm.            16.849 9b52c45e8f8a34259260184098bf06a8301c21
 11/02/2026  08:11 a.ÿm.             1.092 d9562a2addbfb673a3dbcf7cba6002f5c7962c
-               1 archivos          1.092 bytes
+               4 archivos         18.907 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\56
 
 11/02/2026  09:39 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  09:39 a.ÿm.             1.196 9d1607307e1e6d7b8ddab03569818628182b59
                1 archivos          1.196 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\58
 
-11/02/2026  09:39 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  10:28 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  10:28 a.ÿm.             2.219 5ffbcad4414222dbe2183232006c482ae6ddc6
 11/02/2026  09:39 a.ÿm.               733 999cf318637fac2bbbb01ea361188e0f10ce4d
-               1 archivos            733 bytes
+               2 archivos          2.952 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\5a
 
-11/02/2026  09:40 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  10:23 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 08/02/2026  10:08 a.ÿm.                58 7dfb856c3616cbcee5c8f34d7cb31273adc827
+12/02/2026  10:23 a.ÿm.               153 af1ab1fa65e8ee5c34972d1c50c6f243a69a93
 11/02/2026  09:40 a.ÿm.               219 dd3feea1469f09af76d1918ea60609df012024
-               2 archivos            277 bytes
+               3 archivos            430 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\5b
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  07:47 a.ÿm.               160 61876b870b0907ca4317c8896eb5a192fd40de
+12/02/2026  09:13 a.ÿm.             2.274 f6abc8fc16466b0f5a1f949743914f8c7f99f1
+               2 archivos          2.434 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\5c
 
 08/02/2026  11:36 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 08/02/2026  11:36 a.ÿm.               144 8df13c3e0baab06588ef7e5ee5764aee4ca642
                1 archivos            144 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\5e
 
 11/02/2026  08:14 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:14 a.ÿm.               128 1912a0ab49d0ef4263f8bcbaf0f24b2317bc0a
                1 archivos            128 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\60
+
+12/02/2026  09:14 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:14 a.ÿm.             3.758 9aa6eccdbdfae7ac42a397355d7cf751bbe88c
+               1 archivos          3.758 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\61
 
 07/02/2026  07:02 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  07:02 p.ÿm.                54 880595de31ac9a1f2816915f33537c15a44178
 07/02/2026  03:33 p.ÿm.               126 abe2f318ea4653a064b23c533fc213b3d6bd60
                2 archivos            180 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\62
 
-11/02/2026  08:11 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:11 a.ÿm.             2.609 126d0239bcaf6e266983caadb4798db1bf328a
+12/02/2026  09:13 a.ÿm.               783 138329acba6e8e11974987a82c80fa9f1057b4
 11/02/2026  08:11 a.ÿm.            27.069 272c739d5a74ac56273c58bfdb1189416243d4
-               2 archivos         29.678 bytes
+               3 archivos         30.461 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\63
 
-07/02/2026  07:02 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:11 a.ÿm.               348 0fc796c2cf30b4555890b934dc371055ff67ff
-               1 archivos            348 bytes
+12/02/2026  09:13 a.ÿm.             1.228 d0ffd674e575971c23d6900b676e12db862bde
+               2 archivos          1.576 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\64
 
-11/02/2026  08:11 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  12:00 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:11 a.ÿm.             1.026 13516fe6d7620f2467a9e94081491a700ffc04
-               1 archivos          1.026 bytes
+12/02/2026  12:00 p.ÿm.               193 49bfce8e9e2c15fbc63e9932a4b9d62f438404
+               2 archivos          1.219 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\65
+
+12/02/2026  01:44 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:34 a.ÿm.               152 2bd98ee4adb31b282a8c9cfed6949501760e53
+12/02/2026  01:44 p.ÿm.               210 a447f19de1ae7603de0fef597edee7ca13bf87
+               2 archivos            362 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\66
 
 11/02/2026  08:14 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:14 a.ÿm.               106 5ffba77ffcfbf43bbeaac2a2e5a3f0df1d4d51
                1 archivos            106 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\67
 
-07/02/2026  10:33 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  10:33 p.ÿm.                53 5d00cd83d3a3f28568f893702d5543e2b35a7c
-               1 archivos             53 bytes
+12/02/2026  09:13 a.ÿm.               721 9b18cf9f1ff637a8fad62ef1f4feffe51a1268
+               2 archivos            774 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\68
 
-07/02/2026  10:33 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  10:28 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:11 a.ÿm.               962 813650250e47bba19138dd0d4fa1272564de15
 07/02/2026  10:33 p.ÿm.               166 b36a1a1c5e26615999cf96f805ce11424aa7c9
-               2 archivos          1.128 bytes
+12/02/2026  10:28 a.ÿm.               152 b7906e24f7efdfc829bc15594cac5186c63f76
+               3 archivos          1.280 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\69
 
 07/02/2026  07:02 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:11 a.ÿm.               454 6210e4a9e661ca77c833bd2a53240ce7f2ca45
                1 archivos            454 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\6b
 
-11/02/2026  09:04 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  07:46 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  07:46 a.ÿm.               616 3d8986f7455de7ce5f0e1196daf0806f73a910
 11/02/2026  09:04 a.ÿm.             1.954 ff6cb872ab3daa8d94b3e9616356f5aac15227
-               1 archivos          1.954 bytes
+               2 archivos          2.570 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\6c
 
-11/02/2026  09:39 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  12:00 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  09:39 a.ÿm.               788 1514c98c288a3712b1ccc897c4553f1258cfd3
-               1 archivos            788 bytes
+12/02/2026  10:23 a.ÿm.                83 212373ccc7e200c891ea8fb77aea238a638f33
+12/02/2026  12:00 p.ÿm.               275 afe0efdac69a7eb77a42779e1b5c3420480d33
+               3 archivos          1.146 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\6d
 
-11/02/2026  09:39 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               693 1e6373901cf01fd79a0299b771cb37be72a3a7
 11/02/2026  09:39 a.ÿm.               451 d4bd3c4cbb1fc9a19a0666b3d23fb7a9e182f9
-               1 archivos            451 bytes
+               2 archivos          1.144 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\6e
 
 08/02/2026  10:06 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 08/02/2026  10:06 a.ÿm.             1.110 10fae8b7695ccb1de53a513b95c6f1b4f960d1
 07/02/2026  07:02 p.ÿm.               219 a0afb0596058e558ea8b95531b715dfc3bbc44
                2 archivos          1.329 bytes
 
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\6f
+
+12/02/2026  10:23 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  10:23 a.ÿm.               208 cf70b1c55d8e728138cee89a663933632fb481
+               1 archivos            208 bytes
+
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\70
 
-07/02/2026  07:02 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             2.223 58c1f05e22b4dbf802ca3b2cdd2681b353ff88
 11/02/2026  08:11 a.ÿm.               274 adf3d7f39669dc7f73605da61fbca7df55b62e
-               1 archivos            274 bytes
+               2 archivos          2.497 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\71
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               721 db338343fbc967958d7909c3a2c9af9e89c918
+               1 archivos            721 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\72
 
 08/02/2026  11:36 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 08/02/2026  11:36 a.ÿm.               191 a471a1677b934cbe67ffadfa4746038f10fa4c
                1 archivos            191 bytes
 
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\73
+
+12/02/2026  01:44 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  01:44 p.ÿm.               217 f76e8b50625dad81e3abe6cc91714d0a6e190b
+               1 archivos            217 bytes
+
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\74
 
-08/02/2026  10:08 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  01:44 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 08/02/2026  10:08 a.ÿm.               153 c5d9cbcdc2d15fcbc54a035ab7b28c85ce7a17
-               1 archivos            153 bytes
+12/02/2026  01:44 p.ÿm.               219 f262b4e2f51ace3a7e9a1c90919d2318e5540d
+               2 archivos            372 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\77
 
 08/02/2026  10:08 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 08/02/2026  10:08 a.ÿm.               166 0dffba1e66825ba75d71cddee42ca64e46dc86
                1 archivos            166 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\78
 
-10/02/2026  10:39 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  01:44 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 10/02/2026  10:39 p.ÿm.               195 6f2d38b596db82df3f8749c1def617196b8d55
-               1 archivos            195 bytes
+12/02/2026  01:44 p.ÿm.               275 ae2d127d5353ea98acc122562add3b84df0ae0
+               2 archivos            470 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\79
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             1.022 a6802679a95d2d061445fe0df88abefa8dbe36
+               1 archivos          1.022 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\7a
 
 08/02/2026  10:08 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:14 a.ÿm.                54 8660880cb846f710ef74ea1042bc3de4742a68
                1 archivos             54 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\7e
 
 07/02/2026  10:33 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:11 a.ÿm.             1.215 53b9bee2cdd3af058522474d49273aa47d5205
                1 archivos          1.215 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\80
+
+12/02/2026  09:34 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             1.402 13f37c4dff3ba4fab3645bc175049f2aa085c0
+12/02/2026  09:34 a.ÿm.                98 35f9c9421011c1ab27f6e20d6efbd47f49672d
+               2 archivos          1.500 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\82
 
 11/02/2026  09:04 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  09:04 a.ÿm.                99 0af7787429e1d46c016495e09f1be781954c36
                1 archivos             99 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\83
+
+13/02/2026  06:53 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.               876 248f781540a777dab93678b52e69dfd3624833
+12/02/2026  10:23 a.ÿm.             2.139 82bd602a3e66d2a6e757e9d3db32ef7bb32c0f
+               2 archivos          3.015 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\84
 
 07/02/2026  10:33 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  10:33 p.ÿm.                84 5413c14836450fb17b48b06faa545e8cc0fa34
 07/02/2026  07:02 p.ÿm.               381 be4d74603d60857231a7b75fe9c9965eb7ccad
                2 archivos            465 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\85
 
-08/02/2026  10:06 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.               549 3f1a17fcd5eaecd815673988a365c53da481b3
 11/02/2026  08:11 a.ÿm.               680 8f429d55a09985825544b5347b9cb190b56994
-               1 archivos            680 bytes
+               2 archivos          1.229 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\86
 
-08/02/2026  11:36 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:34 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 08/02/2026  11:36 a.ÿm.               129 36296fc716b1c98e31b81d91b96d699cb1935a
-               1 archivos            129 bytes
+12/02/2026  09:34 a.ÿm.               160 aaaae7e903a30b1cab00f2c1cc7a26e2075835
+               2 archivos            289 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\88
 
-07/02/2026  10:33 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  10:33 p.ÿm.               459 3c5e7eda130f492fe96771cf1ee310a0a57702
-               1 archivos            459 bytes
+13/02/2026  06:53 a.ÿm.               275 4fe3ec760b6fdf6e51f8756c5b0245caabec4e
+12/02/2026  09:34 a.ÿm.             1.164 ceb82883469d2a0f49215112b890289bf73c43
+               3 archivos          1.898 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\89
 
 11/02/2026  09:04 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  03:34 p.ÿm.                54 20138babdd133187f5f7509316e0bef2060ad5
 11/02/2026  09:04 a.ÿm.                58 e9a0658e6f97b593e721b139b97f6d70c0576c
                2 archivos            112 bytes
 
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\8a
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               740 94f6a0445ecdc1f793da2f59f2c9ac2673d946
+               1 archivos            740 bytes
+
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\8c
 
-07/02/2026  07:02 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  07:02 p.ÿm.               212 4c254b2fc880d0d19fd99969851986256d0821
-               1 archivos            212 bytes
+12/02/2026  09:13 a.ÿm.               827 97dd947c643319dbba4755eec276f5b222de90
+               2 archivos          1.039 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\8e
 
-11/02/2026  09:40 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  01:44 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  09:40 a.ÿm.               192 045e14a559df56d01e51d3a3996c4cc9c48dce
-               1 archivos            192 bytes
+12/02/2026  01:44 p.ÿm.             1.049 d665d77ec41c4108f9a0e5320a21ffb0726103
+               2 archivos          1.241 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\8f
 
 11/02/2026  08:11 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:11 a.ÿm.             1.867 2b510d66ec352b1cc35c2737da5132da05b41f
                1 archivos          1.867 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\92
 
-07/02/2026  07:02 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  01:44 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:11 a.ÿm.               400 d4d4944e4ae9c3865069e6fd2909dd8875755b
-               1 archivos            400 bytes
+12/02/2026  01:44 p.ÿm.             1.095 e14f57f35879d5f6d45d259458de5cb74dec61
+               2 archivos          1.495 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\93
 
-11/02/2026  08:11 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             2.568 42b9c757f346f2e7d06415b5b2e9214c7dfb7f
 08/02/2026  10:06 a.ÿm.             1.018 5ba9d579e94302c913b0293b220c4fd68b5bb4
 11/02/2026  08:11 a.ÿm.               532 8f0b68ebb069d19d82e7eb0e4ea0a2430a3629
-               2 archivos          1.550 bytes
+12/02/2026  09:13 a.ÿm.               753 addc9e335ca1676831cf6741b84b01b69ffbd7
+               4 archivos          4.871 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\95
 
 08/02/2026  10:08 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 08/02/2026  10:08 a.ÿm.               144 73442a7c27f242e4b6aadc18a315a6e2ce3960
                1 archivos            144 bytes
 
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\96
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               208 3cf9bd892dbc9465ac4daef53d0aa79bdb87c9
+               1 archivos            208 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\97
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               160 2a64dc2911344c6cfe62ecbf03b5406fc94887
+               1 archivos            160 bytes
+
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\98
 
-11/02/2026  08:16 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:11 a.ÿm.             1.010 44a405ddb88865bb27c28b74234050fcb9cc05
 11/02/2026  08:16 a.ÿm.               180 554a126d2e2058e24fb63ed0ef8e6499892ce7
-               2 archivos          1.190 bytes
+12/02/2026  09:13 a.ÿm.               687 72c1921947e336c82987b6fd7625ae2ca2737d
+               3 archivos          1.877 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\9a
+
+12/02/2026  01:44 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  01:44 p.ÿm.               229 1f6e27d5e27a00240b538a3659a7c2a7ca816a
+               1 archivos            229 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\9b
 
 11/02/2026  08:14 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:14 a.ÿm.                54 27c831a1d6e526b4df6a7b94e357250efb0c98
                1 archivos             54 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\9d
 
-08/02/2026  10:08 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  12:00 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 08/02/2026  10:08 a.ÿm.                71 2ec9505018edb13ad1aacca39adbd4c02f54cd
-               1 archivos             71 bytes
+12/02/2026  12:00 p.ÿm.               178 bfa5ebc8846fcb619133f40c4ae9a7056abfc0
+               2 archivos            249 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\9e
 
-08/02/2026  10:08 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               901 92ddaaf793ed2dd64d4eea6b1fe563bb880a1e
 08/02/2026  10:08 a.ÿm.               219 bb42c63c2187538a26b334499353a24772920d
-               1 archivos            219 bytes
+               2 archivos          1.120 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\9f
 
 07/02/2026  07:02 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  07:02 p.ÿm.               615 4b383c14a2e3bf24e44ec11b9a690a771d37b9
                1 archivos            615 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\a0
 
-11/02/2026  09:40 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  11:59 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  09:40 a.ÿm.               152 14809258018362c1d7e3561198f9750f255691
-               1 archivos            152 bytes
+12/02/2026  11:59 a.ÿm.             1.230 9facde90b51a978e5b09db21b0a216128475ba
+               2 archivos          1.382 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\a1
 
 07/02/2026  07:02 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  07:02 p.ÿm.               166 bf1521a7098e80a30a0647ba9408e28ebf27e8
                1 archivos            166 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\a3
 
-07/02/2026  10:33 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  11:59 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  11:59 a.ÿm.               721 493d7eecd0a2944d5300eeaee48e7c92bf5e1b
 07/02/2026  10:33 p.ÿm.                85 c382681e91232434fb9d4ef3223fee04846ceb
 11/02/2026  08:11 a.ÿm.               566 d5ec1ba9577753fc5088f78960e754d8e7524f
-               2 archivos            651 bytes
+               3 archivos          1.372 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\a4
+
+12/02/2026  12:00 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  12:00 p.ÿm.               195 72d6d039e47e50ef3e1ddab0b4401415b2ff2a
+               1 archivos            195 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\a5
 
 07/02/2026  07:02 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  07:02 p.ÿm.                58 746a2b09c05165d8c27bad0d6d1602298ae8fd
                1 archivos             58 bytes
 
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\a6
+
+12/02/2026  10:28 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  10:28 a.ÿm.               147 381aaf9ea03bdf180a3109632c2ecce0574a3a
+12/02/2026  09:13 a.ÿm.               993 87e0ddb6f266cd0778ee124f1b47d7103f845b
+12/02/2026  09:13 a.ÿm.             1.134 d582d83340f512fab76e76ce7d75daaa5249e0
+               3 archivos          2.274 bytes
+
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\a7
 
-08/02/2026  11:36 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 08/02/2026  11:36 a.ÿm.             1.255 d58a5074dadfd01ff8f3314105755e0b04a9a5
-               1 archivos          1.255 bytes
+12/02/2026  09:13 a.ÿm.             1.443 e958860c5a146de15f68be2bec98335887d92f
+               2 archivos          2.698 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\a8
 
-11/02/2026  09:40 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.                21 907c025d5fa57971ede25ae0ccb5135b00f35e
 11/02/2026  09:40 a.ÿm.               208 94f3bd23fb5c7de4b53180008c903b012a3148
-               1 archivos            208 bytes
+12/02/2026  07:47 a.ÿm.               208 fde5dc48cd486d7c78e27faa6f5cb962a617d5
+               3 archivos            437 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\ac
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               275 bddc23f9177bb6068e0108f0366ca7c7b9a101
+               1 archivos            275 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\ad
+
+13/02/2026  06:53 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.                99 fa4fc525ada3f18a0945ec6e54ed8bbfb3b2a4
+               1 archivos             99 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\ae
 
 08/02/2026  10:08 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 08/02/2026  10:08 a.ÿm.                54 80f79b3dc3863d0a6103d725d1cfd2e0cbe878
                1 archivos             54 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\af
 
 08/02/2026  10:06 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 08/02/2026  10:06 a.ÿm.               487 8f911ce2e193d23bb2cf7e02a927427bedaac3
 07/02/2026  10:33 p.ÿm.               212 d8fb39a1aeefc3ea15b329b278eb8f8e78ec21
                2 archivos            699 bytes
 
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\b0
+
+13/02/2026  06:53 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.               607 3116a187f3c57a0df550dbb8558631cddc2863
+               1 archivos            607 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\b1
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               751 23aa5fc06a3b96148f6ac48ceba79cb78a189a
+12/02/2026  07:47 a.ÿm.               275 d1cbf8f5ccd035d36e8df38e6d26c65ff2ac0e
+               2 archivos          1.026 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\b2
+
+12/02/2026  01:44 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  01:44 p.ÿm.             1.982 c959f9ab84aac75d6288c3ad73bcc51fc7ada7
+               1 archivos          1.982 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\b3
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               706 0f0520142c18ae24df23a8f20034b05a848c3d
+               1 archivos            706 bytes
+
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\b5
 
 07/02/2026  10:33 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  10:33 p.ÿm.               741 e64c80ae1b65ba5b1ce85190eea50163f37b77
                1 archivos            741 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\b6
 
 10/02/2026  10:39 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 10/02/2026  10:39 p.ÿm.               183 91f4f49d37f2eb88241c7bcc77ba20802f4b65
                1 archivos            183 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\b7
 
 08/02/2026  10:06 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 08/02/2026  10:06 a.ÿm.               783 e02496481fac4219e29f9e322319b11597dde9
                1 archivos            783 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\b8
+
+13/02/2026  06:53 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.               152 423ee1b350a7afeb8a5a7e396aa748136bb5ef
+13/02/2026  06:53 a.ÿm.               248 4a9383d0731e4f4e7bc956634a4dd8d13bd821
+12/02/2026  10:28 a.ÿm.                83 8e878a9ef7c2fcaa44a9fddd6ec3c48fc6b196
+               3 archivos            483 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\b9
 
 07/02/2026  07:02 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  07:02 p.ÿm.                97 61b103e75e6c8d821f6c7abf16b8d182363ab9
                1 archivos             97 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\ba
+
+13/02/2026  06:53 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.               258 9c8b2141049fec9346850db67c2eb020b54b0e
+               1 archivos            258 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\bb
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               923 05d2d92397eab9e99807011fd1c75cabc82314
+12/02/2026  09:13 a.ÿm.             1.176 9c4c03c41f0b763a85524606c3881d887234f4
+12/02/2026  09:13 a.ÿm.            10.143 a0450276482ebddbe5d42dc601c4949fb12ecc
+               3 archivos         12.242 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\bc
+
+12/02/2026  01:44 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  12:00 p.ÿm.               116 2a46d8da2ca2025f7f8dc0b043a38b208c66f3
+12/02/2026  09:13 a.ÿm.             1.478 a1bdc5c74b71c42677f126a0f8554e83d77d23
+12/02/2026  09:13 a.ÿm.               219 d35370441dd46f1421f96e84c4a2b871bd1575
+12/02/2026  01:44 p.ÿm.               644 f028419359445c2f7543cd3689856126c1cd32
+               4 archivos          2.457 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\be
 
 11/02/2026  08:14 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:14 a.ÿm.                98 55c95e55f64c129e630b212ba131f005a63826
                1 archivos             98 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\c1
 
 08/02/2026  10:06 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:11 a.ÿm.               174 ce516db6d72fe3453a5bfb9fbb92d35f7f56c2
 11/02/2026  08:11 a.ÿm.               808 e0dc7113b0b353fd99db3700ed28995679f37e
                2 archivos            982 bytes
@@ -867,122 +1414,265 @@
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\c2
 
 11/02/2026  08:14 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:14 a.ÿm.               166 3ea5c1354197e0c92cc1e1f6f3555025e75b43
                1 archivos            166 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\c4
 
-11/02/2026  08:16 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  10:23 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 08/02/2026  11:36 a.ÿm.             3.087 169f6ad306b6a53f3d008018ff8cf243900dda
 11/02/2026  08:16 a.ÿm.               101 1ad5804c3d7699cc67befd4ce57e43cd14837a
+12/02/2026  09:13 a.ÿm.               902 1f675dfd1e82f186f6e6266c416a5dd98e0517
+12/02/2026  10:23 a.ÿm.             1.055 1fa31b7f7391e264cf8e4a20708d72a95857ae
+12/02/2026  10:23 a.ÿm.               192 878cf2fe0608239fd8d4cb9193ace04b3d8319
 11/02/2026  08:11 a.ÿm.               787 cfd5af84d22ee2c75a59fc27ce68e2e0e31c94
-               3 archivos          3.975 bytes
+               6 archivos          6.124 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\c5
 
-08/02/2026  11:36 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             1.518 3fbbfabac0178d028700fc29d151472f8f219f
 08/02/2026  11:36 a.ÿm.                58 acd6c585c25bfc1be34610c54bfbe75765cde1
-               1 archivos             58 bytes
+               2 archivos          1.576 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\c7
+
+12/02/2026  12:00 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  12:00 p.ÿm.               219 98ad71858257947c2dfa6286144aabd5f1d0ca
+               1 archivos            219 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\c8
+
+12/02/2026  07:46 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  07:46 a.ÿm.             4.684 1499374bc95604dd86a19919c9f72302271984
+               1 archivos          4.684 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\c9
 
 08/02/2026  11:36 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 08/02/2026  11:36 a.ÿm.               219 2e8980364427fcf2bc9033a53cd3a66dff4bf7
 11/02/2026  08:11 a.ÿm.               438 c814929639877fc088a7f1af6fd8ba22f16703
                2 archivos            657 bytes
 
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\ca
+
+13/02/2026  06:53 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             2.821 284ee21645059528d619f26281c0bf02573454
+13/02/2026  06:53 a.ÿm.               219 88c31d27a6326f4db44d47d08d5eaa0f88c2ae
+12/02/2026  09:13 a.ÿm.               725 cb6c37e5ae5a386928b613c542308c7985e3db
+               3 archivos          3.765 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\cb
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             1.181 b3622a09e1d4deb1ba3754c4b9fa95e3b3b383
+12/02/2026  09:13 a.ÿm.               820 da1a1296c4271ea9c819facc7c252e5c05f2a0
+               2 archivos          2.001 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\cc
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.                83 678d9f38dcf8e4e3abf924b6d39f6ef24c690b
+               1 archivos             83 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\cd
+
+12/02/2026  10:28 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  10:28 a.ÿm.               207 f1f5bd3527162c0f30bf9435eaa92cf9ff6f64
+               1 archivos            207 bytes
+
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\ce
 
 07/02/2026  07:02 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  07:02 p.ÿm.                71 4743c52437aac9632d892e0776deb077640432
                1 archivos             71 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\cf
 
-11/02/2026  09:04 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  11:59 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  09:04 a.ÿm.                49 08f1b5ceefa28ccadc2fd9c517944751643856
+12/02/2026  09:13 a.ÿm.               968 3bda69f29ca64fa3ac66c9dde1fd132d69aebc
+12/02/2026  11:59 a.ÿm.             1.190 f25ec11e25a57ab46568a696e4413dc7f67b0c
 08/02/2026  11:36 a.ÿm.             1.340 f69d6062e2dca58f1fe141a0b788d956fe02f3
-               2 archivos          1.389 bytes
+               4 archivos          3.547 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\d0
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             1.355 1869cec8ce81d3efb403c16f3ed11132381a81
+               1 archivos          1.355 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\d1
 
-08/02/2026  10:06 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.               701 5bed1c8340853210fd4661108f2aebaf660397
 08/02/2026  10:06 a.ÿm.               458 c5ab2db691b4b9acfedcebae6da7e9b1914098
-               1 archivos            458 bytes
+               2 archivos          1.159 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\d2
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             1.456 856e057ba4c344ea98ef8344f0859a6d3b5239
+               1 archivos          1.456 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\d4
 
-11/02/2026  09:39 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  10:28 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  10:28 a.ÿm.               160 999127d92634556387702d262e48e335ad0aa0
 11/02/2026  09:39 a.ÿm.               925 b937390ebb5ac83ebf76eee676ca28200d2ed4
 11/02/2026  08:14 a.ÿm.               242 ff3faca1ccba225f51fa310409f33d54f2c9c6
-               2 archivos          1.167 bytes
+               3 archivos          1.327 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\d5
+
+12/02/2026  12:00 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  12:00 p.ÿm.                99 6492a130f988487a4eb71bc38cbedb17ab7e65
+               1 archivos             99 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\d6
 
-07/02/2026  07:02 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  07:02 p.ÿm.               795 50da3763e391f1bf88c4a89e08cb473bdb5b8b
-               1 archivos            795 bytes
+12/02/2026  09:13 a.ÿm.               803 5576e2d47399e282b81aa777c8ca2ff8e1980a
+               2 archivos          1.598 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\d7
+
+12/02/2026  01:44 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  01:44 p.ÿm.               152 0983e1c8be60b64379ebcec871cbc7c313736a
+12/02/2026  01:44 p.ÿm.                98 7e0ffe474aeae827cf71b0ee5e0c0f08244f5a
+               2 archivos            250 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\d8
 
-08/02/2026  10:08 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.               194 73d59c695c532ac0d31681d79d1d12adf10600
 08/02/2026  10:08 a.ÿm.               173 e06d16619ea5ed4712c844cead8a5824f7906a
 11/02/2026  08:14 a.ÿm.                57 eefde1c24e32bc144e096ea3c8a68b0e746986
-               2 archivos            230 bytes
+               3 archivos            424 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\da
 
 11/02/2026  08:14 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:14 a.ÿm.               115 02b74eee67b4ea98faff86504eabf693518f03
 11/02/2026  08:14 a.ÿm.               152 8d197f7055315e2abbe8553682f9d17d2420c2
                2 archivos            267 bytes
 
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\dc
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             1.304 e502aa02f447b267bb87a8d7b3567eae1e9d45
+               1 archivos          1.304 bytes
+
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\de
 
-11/02/2026  09:40 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  11:59 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  09:40 a.ÿm.               160 09236bce8a90ff67ed4e3f98b18108a62c7da5
-               1 archivos            160 bytes
+12/02/2026  11:59 a.ÿm.             2.770 3337ac68b52dd1ce29bee2af5e6ed87e7a2737
+               2 archivos          2.930 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\df
 
-11/02/2026  09:39 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             1.134 8ff272145c4fe1f45861b14df1e23e58ad465a
 11/02/2026  09:39 a.ÿm.               555 c6b09c3447ae199f043623246353f8a0546cbb
 11/02/2026  09:04 a.ÿm.             1.151 dc23427d8ac37d32e5e654b47dac0f30937d41
-               2 archivos          1.706 bytes
+               3 archivos          2.840 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\e0
+
+12/02/2026  09:34 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:34 a.ÿm.             1.618 8593e6953104a2c09112522fe292654220a5f8
+12/02/2026  07:46 a.ÿm.               806 94ad2574e75daff4a845a2c44a08bc42c0e097
+               2 archivos          2.424 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\e2
+
+13/02/2026  06:53 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.               154 a1846266b050bc747b819fa08b5cc396d5c40a
+               1 archivos            154 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\e3
 
 11/02/2026  09:04 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  09:04 a.ÿm.               152 0afe0707363ede3a9d707831e8a0532d8c68ab
 07/02/2026  07:02 p.ÿm.             1.335 9c381907f77be04e75e525b88d82a8f42bdd73
 11/02/2026  08:11 a.ÿm.               615 ac82cc49dc68fa93ce079fee097f908f44f5fe
                3 archivos          2.102 bytes
 
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\e4
+
+12/02/2026  11:59 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  11:59 a.ÿm.             1.404 35e24101d8f27e4c76db5af2db0b859d7d6a61
+               1 archivos          1.404 bytes
+
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\e6
 
-08/02/2026  11:36 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             1.178 a3d85ef62dd2ece7f6719b224411526244426e
+12/02/2026  09:13 a.ÿm.               755 b58b0dbe522cd2678a503272190f0c88b921ae
 08/02/2026  11:36 a.ÿm.               242 e9441dac55bea67e9792a478db396d4cfb60f9
-               1 archivos            242 bytes
+               3 archivos          2.175 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\e7
+
+13/02/2026  06:53 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  10:28 a.ÿm.               208 3f1bf8e8a3d4a65afc212b34ebc7485f64b1e0
+12/02/2026  09:13 a.ÿm.               766 70a1a265f8e6f1c775e68e07ba3f1c1f9b3271
+12/02/2026  09:34 a.ÿm.               146 90d973f379da5d7d0311260572828cf0d81a54
+12/02/2026  01:44 p.ÿm.               385 a626e24e3db2efeafb9bf05786531e997daabd
+13/02/2026  06:53 a.ÿm.             4.979 d97d1e4d934f14a3c419bc35d3b8a221c1d43e
+12/02/2026  09:13 a.ÿm.               768 e59d2b67a4a149ad5e2e3606664871d5223dcd
+               6 archivos          7.252 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\e8
+
+12/02/2026  09:34 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:34 a.ÿm.               208 662766d134692f163b7cf5fd012c13d68c8f9b
+               1 archivos            208 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\ea
+
+13/02/2026  06:53 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.               180 cad7a24e00c9c2869193ad640865be6f15c270
+               1 archivos            180 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\eb
 
 11/02/2026  08:14 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:14 a.ÿm.                57 1c799a05123b6c976de404cc5d4155059353d6
 07/02/2026  07:02 p.ÿm.                54 a17b9f8e0e362837d43b0da983f3f541e8508f
 11/02/2026  08:14 a.ÿm.               114 cf4477fb38fd6d5fb8fc5c893c2a8bff1c166a
@@ -991,7 +1681,7 @@
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\ec
 
 08/02/2026  10:06 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 08/02/2026  10:06 a.ÿm.             2.528 882da29248582877200bb0e844c598b4134d58
 11/02/2026  08:11 a.ÿm.               799 d5575867dc5b240d9f44dbc28cd080a1821b6a
                2 archivos          3.327 bytes
@@ -999,72 +1689,109 @@
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\ee
 
 11/02/2026  08:16 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:16 a.ÿm.               208 904414c96588f0223ab124aa562aae7ce62365
 07/02/2026  10:33 p.ÿm.               143 f7dfeb63136692ac94af615deea4f6a3389e6f
                2 archivos            351 bytes
 
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\ef
+
+13/02/2026  06:53 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.             1.292 190aa1feb8ef1e23963e36adcc3c2e4b43bac6
+12/02/2026  09:13 a.ÿm.               146 5b2df3bfdc81eec24330bda23f80f3d933831a
+               2 archivos          1.438 bytes
+
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\f1
 
-11/02/2026  09:40 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  09:40 a.ÿm.                54 432bbc6d31a852126e6538d77bb12b2a5954b2
-               1 archivos             54 bytes
+12/02/2026  09:13 a.ÿm.            10.848 66cc57b2783565bc48e8999103c572fca4c0e4
+12/02/2026  07:47 a.ÿm.               186 843c7c1c078b8ad342e9cf04233f25f2afa9e4
+               3 archivos         11.088 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\f2
 
-08/02/2026  10:06 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  10:23 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  10:23 a.ÿm.                98 94bcf990ea9fbf90692504c187d9ccea7483f6
 08/02/2026  10:06 a.ÿm.             1.406 e1d2a9a519d14bbcd70370f560395bd42c8ada
-               1 archivos          1.406 bytes
+               2 archivos          1.504 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\f4
+
+12/02/2026  09:13 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:13 a.ÿm.             7.049 36668626837f103027cd5b18064c633bda501f
+               1 archivos          7.049 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\f5
 
 07/02/2026  07:02 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:14 a.ÿm.                62 54c2af94f7fe0a007166efa0f796b23fa52534
                1 archivos             62 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\f6
 
 11/02/2026  08:14 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  07:02 p.ÿm.               426 1328e660b0ba2704f073ed19960d87d0e395b1
 11/02/2026  08:14 a.ÿm.               232 ba9f08986ead1062515c67bb2af97390d3dc1b
                2 archivos            658 bytes
 
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\f7
+
+13/02/2026  06:53 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.             1.844 65477b69e135d3e9b6b7609666e1c84cb18f64
+12/02/2026  09:13 a.ÿm.               873 95580a143e0d3dc66db51bf24cd9f783c0766b
+13/02/2026  06:53 a.ÿm.               249 e4fdee131b26b545d01ac2ae31d36881f86ec4
+               3 archivos          2.966 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\f8
+
+13/02/2026  06:53 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
+12/02/2026  09:34 a.ÿm.               193 5c653b9d354127867dd1725c08c236ea7a4c78
+13/02/2026  06:53 a.ÿm.               664 6e2e854054c3666839c8ddeb5fbebe27f77794
+               2 archivos            857 bytes
+
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\f9
 
 07/02/2026  07:02 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:14 a.ÿm.                53 fe500fea4d5f70ee924eb713e13e87d85f4921
                1 archivos             53 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\fa
 
 08/02/2026  10:08 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 08/02/2026  10:08 a.ÿm.               129 68ad8f1d1d646fbeec7259e94a2d24cef58ba5
                1 archivos            129 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\fc
 
-07/02/2026  07:02 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  07:47 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 07/02/2026  07:02 p.ÿm.               121 46e336cc9518cc1b290222902b3753efc35221
-               1 archivos            121 bytes
+12/02/2026  07:47 a.ÿm.                83 515340f74da1e08dc02545c5ea6d771d9b7404
+               2 archivos            204 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\fd
 
-11/02/2026  08:11 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+12/02/2026  12:00 p.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  09:04 a.ÿm.             6.917 7737c69cfa05958b274a01cecaebbc0ee01ada
-               1 archivos          6.917 bytes
+12/02/2026  12:00 p.ÿm.               152 a03adca5610a86a77657fcc4a91f67d187e21a
+               2 archivos          7.069 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\fe
 
 11/02/2026  09:40 a.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
 11/02/2026  08:11 a.ÿm.             1.949 166611334c4e568168c4750588253535f7edc5
 11/02/2026  09:40 a.ÿm.               148 db64b66b5b99ea9382984304f9ac7f6c858ea7
 11/02/2026  09:04 a.ÿm.               197 ff03bf63494b4c8e9cc4134c592b86ca40106d
@@ -1073,42 +1800,42 @@
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\info
 
 07/02/2026  03:33 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
                0 archivos              0 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\pack
 
 07/02/2026  03:33 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          ..
                0 archivos              0 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\refs
 
 07/02/2026  07:17 p.ÿm.    <DIR>          .
-11/02/2026  09:40 a.ÿm.    <DIR>          heads
+13/02/2026  06:53 a.ÿm.    <DIR>          heads
 07/02/2026  07:17 p.ÿm.    <DIR>          remotes
 07/02/2026  03:33 p.ÿm.    <DIR>          tags
                0 archivos              0 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\refs\heads
 
-11/02/2026  09:40 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          .
 07/02/2026  07:17 p.ÿm.    <DIR>          ..
-11/02/2026  09:40 a.ÿm.                41 main
+13/02/2026  06:53 a.ÿm.                41 main
                1 archivos             41 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\refs\remotes
 
 07/02/2026  07:17 p.ÿm.    <DIR>          .
 07/02/2026  07:17 p.ÿm.    <DIR>          ..
-11/02/2026  09:40 a.ÿm.    <DIR>          origin
+13/02/2026  06:53 a.ÿm.    <DIR>          origin
                0 archivos              0 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\refs\remotes\origin
 
-11/02/2026  09:40 a.ÿm.    <DIR>          .
+13/02/2026  06:53 a.ÿm.    <DIR>          .
 07/02/2026  07:17 p.ÿm.    <DIR>          ..
-11/02/2026  09:40 a.ÿm.                41 main
+13/02/2026  06:53 a.ÿm.                41 main
                1 archivos             41 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\refs\tags
@@ -1119,60 +1846,71 @@
 
  Directorio de C:\xampp\htdocs\diplomatic\app
 
-11/02/2026  01:12 a.ÿm.    <DIR>          .
-11/02/2026  08:16 a.ÿm.    <DIR>          ..
+13/02/2026  07:02 a.ÿm.    <DIR>          .
+12/02/2026  08:19 a.ÿm.    <DIR>          ..
 11/02/2026  01:12 a.ÿm.    <DIR>          config
-11/02/2026  09:10 a.ÿm.    <DIR>          controllers
-11/02/2026  01:12 a.ÿm.    <DIR>          core
+13/02/2026  06:36 a.ÿm.    <DIR>          controllers
+12/02/2026  08:19 a.ÿm.    <DIR>          core
 11/02/2026  01:12 a.ÿm.    <DIR>          models
+13/02/2026  07:02 a.ÿm.    <DIR>          services
 11/02/2026  09:10 a.ÿm.    <DIR>          views
                0 archivos              0 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\app\config
 
 11/02/2026  01:12 a.ÿm.    <DIR>          .
-11/02/2026  01:12 a.ÿm.    <DIR>          ..
+13/02/2026  07:02 a.ÿm.    <DIR>          ..
 11/02/2026  01:12 a.ÿm.               618 database.php
                1 archivos            618 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\app\controllers
 
-11/02/2026  09:10 a.ÿm.    <DIR>          .
-11/02/2026  01:12 a.ÿm.    <DIR>          ..
+13/02/2026  06:36 a.ÿm.    <DIR>          .
+13/02/2026  07:02 a.ÿm.    <DIR>          ..
 11/02/2026  09:38 a.ÿm.             1.651 AuthController.php
 11/02/2026  01:12 a.ÿm.               603 DashboardController.php
-11/02/2026  09:32 a.ÿm.               885 SettingsController.php
+12/02/2026  11:55 a.ÿm.             3.313 SettingsCompanyController.php
+12/02/2026  10:38 a.ÿm.             7.871 SettingsController.php
+13/02/2026  06:59 a.ÿm.             1.388 SettingsEventsController.php
+12/02/2026  01:28 p.ÿm.             2.552 SettingsWhatsappController.php
 11/02/2026  09:00 a.ÿm.             3.660 UsersController.php
-               4 archivos          6.799 bytes
+               7 archivos         21.038 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\app\core
 
-11/02/2026  01:12 a.ÿm.    <DIR>          .
-11/02/2026  01:12 a.ÿm.    <DIR>          ..
+12/02/2026  08:19 a.ÿm.    <DIR>          .
+13/02/2026  07:02 a.ÿm.    <DIR>          ..
 11/02/2026  01:12 a.ÿm.             2.093 Autoload.php
-11/02/2026  09:39 a.ÿm.             1.244 Bootstrap.php
+13/02/2026  06:37 a.ÿm.             2.136 Bootstrap.php
 11/02/2026  01:12 a.ÿm.               713 Controller.php
 11/02/2026  01:12 a.ÿm.             1.877 Database.php
 11/02/2026  01:12 a.ÿm.             1.769 Router.php
 11/02/2026  01:12 a.ÿm.             1.042 View.php
-               6 archivos          8.738 bytes
+               6 archivos          9.630 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\app\models
 
 11/02/2026  01:12 a.ÿm.    <DIR>          .
-11/02/2026  01:12 a.ÿm.    <DIR>          ..
+13/02/2026  07:02 a.ÿm.    <DIR>          ..
 11/02/2026  09:38 a.ÿm.             2.886 UserModel.php
                1 archivos          2.886 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\services
+
+13/02/2026  07:02 a.ÿm.    <DIR>          .
+13/02/2026  07:02 a.ÿm.    <DIR>          ..
+13/02/2026  07:02 a.ÿm.             4.187 AuditService.php
+               1 archivos          4.187 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\app\views
 
 11/02/2026  09:10 a.ÿm.    <DIR>          .
-11/02/2026  01:12 a.ÿm.    <DIR>          ..
+13/02/2026  07:02 a.ÿm.    <DIR>          ..
 11/02/2026  01:12 a.ÿm.    <DIR>          auth
 11/02/2026  01:12 a.ÿm.    <DIR>          dashboard
 11/02/2026  01:12 a.ÿm.               487 index.php
 11/02/2026  01:12 a.ÿm.             1.573 layout.php
-11/02/2026  09:10 a.ÿm.    <DIR>          settings
+13/02/2026  06:36 a.ÿm.    <DIR>          settings
 11/02/2026  09:21 a.ÿm.             2.422 sidebar.php
 11/02/2026  01:12 a.ÿm.             3.122 topnav.php
 11/02/2026  01:12 a.ÿm.    <DIR>          users
@@ -1194,10 +1932,14 @@
 
  Directorio de C:\xampp\htdocs\diplomatic\app\views\settings
 
-11/02/2026  09:10 a.ÿm.    <DIR>          .
+13/02/2026  06:36 a.ÿm.    <DIR>          .
 11/02/2026  09:10 a.ÿm.    <DIR>          ..
-11/02/2026  09:24 a.ÿm.             2.152 index.php
-               1 archivos          2.152 bytes
+12/02/2026  11:52 a.ÿm.             5.318 empresa.php
+13/02/2026  06:59 a.ÿm.             1.803 eventos.php
+13/02/2026  06:36 a.ÿm.             5.208 index.php
+12/02/2026  10:26 a.ÿm.             6.537 mail.php
+12/02/2026  01:28 p.ÿm.             5.871 whatsapp.php
+               5 archivos         24.737 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\app\views\users
 
@@ -1208,16 +1950,18 @@
 
  Directorio de C:\xampp\htdocs\diplomatic\db
 
-11/02/2026  08:16 a.ÿm.    <DIR>          .
-11/02/2026  08:16 a.ÿm.    <DIR>          ..
+13/02/2026  06:53 a.ÿm.    <DIR>          .
+12/02/2026  08:19 a.ÿm.    <DIR>          ..
 11/02/2026  01:12 a.ÿm.            12.210 db_diplomatic_20260210.sql
 11/02/2026  08:15 a.ÿm.            12.926 db_diplomatic_20260211-1.sql
-               2 archivos         25.136 bytes
+12/02/2026  09:13 a.ÿm.            15.925 db_diplomatic_20260212-1.sql
+13/02/2026  06:52 a.ÿm.            22.025 db_diplomatic_20260213-1.sql
+               4 archivos         63.086 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\public
 
 11/02/2026  01:12 a.ÿm.    <DIR>          .
-11/02/2026  08:16 a.ÿm.    <DIR>          ..
+12/02/2026  08:19 a.ÿm.    <DIR>          ..
 11/02/2026  01:12 a.ÿm.               229 .htaccess
 11/02/2026  07:50 a.ÿm.    <DIR>          assets
 11/02/2026  01:12 a.ÿm.               373 index.php
@@ -1228,20 +1972,23 @@
 
 11/02/2026  07:50 a.ÿm.    <DIR>          .
 11/02/2026  01:12 a.ÿm.    <DIR>          ..
-11/02/2026  09:12 a.ÿm.    <DIR>          css
+13/02/2026  06:37 a.ÿm.    <DIR>          css
 11/02/2026  07:50 a.ÿm.    <DIR>          img
-11/02/2026  01:12 a.ÿm.    <DIR>          js
+13/02/2026  06:38 a.ÿm.    <DIR>          js
                0 archivos              0 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\public\assets\css
 
-11/02/2026  09:12 a.ÿm.    <DIR>          .
+13/02/2026  06:37 a.ÿm.    <DIR>          .
 11/02/2026  07:50 a.ÿm.    <DIR>          ..
 11/02/2026  01:12 a.ÿm.             1.155 access.css
+12/02/2026  11:52 a.ÿm.               316 company.css
+13/02/2026  06:45 a.ÿm.             1.199 events.css
 11/02/2026  01:12 a.ÿm.             3.117 panel.css
 11/02/2026  09:21 a.ÿm.               838 settings.css
 11/02/2026  08:01 a.ÿm.             1.417 users.css
-               4 archivos          6.527 bytes
+12/02/2026  01:29 p.ÿm.               822 whatsapp_manual.css
+               7 archivos          8.864 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\public\assets\img
 
@@ -1264,20 +2011,117 @@
 
  Directorio de C:\xampp\htdocs\diplomatic\public\assets\js
 
-11/02/2026  01:12 a.ÿm.    <DIR>          .
+13/02/2026  06:38 a.ÿm.    <DIR>          .
 11/02/2026  07:50 a.ÿm.    <DIR>          ..
 11/02/2026  01:12 a.ÿm.             2.119 access.js
+12/02/2026  11:52 a.ÿm.             1.463 company.js
+13/02/2026  07:00 a.ÿm.               924 events.js
 11/02/2026  01:12 a.ÿm.             1.100 panel.js
+12/02/2026  10:26 a.ÿm.             2.588 settings.js
 11/02/2026  08:55 a.ÿm.             5.972 users.js
-               3 archivos          9.191 bytes
+12/02/2026  01:28 p.ÿm.             2.419 whatsapp_manual.js
+               7 archivos         16.585 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\tools
 
-11/02/2026  01:12 a.ÿm.    <DIR>          .
-11/02/2026  08:16 a.ÿm.    <DIR>          ..
+12/02/2026  08:10 a.ÿm.    <DIR>          .
+12/02/2026  08:19 a.ÿm.    <DIR>          ..
 11/02/2026  01:12 a.ÿm.             2.125 generate_hash.php
+12/02/2026  08:13 a.ÿm.    <DIR>          phpmailer
                1 archivos          2.125 bytes
 
+ Directorio de C:\xampp\htdocs\diplomatic\tools\phpmailer
+
+12/02/2026  08:13 a.ÿm.    <DIR>          .
+12/02/2026  08:10 a.ÿm.    <DIR>          ..
+05/02/2026  06:19 p.ÿm.             2.092 COMMITMENT
+05/02/2026  06:19 p.ÿm.             3.016 composer.json
+05/02/2026  06:19 p.ÿm.             6.883 DSNConfigurator.php
+05/02/2026  06:19 p.ÿm.             1.256 Exception.php
+05/02/2026  06:19 p.ÿm.             6.304 get_oauth_token.php
+05/02/2026  06:19 p.ÿm.    <DIR>          language
+05/02/2026  06:19 p.ÿm.            26.529 LICENSE
+05/02/2026  06:19 p.ÿm.             3.791 OAuth.php
+05/02/2026  06:19 p.ÿm.             1.538 OAuthTokenProvider.php
+05/02/2026  06:19 p.ÿm.           194.030 PHPMailer.php
+05/02/2026  06:19 p.ÿm.            12.452 POP3.php
+05/02/2026  06:19 p.ÿm.            16.831 README.md
+05/02/2026  06:19 p.ÿm.             7.585 SECURITY.md
+05/02/2026  06:19 p.ÿm.            53.628 SMTP.php
+05/02/2026  06:19 p.ÿm.             5.915 SMTPUTF8.md
+12/02/2026  08:13 a.ÿm.    <DIR>          src
+05/02/2026  06:19 p.ÿm.                 6 VERSION
+              15 archivos        341.856 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\phpmailer\language
+
+05/02/2026  06:19 p.ÿm.    <DIR>          .
+12/02/2026  08:13 a.ÿm.    <DIR>          ..
+05/02/2026  06:19 p.ÿm.             1.584 phpmailer.lang-af.php
+05/02/2026  06:19 p.ÿm.             2.024 phpmailer.lang-ar.php
+05/02/2026  06:19 p.ÿm.             3.792 phpmailer.lang-as.php
+05/02/2026  06:19 p.ÿm.             1.749 phpmailer.lang-az.php
+05/02/2026  06:19 p.ÿm.             1.745 phpmailer.lang-ba.php
+05/02/2026  06:19 p.ÿm.             2.178 phpmailer.lang-be.php
+05/02/2026  06:19 p.ÿm.             2.196 phpmailer.lang-bg.php
+05/02/2026  06:19 p.ÿm.             3.845 phpmailer.lang-bn.php
+05/02/2026  06:19 p.ÿm.             1.730 phpmailer.lang-ca.php
+05/02/2026  06:19 p.ÿm.             1.798 phpmailer.lang-cs.php
+05/02/2026  06:19 p.ÿm.             2.752 phpmailer.lang-da.php
+05/02/2026  06:19 p.ÿm.             1.886 phpmailer.lang-de.php
+05/02/2026  06:19 p.ÿm.             3.307 phpmailer.lang-el.php
+05/02/2026  06:19 p.ÿm.             2.766 phpmailer.lang-eo.php
+05/02/2026  06:19 p.ÿm.             2.831 phpmailer.lang-es.php
+05/02/2026  06:19 p.ÿm.             1.744 phpmailer.lang-et.php
+05/02/2026  06:19 p.ÿm.             2.079 phpmailer.lang-fa.php
+05/02/2026  06:19 p.ÿm.             1.659 phpmailer.lang-fi.php
+05/02/2026  06:19 p.ÿm.             1.637 phpmailer.lang-fo.php
+05/02/2026  06:19 p.ÿm.             2.732 phpmailer.lang-fr.php
+05/02/2026  06:19 p.ÿm.             1.742 phpmailer.lang-gl.php
+05/02/2026  06:19 p.ÿm.             1.812 phpmailer.lang-he.php
+05/02/2026  06:19 p.ÿm.             3.768 phpmailer.lang-hi.php
+05/02/2026  06:19 p.ÿm.             1.754 phpmailer.lang-hr.php
+05/02/2026  06:19 p.ÿm.             1.717 phpmailer.lang-hu.php
+05/02/2026  06:19 p.ÿm.             2.185 phpmailer.lang-hy.php
+05/02/2026  06:19 p.ÿm.             1.997 phpmailer.lang-id.php
+05/02/2026  06:19 p.ÿm.             1.819 phpmailer.lang-it.php
+05/02/2026  06:19 p.ÿm.             2.934 phpmailer.lang-ja.php
+05/02/2026  06:19 p.ÿm.             2.884 phpmailer.lang-ka.php
+05/02/2026  06:19 p.ÿm.             1.771 phpmailer.lang-ko.php
+05/02/2026  06:19 p.ÿm.             2.238 phpmailer.lang-ku.php
+05/02/2026  06:19 p.ÿm.             1.627 phpmailer.lang-lt.php
+05/02/2026  06:19 p.ÿm.             1.643 phpmailer.lang-lv.php
+05/02/2026  06:19 p.ÿm.             1.782 phpmailer.lang-mg.php
+05/02/2026  06:19 p.ÿm.             2.186 phpmailer.lang-mn.php
+05/02/2026  06:19 p.ÿm.             1.734 phpmailer.lang-ms.php
+05/02/2026  06:19 p.ÿm.             2.697 phpmailer.lang-nb.php
+05/02/2026  06:19 p.ÿm.             2.801 phpmailer.lang-nl.php
+05/02/2026  06:19 p.ÿm.             2.676 phpmailer.lang-pl.php
+05/02/2026  06:19 p.ÿm.             2.465 phpmailer.lang-pt.php
+05/02/2026  06:19 p.ÿm.             2.719 phpmailer.lang-pt_br.php
+05/02/2026  06:19 p.ÿm.             2.448 phpmailer.lang-ro.php
+05/02/2026  06:19 p.ÿm.             3.297 phpmailer.lang-ru.php
+05/02/2026  06:19 p.ÿm.             3.425 phpmailer.lang-si.php
+05/02/2026  06:19 p.ÿm.             1.909 phpmailer.lang-sk.php
+05/02/2026  06:19 p.ÿm.             2.577 phpmailer.lang-sl.php
+05/02/2026  06:19 p.ÿm.             2.301 phpmailer.lang-sr.php
+05/02/2026  06:19 p.ÿm.             1.814 phpmailer.lang-sr_latn.php
+05/02/2026  06:19 p.ÿm.             1.610 phpmailer.lang-sv.php
+05/02/2026  06:19 p.ÿm.             1.721 phpmailer.lang-tl.php
+05/02/2026  06:19 p.ÿm.             2.606 phpmailer.lang-tr.php
+05/02/2026  06:19 p.ÿm.             2.282 phpmailer.lang-uk.php
+05/02/2026  06:19 p.ÿm.             2.265 phpmailer.lang-ur.php
+05/02/2026  06:19 p.ÿm.             1.793 phpmailer.lang-vi.php
+05/02/2026  06:19 p.ÿm.             1.669 phpmailer.lang-zh.php
+05/02/2026  06:19 p.ÿm.             2.333 phpmailer.lang-zh_cn.php
+              57 archivos        129.035 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\phpmailer\src
+
+12/02/2026  08:13 a.ÿm.    <DIR>          .
+12/02/2026  08:13 a.ÿm.    <DIR>          ..
+               0 archivos              0 bytes
+
      Total de archivos en la lista:
-             228 archivos        327.831 bytes
-             445 dirs  176.676.974.592 bytes libres
+             513 archivos      1.148.944 bytes
+             684 dirs  175.132.266.496 bytes libres

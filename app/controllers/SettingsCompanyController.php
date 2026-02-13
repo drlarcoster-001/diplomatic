@@ -1,8 +1,8 @@
 <?php
 /**
- * MÓDULO - app/controllers/SettingsCompanyController.php
- * Controlador de gestión de identidad institucional.
- * Administra Razón Social, ID Fiscal, Representante Legal y Contactos.
+ * MODULE - app/controllers/SettingsCompanyController.php
+ * Institutional Identity Management Controller.
+ * Integrated with AuditService for data traceability.
  */
 
 declare(strict_types=1);
@@ -11,6 +11,7 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Core\Database;
+use App\Services\AuditService; // IMPORTANTE: Notario del sistema
 use PDO;
 
 final class SettingsCompanyController extends Controller
@@ -23,8 +24,19 @@ final class SettingsCompanyController extends Controller
         $this->db = (new Database())->getConnection();
     }
 
+    /**
+     * Display Company Settings and Log Access.
+     */
     public function index(): void
     {
+        // Registro de Acceso en la Auditoría
+        AuditService::log([
+            'module'      => 'SETTINGS_COMPANY',
+            'action'      => 'ACCESS',
+            'description' => 'User accessed the institutional identity profile',
+            'event_type'  => 'NORMAL' // Color Verde en consola
+        ]);
+
         $stmt = $this->db->query("SELECT * FROM tbl_company_settings LIMIT 1");
         $empresa = $stmt->fetch(PDO::FETCH_ASSOC) ?: [];
 
@@ -34,12 +46,20 @@ final class SettingsCompanyController extends Controller
         ]);
     }
 
+    /**
+     * Save/Update Company Settings and Log Changes.
+     */
     public function save(): void
     {
         if (ob_get_length()) ob_clean();
         header('Content-Type: application/json');
+        
         try {
-            // Forzamos el ID 1 para mantener un registro único de la empresa
+            // 1. CAPTURAMOS ESTADO ANTERIOR (Auditoría Profunda)
+            $beforeStmt = $this->db->query("SELECT * FROM tbl_company_settings WHERE id = 1");
+            $dataBefore = $beforeStmt->fetch(PDO::FETCH_ASSOC) ?: [];
+
+            // 2. EJECUTAMOS LA ACTUALIZACIÓN
             $sql = "INSERT INTO tbl_company_settings 
                     (id, nombre_legal, nombre_comercial, id_fiscal, direccion, telefono, email, sitio_web, representante, cargo_rep, tel_rep) 
                     VALUES (1, :n_legal, :n_com, :id_f, :dir, :tel, :email, :web, :rep, :cargo, :tel_r)
@@ -72,8 +92,30 @@ final class SettingsCompanyController extends Controller
                 ':u_tel_r' => $_POST['tel_rep'] ?? ''
             ]);
 
+            // 3. REGISTRAMOS LA ACTUALIZACIÓN CON DATA ANTES/DESPUÉS
+            AuditService::log([
+                'module'       => 'SETTINGS_COMPANY',
+                'action'       => 'UPDATE',
+                'description'  => 'Updated legal and commercial identity information',
+                'entity'       => 'tbl_company_settings',
+                'entity_id'    => 1,
+                'db_action'    => 'UPDATE',
+                'data_before'  => $dataBefore, // Estado previo
+                'data_after'   => $_POST,      // Nuevo estado enviado
+                'event_type'   => 'WARNING'    // Color Amarillo en consola
+            ]);
+
             echo json_encode(['ok' => true, 'msg' => 'Información actualizada correctamente']);
+
         } catch (\Throwable $e) {
+            // Registro de Error en Auditoría
+            AuditService::log([
+                'module'      => 'SETTINGS_COMPANY',
+                'action'      => 'ERROR',
+                'description' => 'System error during company settings update: ' . $e->getMessage(),
+                'event_type'  => 'ERROR' // Color Rojo en consola
+            ]);
+            
             echo json_encode(['ok' => false, 'msg' => 'Error SQL: ' . $e->getMessage()]);
         }
         exit;

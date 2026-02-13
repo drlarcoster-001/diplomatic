@@ -14,6 +14,8 @@ use App\Controllers\DashboardController;
 use App\Controllers\UsersController;
 use App\Controllers\SettingsController;
 use App\Controllers\SettingsWhatsappController;
+use App\Controllers\SettingsCompanyController;
+use App\Controllers\SettingsEventsController;
 
 final class Bootstrap
 {
@@ -29,18 +31,24 @@ final class Bootstrap
     // -- RUTAS DEL PANEL --
     $router->get('/dashboard', [DashboardController::class, 'index']);
     
-    // -- RUTAS DE CONFIGURACIÓN (Corregidas y completadas) --
+    // -- RUTAS DE CONFIGURACIÓN --
     $router->get('/settings', [SettingsController::class, 'index']);
     $router->get('/settings/correo', [SettingsController::class, 'correo']);
     $router->post('/settings/save-correo', [SettingsController::class, 'saveCorreo']);
     $router->post('/settings/test-correo', [SettingsController::class, 'testCorreo']);
-    $router->get('/settings/empresa', [\App\Controllers\SettingsCompanyController::class, 'index']);
-    $router->post('/settings/empresa/save', [\App\Controllers\SettingsCompanyController::class, 'save']);
-    $router->get('/settings/whatsapp', [\App\Controllers\SettingsWhatsappController::class, 'index']);
-    $router->post('/settings/whatsapp/save-template', [\App\Controllers\SettingsWhatsappController::class, 'saveTemplate']);
-    $router->post('/settings/whatsapp/log', [\App\Controllers\SettingsWhatsappController::class, 'logSend']);
-    $router->get('/settings/eventos', [\App\Controllers\SettingsEventsController::class, 'index']);
-
+    
+    // Empresa
+    $router->get('/settings/empresa', [SettingsCompanyController::class, 'index']);
+    $router->post('/settings/empresa/save', [SettingsCompanyController::class, 'save']);
+    
+    // WhatsApp (Verificadas e intactas)
+    $router->get('/settings/whatsapp', [SettingsWhatsappController::class, 'index']);
+    $router->post('/settings/whatsapp/save-template', [SettingsWhatsappController::class, 'saveTemplate']);
+    $router->post('/settings/whatsapp/log', [SettingsWhatsappController::class, 'logSend']);
+    
+    // Consola de Auditoría (Eventos)
+    $router->get('/settings/eventos', [SettingsEventsController::class, 'index']);
+    $router->get('/settings/eventos/filter', [SettingsEventsController::class, 'filter']);
 
     // -- RUTAS DE USUARIOS --
     $router->get('/users', [UsersController::class, 'index']);
