@@ -39,6 +39,7 @@ final class Bootstrap
     $router->get('/settings/whatsapp', [\App\Controllers\SettingsWhatsappController::class, 'index']);
     $router->post('/settings/whatsapp/save-template', [\App\Controllers\SettingsWhatsappController::class, 'saveTemplate']);
     $router->post('/settings/whatsapp/log', [\App\Controllers\SettingsWhatsappController::class, 'logSend']);
+    $router->get('/settings/eventos', [\App\Controllers\SettingsEventsController::class, 'index']);
 
 
     // -- RUTAS DE USUARIOS --

@@ -78,6 +78,19 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
                 <p class="text-muted small">Respaldos y optimización.</p>
             </div>
         </div>
+
+        <div class="col-md-6 col-lg-4">
+            <a href="<?= htmlspecialchars($basePath) ?>/settings/eventos" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item">
+                    <div class="bg-dark bg-opacity-10 text-dark p-3 rounded-circle mx-auto mb-3" style="width: fit-content;">
+                        <i class="bi bi-terminal-fill fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold">Eventos y Auditoría</h5>
+                    <p class="text-muted small">Logs de actividad, trazabilidad y seguridad del sistema.</p>
+                </div>
+            </a>
+        </div>
+
     </div>
 </div>
 
