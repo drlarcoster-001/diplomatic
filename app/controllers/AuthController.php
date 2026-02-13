@@ -2,7 +2,7 @@
 /**
  * MODULE: USERS, ROLES & ACCESS
  * File: app/controllers/AuthController.php
- * Updated: Integrated with AuditService for real-time monitoring.
+ * Propósito: Gestión de acceso con auditoría de intentos fallidos y éxitos.
  */
 
 declare(strict_types=1);
@@ -11,12 +11,13 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Models\UserModel;
-use App\Services\AuditService; // IMPORTANTE: Importación del servicio de auditoría
+use App\Services\AuditService;
 
 final class AuthController extends Controller
 {
     public function showLogin(): void
     {
+        if (session_status() === PHP_SESSION_NONE) session_start();
         if (!empty($_SESSION['user']['id'])) {
             $this->redirect('/dashboard');
         }
@@ -25,29 +26,31 @@ final class AuthController extends Controller
 
     public function doLogin(): void
     {
+        if (session_status() === PHP_SESSION_NONE) session_start();
+
         $email = (string)($_POST['email'] ?? '');
         $password = (string)($_POST['password'] ?? '');
 
         $model = new UserModel();
         $result = $model->verifyLogin($email, $password);
 
-        // --- CASO 1: FALLO DE AUTENTICACIÓN (ALERTA DE SEGURIDAD) ---
+        // --- CASO 1: FALLO DE AUTENTICACIÓN ---
         if (!$result['ok']) {
             AuditService::log([
-                'module'            => 'AUTH',
-                'action'            => 'LOGIN_FAILED',
-                'description'       => 'Unauthorized login attempt for email: ' . $email . '. Reason: ' . ($result['message'] ?? 'Invalid credentials'),
-                'event_type'        => 'SECURITY', // Aparecerá en ROJO en la consola
-                'is_failed_attempt' => 1           // Marca el evento como crítico en tbl_audit_logs
+                'module'      => 'AUTH',
+                'action'      => 'LOGIN_FAILED',
+                'description' => 'Intento fallido para el correo: ' . $email . '. Motivo: ' . ($result['message'] ?? 'Credenciales inválidas'),
+                'event_type'  => 'SECURITY' // Rojo en consola
             ]);
 
             $_SESSION['error'] = $result['message'];
             $this->redirect('/');
+            return;
         }
 
         $u = $result['user'];
 
-        // GUARDAMOS LOS DATOS REALES EN LA SESIÓN
+        // GUARDAMOS LA SESIÓN PRIMERO
         $_SESSION['user'] = [
             'id'        => $u['id'],
             'name'      => trim($u['first_name'] . ' ' . $u['last_name']),
@@ -57,12 +60,13 @@ final class AuthController extends Controller
             'status'    => $u['status'],
         ];
 
-        // --- CASO 2: LOGIN EXITOSO (EVENTO NORMAL) ---
+        // --- CASO 2: LOGIN EXITOSO ---
+        // Al estar ya la sesión guardada, el log capturará correctamente el user_id
         AuditService::log([
             'module'      => 'AUTH',
             'action'      => 'LOGIN',
-            'description' => 'User session started successfully for: ' . $_SESSION['user']['name'],
-            'event_type'  => 'NORMAL' // Aparecerá en VERDE/AZUL en la consola
+            'description' => 'Inicio de sesión exitoso: ' . $_SESSION['user']['name'],
+            'event_type'  => 'SUCCESS' // Verde en consola
         ]);
 
         $this->redirect('/dashboard');
@@ -70,13 +74,13 @@ final class AuthController extends Controller
 
     public function logout(): void
     {
-        // --- CASO 3: CIERRE DE SESIÓN ---
-        // Registramos ANTES de destruir la sesión para capturar el user_id
+        if (session_status() === PHP_SESSION_NONE) session_start();
+
         if (!empty($_SESSION['user']['id'])) {
             AuditService::log([
                 'module'      => 'AUTH',
                 'action'      => 'LOGOUT',
-                'description' => 'User session closed manually for: ' . ($_SESSION['user']['name'] ?? 'Unknown'),
+                'description' => 'Cierre de sesión manual: ' . ($_SESSION['user']['name'] ?? 'Usuario'),
                 'event_type'  => 'NORMAL'
             ]);
         }

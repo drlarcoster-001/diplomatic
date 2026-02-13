@@ -2,6 +2,7 @@
 /**
  * MÓDULO: CONFIGURACIÓN - VISTAS
  * Archivo: app/views/settings/eventos.php
+ * Propósito: Interfaz de terminal para la consola de auditoría.
  */
 $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
 ?>
@@ -24,12 +25,8 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
                 <input type="date" name="date_to" class="form-control bg-light border-0">
             </div>
             <div class="col-lg-3 d-flex gap-2">
-                <button type="submit" class="btn btn-dark w-100 fw-bold shadow-sm">
-                    <i class="bi bi-search me-1"></i> Filtrar
-                </button>
-                <button type="button" class="btn btn-outline-secondary w-100 fw-bold shadow-sm" onclick="clearFilters()">
-                    <i class="bi bi-eraser me-1"></i> Limpiar
-                </button>
+                <button type="submit" class="btn btn-dark w-100 fw-bold shadow-sm">Filtrar</button>
+                <button type="button" class="btn btn-outline-secondary w-100 fw-bold shadow-sm" onclick="clearFilters()">Limpiar</button>
             </div>
         </form>
     </div>
@@ -39,21 +36,24 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
             <div class="d-flex gap-2"><span class="console-dot dot-red"></span><span class="console-dot dot-yellow"></span><span class="console-dot dot-green"></span></div>
             <span class="console-title fw-mono small opacity-50">DIPLOMATIC_LIVE_MONITOR</span>
         </div>
+        
         <div class="console-body p-4" id="event-logs">
             <?php if (!empty($logs)): foreach($logs as $log): ?>
                 <div class="log-line mb-1">
                     <span class="log-date">[<?= date('d/m/Y H:i:s', strtotime($log['created_at'])) ?>]</span>
-                    <span class="log-ip mx-2" style="color: #00ffff !important; font-weight: bold;">[IP: <?= $log['ip_address'] ?>]</span>
+                    <span class="log-ip mx-2" style="color: #00ffff !important;">[IP: <?= $log['ip_address'] ?>]</span>
+                    <span class="log-module" style="color: #ffcc00 !important; font-weight: bold;">[<?= $log['module'] ?>]</span>
                     <span class="text-info fw-bold">@<?= $log['user_id'] ?? '1' ?></span>
-                    <span class="log-action text-success fw-bold mx-2">:: <?= strtoupper($log['action']) ?></span>
-                    <span class="log-desc text-white fw-bold"><?= htmlspecialchars($log['description']) ?></span>
+                    <span class="text-success fw-bold mx-2">:: <?= strtoupper($log['action']) ?></span>
+                    <span class="text-white fw-bold"><?= htmlspecialchars($log['description']) ?></span>
                 </div>
             <?php endforeach; endif; ?>
             <div class="cursor">_</div>
         </div>
+
         <div class="console-footer d-flex justify-content-end p-2 bg-dark">
             <button class="btn btn-outline-success btn-xs fw-mono py-2 px-3" onclick="exportConsoleToCSV()">
-                <i class="bi bi-download me-1"></i> DESCARGAR CSV (VISTA ACTUAL)
+                <i class="bi bi-download me-1"></i> DESCARGAR LO QUE VEO (CSV)
             </button>
         </div>
     </div>

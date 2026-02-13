@@ -1,8 +1,7 @@
 <?php
 /**
  * MÓDULO - app/controllers/SettingsController.php
- * Controlador de gestión de configuraciones.
- * Administra Identidad Corporativa, SMTP, Seguridad y Base de Datos.
+ * Controlador de gestión de configuraciones técnicas con auditoría.
  */
 
 declare(strict_types=1);
@@ -11,11 +10,12 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Core\Database;
+use App\Services\AuditService; 
 use PDO;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use Throwable;
 
-// Carga de dependencias de PHPMailer
 require_once __DIR__ . '/../../tools/phpmailer/Exception.php';
 require_once __DIR__ . '/../../tools/phpmailer/PHPMailer.php';
 require_once __DIR__ . '/../../tools/phpmailer/SMTP.php';
@@ -26,120 +26,97 @@ final class SettingsController extends Controller
 
     public function __construct()
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        if (session_status() === PHP_SESSION_NONE) session_start();
 
-        // Seguridad: Solo administradores acceden a este controlador
         $userRole = strtoupper(trim($_SESSION['user']['role'] ?? ''));
         if ($userRole !== 'ADMIN') {
-            $projectRoot = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
-            header("Location: " . $projectRoot . "/dashboard");
-            exit;
+            $this->redirect('/dashboard');
         }
 
         $this->db = (new Database())->getConnection();
     }
 
-    /**
-     * MENU PRINCIPAL DE CONFIGURACIÓN
-     * Muestra las 5 tarjetas de acceso (Empresa, Correo, Sistema, Seguridad, BD)
-     */
     public function index(): void
     {
+        AuditService::log([
+            'module' => 'SETTINGS', 'action' => 'ACCESS',
+            'description' => 'Ingreso al menú de configuración general', 'event_type' => 'NORMAL'
+        ]);
         $this->view('settings/index', ['title' => 'Configuración General']);
     }
 
-    /**
-     * MÓDULO: DATOS DE EMPRESA
-     * Gestiona la identidad legal y visual de la institución.
-     */
-    public function empresa(): void
-    {
-        $stmt = $this->db->query("SELECT * FROM tbl_company_settings LIMIT 1");
-        $empresa = $stmt->fetch(PDO::FETCH_ASSOC) ?: [];
-
-        $this->view('settings/empresa', [
-            'title' => 'Datos de la Institución',
-            'empresa' => $empresa
-        ]);
-    }
-
-    /**
-     * MÓDULO: CORREO / SMTP
-     * Gestiona las pestañas de Inscripción y Certificados.
-     */
     public function correo(): void
     {
-        $stmt = $this->db->query("SELECT * FROM tbl_email_settings");
-        $settings = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        $this->view('settings/mail', [
-            'title' => 'Configuración de Correo',
-            'settings' => $settings
+        AuditService::log([
+            'module' => 'SETTINGS_MAIL', 'action' => 'ACCESS',
+            'description' => 'Acceso a configuración SMTP', 'event_type' => 'NORMAL'
         ]);
+        $stmt = $this->db->query("SELECT * FROM tbl_email_settings");
+        $this->view('settings/mail', ['title' => 'Configuración de Correo', 'settings' => $stmt->fetchAll(PDO::FETCH_ASSOC)]);
     }
 
-    /**
-     * PERSISTENCIA DE SMTP
-     * Guarda la configuración evitando el error de parámetros duplicados (HY093).
-     */
     public function saveCorreo(): void
     {
         if (ob_get_length()) ob_clean(); 
         header('Content-Type: application/json');
         
         try {
+            $tipo = $_POST['tipo_correo'] ?? 'INSCRIPCION';
+
             $sql = "INSERT INTO tbl_email_settings 
-                    (tipo_correo, protocolo, smtp_host, smtp_port, smtp_security, smtp_user, smtp_password, from_name, from_email, asunto, contenido) 
-                    VALUES (:tipo, :prot, :host, :port, :security, :user, :pass, :f_name, :f_email, :asunto, :contenido)
+                    (tipo_correo, smtp_host, smtp_port, smtp_security, smtp_user, smtp_password, from_name, from_email, asunto, contenido) 
+                    VALUES (:tipo, :host, :port, :security, :user, :pass, :f_name, :f_email, :asunto, :contenido)
                     ON DUPLICATE KEY UPDATE 
-                    protocolo=:u_prot, smtp_host=:u_host, smtp_port=:u_port, smtp_security=:u_security, smtp_user=:u_user, 
+                    smtp_host=:u_host, smtp_port=:u_port, smtp_security=:u_security, smtp_user=:u_user, 
                     smtp_password=:u_pass, from_name=:u_f_name, from_email=:u_f_email, asunto=:u_asunto, contenido=:u_contenido";
 
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
-                ':tipo'         => $_POST['tipo_correo'] ?? 'INSCRIPCION',
-                ':prot'         => $_POST['protocolo'] ?? 'SMTP',
-                ':host'         => $_POST['smtp_host'] ?? '',
-                ':port'         => (int)($_POST['smtp_port'] ?? 465),
-                ':security'     => $_POST['smtp_security'] ?? 'SSL',
-                ':user'         => $_POST['smtp_user'] ?? '',
-                ':pass'         => $_POST['smtp_password'] ?? '',
-                ':f_name'       => $_POST['from_name'] ?? '',
-                ':f_email'      => $_POST['from_email'] ?? '',
-                ':asunto'       => $_POST['asunto'] ?? '',
-                ':contenido'    => $_POST['contenido'] ?? '',
-                // Parámetros únicos para la actualización (UPDATE)
-                ':u_prot'       => $_POST['protocolo'] ?? 'SMTP',
-                ':u_host'       => $_POST['smtp_host'] ?? '',
-                ':u_port'       => (int)($_POST['smtp_port'] ?? 465),
-                ':u_security'   => $_POST['smtp_security'] ?? 'SSL',
-                ':u_user'       => $_POST['smtp_user'] ?? '',
-                ':u_pass'       => $_POST['smtp_password'] ?? '',
-                ':u_f_name'     => $_POST['from_name'] ?? '',
-                ':u_f_email'    => $_POST['from_email'] ?? '',
-                ':u_asunto'     => $_POST['asunto'] ?? '',
-                ':u_contenido'  => $_POST['contenido'] ?? ''
+                ':tipo'       => $tipo,
+                ':host'       => $_POST['smtp_host'] ?? '',
+                ':port'       => (int)($_POST['smtp_port'] ?? 465),
+                ':security'   => $_POST['smtp_security'] ?? 'SSL',
+                ':user'       => $_POST['smtp_user'] ?? '',
+                ':pass'       => $_POST['smtp_password'] ?? '',
+                ':f_name'     => $_POST['from_name'] ?? '',
+                ':f_email'    => $_POST['from_email'] ?? '',
+                ':asunto'     => $_POST['asunto'] ?? '',
+                ':contenido'  => $_POST['contenido'] ?? '',
+                ':u_host'     => $_POST['smtp_host'] ?? '',
+                ':u_port'     => (int)($_POST['smtp_port'] ?? 465),
+                ':u_security' => $_POST['smtp_security'] ?? 'SSL',
+                ':u_user'     => $_POST['smtp_user'] ?? '',
+                ':u_pass'     => $_POST['smtp_password'] ?? '',
+                ':u_f_name'   => $_POST['from_name'] ?? '',
+                ':u_f_email'  => $_POST['from_email'] ?? '',
+                ':u_asunto'   => $_POST['asunto'] ?? '',
+                ':u_contenido'=> $_POST['contenido'] ?? ''
             ]);
 
-            echo json_encode(['ok' => true, 'msg' => 'Configuración guardada correctamente']);
-        } catch (\Throwable $e) {
-            echo json_encode(['ok' => false, 'msg' => 'Error de Base de Datos: ' . $e->getMessage()]);
+            // GENERAMOS EL LOG ANTES DE RESPONDER AL NAVEGADOR
+            AuditService::log([
+                'module'      => 'SETTINGS_MAIL',
+                'action'      => 'UPDATE',
+                'description' => "Se actualizaron los parámetros de correo para: {$tipo}",
+                'event_type'  => 'WARNING' // Amarillo en consola
+            ]);
+
+            echo json_encode(['ok' => true, 'msg' => 'Configuración guardada']);
+        } catch (Throwable $e) {
+            echo json_encode(['ok' => false, 'msg' => 'Error DB: ' . $e->getMessage()]);
         }
         exit;
     }
 
-    /**
-     * PRUEBAS DE ENVÍO
-     * Diferencia entre test de conexión (mensaje fijo) y test de plantilla (con etiquetas).
-     */
     public function testCorreo(): void
     {
         if (ob_get_length()) ob_clean();
         header('Content-Type: application/json');
         
         try {
+            $dest = $_POST['email_test'] ?? 'Unknown';
+            $mode = $_POST['mode'] ?? 'connection';
+
             $mail = new PHPMailer(true);
             $mail->isSMTP();
             $mail->Host       = $_POST['smtp_host'];
@@ -151,38 +128,37 @@ final class SettingsController extends Controller
             $mail->CharSet    = 'UTF-8';
 
             $mail->setFrom($_POST['from_email'], $_POST['from_name']);
-            $mail->addAddress($_POST['email_test']);
+            $mail->addAddress($dest);
             $mail->isHTML(true);
-
-            $mode = $_POST['mode'] ?? 'connection';
 
             if ($mode === 'connection') {
                 $mail->Subject = "Prueba de Conexión - Diplomatic";
-                $mail->Body    = "Si usted ha recibido este mensaje, su conexión está funcionando correctamente.";
+                $mail->Body    = "Conexión SMTP exitosa.";
             } else {
-                // Motor de reemplazo de etiquetas dinámicas
-                $tags = [
-                    '{nombre}'           => 'Juan',
-                    '{apellido}'         => 'Pérez',
-                    '{plataforma}'       => 'Diplomatic Online',
-                    '{link_activacion}'  => '<a href="#" style="background:#0d6efd; color:#fff; padding:8px 15px; text-decoration:none; border-radius:4px;">Activar mi cuenta</a>',
-                    '{nombre_diplomado}' => 'Diplomado en Gestión Pública',
-                    '{link_descarga}'    => '<a href="#" style="color:#198754; font-weight:bold;">Descargar Certificado</a>'
-                ];
-
-                $asunto  = str_replace(array_keys($tags), array_values($tags), $_POST['asunto']);
-                $mensaje = str_replace(array_keys($tags), array_values($tags), $_POST['contenido']);
-
-                $mail->Subject = $asunto ?: 'Prueba de Plantilla - Diplomatic';
-                $mail->Body    = nl2br($mensaje);
+                $mail->Subject = $_POST['asunto'] ?: 'Prueba Plantilla';
+                $mail->Body    = nl2br($_POST['contenido']);
             }
 
             $mail->send();
-            echo json_encode(['ok' => true, 'msg' => '¡Correo enviado con éxito!']);
-        } catch (Exception $e) {
-            echo json_encode(['ok' => false, 'msg' => 'Error PHPMailer: ' . $mail->ErrorInfo]);
-        } catch (\Throwable $e) {
-            echo json_encode(['ok' => false, 'msg' => 'Fallo técnico: ' . $e->getMessage()]);
+
+            // LOG DE ÉXITO
+            AuditService::log([
+                'module'      => 'SETTINGS_MAIL',
+                'action'      => 'TEST_SEND',
+                'description' => "Prueba de correo exitosa a: {$dest}",
+                'event_type'  => 'SUCCESS'
+            ]);
+
+            echo json_encode(['ok' => true, 'msg' => '¡Correo enviado!']);
+        } catch (Throwable $e) {
+            // LOG DE FALLO
+            AuditService::log([
+                'module'      => 'SETTINGS_MAIL',
+                'action'      => 'TEST_FAIL',
+                'description' => "Falló la prueba de correo a: {$dest}. Error: " . $e->getMessage(),
+                'event_type'  => 'ERROR'
+            ]);
+            echo json_encode(['ok' => false, 'msg' => $e->getMessage()]);
         }
         exit;
     }
