@@ -1,8 +1,8 @@
 <?php
 /**
- * MÓDULO: USUARIOS, ROLES Y ACCESO
+ * MÓDULO: NÚCLEO
  * Archivo: app/core/Autoload.php
- * Propósito: Autocargador PSR-4 simple para App\ sin Composer.
+ * Propósito: Autocargador PSR-4 con mapeo de servicios.
  */
 
 declare(strict_types=1);
@@ -17,9 +17,6 @@ spl_autoload_register(function (string $class): void {
   $relativeClass = substr($class, $len);
   $relativePath = str_replace('\\', '/', $relativeClass);
 
-  $candidates = [];
-  $candidates[] = $baseDir . $relativePath . '.php';
-
   $parts = explode('/', $relativePath);
   if (!empty($parts[0])) {
     $map = [
@@ -29,21 +26,16 @@ spl_autoload_register(function (string $class): void {
       'Config'      => 'config',
       'Middleware'  => 'middleware',
       'Views'       => 'views',
-      'Services'    => 'services', // Mapeo crítico para auditoría
+      'Services'    => 'services', // <--- FUNDAMENTAL
     ];
     if (isset($map[$parts[0]])) {
       $partsMapped = $parts;
       $partsMapped[0] = $map[$parts[0]];
-      $candidates[] = $baseDir . implode('/', $partsMapped) . '.php';
+      $file = $baseDir . implode('/', $partsMapped) . '.php';
+      if (file_exists($file)) { require_once $file; return; }
     }
   }
 
-  $candidates[] = $baseDir . strtolower($relativePath) . '.php';
-
-  foreach ($candidates as $file) {
-    if (file_exists($file)) {
-      require_once $file;
-      return;
-    }
-  }
+  $fallback = $baseDir . strtolower($relativePath) . '.php';
+  if (file_exists($fallback)) require_once $fallback;
 });

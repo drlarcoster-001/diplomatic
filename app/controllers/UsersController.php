@@ -13,6 +13,7 @@ namespace App\Controllers;
 use App\Core\Controller;
 use App\Models\UserModel;
 use App\Core\Database;
+use App\Services\AuditService; // Importación vital para la consola de eventos
 
 final class UsersController extends Controller
 {
@@ -59,6 +60,7 @@ final class UsersController extends Controller
             'avatar'               => $_POST['current_avatar'] ?? 'default_avatar.png'
         ];
 
+        // Gestión de Avatar
         if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
             $fileName = 'usr_' . time() . '.' . pathinfo($_FILES['avatar']['name'], PATHINFO_EXTENSION);
             if (move_uploaded_file($_FILES['avatar']['tmp_name'], dirname(__DIR__, 2) . '/public/assets/img/avatars/' . $fileName)) {
@@ -69,10 +71,32 @@ final class UsersController extends Controller
         $model = new UserModel();
         try {
             if ($id > 0) {
+                // ACTUALIZACIÓN
                 $success = $model->update($id, $data);
+                
+                if ($success) {
+                    // REGISTRO EN CONSOLA
+                    AuditService::log([
+                        'module'      => 'USUARIOS',
+                        'action'      => 'UPDATE',
+                        'description' => "Se actualizó al usuario: {$data['first_name']} {$data['last_name']} (ID: {$id})",
+                        'event_type'  => 'NORMAL'
+                    ]);
+                }
             } else {
+                // CREACIÓN
                 $data['password_hash'] = password_hash($_POST['password'] ?? '123456', PASSWORD_DEFAULT);
                 $success = $model->create($data);
+
+                if ($success) {
+                    // REGISTRO EN CONSOLA
+                    AuditService::log([
+                        'module'      => 'USUARIOS',
+                        'action'      => 'CREATE',
+                        'description' => "Nuevo registro: {$data['first_name']} {$data['last_name']} ({$data['email']})",
+                        'event_type'  => 'SUCCESS'
+                    ]);
+                }
             }
             echo json_encode(['ok' => $success, 'msg' => 'Operación exitosa']);
         } catch (\Exception $e) {
@@ -91,6 +115,18 @@ final class UsersController extends Controller
         }
 
         $model = new UserModel();
-        echo json_encode(['ok' => $model->delete($id), 'msg' => 'Usuario desactivado']);
+        $success = $model->delete($id);
+
+        if ($success) {
+            // REGISTRO EN CONSOLA: Se marca como WARNING para que salga en color ámbar/rojo
+            AuditService::log([
+                'module'      => 'USUARIOS',
+                'action'      => 'DELETE',
+                'description' => "Se ha desactivado al usuario con ID: {$id}",
+                'event_type'  => 'WARNING'
+            ]);
+        }
+
+        echo json_encode(['ok' => $success, 'msg' => 'Usuario desactivado']);
     }
 }
