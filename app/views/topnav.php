@@ -2,7 +2,7 @@
 /**
  * MÓDULO: USUARIOS, ROLES Y ACCESO
  * Archivo: app/views/topnav.php
- * Propósito: Barra superior (TopNav) con burger responsive y menú de usuario con avatar.
+ * Propósito: Barra superior con menú dinámico según ROL (Admin vs Usuario).
  */
 
 declare(strict_types=1);
@@ -11,6 +11,7 @@ $basePath  = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')
 
 $userName  = $_SESSION['user']['name'] ?? 'Usuario';
 $userEmail = $_SESSION['user']['email'] ?? '';
+$userRole  = strtoupper($_SESSION['user']['role'] ?? 'USER'); // Capturamos el Rol
 $initials  = '';
 
 if ($userName !== '') {
@@ -20,23 +21,14 @@ if ($userName !== '') {
 } else {
   $initials = 'U';
 }
-
-/**
- * Nota:
- * Por ahora usamos un avatar tipo "initials".
- * Más adelante lo conectamos a una foto real (ruta en DB o storage) sin romper UI.
- */
 ?>
 
 <nav class="navbar dp-topnav bg-white border-bottom sticky-top">
   <div class="container-fluid px-3 px-md-4 d-flex align-items-center justify-content-between">
 
     <div class="d-flex align-items-center gap-2">
-      <!-- BURGER: solo móvil/tablet -->
       <button id="dpBurger" class="dp-burger d-lg-none" aria-label="Menú">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
 
       <a class="navbar-brand fw-bold mb-0" href="<?= htmlspecialchars($basePath) ?>/dashboard">
@@ -44,7 +36,6 @@ if ($userName !== '') {
       </a>
     </div>
 
-    <!-- Usuario -->
     <div class="dropdown">
       <button class="btn btn-light border dp-userbtn dropdown-toggle"
               type="button"
@@ -69,13 +60,17 @@ if ($userName !== '') {
 
         <li><hr class="dropdown-divider"></li>
 
-        <!-- Las rutas pueden existir luego; por ahora dejamos el espacio funcional -->
-        <li><a class="dropdown-item" href="<?= htmlspecialchars($basePath) ?>/user/settings">Configuración</a></li>
-        <li><a class="dropdown-item" href="<?= htmlspecialchars($basePath) ?>/user/security">Seguridad</a></li>
+        <?php if ($userRole === 'ADMIN'): ?>
+            <li><a class="dropdown-item" href="<?= htmlspecialchars($basePath) ?>/settings"><i class="bi bi-gear me-2"></i> Configuración</a></li>
+            <li><a class="dropdown-item" href="<?= htmlspecialchars($basePath) ?>/users"><i class="bi bi-shield-lock me-2"></i> Seguridad</a></li>
+        <?php else: ?>
+            <li><a class="dropdown-item" href="<?= htmlspecialchars($basePath) ?>/profile"><i class="bi bi-person-circle me-2"></i> Mi Perfil</a></li>
+            <li><a class="dropdown-item" href="<?= htmlspecialchars($basePath) ?>/profile/security"><i class="bi bi-key me-2"></i> Cambiar Contraseña</a></li>
+        <?php endif; ?>
 
         <li><hr class="dropdown-divider"></li>
 
-        <li><a class="dropdown-item text-danger" href="<?= htmlspecialchars($basePath) ?>/logout.php">Cerrar sesión</a></li>
+        <li><a class="dropdown-item text-danger" href="<?= htmlspecialchars($basePath) ?>/logout"><i class="bi bi-box-arrow-right me-2"></i> Cerrar sesión</a></li>
       </ul>
     </div>
 
