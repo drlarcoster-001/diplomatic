@@ -32,10 +32,10 @@ final class Bootstrap
     $router->get('/logout', [AuthController::class, 'logout']);
     
     // Flujo de Registro Externo (El Algoritmo)
-    $router->get('/register', [RegisterController::class, 'showRegister']);
-    $router->post('/register/step1', [RegisterController::class, 'submitRegistration']);
-    $router->get('/register/validate', [RegisterController::class, 'validateToken']);
-    $router->post('/register/step2', [RegisterController::class, 'createPassword']);
+    //$router->get('/register', [RegisterController::class, 'showRegister']);
+    //$router->post('/register/step1', [RegisterController::class, 'submitRegistration']);
+    //$router->get('/register/validate', [RegisterController::class, 'validateToken']);
+    //$router->post('/register/step2', [RegisterController::class, 'createPassword']);
 
     // -- RUTAS DEL PANEL --
     $router->get('/dashboard', [DashboardController::class, 'index']);

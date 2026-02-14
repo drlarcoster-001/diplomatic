@@ -1,8 +1,8 @@
 <?php
 /**
  * MÓDULO: PERFIL DE USUARIO
- * Archivo: app/controllers/ProfileController.php - 13/02/2026
- * Propósito: Gestión integral del perfil, carga de avatar y seguridad del usuario.
+ * Archivo: app/controllers/ProfileController.php
+ * Propósito: Gestión integral del perfil, carga de avatar y seguridad (re-autenticación).
  */
 
 declare(strict_types=1);
@@ -53,33 +53,22 @@ final class ProfileController extends Controller
             $userId = $_SESSION['user']['id'];
             $avatarName = $_POST['current_avatar'] ?? 'default_avatar.png';
 
-            // Gestión de la imagen (Avatar)
             if (!empty($_FILES['avatar']['name'])) {
                 $dir = __DIR__ . '/../../public/assets/img/avatars/';
-                
-                // Asegurar que la carpeta exista
-                if (!is_dir($dir)) {
-                    mkdir($dir, 0755, true);
-                }
+                if (!is_dir($dir)) mkdir($dir, 0755, true);
 
                 $ext = pathinfo($_FILES['avatar']['name'], PATHINFO_EXTENSION);
                 $avatarName = 'usr_' . time() . '.' . $ext;
                 $target = $dir . $avatarName;
 
                 if (move_uploaded_file($_FILES['avatar']['tmp_name'], $target)) {
-                    // Actualizamos la sesión para que el TopNav refleje el cambio
                     $_SESSION['user']['avatar'] = $avatarName;
                 }
             }
 
-            // Actualización en Base de Datos (Nombres de columnas según tu SQL)
             $sql = "UPDATE tbl_users SET 
-                    phone = :phone, 
-                    address = :addr, 
-                    provenance = :prov, 
-                    undergraduate_degree = :degree,
-                    avatar = :avatar,
-                    profile_complete = 1 
+                    phone = :phone, address = :addr, provenance = :prov, 
+                    undergraduate_degree = :degree, avatar = :avatar, profile_complete = 1 
                     WHERE id = :id";
 
             $stmt = $this->db->prepare($sql);
@@ -100,7 +89,6 @@ final class ProfileController extends Controller
             ]);
 
             echo json_encode(['ok' => true, 'msg' => 'Perfil actualizado correctamente']);
-
         } catch (Throwable $e) {
             echo json_encode(['ok' => false, 'msg' => 'Error: ' . $e->getMessage()]);
         }
@@ -116,7 +104,7 @@ final class ProfileController extends Controller
     }
 
     /**
-     * Procesa el cambio de contraseña
+     * Procesa el cambio de contraseña con validación de clave anterior
      */
     public function changePassword(): void
     {
@@ -124,25 +112,44 @@ final class ProfileController extends Controller
         header('Content-Type: application/json');
 
         try {
-            $userId = $_SESSION['user']['id'];
+            $userId  = $_SESSION['user']['id'];
+            $oldPass = $_POST['old_password'] ?? '';
             $newPass = $_POST['new_password'] ?? '';
 
-            if (strlen($newPass) < 8) {
-                throw new \Exception("Mínimo 8 caracteres.");
+            // 1. Obtener el hash actual del usuario
+            $stmt = $this->db->prepare("SELECT password_hash FROM tbl_users WHERE id = :id LIMIT 1");
+            $stmt->execute([':id' => $userId]);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            // 2. Verificar que la contraseña anterior sea correcta
+            if (!$user || !password_verify($oldPass, $user['password_hash'])) {
+                AuditService::log([
+                    'module'      => 'PROFILE_SECURITY',
+                    'action'      => 'CHANGE_PASSWORD_FAILED',
+                    'description' => 'Intento fallido: La contraseña anterior no es válida.',
+                    'event_type'  => 'SECURITY'
+                ]);
+                throw new \Exception("La contraseña anterior es incorrecta.");
             }
 
+            // 3. Validar longitud de la nueva clave
+            if (strlen($newPass) < 8) {
+                throw new \Exception("La nueva contraseña debe tener al menos 8 caracteres.");
+            }
+
+            // 4. Actualizar el hash
             $hash = password_hash($newPass, PASSWORD_BCRYPT);
-            $stmt = $this->db->prepare("UPDATE tbl_users SET password_hash = :hash WHERE id = :id");
-            $stmt->execute([':hash' => $hash, ':id' => $userId]);
+            $update = $this->db->prepare("UPDATE tbl_users SET password_hash = :hash WHERE id = :id");
+            $update->execute([':hash' => $hash, ':id' => $userId]);
 
             AuditService::log([
                 'module'      => 'PROFILE_SECURITY',
-                'action'      => 'CHANGE_PASSWORD',
-                'description' => 'Cambio de contraseña exitoso por el usuario',
-                'event_type'  => 'WARNING'
+                'action'      => 'CHANGE_PASSWORD_SUCCESS',
+                'description' => 'Contraseña actualizada tras validar identidad previa',
+                'event_type'  => 'WARNING' // Amarillo por ser cambio crítico
             ]);
 
-            echo json_encode(['ok' => true, 'msg' => 'Contraseña actualizada']);
+            echo json_encode(['ok' => true, 'msg' => 'Contraseña actualizada exitosamente']);
         } catch (Throwable $e) {
             echo json_encode(['ok' => false, 'msg' => $e->getMessage()]);
         }

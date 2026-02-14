@@ -2,7 +2,7 @@
 /**
  * MÓDULO: USUARIOS, ROLES Y ACCESO
  * Archivo: app/views/topnav.php
- * Propósito: Barra superior con menú dinámico y soporte para Avatar real o iniciales.
+ * Propósito: Barra superior con menú dinámico que permite al Admin cambiar su propia contraseña.
  */
 
 declare(strict_types=1);
@@ -12,9 +12,9 @@ $basePath   = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''
 $userName   = $_SESSION['user']['name'] ?? 'Usuario';
 $userEmail  = $_SESSION['user']['email'] ?? '';
 $userRole   = strtoupper($_SESSION['user']['role'] ?? 'USER');
-$userAvatar = $_SESSION['user']['avatar'] ?? 'default_avatar.png'; // Capturamos el avatar de la sesión
+$userAvatar = $_SESSION['user']['avatar'] ?? 'default_avatar.png';
 
-// Lógica de Iniciales (Respaldo si no hay imagen)
+// Lógica de Iniciales (Respaldo)
 $initials = '';
 if ($userName !== '') {
   $parts = preg_split('/\s+/', trim($userName));
@@ -24,8 +24,7 @@ if ($userName !== '') {
   $initials = 'U';
 }
 
-// Ruta física y URL del avatar
-$avatarURL = $basePath . '/assets/img/avatars/' . $userAvatar;
+$avatarURL  = $basePath . '/assets/img/avatars/' . $userAvatar;
 $avatarPath = __DIR__ . '/../../public/assets/img/avatars/' . $userAvatar;
 ?>
 
@@ -68,21 +67,21 @@ $avatarPath = __DIR__ . '/../../public/assets/img/avatars/' . $userAvatar;
 
             <div>
               <div class="fw-semibold text-truncate" style="max-width: 180px;"><?= htmlspecialchars($userName) ?></div>
-              <?php if ($userEmail !== ''): ?>
-                <div class="text-muted small text-truncate" style="max-width: 180px;"><?= htmlspecialchars($userEmail) ?></div>
-              <?php endif; ?>
+              <div class="text-muted small text-truncate" style="max-width: 180px;"><?= htmlspecialchars($userEmail) ?></div>
             </div>
           </div>
         </li>
 
         <li><hr class="dropdown-divider"></li>
 
+        <li><a class="dropdown-item" href="<?= htmlspecialchars($basePath) ?>/profile"><i class="bi bi-person-circle me-2"></i> Mi Perfil</a></li>
+        <li><a class="dropdown-item" href="<?= htmlspecialchars($basePath) ?>/profile/security"><i class="bi bi-key me-2"></i> Cambiar Contraseña</a></li>
+
         <?php if ($userRole === 'ADMIN'): ?>
-            <li><a class="dropdown-item" href="<?= htmlspecialchars($basePath) ?>/settings"><i class="bi bi-gear me-2"></i> Configuración</a></li>
-            <li><a class="dropdown-item" href="<?= htmlspecialchars($basePath) ?>/users"><i class="bi bi-shield-lock me-2"></i> Seguridad</a></li>
-        <?php else: ?>
-            <li><a class="dropdown-item" href="<?= htmlspecialchars($basePath) ?>/profile"><i class="bi bi-person-circle me-2"></i> Mi Perfil</a></li>
-            <li><a class="dropdown-item" href="<?= htmlspecialchars($basePath) ?>/profile/security"><i class="bi bi-key me-2"></i> Cambiar Contraseña</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li class="dropdown-header small text-uppercase fw-bold opacity-50">Administración</li>
+            <li><a class="dropdown-item" href="<?= htmlspecialchars($basePath) ?>/settings"><i class="bi bi-gear me-2"></i> Configuración Global</a></li>
+            <li><a class="dropdown-item" href="<?= htmlspecialchars($basePath) ?>/users"><i class="bi bi-people me-2"></i> Gestión de Usuarios</a></li>
         <?php endif; ?>
 
         <li><hr class="dropdown-divider"></li>
