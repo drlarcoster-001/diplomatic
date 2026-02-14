@@ -1,7 +1,7 @@
 <?php
 /**
  * MÓDULO: PERFIL DE USUARIO
- * Archivo: app/controllers/ProfileController.php
+ * Archivo: app/controllers/ProfileController.php - 13/02/2026
  * Propósito: Gestión integral del perfil, carga de avatar y seguridad del usuario.
  */
 
