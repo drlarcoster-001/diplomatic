@@ -6,9 +6,12 @@
  * Nota: Enlaces "Registrarme" y "Olvidé mi contraseña" son UI en esta etapa (lógica se implementa progresivamente).
  */
 
-$basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
-$cssAccess = $basePath . '/assets/css/access.css';
+// Garantizamos que basePath esté definido para evitar el Warning
+if (!isset($basePath)) {
+    $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
+}
 
+$cssAccess = $basePath . '/assets/css/access.css';
 $registerUrl = $basePath . '/register';
 $forgotUrl   = $basePath . '/forgot-password';
 ?>
@@ -19,10 +22,8 @@ $forgotUrl   = $basePath . '/forgot-password';
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DIPLOMATIC · Acceso</title>
 
-  <!-- Bootstrap (CDN) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- CSS del Módulo 1 -->
   <link href="<?= htmlspecialchars($cssAccess) ?>" rel="stylesheet">
 </head>
 <body>
@@ -31,7 +32,6 @@ $forgotUrl   = $basePath . '/forgot-password';
   <div class="container" style="max-width: 980px;">
     <div class="row g-4 align-items-center justify-content-center">
 
-      <!-- Columna de identidad / mensaje institucional -->
       <div class="col-12 col-lg-6">
         <div class="mb-4">
           <div class="dp-brand fs-3">DIPLOMATIC</div>
@@ -52,7 +52,6 @@ $forgotUrl   = $basePath . '/forgot-password';
         </div>
       </div>
 
-      <!-- Columna del formulario -->
       <div class="col-12 col-lg-5">
         <div class="dp-card dp-shadow p-4 p-md-5">
 
@@ -117,13 +116,10 @@ $forgotUrl   = $basePath . '/forgot-password';
   </div>
 </div>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- JS del módulo (lo crearemos) -->
 <script src="<?= htmlspecialchars($basePath) ?>/assets/js/access.js"></script>
 
 </body>
