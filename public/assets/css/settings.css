@@ -1,41 +1,13 @@
 /**
- * ESTILOS: MÓDULO CONFIGURACIÓN
- * Archivo: public/assets/css/settings.css
+ * MODULE: SETTINGS & CONFIGURATION
+ * File: public/assets/css/settings.css
  */
-
-.settings-grid-container {
-    padding-top: 1rem;
-}
-
-.settings-card {
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    border: 1px solid #edf2f7 !important;
-    cursor: pointer;
-    text-decoration: none !important;
-}
-
-.settings-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
-    border-color: #0d6efd !important;
-}
-
-.settings-icon-wrapper {
-    width: 65px;
-    height: 65px;
-    margin: 0 auto 1.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-}
-
-.settings-card h5 {
-    color: #2d3748;
-    font-weight: 700;
-}
-
-.settings-card p {
-    color: #718096;
-    line-height: 1.4;
-}
+.animation-fade-in { animation: fadeIn 0.4s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.row.d-flex.align-items-stretch { display: flex; flex-wrap: wrap; }
+.card { height: 100%; border: 1px solid #e2e8f0 !important; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1) !important; }
+.code-font { font-family: 'Consolas', monospace; font-size: 0.85rem; background-color: #f8fafc; resize: none; }
+.btn-white { background: #fff; transition: all 0.2s; }
+.btn-white:hover { border-color: #0d6efd !important; }
+.uppercase { text-transform: uppercase; }
+.x-small { font-size: 0.7rem; }

@@ -1,62 +1,77 @@
 /**
- * MÓDULO - public/assets/js/settings.js
+ * MODULE: SETTINGS & CONFIGURATION
+ * File: public/assets/js/settings.js
+ * Propósito: Lógica de autocompletado SMTP y gestión de guardado AJAX.
  */
 
-document.addEventListener('change', (e) => {
-    if (e.target.matches('input[type="radio"][name$="_provider"]')) {
-        const pane = e.target.closest('.tab-pane');
-        const provider = e.target.value;
-        
-        // VISIBILIDAD DINÁMICA: Solo en CUSTOM
-        const pg = pane.querySelector('.protocol-group');
-        if (pg) provider === 'CUSTOM' ? pg.classList.remove('d-none') : pg.classList.add('d-none');
-
-        const configs = {
-            'GMAIL':   { h: 'smtp.gmail.com', p: 587, s: 'TLS' },
-            'OUTLOOK': { h: 'smtp.office365.com', p: 587, s: 'TLS' },
-            'YAHOO':   { h: 'smtp.mail.yahoo.com', p: 587, s: 'TLS' },
-            'CUSTOM':  { h: '', p: 465, s: 'SSL' }
-        };
-
-        const c = configs[provider];
-        if (c && provider !== 'CUSTOM') {
-            pane.querySelector('input[name="smtp_host"]').value = c.h;
-            pane.querySelector('input[name="smtp_port"]').value = c.p;
-            pane.querySelector('select[name="smtp_security"]').value = c.s;
-        }
-    }
-});
+"use strict";
 
 window.saveActiveSettings = async function() {
-    const pane = document.querySelector('.tab-pane.show.active');
-    const form = pane.querySelector('form');
+    const activePane = document.querySelector('.tab-pane.active');
+    const form = activePane.querySelector('form');
     const path = form.getAttribute('data-basepath');
+    
     Swal.fire({ title: 'Guardando...', didOpen: () => Swal.showLoading() });
+
     try {
-        const res = await fetch(`${path}/settings/save-correo`, { method: 'POST', body: new FormData(form) });
+        const res = await fetch(`${path}/settings/save-correo`, {
+            method: 'POST',
+            body: new FormData(form)
+        });
         const data = await res.json();
         Swal.fire(data.ok ? 'Éxito' : 'Error', data.msg, data.ok ? 'success' : 'error');
     } catch (e) {
-        Swal.fire('Error', 'Fallo de guardado.', 'error');
+        console.error(e);
+        Swal.fire('Error', 'No se pudo conectar con el servidor.', 'error');
     }
 };
 
-window.testActiveSettings = async function(formId, mode = 'connection') {
+window.detectProvider = function(input, prefix) {
+    const email = input.value.trim();
+    const domain = email.split('@')[1];
+    if (!domain) return;
+    const presets = {
+        'gmail.com': { h: 'smtp.gmail.com', p: 587, s: 'TLS' },
+        'hotmail.com': { h: 'smtp-mail.outlook.com', p: 587, s: 'TLS' },
+        'outlook.com': { h: 'smtp-mail.outlook.com', p: 587, s: 'TLS' }
+    };
+    if (presets[domain]) {
+        const form = document.getElementById(`form-${prefix}`);
+        form.querySelector('[name="smtp_host"]').value = presets[domain].h;
+        form.querySelector('[name="smtp_port"]').value = presets[domain].p;
+        form.querySelector('[name="smtp_security"]').value = presets[domain].s;
+    }
+};
+
+window.testProfessionalConnection = async function(formId) {
     const form = document.getElementById(formId);
     const path = form.getAttribute('data-basepath');
-    const { value: email } = await Swal.fire({ title: 'Destinatario', input: 'email', showCancelButton: true });
+    const { value: email } = await Swal.fire({ title: 'Email de destino', input: 'email', showCancelButton: true });
+    
     if (!email) return;
 
     const fd = new FormData(form);
     fd.append('email_test', email);
-    fd.append('mode', mode);
+    fd.append('mode', 'connection');
 
-    Swal.fire({ title: 'Enviando...', didOpen: () => Swal.showLoading() });
+    Swal.fire({ title: 'Enviando prueba...', didOpen: () => Swal.showLoading() });
+
     try {
         const res = await fetch(`${path}/settings/test-correo`, { method: 'POST', body: fd });
         const data = await res.json();
-        Swal.fire(data.ok ? 'Éxito' : 'Fallo', data.msg, data.ok ? 'success' : 'error');
+        Swal.fire(data.ok ? 'Enviado' : 'Error', data.msg, data.ok ? 'success' : 'error');
     } catch (e) {
-        Swal.fire('Error', 'Fallo de conexión.', 'error');
+        Swal.fire('Error', 'Fallo técnico de comunicación.', 'error');
     }
+};
+
+window.insertTag = function(btn, tag) {
+    const textarea = btn.closest('.card-body').querySelector('textarea');
+    textarea.value += tag;
+    textarea.focus();
+};
+
+window.togglePassword = function(btn) {
+    const input = btn.closest('.input-group').querySelector('input');
+    input.type = input.type === 'password' ? 'text' : 'password';
 };
