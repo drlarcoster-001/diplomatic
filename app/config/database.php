@@ -13,3 +13,5 @@ return [
   'pass' => '',  // Contraseña de MySQL (en XAMPP, el usuario 'root' no tiene contraseña)
   'charset' => 'utf8mb4',  // Codificación recomendada para MySQL
 ];
+
+// Punto Antes de Gestion Academica
