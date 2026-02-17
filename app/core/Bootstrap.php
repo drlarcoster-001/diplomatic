@@ -3,7 +3,6 @@
  * MÓDULO: NÚCLEO
  * Archivo: app/core/Bootstrap.php
  * Propósito: Definición central de rutas e inicialización de persistencia de usuario (Remember Me).
- * Nota: Se ha integrado el controlador UserSecurityController para la gestión crítica.
  */
 
 declare(strict_types=1);
@@ -20,8 +19,12 @@ use App\Controllers\SettingsEventsController;
 use App\Controllers\ProfileController;
 use App\Controllers\RegisterController;
 use App\Controllers\SettingsEmailController;
-// NUEVO: Importación del controlador de seguridad
 use App\Controllers\UserSecurityController; 
+use App\Controllers\AcademicController; // Nuevo
+use App\Controllers\DiplomadosController; // Nuevo
+use App\Controllers\CohortesController; // Nuevo
+use App\Controllers\GruposController; // Nuevo
+use App\Controllers\ProfesoresController; // Nuevo
 use PDO;
 
 final class Bootstrap
@@ -75,43 +78,38 @@ final class Bootstrap
         $router->get('/profile/security', [ProfileController::class, 'security']);
         $router->post('/profile/change-password', [ProfileController::class, 'changePassword']);
 
-        // --- CONFIGURACIONES (GENERAL, CORREO, EMPRESA) ---
+        // --- CONFIGURACIONES ---
         $router->get('/settings', [SettingsController::class, 'index']);
         $router->get('/settings/correo', [SettingsEmailController::class, 'index']);
         $router->post('/settings/save-correo', [SettingsEmailController::class, 'save']);
         $router->post('/settings/test-correo', [SettingsEmailController::class, 'test']);
-        
         $router->get('/settings/empresa', [SettingsCompanyController::class, 'index']);
         $router->post('/settings/empresa/save', [SettingsCompanyController::class, 'save']);
-        
-        // --- CONFIGURACIONES (WHATSAPP, EVENTOS Y SEGURIDAD DE USUARIOS) ---
         $router->get('/settings/whatsapp', [SettingsWhatsappController::class, 'index']);
         $router->post('/settings/whatsapp/save-template', [SettingsWhatsappController::class, 'saveTemplate']);
         $router->post('/settings/whatsapp/log', [SettingsWhatsappController::class, 'logSend']);
-        
         $router->get('/settings/eventos', [SettingsEventsController::class, 'index']);
         $router->get('/settings/eventos/filter', [SettingsEventsController::class, 'filter']);
 
-        // NUEVO: Rutas para el submódulo de Seguridad de Usuarios (Botón 8)
+        // --- GESTIÓN ACADÉMICA (MÓDULOS INDEPENDIENTES) ---
+        $router->get('/academic', [AcademicController::class, 'index']);
+        $router->get('/academic/diplomados', [DiplomadosController::class, 'index']);
+        $router->get('/academic/cohortes', [CohortesController::class, 'index']);
+        $router->get('/academic/grupos', [GruposController::class, 'index']);
+        $router->get('/academic/profesores', [ProfesoresController::class, 'index']);
+
+        // --- SEGURIDAD Y USUARIOS ---
         $router->get('/UserSecurity', [UserSecurityController::class, 'index']);
         $router->post('/UserSecurityController/updatePassword', [UserSecurityController::class, 'changePassword']);
         $router->post('/UserSecurityController/updateStatus', [UserSecurityController::class, 'changeStatus']);
-
-        // --- GESTIÓN DE USUARIOS (MÓDULO ADMINISTRATIVO) ---
         $router->get('/users', [UsersController::class, 'index']);
         $router->post('/users/save', [UsersController::class, 'save']);
         $router->post('/users/delete', [UsersController::class, 'delete']);
 
-        // --- FLUJO DE REGISTRO Y RECUPERACIÓN ---
+        // --- REGISTRO Y RECUPERACIÓN ---
         $router->get('/register', [RegisterController::class, 'index']);
         $router->post('/register/submit', [RegisterController::class, 'submit']);
-        $router->get('/register/validate', [RegisterController::class, 'validateToken']);
-        $router->post('/register/create-password', [RegisterController::class, 'createPassword']);
-        $router->get('/register/complete', [RegisterController::class, 'completeProfile']);
-
         $router->get('/forgot-password', [RegisterController::class, 'forgotPasswordIndex']);
-        $router->post('/forgot-password/submit', [RegisterController::class, 'forgotPasswordSubmit']);
-        $router->get('/forgot-password/validate', [RegisterController::class, 'validateToken']);
 
         $router->dispatch();
     }
