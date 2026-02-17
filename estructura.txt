@@ -13,7 +13,7 @@ estructura.txt   [public]         README.md        [tools]
 FETCH_HEAD       [gk]             HEAD             [hooks]
 index            [info]           [logs]           [objects]
 ORIG_HEAD        [refs]           
-               7 archivos         15.777 bytes
+               7 archivos         17.138 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\gk
 
@@ -40,7 +40,7 @@ update.sample
  Directorio de C:\xampp\htdocs\diplomatic\.git\logs
 
 [.]    HEAD   [refs] 
-               1 archivos          8.077 bytes
+               1 archivos          8.902 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\logs\refs
 
@@ -50,7 +50,7 @@ update.sample
  Directorio de C:\xampp\htdocs\diplomatic\.git\logs\refs\heads
 
 [.]    [..]   main   
-               1 archivos          6.010 bytes
+               1 archivos          6.835 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\logs\refs\remotes
 
@@ -60,30 +60,31 @@ update.sample
  Directorio de C:\xampp\htdocs\diplomatic\.git\logs\refs\remotes\origin
 
 [.]    [..]   HEAD   main   
-               2 archivos          4.147 bytes
+               2 archivos          4.739 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects
 
 [.]    [00]   [02]   [03]   [04]   [05]   [06]   [08]   [09]   [0a]   [0b]
-[0c]   [0f]   [10]   [11]   [13]   [14]   [16]   [18]   [19]   [1a]   [1c]
-[1d]   [1e]   [1f]   [20]   [21]   [22]   [23]   [24]   [25]   [28]   [29]
-[2b]   [2d]   [2e]   [2f]   [31]   [32]   [33]   [34]   [35]   [36]   [38]
-[39]   [3a]   [3b]   [3c]   [3d]   [3e]   [3f]   [40]   [41]   [42]   [43]
-[45]   [46]   [47]   [48]   [49]   [4a]   [4b]   [4c]   [4d]   [4e]   [4f]
-[50]   [51]   [52]   [53]   [54]   [55]   [56]   [58]   [5a]   [5b]   [5c]
-[5d]   [5e]   [60]   [61]   [62]   [63]   [64]   [65]   [66]   [67]   [68]
-[69]   [6b]   [6c]   [6d]   [6e]   [6f]   [70]   [71]   [72]   [73]   [74]
-[75]   [77]   [78]   [79]   [7a]   [7c]   [7e]   [80]   [81]   [82]   [83]
-[84]   [85]   [86]   [87]   [88]   [89]   [8a]   [8c]   [8e]   [8f]   [92]
-[93]   [94]   [95]   [96]   [97]   [98]   [99]   [9a]   [9b]   [9c]   [9d]
-[9e]   [9f]   [a0]   [a1]   [a3]   [a4]   [a5]   [a6]   [a7]   [a8]   [ac]
-[ad]   [ae]   [af]   [b0]   [b1]   [b2]   [b3]   [b4]   [b5]   [b6]   [b7]
-[b8]   [b9]   [ba]   [bb]   [bc]   [be]   [bf]   [c0]   [c1]   [c2]   [c3]
-[c4]   [c5]   [c6]   [c7]   [c8]   [c9]   [ca]   [cb]   [cc]   [cd]   [ce]
-[cf]   [d0]   [d1]   [d2]   [d4]   [d5]   [d6]   [d7]   [d8]   [d9]   [da]
-[db]   [dc]   [de]   [df]   [e0]   [e2]   [e3]   [e4]   [e6]   [e7]   [e8]
-[ea]   [eb]   [ec]   [ed]   [ee]   [ef]   [f0]   [f1]   [f2]   [f3]   [f4]
-[f5]   [f6]   [f7]   [f8]   [f9]   [fa]   [fc]   [fd]   [fe]   [info] [pack]
+[0c]   [0d]   [0f]   [10]   [11]   [13]   [14]   [16]   [17]   [18]   [19]
+[1a]   [1c]   [1d]   [1e]   [1f]   [20]   [21]   [22]   [23]   [24]   [25]
+[27]   [28]   [29]   [2b]   [2d]   [2e]   [2f]   [31]   [32]   [33]   [34]
+[35]   [36]   [37]   [38]   [39]   [3a]   [3b]   [3c]   [3d]   [3e]   [3f]
+[40]   [41]   [42]   [43]   [45]   [46]   [47]   [48]   [49]   [4a]   [4b]
+[4c]   [4d]   [4e]   [4f]   [50]   [51]   [52]   [53]   [54]   [55]   [56]
+[57]   [58]   [5a]   [5b]   [5c]   [5d]   [5e]   [60]   [61]   [62]   [63]
+[64]   [65]   [66]   [67]   [68]   [69]   [6b]   [6c]   [6d]   [6e]   [6f]
+[70]   [71]   [72]   [73]   [74]   [75]   [77]   [78]   [79]   [7a]   [7c]
+[7e]   [80]   [81]   [82]   [83]   [84]   [85]   [86]   [87]   [88]   [89]
+[8a]   [8b]   [8c]   [8e]   [8f]   [90]   [92]   [93]   [94]   [95]   [96]
+[97]   [98]   [99]   [9a]   [9b]   [9c]   [9d]   [9e]   [9f]   [a0]   [a1]
+[a3]   [a4]   [a5]   [a6]   [a7]   [a8]   [aa]   [ac]   [ad]   [ae]   [af]
+[b0]   [b1]   [b2]   [b3]   [b4]   [b5]   [b6]   [b7]   [b8]   [b9]   [ba]
+[bb]   [bc]   [be]   [bf]   [c0]   [c1]   [c2]   [c3]   [c4]   [c5]   [c6]
+[c7]   [c8]   [c9]   [ca]   [cb]   [cc]   [cd]   [ce]   [cf]   [d0]   [d1]
+[d2]   [d4]   [d5]   [d6]   [d7]   [d8]   [d9]   [da]   [db]   [dc]   [de]
+[df]   [e0]   [e2]   [e3]   [e4]   [e6]   [e7]   [e8]   [ea]   [eb]   [ec]
+[ed]   [ee]   [ef]   [f0]   [f1]   [f2]   [f3]   [f4]   [f5]   [f6]   [f7]
+[f8]   [f9]   [fa]   [fc]   [fd]   [fe]   [info] [pack] 
                0 archivos              0 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\00
@@ -91,8 +92,9 @@ update.sample
 [.]
 [..]
 291b47318acdfa241229d313d06e55e04890a2
+af8f2398bd170caa3d67b514fd963bc75e6ca4
 fdecab4885658e70fcd24eca1b2ac4230f4217
-               2 archivos         11.857 bytes
+               3 archivos         12.009 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\02
 
@@ -133,7 +135,8 @@ d262c7243aad8c53eb4823207fbab1eb1362fa
 100bf79377602fda122ce162af0514e3c8f96b
 29a3080d4002a968adf7551ec8ff2c210b3516
 41585d8884ed4c9ee944f64b314afe858936ec
-               3 archivos            576 bytes
+f827525f2cb1505288656beb5b495ad6dd56c3
+               4 archivos          3.058 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\08
 
@@ -146,8 +149,9 @@ a6b733312c9c530614e2335f169d148856e409
 
 [.]
 [..]
+9f0016a478a5a151b682a0e916ec6ff7d8e710
 c1a2cfefaa986c846b41743e856c945beff3cd
-               1 archivos            706 bytes
+               2 archivos          2.085 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\0a
 
@@ -183,6 +187,13 @@ fc32cd35c0fe6734ea6d54a45d515fd19d2ff5
 7ef4c7df46c43ae8f5802a332af3fa22125a82
                5 archivos          2.777 bytes
 
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\0d
+
+[.]
+[..]
+be679ceff1c24237f19dba6a8a1e4c82fc86d8
+               1 archivos            152 bytes
+
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\0f
 
 [.]
@@ -216,7 +227,8 @@ e5369f261769abd9312ecd29bc6d551abe176c
 [..]
 1693156349215c8a81cd1322c2898ad34a5961
 5dff7c3695efd7e7e26b1f75301a13386e3c2b
-               2 archivos          2.289 bytes
+897c5b7afabb883ba00db698818d7534791de6
+               3 archivos          2.413 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\14
 
@@ -234,6 +246,13 @@ ca5b9d0737783b8f2f14ed7318a80b914b6b07
 25fec0439f118f890eda840c2086926177421b
 80961c72762fa587c13cdaac5e131b58e68f3a
                2 archivos            801 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\17
+
+[.]
+[..]
+08e701c8db89035a9a3ba28cb81ac07491d59e
+               1 archivos          1.638 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\18
 
@@ -255,9 +274,10 @@ cd9a1e3232511c00c5f789ba78bba556cb977d
 [.]
 [..]
 1e9965b66b0330c539c136a596b4aa010bb35f
+75295893de8782b9994a9ce21c5aa27bba0f2b
 b80f8a1ec88322526370ae1a6784513f79d43d
 b889972c848ea5b5cbbc60503606e5c82ea3ac
-               3 archivos            609 bytes
+               4 archivos            793 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\1c
 
@@ -286,7 +306,8 @@ be5f89ed4045c3a6859729bea3d7cfb97e8c77
 [..]
 48d45bb5ceef19228632e108293b5477da7a19
 64584f8b202496207bd4497cd465e1db2ecd2a
-               2 archivos            407 bytes
+7e4a8107fb5e11f00db5380ee46638010c84be
+               3 archivos            681 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\20
 
@@ -323,9 +344,10 @@ c9914a2c52d58bf6123a4ae5c0e2bfb02b0231
 
 [.]
 [..]
+2f24ad2f0cf108e4f4aafd5a3a1ecd7b1b1c5b
 3ed7c992609bb32215db6c1999b7839d87985c
 fb8690cc6b3ede09029028f8b800f26bf7213c
-               2 archivos            409 bytes
+               3 archivos          2.090 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\25
 
@@ -333,6 +355,13 @@ fb8690cc6b3ede09029028f8b800f26bf7213c
 [..]
 7522b27f34d68f7054aec20de07cb816583355
                1 archivos            194 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\27
+
+[.]
+[..]
+7bf88b6b558068ad238478a132eef7d076d7f7
+               1 archivos             98 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\28
 
@@ -365,9 +394,10 @@ b3578c7e0d9672767bb38b16c9e4e4945bb5c8
 [..]
 6166d308704cfd778cf54e213ae2bc6494ed48
 6862fdc50272226ce3266b18ac6b7540415c7f
+6a5da1adfb054315caaa07135fc56657c3706d
 851931234564915f05e21f5f72de924b52d304
 bcaba4fc24ee4a148e5506b4fada2f9cf4f782
-               4 archivos          4.805 bytes
+               5 archivos          5.981 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\2e
 
@@ -418,9 +448,10 @@ dd65b72f138f1a459e0492c7cf90908009006d
 [..]
 0b3c6f9ba8fbb9a257aa860e5582510b258e71
 684855a5da7e7b7e53bb840bf64fd178aa57ef
+6a2cbd32883542d1eb3884d1549aec2b0f86e8
 e083f0754aeae7fc3da5361c52fada891c3153
 f6b443fc4d45af1f11c8ad6903cf75c15468e7
-               4 archivos          3.649 bytes
+               5 archivos          3.922 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\35
 
@@ -437,6 +468,13 @@ e4e7000e987e87619b52d167dbab731adc20cc
 94f344ab58a0a8f802b7880797854a2b67aa41
                1 archivos            731 bytes
 
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\37
+
+[.]
+[..]
+5747b9d0ab996a97787755b4745a5cd6cf4084
+               1 archivos         71.716 bytes
+
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\38
 
 [.]
@@ -449,8 +487,9 @@ e4e7000e987e87619b52d167dbab731adc20cc
 [.]
 [..]
 4162d6ca9089b8640ccfadcdc96085da103e4b
+d67a3898a64715cbda66ccf9f409a924f97ef9
 f876d85e35c33d96f07e3dd5b7a1f7e6085a90
-               2 archivos            435 bytes
+               3 archivos            788 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\3a
 
@@ -465,8 +504,9 @@ d2602c0542838f668fa9fe26eb9a94ce3d9376
 
 [.]
 [..]
+8f47a9f05543b5260f18b1d33ab82ff6bfa8ed
 afac445a589dc1e9562f8923104c464549e699
-               1 archivos            495 bytes
+               2 archivos            713 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\3c
 
@@ -491,7 +531,8 @@ eeaf3ac37c14a4571d556f333bcf5834f388cb
 [..]
 00c25963274b4a67c2d22ba60e7f6df900443b
 38db529cfbfd427cc8c58c8bc3c8d40ef746f0
-               2 archivos          1.272 bytes
+e84c47906691c288ec4597c01c84ac0189c767
+               3 archivos          2.101 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\3f
 
@@ -501,8 +542,9 @@ eeaf3ac37c14a4571d556f333bcf5834f388cb
 3ab3760916280824084bcff39a3778d7372282
 4f026333b5e3ed11998101ff4e3ada0b3381d0
 a88f05ca10f63926feb181b25e86536712bc5b
+bbe3dbaa25636d02b8608e76e82473155cc24b
 d301dec815c16c786a43e27e0f64d89c27a01d
-               5 archivos          3.197 bytes
+               6 archivos          3.321 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\40
 
@@ -510,8 +552,9 @@ d301dec815c16c786a43e27e0f64d89c27a01d
 [..]
 01814b5d760dbda814cb027fe91f7b1dbfe392
 5f732b2a107f82c8bfe6521980af9a20c7eb30
+a7ce7100ccf214210c5a302c9205e5e2fe3751
 f660500285d5f53817ca1b24eb2108cafe8662
-               3 archivos          2.448 bytes
+               4 archivos          2.655 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\41
 
@@ -530,7 +573,10 @@ f67b77eb74f12384051d0bc3d6e730b522dfae
 [.]
 [..]
 5b4df76b3ee9869c7a47b143cb62a1465fc598
-               1 archivos             50 bytes
+a6779d7c77ced2211337891ca65106f85dfdcd
+adc5be5fcc713cf14921f592051f0d38909e39
+b0a6ef40075478bda1ed8b52de450d849abf58
+               4 archivos          2.419 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\43
 
@@ -627,8 +673,9 @@ b009701ea9a6cbbf525e7d5aca9137d7ebd61c
 [..]
 115b1c5818240b787d058245495094dc795704
 34026dfa6310767529d0763f92c990894b1a3a
+703dc85eb173242378977ccea9059839e161a4
 bd73cb0e972491a06f8c2eaf202166c1005ab0
-               3 archivos          4.328 bytes
+               4 archivos          4.531 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\50
 
@@ -657,7 +704,9 @@ fe403b40b51ca97784f06b3994bb1817a5dac0
 [.]
 [..]
 0f890fee47497ce924ac16193714e8852a6578
-               1 archivos          1.638 bytes
+4a7ee149150abdaf8f63e099990866652d892f
+ac2cba4452ffa49b597f0ab63e6c5c1f247f23
+               3 archivos          2.146 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\54
 
@@ -686,13 +735,21 @@ d9562a2addbfb673a3dbcf7cba6002f5c7962c
 9e46115773df52df0bf6b190b1dcb955099ff1
                2 archivos          1.404 bytes
 
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\57
+
+[.]
+[..]
+8e2f77821892c11b69a6164b63ee1749f130d8
+               1 archivos            932 bytes
+
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\58
 
 [.]
 [..]
+27561463e0793874cb7a1cdee06fb57d6c48f9
 5ffbcad4414222dbe2183232006c482ae6ddc6
 999cf318637fac2bbbb01ea361188e0f10ce4d
-               2 archivos          2.952 bytes
+               3 archivos         21.529 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\5a
 
@@ -837,9 +894,11 @@ ff6cb872ab3daa8d94b3e9616356f5aac15227
 06973dc61fb891bfc41abbc01ca36396f532dd
 1514c98c288a3712b1ccc897c4553f1258cfd3
 212373ccc7e200c891ea8fb77aea238a638f33
+2f1c4e98b8d3a8ac61aea362ec958a4f9ac055
 9fade2938982ccbae55432f667b4360c55d0aa
+a8a4480a302fbdcb2eb41f8a18a717f7d8f4e7
 afe0efdac69a7eb77a42779e1b5c3420480d33
-               5 archivos          1.624 bytes
+               7 archivos          1.891 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\6d
 
@@ -847,9 +906,10 @@ afe0efdac69a7eb77a42779e1b5c3420480d33
 [..]
 11890eee56c670940861a5206c451dc254a655
 1e6373901cf01fd79a0299b771cb37be72a3a7
+68bc121f86171bf43a141e1e90d3e497f1cd58
 d4bd3c4cbb1fc9a19a0666b3d23fb7a9e182f9
 fbacf032ff6d7af189a9ac7d20834ea761c3c2
-               4 archivos          1.642 bytes
+               5 archivos          1.855 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\6e
 
@@ -890,7 +950,8 @@ db338343fbc967958d7909c3a2c9af9e89c918
 a471a1677b934cbe67ffadfa4746038f10fa4c
 b6e303b35f4d6716acda31050e89b4b388a19a
 c40708f62ce4244f4cbd64513c302b2a042fc9
-               3 archivos          2.445 bytes
+ea5057b827df9b3102382899edf22a60042fc9
+               4 archivos          2.755 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\73
 
@@ -948,8 +1009,9 @@ a6802679a95d2d061445fe0df88abefa8dbe36
 
 [.]
 [..]
+106e50bbe2d597a0ca7490e4c7ec77b863f752
 f01a6c868d8b5c6aa5f97a5fd7a01816dde557
-               1 archivos            706 bytes
+               2 archivos            827 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\7e
 
@@ -971,14 +1033,16 @@ f01a6c868d8b5c6aa5f97a5fd7a01816dde557
 [.]
 [..]
 20fe7f4ce48d90cf62616b69b700ea53419d71
-               1 archivos            200 bytes
+81a2da6920019b52e98287855186ee8f274df8
+               2 archivos            249 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\82
 
 [.]
 [..]
 0af7787429e1d46c016495e09f1be781954c36
-               1 archivos             99 bytes
+fed0e95b168880a29073208ad8094177a909dd
+               2 archivos            452 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\83
 
@@ -1036,8 +1100,9 @@ ceb82883469d2a0f49215112b890289bf73c43
 [.]
 [..]
 20138babdd133187f5f7509316e0bef2060ad5
+61729ce9e3441c84249b5c130c047af133a559
 e9a0658e6f97b593e721b139b97f6d70c0576c
-               2 archivos            112 bytes
+               3 archivos            329 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\8a
 
@@ -1046,6 +1111,13 @@ e9a0658e6f97b593e721b139b97f6d70c0576c
 94f6a0445ecdc1f793da2f59f2c9ac2673d946
 a37b945daa4b458339e2f1863be7388a3d5779
                2 archivos            948 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\8b
+
+[.]
+[..]
+cda4c36744996ed33d4f7311604608ec1c41a2
+               1 archivos             99 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\8c
 
@@ -1070,6 +1142,13 @@ d665d77ec41c4108f9a0e5320a21ffb0726103
 2b510d66ec352b1cc35c2737da5132da05b41f
 a57e3ca3ad557ff1f80b7513f4702d982a9011
                2 archivos          2.065 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\90
+
+[.]
+[..]
+89f562faad661a4616ff1d8a052d13de0431b0
+               1 archivos            199 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\92
 
@@ -1109,8 +1188,9 @@ addc9e335ca1676831cf6741b84b01b69ffbd7
 [.]
 [..]
 3cf9bd892dbc9465ac4daef53d0aa79bdb87c9
+5c03e53902628383f68c54da478ee186f79bc7
 ea51d90718575c9c80f895f798fa46d0c98615
-               2 archivos            407 bytes
+               3 archivos          1.669 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\97
 
@@ -1155,8 +1235,9 @@ ea51d90718575c9c80f895f798fa46d0c98615
 
 [.]
 [..]
+f6699c64917a37d8bd7cbb7c4f7229f5808625
 fbae6672324151f648b0a90c9c1edd79ccc126
-               1 archivos            152 bytes
+               2 archivos          1.187 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\9d
 
@@ -1173,7 +1254,8 @@ bfa5ebc8846fcb619133f40c4ae9a7056abfc0
 [..]
 92ddaaf793ed2dd64d4eea6b1fe563bb880a1e
 bb42c63c2187538a26b334499353a24772920d
-               2 archivos          1.120 bytes
+e18492dbade45a567c2c8e4f82a712098646e0
+               3 archivos          1.327 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\9f
 
@@ -1245,10 +1327,18 @@ e958860c5a146de15f68be2bec98335887d92f
 
 [.]
 [..]
+70b87458ad7c20ab324baf97ce087f5a2c3d79
 907c025d5fa57971ede25ae0ccb5135b00f35e
 94f3bd23fb5c7de4b53180008c903b012a3148
 fde5dc48cd486d7c78e27faa6f5cb962a617d5
-               3 archivos            437 bytes
+               4 archivos         18.345 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\aa
+
+[.]
+[..]
+8bae130c977b115db9de94183f329f96e65019
+               1 archivos          1.241 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\ac
 
@@ -1262,8 +1352,9 @@ bddc23f9177bb6068e0108f0366ca7c7b9a101
 
 [.]
 [..]
+85a09936b3d992c401d2b19506b93065b38509
 fa4fc525ada3f18a0945ec6e54ed8bbfb3b2a4
-               1 archivos             99 bytes
+               2 archivos            297 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\ae
 
@@ -1286,7 +1377,8 @@ d8fb39a1aeefc3ea15b329b278eb8f8e78ec21
 [..]
 3116a187f3c57a0df550dbb8558631cddc2863
 a8fdc23ca4dc0df7e9ad58092a35f1461ac589
-               2 archivos            706 bytes
+d0cfbf5dd57ace6071e43b7b3474bb5ffcf903
+               3 archivos          1.879 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\b1
 
@@ -1318,7 +1410,8 @@ cb1e80cc881055f76ef867759f479570594088
 [.]
 [..]
 082e896b89490f2ec8d2857d5a1d3fa4255547
-               1 archivos             86 bytes
+1f2bb9c1fac4984dcb5b462f624802e2a00727
+               2 archivos          1.257 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\b5
 
@@ -1331,8 +1424,9 @@ e64c80ae1b65ba5b1ce85190eea50163f37b77
 
 [.]
 [..]
+3c61c44d51f33967e14aa97471cc8e8890600f
 91f4f49d37f2eb88241c7bcc77ba20802f4b65
-               1 archivos            183 bytes
+               2 archivos          1.259 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\b7
 
@@ -1348,9 +1442,10 @@ e02496481fac4219e29f9e322319b11597dde9
 [..]
 423ee1b350a7afeb8a5a7e396aa748136bb5ef
 4a9383d0731e4f4e7bc956634a4dd8d13bd821
+5d3ee7c88f2a7c7e8a7b408ac55a4acfb65ae0
 8e878a9ef7c2fcaa44a9fddd6ec3c48fc6b196
 fead58d1aa1a097f1c4a73fc3d2eba797d34e8
-               4 archivos          7.400 bytes
+               5 archivos          8.462 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\b9
 
@@ -1364,7 +1459,8 @@ fead58d1aa1a097f1c4a73fc3d2eba797d34e8
 [.]
 [..]
 9c8b2141049fec9346850db67c2eb020b54b0e
-               1 archivos            258 bytes
+be230a241a66e61065e74e899e7c5ff12951f5
+               2 archivos            455 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\bb
 
@@ -1436,6 +1532,7 @@ ec1c1ee27ab5c785a275db1b2183b9740ab1ce
 
 [.]
 [..]
+01e4c01d3e3dac99752f853cc3121daf86b740
 169f6ad306b6a53f3d008018ff8cf243900dda
 1ad5804c3d7699cc67befd4ce57e43cd14837a
 1f675dfd1e82f186f6e6266c416a5dd98e0517
@@ -1443,7 +1540,7 @@ ec1c1ee27ab5c785a275db1b2183b9740ab1ce
 878cf2fe0608239fd8d4cb9193ace04b3d8319
 cfd5af84d22ee2c75a59fc27ce68e2e0e31c94
 f03fac2c6eff501e3ee3b13fd0f7162500b784
-               7 archivos          6.323 bytes
+               8 archivos          8.240 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\c5
 
@@ -1532,9 +1629,10 @@ f1f5bd3527162c0f30bf9435eaa92cf9ff6f64
 08f1b5ceefa28ccadc2fd9c517944751643856
 3603aac76110610aaf7281e892d608224a0e64
 3bda69f29ca64fa3ac66c9dde1fd132d69aebc
+c0885474debfbc3c9973719054aed943ffa233
 f25ec11e25a57ab46568a696e4413dc7f67b0c
 f69d6062e2dca58f1fe141a0b788d956fe02f3
-               5 archivos          3.728 bytes
+               6 archivos          3.926 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\d0
 
@@ -1589,9 +1687,10 @@ ff3faca1ccba225f51fa310409f33d54f2c9c6
 [.]
 [..]
 0983e1c8be60b64379ebcec871cbc7c313736a
+3e749edd42eff2768f54ab0688c0c74c9db116
 7e0ffe474aeae827cf71b0ee5e0c0f08244f5a
 aace8cec21c0451cde44c9607d02ee72fd27b9
-               3 archivos            525 bytes
+               4 archivos            733 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\d8
 
@@ -1622,7 +1721,8 @@ eefde1c24e32bc144e096ea3c8a68b0e746986
 [.]
 [..]
 9f735f67ef9c9af3458958bdb3feb10fdd21ce
-               1 archivos            180 bytes
+b97582b9d812757e0d4766ac06be6e09df5dd8
+               2 archivos            454 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\dc
 
@@ -1637,7 +1737,8 @@ e502aa02f447b267bb87a8d7b3567eae1e9d45
 [..]
 09236bce8a90ff67ed4e3f98b18108a62c7da5
 3337ac68b52dd1ce29bee2af5e6ed87e7a2737
-               2 archivos          2.930 bytes
+3f5854b32bb961d189b658152131b67ca58e75
+               3 archivos          3.283 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\df
 
@@ -1648,7 +1749,8 @@ e502aa02f447b267bb87a8d7b3567eae1e9d45
 8ff272145c4fe1f45861b14df1e23e58ad465a
 c6b09c3447ae199f043623246353f8a0546cbb
 dc23427d8ac37d32e5e654b47dac0f30937d41
-               5 archivos          4.271 bytes
+f0046a82332f9eeca51030c6f6688fcfd1cf74
+               6 archivos          7.207 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\e0
 
@@ -1689,10 +1791,12 @@ ac82cc49dc68fa93ce079fee097f908f44f5fe
 
 [.]
 [..]
+05ad6458fa6a607d9f9289e8f00938315c9e0b
+443c9d032a449c5420705048cd5841ceaf1f8e
 a3d85ef62dd2ece7f6719b224411526244426e
 b58b0dbe522cd2678a503272190f0c88b921ae
 e9441dac55bea67e9792a478db396d4cfb60f9
-               3 archivos          2.175 bytes
+               5 archivos          2.638 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\e7
 
@@ -1730,9 +1834,10 @@ cad7a24e00c9c2869193ad640865be6f15c270
 [.]
 [..]
 1c799a05123b6c976de404cc5d4155059353d6
+724a2e5fa81de17b397e57a82019209fc7b8b4
 a17b9f8e0e362837d43b0da983f3f541e8508f
 cf4477fb38fd6d5fb8fc5c893c2a8bff1c166a
-               3 archivos            225 bytes
+               4 archivos            846 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\ec
 
@@ -1765,7 +1870,8 @@ f7dfeb63136692ac94af615deea4f6a3389e6f
 [..]
 190aa1feb8ef1e23963e36adcc3c2e4b43bac6
 5b2df3bfdc81eec24330bda23f80f3d933831a
-               2 archivos          1.438 bytes
+a9c76563d0fb8d5dac726e323b36e7aab20bbf
+               3 archivos          2.423 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\f0
 
@@ -1830,26 +1936,29 @@ fd22f2647f4a4e6c2349c56b2b6006c76d46f1
 
 [.]
 [..]
+63d7dc84d3af2d6cca2d114ec102af5e2420d9
 65477b69e135d3e9b6b7609666e1c84cb18f64
 95580a143e0d3dc66db51bf24cd9f783c0766b
 ad5e77948c90c77291076922c5eaee554c1b54
 e4fdee131b26b545d01ac2ae31d36881f86ec4
-               4 archivos          3.118 bytes
+               5 archivos          3.325 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\f8
 
 [.]
 [..]
+519ec472c9b37c88195bea3173dcd702089402
 5c653b9d354127867dd1725c08c236ea7a4c78
 6e2e854054c3666839c8ddeb5fbebe27f77794
-               2 archivos            857 bytes
+               3 archivos            956 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\f9
 
 [.]
 [..]
+b70c47ead4cc4f684c44b16c9f6310affd4361
 fe500fea4d5f70ee924eb713e13e87d85f4921
-               1 archivos             53 bytes
+               2 archivos          1.105 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\fa
 
@@ -1881,9 +1990,10 @@ a03adca5610a86a77657fcc4a91f67d187e21a
 [.]
 [..]
 166611334c4e568168c4750588253535f7edc5
+6725ff5a7e3eb9fb10d93ef12705acd0707d03
 db64b66b5b99ea9382984304f9ac7f6c858ea7
 ff03bf63494b4c8e9cc4134c592b86ca40106d
-               3 archivos          2.294 bytes
+               4 archivos          2.557 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\.git\objects\info
 
@@ -1935,17 +2045,17 @@ ff03bf63494b4c8e9cc4134c592b86ca40106d
 
 [.]                              [..]
 AuthController.php               DashboardController.php
-ProfileController.php            SettingsCompanyController.php
-SettingsController.php           SettingsEmailController.php
-SettingsEventsController.php     SettingsWhatsappController.php
-UsersController.php              
-               9 archivos         37.177 bytes
+ProfileController.php            RegisterController.php
+SettingsCompanyController.php    SettingsController.php
+SettingsEmailController.php      SettingsEventsController.php
+SettingsWhatsappController.php   UsersController.php
+              10 archivos         46.552 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\app\core
 
 [.]              [..]             Autoload.php     Bootstrap.php
 Controller.php   Database.php     Router.php       View.php
-               6 archivos          9.362 bytes
+               6 archivos         10.690 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\app\models
 
@@ -1954,8 +2064,9 @@ Controller.php   Database.php     Router.php       View.php
 
  Directorio de C:\xampp\htdocs\diplomatic\app\services
 
-[.]                [..]               AuditService.php   MailService.php
-               2 archivos          8.079 bytes
+[.]                       [..]                      AuditService.php
+MailService.php           MailServiceRegister.php   
+               3 archivos         10.673 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\app\views
 
@@ -1965,8 +2076,10 @@ layout.php    [settings]    sidebar.php   topnav.php    [users]
 
  Directorio de C:\xampp\htdocs\diplomatic\app\views\auth
 
-[.]         [..]        login.php   
-               1 archivos          4.909 bytes
+[.]                  [..]                 forgot.php
+login.php            password.php         password_reset.php
+register.php         token_error.php      
+               6 archivos         16.883 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\app\views\dashboard
 
@@ -1990,8 +2103,8 @@ mail.php       whatsapp.php
 db_diplomatic-20260213-3.sql   db_diplomatic_20260210.sql
 db_diplomatic_20260211-1.sql   db_diplomatic_20260212-1.sql
 db_diplomatic_20260213-1.sql   db_diplomatic_20260213-2.sql
-db_diplomatic_20260216-1.sql   
-               7 archivos        272.702 bytes
+db_diplomatic_20260216-1.sql   db_diplomatic_20260216-2.sql
+               8 archivos        398.819 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\public
 
@@ -2018,18 +2131,20 @@ whatsapp_manual.css
 
  Directorio de C:\xampp\htdocs\diplomatic\public\assets\img\avatars
 
-[.]                  [..]                 usr_1770810625.png
-usr_1770810835.png   usr_1770810903.png   usr_1770811774.png
-usr_1770814551.png   usr_1770814743.png   usr_1770986726.png
-               7 archivos         90.378 bytes
+[.]                   [..]                  usr_1770810625.png
+usr_1770810835.png    usr_1770810903.png    usr_1770811774.png
+usr_1770814551.png    usr_1770814743.png    usr_1770986726.png
+usr_1771283375.webp   usr_1771290749.webp   usr_1771292139.webp
+usr_1771292929.webp   
+              11 archivos        377.522 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\public\assets\js
 
 [.]                  [..]                 access.js
 company.js           events.js            panel.js
-settings.js          settings_email.js    users.js
-whatsapp_manual.js   
-               8 archivos         22.611 bytes
+register.js          settings.js          settings_email.js
+users.js             whatsapp_manual.js   
+               9 archivos         27.725 bytes
 
  Directorio de C:\xampp\htdocs\diplomatic\tools
 
@@ -2081,5 +2196,5 @@ phpmailer.lang-zh_cn.php
               57 archivos        129.035 bytes
 
      Total de archivos en la lista:
-             668 archivos      1.578.575 bytes
-             759 dirs  171.584.458.752 bytes libres
+             742 archivos      2.169.407 bytes
+             783 dirs  171.769.552.896 bytes libres

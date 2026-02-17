@@ -2,7 +2,7 @@
 /**
  * MÓDULO: NÚCLEO
  * Archivo: app/core/Bootstrap.php
- * Propósito: Definición central de rutas con soporte para el nuevo módulo de Email independiente.
+ * Propósito: Definición central de rutas e inicialización de persistencia de usuario (Remember Me).
  */
 
 declare(strict_types=1);
@@ -19,11 +19,48 @@ use App\Controllers\SettingsEventsController;
 use App\Controllers\ProfileController;
 use App\Controllers\RegisterController;
 use App\Controllers\SettingsEmailController;
+use PDO;
 
 final class Bootstrap
 {
     public function run(): void
     {
+        // --- 1. INICIALIZACIÓN DE PERSISTENCIA (RECORDARME) ---
+        if (session_status() === PHP_SESSION_NONE) session_start();
+
+        // Si NO hay sesión pero SÍ hay cookie, intentamos loguear automáticamente
+        if (empty($_SESSION['user']['id']) && isset($_COOKIE['remember_me'])) {
+            try {
+                $db = (new \App\Core\Database())->getConnection();
+                $hash = hash('sha256', $_COOKIE['remember_me']);
+
+                // Buscamos el token en la base de datos
+                $sql = "SELECT u.* FROM tbl_users u 
+                        JOIN tbl_user_remember_tokens t ON u.id = t.user_id 
+                        WHERE t.token_hash = ? AND t.expires_at > NOW() AND u.status = 'ACTIVE' LIMIT 1";
+                
+                $stmt = $db->prepare($sql);
+                $stmt->execute([$hash]);
+                $u = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                if ($u) {
+                    // Restauramos la sesión institucional con los datos del usuario
+                    $_SESSION['user'] = [
+                        'id'        => $u['id'],
+                        'name'      => trim($u['first_name'] . ' ' . $u['last_name']),
+                        'email'     => $u['email'],
+                        'user_type' => $u['user_type'],
+                        'role'      => strtoupper($u['role']), 
+                        'status'    => $u['status'],
+                        'avatar'    => $u['avatar'] ?? 'default_avatar.png',
+                    ];
+                }
+            } catch (\Throwable $e) {
+                // Falla silenciosa: si hay error en DB, el usuario simplemente deberá loguearse manual
+            }
+        }
+
+        // --- 2. DEFINICIÓN DE RUTAS ---
         $router = new Router();
 
         // --- ACCESO Y DASHBOARD ---
@@ -68,13 +105,8 @@ final class Bootstrap
         $router->get('/register/complete', [RegisterController::class, 'completeProfile']);
 
         // --- FLUJO DE RECUPERACIÓN (OLVIDÉ MI CONTRASEÑA) ---
-        // forgotPasswordIndex: Muestra el formulario de Correo + Cédula
         $router->get('/forgot-password', [RegisterController::class, 'forgotPasswordIndex']);
-        
-        // forgotPasswordSubmit: Valida datos y envía el correo con la nueva tabla
         $router->post('/forgot-password/submit', [RegisterController::class, 'forgotPasswordSubmit']);
-        
-        // validateToken: Es el mismo validador del registro, ahora detecta recuperación automáticamente
         $router->get('/forgot-password/validate', [RegisterController::class, 'validateToken']);
 
         $router->dispatch();
