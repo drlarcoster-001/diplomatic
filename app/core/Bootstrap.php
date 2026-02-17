@@ -3,6 +3,7 @@
  * MÓDULO: NÚCLEO
  * Archivo: app/core/Bootstrap.php
  * Propósito: Definición central de rutas e inicialización de persistencia de usuario (Remember Me).
+ * Nota: Se ha integrado el controlador UserSecurityController para la gestión crítica.
  */
 
 declare(strict_types=1);
@@ -19,6 +20,8 @@ use App\Controllers\SettingsEventsController;
 use App\Controllers\ProfileController;
 use App\Controllers\RegisterController;
 use App\Controllers\SettingsEmailController;
+// NUEVO: Importación del controlador de seguridad
+use App\Controllers\UserSecurityController; 
 use PDO;
 
 final class Bootstrap
@@ -28,13 +31,11 @@ final class Bootstrap
         // --- 1. INICIALIZACIÓN DE PERSISTENCIA (RECORDARME) ---
         if (session_status() === PHP_SESSION_NONE) session_start();
 
-        // Si NO hay sesión pero SÍ hay cookie, intentamos loguear automáticamente
         if (empty($_SESSION['user']['id']) && isset($_COOKIE['remember_me'])) {
             try {
                 $db = (new \App\Core\Database())->getConnection();
                 $hash = hash('sha256', $_COOKIE['remember_me']);
 
-                // Buscamos el token en la base de datos
                 $sql = "SELECT u.* FROM tbl_users u 
                         JOIN tbl_user_remember_tokens t ON u.id = t.user_id 
                         WHERE t.token_hash = ? AND t.expires_at > NOW() AND u.status = 'ACTIVE' LIMIT 1";
@@ -44,7 +45,6 @@ final class Bootstrap
                 $u = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 if ($u) {
-                    // Restauramos la sesión institucional con los datos del usuario
                     $_SESSION['user'] = [
                         'id'        => $u['id'],
                         'name'      => trim($u['first_name'] . ' ' . $u['last_name']),
@@ -56,7 +56,7 @@ final class Bootstrap
                     ];
                 }
             } catch (\Throwable $e) {
-                // Falla silenciosa: si hay error en DB, el usuario simplemente deberá loguearse manual
+                // Falla silenciosa
             }
         }
 
@@ -84,7 +84,7 @@ final class Bootstrap
         $router->get('/settings/empresa', [SettingsCompanyController::class, 'index']);
         $router->post('/settings/empresa/save', [SettingsCompanyController::class, 'save']);
         
-        // --- CONFIGURACIONES (WHATSAPP Y EVENTOS) ---
+        // --- CONFIGURACIONES (WHATSAPP, EVENTOS Y SEGURIDAD DE USUARIOS) ---
         $router->get('/settings/whatsapp', [SettingsWhatsappController::class, 'index']);
         $router->post('/settings/whatsapp/save-template', [SettingsWhatsappController::class, 'saveTemplate']);
         $router->post('/settings/whatsapp/log', [SettingsWhatsappController::class, 'logSend']);
@@ -92,19 +92,23 @@ final class Bootstrap
         $router->get('/settings/eventos', [SettingsEventsController::class, 'index']);
         $router->get('/settings/eventos/filter', [SettingsEventsController::class, 'filter']);
 
+        // NUEVO: Rutas para el submódulo de Seguridad de Usuarios (Botón 8)
+        $router->get('/UserSecurity', [UserSecurityController::class, 'index']);
+        $router->post('/UserSecurityController/updatePassword', [UserSecurityController::class, 'changePassword']);
+        $router->post('/UserSecurityController/updateStatus', [UserSecurityController::class, 'changeStatus']);
+
         // --- GESTIÓN DE USUARIOS (MÓDULO ADMINISTRATIVO) ---
         $router->get('/users', [UsersController::class, 'index']);
         $router->post('/users/save', [UsersController::class, 'save']);
         $router->post('/users/delete', [UsersController::class, 'delete']);
 
-        // --- FLUJO DE REGISTRO (AUTOSERVICIO) ---
+        // --- FLUJO DE REGISTRO Y RECUPERACIÓN ---
         $router->get('/register', [RegisterController::class, 'index']);
         $router->post('/register/submit', [RegisterController::class, 'submit']);
         $router->get('/register/validate', [RegisterController::class, 'validateToken']);
         $router->post('/register/create-password', [RegisterController::class, 'createPassword']);
         $router->get('/register/complete', [RegisterController::class, 'completeProfile']);
 
-        // --- FLUJO DE RECUPERACIÓN (OLVIDÉ MI CONTRASEÑA) ---
         $router->get('/forgot-password', [RegisterController::class, 'forgotPasswordIndex']);
         $router->post('/forgot-password/submit', [RegisterController::class, 'forgotPasswordSubmit']);
         $router->get('/forgot-password/validate', [RegisterController::class, 'validateToken']);

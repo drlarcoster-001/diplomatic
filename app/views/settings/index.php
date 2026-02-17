@@ -1,10 +1,13 @@
 <?php
 /**
- * MÓDULO - app/views/settings/index.php
- * Panel central con 6 módulos de configuración.
+ * MÓDULO: CONFIGURACIÓN GLOBAL
+ * Archivo: app/views/settings/index.php
+ * Propósito: Panel central con 8 módulos de configuración (7 originales + 1 nuevo de seguridad).
  */
 $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
 ?>
+
+<link rel="stylesheet" href="/diplomatic/public/assets/css/settings_panel.css">
 
 <div class="container-fluid py-4">
     <div class="mb-4">
@@ -86,20 +89,22 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
                         <i class="bi bi-terminal-fill fs-2"></i>
                     </div>
                     <h5 class="fw-bold">Eventos y Auditoría</h5>
-                    <p class="text-muted small">Logs de actividad, trazabilidad y seguridad del sistema.</p>
+                    <p class="text-muted small">Logs de actividad y trazabilidad del sistema.</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <a href="<?= htmlspecialchars($basePath) ?>/UserSecurity" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item border-security-hover">
+                    <div class="bg-danger bg-opacity-10 text-danger p-3 rounded-circle mx-auto mb-3" style="width: fit-content;">
+                        <i class="bi bi-person-lock fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold">Seguridad de Usuarios</h5>
+                    <p class="text-muted small">Gestión de claves inmediatas y reactivación de cuentas.</p>
                 </div>
             </a>
         </div>
 
     </div>
 </div>
-
-<style>
-.settings-card-item { transition: all 0.3s ease; border: 1px solid transparent !important; }
-.settings-card-item:hover { 
-    transform: translateY(-8px); 
-    border: 1px solid #0d6efd !important; 
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; 
-}
-.grayscale { filter: grayscale(1); }
-</style>
