@@ -2,13 +2,13 @@
 /**
  * MÓDULO: PANEL (SIDEBAR)
  * Archivo: app/views/sidebar.php
- * Propósito: Menú lateral de navegación con acceso corregido a Configuración.
+ * Propósito: Menú lateral de navegación con acceso al Dashboard de Gestión Académica.
  */
 
 declare(strict_types=1);
 
 $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
-$userRole = strtoupper(trim($_SESSION['user']['role'] ?? '')); // Limpiamos espacios y aseguramos mayúsculas
+$userRole = strtoupper(trim($_SESSION['user']['role'] ?? '')); 
 ?>
 
 <aside id="dpSidebar" class="dp-sidebar bg-dark text-white d-flex flex-column">
@@ -34,12 +34,12 @@ $userRole = strtoupper(trim($_SESSION['user']['role'] ?? '')); // Limpiamos espa
       </a>
     <?php endif; ?>
 
-    <?php if ($userRole === 'ADMIN' || $userRole === 'ACADEMIC'): ?>
+    <?php if ($userRole === 'ADMIN' || $userRole === 'OPERATOR' || $userRole === 'ACADEMIC'): ?>
       <div class="px-4 mt-4 mb-2">
         <span class="text-uppercase text-secondary fw-bold" style="font-size: 0.75rem; letter-spacing: 1px;">Gestión Académica</span>
       </div>
-      <a href="<?= htmlspecialchars($basePath) ?>/diplomados" class="list-group-item list-group-item-action bg-dark text-white border-0 py-2 px-4">
-          <i class="bi bi-mortarboard me-2"></i> Diplomados
+      <a href="<?= htmlspecialchars($basePath) ?>/academic" class="list-group-item list-group-item-action bg-dark text-white border-0 py-2 px-4">
+          <i class="bi bi-mortarboard-fill me-2 text-warning"></i> Panel Académico
       </a>
     <?php endif; ?>
   </nav>
