@@ -1,8 +1,8 @@
 <?php
 /**
- * MODULE: REGISTER SERVICE
- * File: app/services/MailServiceRegister.php
- * Propósito: Motor de envío exclusivo para el proceso de pre-registro y validación.
+ * MÓDULO: SERVICIOS DE CORREO
+ * Archivo: app/services/MailServiceRegister.php
+ * Propósito: Envío de correos con soporte para etiquetas de llaves simples { } y dobles {{ }}.
  */
 
 declare(strict_types=1);
@@ -10,73 +10,63 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Core\Database;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-use PDO;
 use Throwable;
 
-require_once __DIR__ . '/../../tools/phpmailer/Exception.php';
-require_once __DIR__ . '/../../tools/phpmailer/PHPMailer.php';
-require_once __DIR__ . '/../../tools/phpmailer/SMTP.php';
-
-class MailServiceRegister
+final class MailServiceRegister
 {
     private $db;
 
-    public function __construct()
-    {
-        $this->db = (new Database())->getConnection();
+    public function __construct() 
+    { 
+        $this->db = (new Database())->getConnection(); 
     }
 
     /**
-     * Envía el correo de validación usando la plantilla de 'INSCRIPCION'
+     * Envía correos procesando etiquetas dinámicas
      */
-    public function enviarValidacion(string $destinatario, array $tags): array
+    public function enviarValidacion(string $emailDestino, array $datos, string $tipo = 'INSCRIPCION'): array
     {
         try {
-            // 1. Obtener la configuración guardada en el módulo de correo (INSCRIPCION)
-            $stmt = $this->db->prepare("SELECT * FROM tbl_email_settings WHERE tipo_correo = 'INSCRIPCION' LIMIT 1");
-            $stmt->execute();
-            $conf = $stmt->fetch(PDO::FETCH_ASSOC);
+            // 1. Obtener configuración de la DB
+            $stmt = $this->db->prepare("SELECT * FROM tbl_email_settings WHERE tipo_correo = ? LIMIT 1");
+            $stmt->execute([$tipo]);
+            $conf = $stmt->fetch();
 
-            if (!$conf) {
-                throw new Exception("No se encontró la configuración de correo para 'INSCRIPCION'.");
-            }
+            if (!$conf) throw new \Exception("No existe configuración para el tipo: " . $tipo);
 
-            // 2. Configurar PHPMailer con los datos de la DB
-            $mail = new PHPMailer(true);
+            // 2. Cargar PHPMailer con rutas absolutas
+            $toolsPath = dirname(__DIR__, 2) . '/tools/phpmailer/';
+            require_once $toolsPath . 'Exception.php';
+            require_once $toolsPath . 'PHPMailer.php';
+            require_once $toolsPath . 'SMTP.php';
+
+            $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
             $mail->isSMTP();
-            $mail->CharSet = 'UTF-8';
             $mail->Host       = $conf['smtp_host'];
             $mail->SMTPAuth   = true;
             $mail->Username   = $conf['smtp_user'];
             $mail->Password   = $conf['smtp_password'];
-            $mail->SMTPSecure = $conf['smtp_security'] === 'SSL' ? PHPMailer::ENCRYPTION_SMTPS : PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->SMTPSecure = ($conf['smtp_security'] === 'SSL') ? \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS : \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port       = (int)$conf['smtp_port'];
+            $mail->CharSet    = 'UTF-8';
 
-            // 3. Identidad
             $mail->setFrom($conf['from_email'], $conf['from_name']);
-            $mail->addAddress($destinatario);
-
-            // 4. Procesar Plantilla (Reemplazo de etiquetas según tu configuración)
-            $asunto = $conf['asunto'];
-            $mensaje = $conf['contenido']; // Usamos 'contenido' que es el nombre de tu columna
-
-            foreach ($tags as $key => $val) {
-                $mensaje = str_replace("{{$key}}", (string)$val, $mensaje);
-                $asunto = str_replace("{{$key}}", (string)$val, $asunto);
-            }
-
+            $mail->addAddress($emailDestino);
             $mail->isHTML(true);
-            $mail->Subject = $asunto;
-            $mail->Body    = $mensaje;
+            $mail->Subject = $conf['asunto'];
+
+            // 3. Procesar etiquetas (Soporta {etiqueta} y {{etiqueta}})
+            $body = $conf['contenido'];
+            foreach ($datos as $key => $val) {
+                $body = str_replace(['{{' . $key . '}}', '{' . $key . '}'], (string)$val, $body);
+            }
+            $mail->Body = $body;
 
             $mail->send();
-            
-            return ['ok' => true, 'msg' => 'Correo de validación enviado.'];
+            return ['ok' => true, 'msg' => 'Enviado con éxito.'];
 
         } catch (Throwable $e) {
-            return ['ok' => false, 'msg' => "Error en MailServiceRegister: " . $e->getMessage()];
+            return ['ok' => false, 'msg' => $e->getMessage()];
         }
     }
 }

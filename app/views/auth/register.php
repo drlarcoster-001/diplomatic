@@ -2,10 +2,7 @@
 /**
  * MÓDULO: USUARIOS, ROLES Y ACCESO
  * Archivo: app/views/auth/register.php
- * Propósito: pantalla de registro inicial responsive con Bootstrap + estilos del módulo.
- * Nota: Enlaces "Registrarme" y "Olvidé mi contraseña" son UI en esta etapa (lógica se implementa progresivamente).
  */
-
 $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
 $cssAccess = $basePath . '/assets/css/access.css';
 ?>
@@ -25,20 +22,25 @@ $cssAccess = $basePath . '/assets/css/access.css';
       <div class="col-12 col-lg-6">
         <div class="mb-4">
           <div class="dp-brand fs-3">DIPLOMATIC</div>
-          <div class="dp-subtitle mt-2">Sistema de Gestión de Diplomados · Registro institucional</div>
+          <div class="dp-subtitle mt-2">Sistema de Gestión de Diplomados</div>
         </div>
       </div>
       <div class="col-12 col-lg-5">
         <div class="dp-card dp-shadow p-4 p-md-5">
           <div class="dp-title h4 mb-1">Registro</div>
           <p class="dp-subtitle mb-4">Crea tu cuenta institucional</p>
-          <form id="formReg" action="<?= $basePath ?>/register/submit" method="POST" data-basepath="<?= $basePath ?>">
+          
+          <form id="formRegister" action="<?= $basePath ?>/register/submit" method="POST">
             <div class="mb-3"><label class="form-label">Nombre</label><input type="text" name="first_name" class="form-control" required></div>
             <div class="mb-3"><label class="form-label">Apellido</label><input type="text" name="last_name" class="form-control" required></div>
             <div class="mb-3"><label class="form-label">Correo</label><input type="email" name="email" class="form-control" required></div>
+            
+            <div class="mb-3"><label class="form-label">Teléfono</label><input type="text" name="phone" class="form-control"></div>
+            
             <div class="mb-3"><label class="form-label">Documento ID</label><input type="text" name="document_id" class="form-control"></div>
-            <button type="submit" class="btn btn-primary w-100 py-2" id="btnReg">Registrarme</button>
+            <button type="submit" class="btn btn-primary w-100 py-2">Registrarme</button>
           </form>
+          
           <div class="text-center mt-4"><a href="<?= $basePath ?>/" class="dp-subtitle text-decoration-none">Volver al Acceso</a></div>
         </div>
       </div>
