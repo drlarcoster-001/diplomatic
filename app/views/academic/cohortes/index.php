@@ -13,7 +13,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h2 class="h4 fw-bold mb-0 text-dark">Cohortes Académicas</h2>
-            <p class="text-muted small">Gestión de períodos institucionales. Haga clic en la fila para vista previa.</p>
+            <p class="text-muted small">Gestión de períodos institucionales.</p>
         </div>
         <div class="d-flex gap-2">
             <a href="/diplomatic/public/academic" class="btn btn-outline-secondary rounded-pill px-4 shadow-sm">
@@ -42,7 +42,7 @@
     </div>
 
     <div class="card border-0 shadow-sm overflow-hidden">
-        <div class="table-responsive" style="max-height: 500px;">
+        <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
                 <thead class="bg-light small fw-bold text-secondary text-uppercase">
                     <tr>
@@ -56,7 +56,7 @@
                 </thead>
                 <tbody>
                     <?php if (empty($cohortes)): ?>
-                        <tr><td colspan="6" class="text-center py-5 text-muted">No hay cohortes registradas.</td></tr>
+                        <tr><td colspan="6" class="text-center py-4">No hay registros.</td></tr>
                     <?php else: ?>
                         <?php foreach ($cohortes as $c): ?>
                             <tr class="cohorte-row" data-id="<?= $c['id'] ?>" style="cursor:pointer;">
@@ -72,24 +72,17 @@
                                             'Finalizada'  => 'bg-success',
                                             default       => 'bg-light text-dark'
                                         };
-                                        $statusText = $c['cohort_status'] ? $c['cohort_status'] : 'Sin Estado';
                                     ?>
-                                    <span class="badge rounded-pill <?= $bg ?>"><?= $statusText ?></span>
+                                    <span class="badge rounded-pill <?= $bg ?>"><?= $c['cohort_status'] ?></span>
                                 </td>
                                 <td class="text-end pe-4">
-                                    <?php if ($c['cohort_status'] === 'Finalizada'): ?>
-                                        <span class="text-muted" title="Cohorte Cerrada - Solo Lectura">
-                                            <i class="fas fa-lock"></i>
-                                        </span>
-                                    <?php else: ?>
-                                        <div class="btn-group btn-group-custom shadow-sm" role="group">
-                                            <button type="button" class="btn btn-action btn-edit" data-id="<?= $c['id'] ?>" title="Editar">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-action btn-delete" data-id="<?= $c['id'] ?>" data-name="<?= $c['name'] ?>" title="Eliminar">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
+                                    <?php if ($c['cohort_status'] !== 'Finalizada'): ?>
+                                        <div class="btn-group btn-group-custom shadow-sm">
+                                            <button type="button" class="btn btn-edit" data-id="<?= $c['id'] ?>"><i class="fas fa-pencil-alt"></i></button>
+                                            <button type="button" class="btn btn-delete" data-id="<?= $c['id'] ?>" data-name="<?= $c['name'] ?>"><i class="fas fa-trash-alt"></i></button>
                                         </div>
+                                    <?php else: ?>
+                                        <i class="fas fa-lock text-muted" title="Cerrada"></i>
                                     <?php endif; ?>
                                 </td>
                             </tr>
@@ -112,37 +105,35 @@
                 <input type="hidden" name="id" id="field_id">
                 <div class="row g-3">
                     <div class="col-md-4">
-                        <label class="form-label fw-bold small text-uppercase">Código</label>
+                        <label class="form-label fw-bold small">CÓDIGO</label>
                         <input type="text" name="cohort_code" id="field_code" class="form-control" required>
                     </div>
                     <div class="col-md-8">
-                        <label class="form-label fw-bold small text-uppercase">Nombre</label>
+                        <label class="form-label fw-bold small">NOMBRE</label>
                         <input type="text" name="name" id="field_name" class="form-control" required>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label fw-bold small text-uppercase">Inicio Académico</label>
+                        <label class="form-label fw-bold small">INICIO</label>
                         <input type="date" name="start_date" id="field_start" class="form-control" required>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label fw-bold small text-uppercase">Fin Académico</label>
+                        <label class="form-label fw-bold small">FIN</label>
                         <input type="date" name="end_date" id="field_end" class="form-control" required>
                     </div>
-                    
                     <div class="col-md-6">
-                        <label class="form-label fw-bold small text-uppercase text-muted">Inicio Inscripciones</label>
+                        <label class="form-label fw-bold small text-muted">APERTURA INSCRIPCIÓN</label>
                         <input type="date" name="enrollment_start" id="field_enroll_start" class="form-control">
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label fw-bold small text-uppercase text-muted">Cierre Inscripciones</label>
+                        <label class="form-label fw-bold small text-muted">CIERRE INSCRIPCIÓN</label>
                         <input type="date" name="enrollment_end" id="field_enroll_end" class="form-control">
                     </div>
-
                     <div class="col-12">
-                        <label class="form-label fw-bold small text-uppercase">Sede</label>
+                        <label class="form-label fw-bold small">SEDE</label>
                         <input type="text" name="base_campus" id="field_campus" class="form-control">
                     </div>
                     <div class="col-12">
-                        <label class="form-label fw-bold small text-uppercase">Descripción</label>
+                        <label class="form-label fw-bold small">DESCRIPCIÓN</label>
                         <textarea name="description" id="field_desc" class="form-control" rows="2"></textarea>
                     </div>
                 </div>
@@ -165,29 +156,19 @@
                 <div class="doc-header-title">
                     <span id="prev_code"></span> - <span id="prev_name"></span>
                 </div>
-                
                 <div class="row bg-light p-3 rounded mb-3">
-                    <div class="col-12 mb-2"><h6 class="text-uppercase border-bottom pb-1 small text-primary fw-bold">Detalles del Período Académico</h6></div>
-                    <div class="col-6 mb-2"><strong>Inicio:</strong> <span id="prev_start"></span></div>
-                    <div class="col-6 mb-2"><strong>Fin:</strong> <span id="prev_end"></span></div>
-                    
-                    <div class="col-12 mt-2 mb-2"><h6 class="text-uppercase border-bottom pb-1 small text-primary fw-bold">Ciclo de Inscripciones</h6></div>
-                    <div class="col-6"><strong>Apertura Inscripción:</strong> <span id="prev_enroll_start"></span></div>
-                    <div class="col-6"><strong>Cierre Inscripción:</strong> <span id="prev_enroll_end"></span></div>
-
-                    <div class="col-12 mt-3 pt-2 border-top"><strong>Sede:</strong> <span id="prev_campus"></span></div>
+                    <div class="col-12"><h6 class="doc-label text-primary" style="margin-top:0;">Detalles del Período</h6></div>
+                    <div class="col-6"><strong>Inicio:</strong> <span id="prev_start"></span></div>
+                    <div class="col-6"><strong>Fin:</strong> <span id="prev_end"></span></div>
+                    <div class="col-12 mt-2"><strong>Inscripciones:</strong> <span id="prev_enroll_start"></span> al <span id="prev_enroll_end"></span></div>
+                    <div class="col-12 mt-2"><strong>Sede:</strong> <span id="prev_campus"></span></div>
                 </div>
-
                 <span class="doc-label">Descripción:</span>
                 <div class="doc-content" id="prev_desc"></div>
             </div>
             <div class="modal-footer bg-light border-0 justify-content-center">
-                <button id="btn_start_action" class="btn btn-success rounded-pill px-4 shadow-sm" style="display:none;">
-                    <i class="fas fa-play me-1"></i> Iniciar Ciclo
-                </button>
-                <button id="btn_close_action" class="btn btn-dark rounded-pill px-4 shadow-sm" style="display:none;">
-                    <i class="fas fa-flag-checkered me-1"></i> Finalizar Ciclo
-                </button>
+                <button id="btn_start_action" class="btn btn-success rounded-pill px-4 shadow-sm" style="display:none;"><i class="fas fa-play me-1"></i> Iniciar Ciclo</button>
+                <button id="btn_close_action" class="btn btn-dark rounded-pill px-4 shadow-sm" style="display:none;"><i class="fas fa-flag-checkered me-1"></i> Finalizar Ciclo</button>
             </div>
         </div>
     </div>

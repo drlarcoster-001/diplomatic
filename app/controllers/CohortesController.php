@@ -2,7 +2,7 @@
 /**
  * MÓDULO: GESTIÓN ACADÉMICA
  * Archivo: app/controllers/CohortesController.php
- * Propósito: Controlador para la administración de Cohortes Institucionales.
+ * Propósito: Controlador para la administración de Cohortes Institucionales con auditoría descriptiva.
  */
 
 namespace App\Controllers;
@@ -28,7 +28,7 @@ class CohortesController extends Controller
 
     public function index(): void
     {
-        AuditService::log(['module' => 'COHORTES', 'action' => 'ACCESS_INDEX', 'description' => 'Ingreso al panel de cohortes.']);
+        AuditService::log(['module' => 'COHORTES', 'action' => 'ACCESS_INDEX', 'description' => 'El usuario ingresó al panel maestro de cohortes.']);
         $search = $_GET['search'] ?? '';
         $this->view('academic/cohortes/index', [
             'cohortes' => $this->model->getAll($search),
@@ -36,14 +36,32 @@ class CohortesController extends Controller
         ]);
     }
 
+    /**
+     * Registra eventos originados desde el cliente (Ver, Abrir Formulario)
+     */
     public function logAccess(): void
     {
         $action = $_GET['action'] ?? 'UNKNOWN';
-        $id = $_GET['id'] ?? null;
+        $id = (int)($_GET['id'] ?? 0);
+        $cohort = ($id > 0) ? $this->model->getById($id) : null;
+        
+        $identificador = $cohort ? "[{$cohort['cohort_code']}] {$cohort['name']}" : "NUEVO REGISTRO";
+        
+        $desc = match($action) {
+            'VIEW_DETAILS' => "Visualizó la ficha técnica de la cohorte: $identificador",
+            'CREATE_FORM'  => "Abrió el formulario para crear una nueva cohorte.",
+            'EDIT_FORM'    => "Abrió el formulario de edición para: $identificador",
+            'DELETE_ATTEMPT' => "Inició proceso de eliminación para: $identificador",
+            default => "Interacción con el módulo de cohortes: $action"
+        };
+
         AuditService::log([
-            'module' => 'COHORTES', 'action' => $action, 
-            'description' => "Interacción usuario: $action" . ($id ? " ID: $id" : "")
+            'module' => 'COHORTES', 
+            'action' => $action, 
+            'description' => $desc,
+            'entity_id' => $id ?: null
         ]);
+        
         header('Content-Type: application/json');
         echo json_encode(['logged' => true]);
         exit();
@@ -55,7 +73,13 @@ class CohortesController extends Controller
         $_POST['created_by'] = $_SESSION['user']['id'];
         try {
             $id = $this->model->insert($_POST);
-            AuditService::log(['module' => 'COHORTES', 'action' => 'CREATE_SUCCESS', 'description' => 'Creó: '.$_POST['name'], 'entity_id' => $id, 'event_type' => 'SUCCESS']);
+            AuditService::log([
+                'module' => 'COHORTES', 
+                'action' => 'CREATE_SUCCESS', 
+                'description' => "Creó exitosamente la cohorte: [{$_POST['cohort_code']}] {$_POST['name']}", 
+                'entity_id' => $id, 
+                'event_type' => 'SUCCESS'
+            ]);
             header('Location: /diplomatic/public/academic/cohortes?success=1');
             exit();
         } catch (\Exception $e) {
@@ -70,17 +94,21 @@ class CohortesController extends Controller
         $id = (int)$_POST['id'];
         $dataBefore = $this->model->getById($id);
         
-        // PROTECCIÓN CONTRA EDICIÓN DE COHORTES FINALIZADAS
         if ($dataBefore['cohort_status'] === 'Finalizada') {
-            AuditService::log(['module' => 'COHORTES', 'action' => 'UPDATE_BLOCKED', 'description' => 'Intento editar cohorte finalizada: '.$dataBefore['name'], 'event_type' => 'WARNING']);
             header('Location: /diplomatic/public/academic/cohortes?error=cant_edit_finished');
             exit();
         }
 
         $_POST['updated_by'] = $_SESSION['user']['id'];
-
         if ($this->model->update($id, $_POST)) {
-            AuditService::log(['module' => 'COHORTES', 'action' => 'UPDATE_SUCCESS', 'description' => 'Modificó: '.$_POST['name'], 'entity_id' => $id, 'data_before' => $dataBefore, 'event_type' => 'SUCCESS']);
+            AuditService::log([
+                'module' => 'COHORTES', 
+                'action' => 'UPDATE_SUCCESS', 
+                'description' => "Modificó datos de la cohorte: [{$dataBefore['cohort_code']}] {$dataBefore['name']}", 
+                'entity_id' => $id, 
+                'data_before' => $dataBefore, 
+                'event_type' => 'SUCCESS'
+            ]);
         }
         header('Location: /diplomatic/public/academic/cohortes?updated=1');
         exit();
@@ -93,27 +121,21 @@ class CohortesController extends Controller
         $cohort = $this->model->getById($id);
 
         if ($cohort) {
-            // Solo se borra si está Planificada.
             if ($cohort['cohort_status'] !== 'Planificada') {
-                AuditService::log(['module' => 'COHORTES', 'action' => 'DELETE_BLOCKED', 'description' => 'Intento borrar cohorte activa: '.$cohort['name'], 'event_type' => 'WARNING']);
                 header('Location: /diplomatic/public/academic/cohortes?error=cant_delete');
                 exit();
             }
 
             $this->model->setInactive($id, $_SESSION['user']['id']);
-            AuditService::log(['module' => 'COHORTES', 'action' => 'DELETE_SUCCESS', 'description' => 'Inactivó: '.$cohort['name'], 'entity_id' => $id, 'event_type' => 'WARNING']);
+            AuditService::log([
+                'module' => 'COHORTES', 
+                'action' => 'DELETE_SUCCESS', 
+                'description' => "Inactivó (eliminó) la cohorte: [{$cohort['cohort_code']}] {$cohort['name']}", 
+                'entity_id' => $id, 
+                'event_type' => 'WARNING'
+            ]);
         }
         header('Location: /diplomatic/public/academic/cohortes?deleted=1');
-        exit();
-    }
-
-    public function create(): void { $this->logAccess(); }
-
-    public function getDetails(): void
-    {
-        $id = (int)($_GET['id'] ?? 0);
-        $cohort = $this->model->getById($id);
-        echo json_encode(['ok' => ($cohort ? true : false), 'cohorte' => $cohort]);
         exit();
     }
 
@@ -121,9 +143,27 @@ class CohortesController extends Controller
     {
         $id = (int)($_GET['id'] ?? 0);
         $status = $_GET['status'] ?? '';
-        $this->model->updateStatus($id, $status, $_SESSION['user']['id']);
-        AuditService::log(['module' => 'COHORTES', 'action' => 'STATUS_CHANGE', 'description' => "Cambio estado a $status ID:$id"]);
+        $cohort = $this->model->getById($id);
+
+        if ($cohort && !empty($status)) {
+            $this->model->updateStatus($id, $status, $_SESSION['user']['id']);
+            AuditService::log([
+                'module' => 'COHORTES', 
+                'action' => 'STATUS_CHANGE', 
+                'description' => "Cambió el estado de la cohorte [{$cohort['cohort_code']}] a: $status",
+                'entity_id' => $id
+            ]);
+        }
         header('Location: /diplomatic/public/academic/cohortes?updated=1');
+        exit();
+    }
+
+    public function getDetails(): void
+    {
+        $id = (int)($_GET['id'] ?? 0);
+        $cohort = $this->model->getById($id);
+        header('Content-Type: application/json');
+        echo json_encode(['ok' => ($cohort ? true : false), 'cohorte' => $cohort]);
         exit();
     }
 }

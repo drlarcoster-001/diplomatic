@@ -1,17 +1,17 @@
 /**
  * MÓDULO: GESTIÓN ACADÉMICA
  * Archivo: public/assets/js/academic_cohortes.js
+ * Propósito: Interactividad de la grid de cohortes, gestión de estados y registro de auditoría detallada.
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('--> JS Cohortes Cargado');
     const basePath = '/diplomatic/public/academic/cohortes';
 
-    // 1. BOTÓN "NUEVA COHORTE"
+    // 1. BOTÓN NUEVO
     const btnNuevo = document.getElementById('btnOpenNuevo');
     if (btnNuevo) {
         btnNuevo.addEventListener('click', function() {
-            fetch(`${basePath}/logAccess?action=CREATE_FORM`).catch(e => console.error(e));
+            fetch(`${basePath}/logAccess?action=CREATE_FORM`);
             const form = document.getElementById('formCohort');
             if (form) {
                 form.reset();
@@ -27,8 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            const targetBtn = e.target.closest('.btn-edit');
-            const id = targetBtn.dataset.id;
+            const id = this.dataset.id;
             
             fetch(`${basePath}/logAccess?action=EDIT_FORM&id=${id}`);
 
@@ -61,21 +60,18 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            const targetBtn = e.target.closest('.btn-delete');
-            const id = targetBtn.dataset.id;
-            const name = targetBtn.dataset.name;
+            const id = this.dataset.id;
+            const name = this.dataset.name;
 
             fetch(`${basePath}/logAccess?action=DELETE_ATTEMPT&id=${id}`);
 
             Swal.fire({
-                title: '¿Eliminar Cohorte?',
-                html: `Se dará de baja: <strong>${name}</strong><br><small class="text-muted">Solo permitido si está "Planificada".</small>`,
+                title: '¿Eliminar cohorte?',
+                html: `Se inactivará la cohorte: <b>${name}</b>`,
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#dc3545',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Sí, eliminar',
-                cancelButtonText: 'Cancelar'
+                confirmButtonColor: '#e74a3b',
+                confirmButtonText: 'Sí, eliminar'
             }).then((result) => {
                 if (result.isConfirmed) {
                     const f = document.createElement('form');
@@ -89,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 4. CLIC EN FILA
+    // 4. CLIC EN FILA (VISTA PREVIA)
     document.querySelectorAll('.cohorte-row').forEach(row => {
         row.addEventListener('click', function(e) {
             if (e.target.closest('.btn-group') || e.target.closest('button')) return;
@@ -106,34 +102,29 @@ document.addEventListener('DOMContentLoaded', function() {
                         document.getElementById('prev_code').innerText = c.cohort_code;
                         document.getElementById('prev_start').innerText = c.start_date;
                         document.getElementById('prev_end').innerText = c.end_date;
+                        document.getElementById('prev_enroll_start').innerText = c.enrollment_start || '--';
+                        document.getElementById('prev_enroll_end').innerText = c.enrollment_end || '--';
                         document.getElementById('prev_campus').innerText = c.base_campus || 'No definida';
-                        
-                        const enrollStart = c.enrollment_start ? c.enrollment_start : 'No definida';
-                        const enrollEnd = c.enrollment_end ? c.enrollment_end : 'No definida';
-                        if(document.getElementById('prev_enroll_start')) document.getElementById('prev_enroll_start').innerText = enrollStart;
-                        if(document.getElementById('prev_enroll_end')) document.getElementById('prev_enroll_end').innerText = enrollEnd;
+                        document.getElementById('prev_desc').innerText = c.description || 'Sin observaciones.';
 
-                        const descEl = document.getElementById('prev_desc');
-                        if(descEl) descEl.innerText = c.description || 'Sin observaciones.';
+                        const bStart = document.getElementById('btn_start_action');
+                        const bClose = document.getElementById('btn_close_action');
 
-                        const btnStart = document.getElementById('btn_start_action');
-                        const btnClose = document.getElementById('btn_close_action');
+                        if(bStart) bStart.style.display = 'none';
+                        if(bClose) bClose.style.display = 'none';
 
-                        if(btnStart) btnStart.style.display = 'none';
-                        if(btnClose) btnClose.style.display = 'none';
-
-                        const status = (c.cohort_status || '').toLowerCase().trim();
+                        const status = (c.cohort_status || "").trim().toLowerCase();
 
                         if (status === 'planificada') {
-                            if (btnStart) {
-                                btnStart.style.display = 'inline-block';
-                                btnStart.onclick = () => confirmChangeStatus(c.id, 'En curso', 'Iniciar Ciclo');
+                            if (bStart) {
+                                bStart.style.display = 'inline-block';
+                                bStart.onclick = () => confirmChangeStatus(c.id, 'En curso', 'Iniciar Ciclo');
                             }
                         } 
                         else if (status === 'en curso') {
-                            if (btnClose) {
-                                btnClose.style.display = 'inline-block';
-                                btnClose.onclick = () => confirmChangeStatus(c.id, 'Finalizada', 'Finalizar Ciclo');
+                            if (bClose) {
+                                bClose.style.display = 'inline-block';
+                                bClose.onclick = () => confirmChangeStatus(c.id, 'Finalizada', 'Finalizar Ciclo');
                             }
                         }
 
