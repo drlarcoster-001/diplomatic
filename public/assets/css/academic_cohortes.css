@@ -1,0 +1,80 @@
+/**
+ * MÓDULO: GESTIÓN ACADÉMICA
+ * Archivo: public/assets/css/academic_cohortes.css
+ */
+
+/* --- 1. ESTILO DE BOTONES UNIDOS (Replica Exacta) --- */
+.btn-group-custom {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.btn-group-custom .btn {
+    background-color: #ffffff;
+    border: 1px solid #d1d3e2; /* Borde gris suave exacto */
+    color: #6e707e;            /* Color base del texto */
+    padding: 0.375rem 0.75rem;
+    margin: 0;                 /* Importante: margen 0 para que se peguen */
+}
+
+.btn-group-custom .btn:hover {
+    background-color: #f8f9fa;
+    border-color: #d1d3e2;
+    z-index: 1; /* Traer al frente al pasar el mouse */
+}
+
+/* Colores de Iconos */
+.btn-group-custom .fa-pencil-alt { color: #4e73df; /* Azul Institucional */ }
+.btn-group-custom .fa-trash-alt { color: #e74a3b; /* Rojo Institucional */ }
+
+
+/* --- 2. FORMATO VISTA PREVIA (MODERNO - SANS SERIF) --- */
+.doc-container {
+    /* Fuente moderna del sistema, adios Times New Roman */
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+    background: #fff;
+    padding: 30px;
+}
+
+.doc-header-title { 
+    border-bottom: 2px solid #444; 
+    margin-bottom: 20px; 
+    padding-bottom: 10px; 
+    text-transform: uppercase;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-align: center;
+    color: #000;
+}
+
+.doc-label { 
+    font-weight: 700; 
+    text-transform: uppercase; 
+    display: block; 
+    margin-top: 20px; 
+    font-size: 0.85rem; 
+    color: #4e73df; /* Azul encabezado */
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.doc-content { 
+    margin-top: 8px; 
+    text-align: left;
+    font-size: 1rem;
+}
+
+/* --- 3. IMPRESIÓN --- */
+@media print {
+    body * { visibility: hidden !important; }
+    #modalCohortPreview, #modalCohortPreview * { visibility: visible !important; }
+    #modalCohortPreview {
+        position: absolute !important; left: 0 !important; top: 0 !important;
+        width: 100% !important; margin: 0 !important; padding: 0 !important;
+        border: none !important; background: white !important;
+    }
+    .modal-footer, .btn, .btn-close { display: none !important; }
+    @page { size: letter; margin: 2.5cm; }
+}

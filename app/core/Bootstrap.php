@@ -2,7 +2,7 @@
 /**
  * MÓDULO: NÚCLEO
  * Archivo: app/core/Bootstrap.php
- * Propósito: Definición central de rutas e inicialización de persistencia de usuario (Remember Me).
+ * Propósito: Definición central de rutas e inicialización de persistencia.
  */
 
 declare(strict_types=1);
@@ -25,6 +25,7 @@ use App\Controllers\DiplomadosController;
 use App\Controllers\CohortesController;
 use App\Controllers\GruposController;
 use App\Controllers\ProfesoresController;
+use App\Controllers\ExportController;
 use PDO;
 
 final class Bootstrap
@@ -59,7 +60,7 @@ final class Bootstrap
                     ];
                 }
             } catch (\Throwable $e) {
-                // Falla silenciosa de persistencia
+                // Falla silenciosa
             }
         }
 
@@ -91,26 +92,30 @@ final class Bootstrap
         $router->get('/settings/eventos', [SettingsEventsController::class, 'index']);
         $router->get('/settings/eventos/filter', [SettingsEventsController::class, 'filter']);
 
-        // --- GESTIÓN ACADÉMICA (SUBMÓDULO DIPLOMADOS) ---
+        // --- GESTIÓN ACADÉMICA (DIPLOMADOS) ---
         $router->get('/academic', [AcademicController::class, 'index']);
         $router->get('/academic/diplomados', [DiplomadosController::class, 'index']);
         $router->get('/academic/diplomados/create', [DiplomadosController::class, 'create']);
         $router->post('/academic/diplomados/save', [DiplomadosController::class, 'save']);
-
-        
-        // Rutas de Gestión de Diplomados (Edición por parámetro GET)
         $router->get('/academic/diplomados/edit', [DiplomadosController::class, 'edit']); 
         $router->post('/academic/diplomados/update', [DiplomadosController::class, 'update']);
         $router->post('/academic/diplomados/delete', [DiplomadosController::class, 'delete']);
-        
-        // RUTA AJAX PARA VISTA PREVIA (VITAL PARA EL POPUP)
         $router->get('/academic/diplomados/getDetails', [DiplomadosController::class, 'getDetails']);
+        $router->get('/academic/diplomados/export', [\App\Controllers\ExportController::class, 'pdf']);
 
+        // --- GESTIÓN ACADÉMICA (COHORTES) ---
         $router->get('/academic/cohortes', [CohortesController::class, 'index']);
+        $router->get('/academic/cohortes/create', [CohortesController::class, 'create']);
+        $router->post('/academic/cohortes/save', [CohortesController::class, 'save']);
+        $router->post('/academic/cohortes/update', [CohortesController::class, 'update']);
+        $router->post('/academic/cohortes/delete', [CohortesController::class, 'delete']);
+        $router->get('/academic/cohortes/getDetails', [CohortesController::class, 'getDetails']);
+        $router->get('/academic/cohortes/changeStatus', [CohortesController::class, 'changeStatus']);
+        // RUTA FALTANTE AGREGADA PARA AUDITORÍA COMPLETA:
+        $router->get('/academic/cohortes/logAccess', [CohortesController::class, 'logAccess']); 
+
         $router->get('/academic/grupos', [GruposController::class, 'index']);
         $router->get('/academic/profesores', [ProfesoresController::class, 'index']);
-
-        $router->get('/academic/diplomados/export', [\App\Controllers\ExportController::class, 'pdf']);
 
         // --- SEGURIDAD Y USUARIOS ---
         $router->get('/UserSecurity', [UserSecurityController::class, 'index']);
@@ -126,10 +131,8 @@ final class Bootstrap
         $router->get('/register/validate', [RegisterController::class, 'validateToken']);
         $router->post('/register/create-password', [RegisterController::class, 'createPassword']);
         $router->get('/register/complete', [RegisterController::class, 'completeProfile']);
-
         $router->get('/forgot-password', [RegisterController::class, 'forgotPasswordIndex']);
         $router->post('/forgot-password/submit', [RegisterController::class, 'forgotPasswordSubmit']);
-        $router->get('/forgot-password/validate', [RegisterController::class, 'validateToken']);
 
         $router->dispatch();
     }
