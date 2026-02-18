@@ -20,11 +20,11 @@ use App\Controllers\ProfileController;
 use App\Controllers\RegisterController;
 use App\Controllers\SettingsEmailController;
 use App\Controllers\UserSecurityController; 
-use App\Controllers\AcademicController; // Nuevo
-use App\Controllers\DiplomadosController; // Nuevo
-use App\Controllers\CohortesController; // Nuevo
-use App\Controllers\GruposController; // Nuevo
-use App\Controllers\ProfesoresController; // Nuevo
+use App\Controllers\AcademicController;
+use App\Controllers\DiplomadosController;
+use App\Controllers\CohortesController;
+use App\Controllers\GruposController;
+use App\Controllers\ProfesoresController;
 use PDO;
 
 final class Bootstrap
@@ -59,7 +59,7 @@ final class Bootstrap
                     ];
                 }
             } catch (\Throwable $e) {
-                // Falla silenciosa
+                // Falla silenciosa de persistencia
             }
         }
 
@@ -91,12 +91,26 @@ final class Bootstrap
         $router->get('/settings/eventos', [SettingsEventsController::class, 'index']);
         $router->get('/settings/eventos/filter', [SettingsEventsController::class, 'filter']);
 
-        // --- GESTIÓN ACADÉMICA (MÓDULOS INDEPENDIENTES) ---
+        // --- GESTIÓN ACADÉMICA (SUBMÓDULO DIPLOMADOS) ---
         $router->get('/academic', [AcademicController::class, 'index']);
         $router->get('/academic/diplomados', [DiplomadosController::class, 'index']);
+        $router->get('/academic/diplomados/create', [DiplomadosController::class, 'create']);
+        $router->post('/academic/diplomados/save', [DiplomadosController::class, 'save']);
+
+        
+        // Rutas de Gestión de Diplomados (Edición por parámetro GET)
+        $router->get('/academic/diplomados/edit', [DiplomadosController::class, 'edit']); 
+        $router->post('/academic/diplomados/update', [DiplomadosController::class, 'update']);
+        $router->post('/academic/diplomados/delete', [DiplomadosController::class, 'delete']);
+        
+        // RUTA AJAX PARA VISTA PREVIA (VITAL PARA EL POPUP)
+        $router->get('/academic/diplomados/getDetails', [DiplomadosController::class, 'getDetails']);
+
         $router->get('/academic/cohortes', [CohortesController::class, 'index']);
         $router->get('/academic/grupos', [GruposController::class, 'index']);
         $router->get('/academic/profesores', [ProfesoresController::class, 'index']);
+
+        $router->get('/academic/diplomados/export', [\App\Controllers\ExportController::class, 'pdf']);
 
         // --- SEGURIDAD Y USUARIOS ---
         $router->get('/UserSecurity', [UserSecurityController::class, 'index']);
@@ -109,7 +123,13 @@ final class Bootstrap
         // --- REGISTRO Y RECUPERACIÓN ---
         $router->get('/register', [RegisterController::class, 'index']);
         $router->post('/register/submit', [RegisterController::class, 'submit']);
+        $router->get('/register/validate', [RegisterController::class, 'validateToken']);
+        $router->post('/register/create-password', [RegisterController::class, 'createPassword']);
+        $router->get('/register/complete', [RegisterController::class, 'completeProfile']);
+
         $router->get('/forgot-password', [RegisterController::class, 'forgotPasswordIndex']);
+        $router->post('/forgot-password/submit', [RegisterController::class, 'forgotPasswordSubmit']);
+        $router->get('/forgot-password/validate', [RegisterController::class, 'validateToken']);
 
         $router->dispatch();
     }

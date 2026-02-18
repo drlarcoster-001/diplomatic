@@ -1,0 +1,1277 @@
+ El volumen de la unidad C es SISTEMA
+ El n£mero de serie del volumen es: 0649-B2CD
+
+ Directorio de C:\xampp\htdocs\diplomatic
+
+[.]              [..]             [app]            [db]
+estructura.txt   [public]         README.md        [tools]
+               2 archivos             30 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git
+
+[..]             COMMIT_EDITMSG   config           description
+FETCH_HEAD       HEAD             [hooks]          index
+[info]           [logs]           [objects]        ORIG_HEAD
+packed-refs      [refs]           
+               8 archivos         18.410 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\hooks
+
+[.]                         applypatch-msg.sample
+commit-msg.sample           fsmonitor-watchman.sample
+post-update.sample          pre-applypatch.sample
+pre-commit.sample           pre-merge-commit.sample
+pre-push.sample             pre-rebase.sample
+pre-receive.sample          prepare-commit-msg.sample
+push-to-checkout.sample     sendemail-validate.sample
+update.sample               
+              14 archivos         25.827 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\info
+
+[.]       exclude   
+               1 archivos            240 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\logs
+
+[.]    HEAD   [refs] 
+               1 archivos          2.464 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\logs\refs
+
+[.]       [..]      [heads]   [remotes] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\logs\refs\heads
+
+[.]    [..]   main   
+               1 archivos          1.786 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\logs\refs\remotes
+
+[.]      [..]     [origin] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\logs\refs\remotes\origin
+
+[.]    [..]   HEAD   main   
+               2 archivos          1.659 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects
+
+[.]    [00]   [0c]   [11]   [1a]   [1f]   [23]   [24]   [2b]   [2d]   [2e]
+[33]   [34]   [38]   [3d]   [40]   [41]   [42]   [46]   [4d]   [4e]   [50]
+[53]   [54]   [55]   [56]   [58]   [5a]   [5e]   [60]   [62]   [64]   [66]
+[6b]   [6c]   [6d]   [6e]   [71]   [75]   [78]   [82]   [84]   [87]   [89]
+[8e]   [8f]   [93]   [94]   [96]   [97]   [98]   [9b]   [a0]   [a3]   [a8]
+[ae]   [b6]   [bc]   [be]   [c2]   [c3]   [c4]   [c5]   [ce]   [cf]   [d2]
+[d4]   [da]   [de]   [df]   [e3]   [eb]   [ed]   [ee]   [f1]   [f3]   [f6]
+[fc]   [fd]   [fe]   [info] [pack] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\00
+
+[.]
+[..]
+291b47318acdfa241229d313d06e55e04890a2
+               1 archivos         11.691 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\0c
+
+[.]
+[..]
+3554e8bb4faa7ed1315b649ce052359d93673a
+40e45c03955290aa4ffe9d2530bcc348edec5e
+               2 archivos            243 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\11
+
+[.]
+[..]
+3854e5b2b635c23b15aa6e3f9f63af180e9f1b
+               1 archivos             99 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\1a
+
+[.]
+[..]
+b80f8a1ec88322526370ae1a6784513f79d43d
+               1 archivos            208 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\1f
+
+[.]
+[..]
+48d45bb5ceef19228632e108293b5477da7a19
+               1 archivos            219 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\23
+
+[.]
+[..]
+364b80d074240df1dfce58da66d8e1ccf3eeea
+c9914a2c52d58bf6123a4ae5c0e2bfb02b0231
+               2 archivos          4.583 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\24
+
+[.]
+[..]
+3ed7c992609bb32215db6c1999b7839d87985c
+fb8690cc6b3ede09029028f8b800f26bf7213c
+               2 archivos            409 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\2b
+
+[.]
+[..]
+69e82d29e9cd52af79e429cdb1e8f93547bf87
+               1 archivos             54 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\2d
+
+[.]
+[..]
+6862fdc50272226ce3266b18ac6b7540415c7f
+851931234564915f05e21f5f72de924b52d304
+bcaba4fc24ee4a148e5506b4fada2f9cf4f782
+               3 archivos          4.690 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\2e
+
+[.]
+[..]
+a75ace5aefc73db12dc9c4d5defee26c2ee8f2
+               1 archivos            719 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\33
+
+[.]
+[..]
+1202765db6dec86276d5b9962cc8e79abfcb2c
+               1 archivos             57 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\34
+
+[.]
+[..]
+f6b443fc4d45af1f11c8ad6903cf75c15468e7
+               1 archivos            208 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\38
+
+[.]
+[..]
+56c7564f797aa997c2c321255a4af983035338
+               1 archivos          3.738 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\3d
+
+[.]
+[..]
+eeaf3ac37c14a4571d556f333bcf5834f388cb
+               1 archivos            212 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\40
+
+[.]
+[..]
+01814b5d760dbda814cb027fe91f7b1dbfe392
+               1 archivos            118 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\41
+
+[.]
+[..]
+cc97173dbef4ee5e9efb6aef05be79f5f71166
+               1 archivos            274 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\42
+
+[.]
+[..]
+5b4df76b3ee9869c7a47b143cb62a1465fc598
+               1 archivos             50 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\46
+
+[.]
+[..]
+029f2a07e883ab051dc895a5b8917189c86c3b
+               1 archivos          2.937 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\4d
+
+[.]
+[..]
+dadfe68b79090d5eab9332e997cf8021c1a102
+               1 archivos          2.514 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\4e
+
+[.]
+[..]
+b009701ea9a6cbbf525e7d5aca9137d7ebd61c
+               1 archivos            166 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\50
+
+[.]
+[..]
+af442bbd1a1933cfe5caff19c16250952d693d
+               1 archivos            521 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\53
+
+[.]
+[..]
+0f890fee47497ce924ac16193714e8852a6578
+               1 archivos          1.638 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\54
+
+[.]
+[..]
+a60e7d5ffc53ed41720d21b688ebac05389527
+               1 archivos            202 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\55
+
+[.]
+[..]
+161e44162880ef5ea23ac2832f17645923f56c
+               1 archivos            226 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\56
+
+[.]
+[..]
+9d1607307e1e6d7b8ddab03569818628182b59
+9e46115773df52df0bf6b190b1dcb955099ff1
+               2 archivos          1.404 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\58
+
+[.]
+[..]
+999cf318637fac2bbbb01ea361188e0f10ce4d
+               1 archivos            733 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\5a
+
+[.]
+[..]
+1d1518031566c0b0cabd5c1c79f6f69b8839e2
+673e26c915b4e6714671d3389a70e7d55b8d7a
+dd3feea1469f09af76d1918ea60609df012024
+               3 archivos          1.969 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\5e
+
+[.]
+[..]
+1912a0ab49d0ef4263f8bcbaf0f24b2317bc0a
+               1 archivos            128 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\60
+
+[.]
+[..]
+39a63c16864882abc2c2abbb89a8a16f024852
+               1 archivos          2.005 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\62
+
+[.]
+[..]
+126d0239bcaf6e266983caadb4798db1bf328a
+272c739d5a74ac56273c58bfdb1189416243d4
+               2 archivos         29.678 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\64
+
+[.]
+[..]
+13516fe6d7620f2467a9e94081491a700ffc04
+               1 archivos          1.026 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\66
+
+[.]
+[..]
+5ffba77ffcfbf43bbeaac2a2e5a3f0df1d4d51
+               1 archivos            106 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\6b
+
+[.]
+[..]
+ff6cb872ab3daa8d94b3e9616356f5aac15227
+               1 archivos          1.954 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\6c
+
+[.]
+[..]
+1514c98c288a3712b1ccc897c4553f1258cfd3
+               1 archivos            788 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\6d
+
+[.]
+[..]
+11890eee56c670940861a5206c451dc254a655
+d4bd3c4cbb1fc9a19a0666b3d23fb7a9e182f9
+fbacf032ff6d7af189a9ac7d20834ea761c3c2
+               3 archivos            949 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\6e
+
+[.]
+[..]
+5967975e57009707bd096cc342f4b0e4e060be
+               1 archivos            289 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\71
+
+[.]
+[..]
+bcd657b153d8d141efab5668b3bf396b42f9ce
+               1 archivos            913 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\75
+
+[.]
+[..]
+8b605035db1550e4600fc96634dc15384265a0
+               1 archivos          1.818 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\78
+
+[.]
+[..]
+6f2d38b596db82df3f8749c1def617196b8d55
+               1 archivos            195 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\82
+
+[.]
+[..]
+0af7787429e1d46c016495e09f1be781954c36
+f17a0b110e482bb29b9fba47358a24dcd06cf4
+               2 archivos            308 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\84
+
+[.]
+[..]
+a137abb5bb8f48a35599c3e5af74b9a2aba8c0
+               1 archivos            208 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\87
+
+[.]
+[..]
+cd335871056520948453de7f184803e4e66524
+               1 archivos          1.000 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\89
+
+[.]
+[..]
+e9a0658e6f97b593e721b139b97f6d70c0576c
+               1 archivos             58 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\8e
+
+[.]
+[..]
+045e14a559df56d01e51d3a3996c4cc9c48dce
+               1 archivos            192 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\8f
+
+[.]
+[..]
+2b510d66ec352b1cc35c2737da5132da05b41f
+a57e3ca3ad557ff1f80b7513f4702d982a9011
+               2 archivos          2.065 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\93
+
+[.]
+[..]
+8f0b68ebb069d19d82e7eb0e4ea0a2430a3629
+               1 archivos            532 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\94
+
+[.]
+[..]
+1478f7a4ef93d472479783c2ed350aca2aa636
+               1 archivos            218 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\96
+
+[.]
+[..]
+ea51d90718575c9c80f895f798fa46d0c98615
+               1 archivos            199 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\97
+
+[.]
+[..]
+95945b61882c6a5a8e0a1deaad5b878cf93f6f
+               1 archivos            274 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\98
+
+[.]
+[..]
+554a126d2e2058e24fb63ed0ef8e6499892ce7
+               1 archivos            180 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\9b
+
+[.]
+[..]
+27c831a1d6e526b4df6a7b94e357250efb0c98
+               1 archivos             54 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\a0
+
+[.]
+[..]
+14809258018362c1d7e3561198f9750f255691
+               1 archivos            152 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\a3
+
+[.]
+[..]
+464ec3fbf9309c1e2a1c5dae1a99731a8ec681
+               1 archivos            276 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\a8
+
+[.]
+[..]
+94f3bd23fb5c7de4b53180008c903b012a3148
+               1 archivos            208 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\ae
+
+[.]
+[..]
+4e6c2d0971b6894826416aeba783dcb99941f4
+               1 archivos            206 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\b6
+
+[.]
+[..]
+91f4f49d37f2eb88241c7bcc77ba20802f4b65
+               1 archivos            183 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\bc
+
+[.]
+[..]
+398485f558676585ea44d87db598ca0eee48c7
+               1 archivos            305 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\be
+
+[.]
+[..]
+55c95e55f64c129e630b212ba131f005a63826
+               1 archivos             98 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\c2
+
+[.]
+[..]
+3ea5c1354197e0c92cc1e1f6f3555025e75b43
+               1 archivos            166 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\c3
+
+[.]
+[..]
+341cfc92a838896dcddeee70300ed7aa35c714
+a5265080d1dcf72de11426524a23849c7c4bf5
+               2 archivos          1.413 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\c4
+
+[.]
+[..]
+1ad5804c3d7699cc67befd4ce57e43cd14837a
+               1 archivos            101 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\c5
+
+[.]
+[..]
+d398f4598d6cee967c164ab7f2c9edce85d441
+               1 archivos             86 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\ce
+
+[.]
+[..]
+05cad4940f9975c582648899d936aa826f5e48
+               1 archivos          2.344 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\cf
+
+[.]
+[..]
+08f1b5ceefa28ccadc2fd9c517944751643856
+               1 archivos             49 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\d2
+
+[.]
+[..]
+56a997ad7883a752873b1f4e0b6bf3f075214f
+               1 archivos            199 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\d4
+
+[.]
+[..]
+b937390ebb5ac83ebf76eee676ca28200d2ed4
+ff3faca1ccba225f51fa310409f33d54f2c9c6
+               2 archivos          1.167 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\da
+
+[.]
+[..]
+02b74eee67b4ea98faff86504eabf693518f03
+8d197f7055315e2abbe8553682f9d17d2420c2
+               2 archivos            267 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\de
+
+[.]
+[..]
+09236bce8a90ff67ed4e3f98b18108a62c7da5
+               1 archivos            160 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\df
+
+[.]
+[..]
+c6b09c3447ae199f043623246353f8a0546cbb
+dc23427d8ac37d32e5e654b47dac0f30937d41
+               2 archivos          1.706 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\e3
+
+[.]
+[..]
+0afe0707363ede3a9d707831e8a0532d8c68ab
+               1 archivos            152 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\eb
+
+[.]
+[..]
+1c799a05123b6c976de404cc5d4155059353d6
+cf4477fb38fd6d5fb8fc5c893c2a8bff1c166a
+               2 archivos            171 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\ed
+
+[.]
+[..]
+cd7767931612b442a9ddb55d6b15da791cd89e
+               1 archivos          1.833 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\ee
+
+[.]
+[..]
+904414c96588f0223ab124aa562aae7ce62365
+               1 archivos            208 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\f1
+
+[.]
+[..]
+432bbc6d31a852126e6538d77bb12b2a5954b2
+               1 archivos             54 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\f3
+
+[.]
+[..]
+4392fd0eabd97c73423b21cd42850149b54e48
+               1 archivos            199 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\f6
+
+[.]
+[..]
+ba9f08986ead1062515c67bb2af97390d3dc1b
+d87cd94d71d6e426923292d1922dbb4d637ef2
+               2 archivos            440 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\fc
+
+[.]
+[..]
+5fdb9cdb94fc7e2519ccb0f3c31ba2e566d76f
+               1 archivos          1.638 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\fd
+
+[.]
+[..]
+7737c69cfa05958b274a01cecaebbc0ee01ada
+f2d91b996d8997201c12ee4c256ef9161008fc
+               2 archivos          7.116 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\fe
+
+[.]
+[..]
+db64b66b5b99ea9382984304f9ac7f6c858ea7
+ff03bf63494b4c8e9cc4134c592b86ca40106d
+               2 archivos            345 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\info
+
+[.]  [..] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\objects\pack
+
+[.]
+[..]
+pack-205c2ea2798131ad8468db019f5c5193629e28ed.idx
+pack-205c2ea2798131ad8468db019f5c5193629e28ed.pack
+pack-205c2ea2798131ad8468db019f5c5193629e28ed.rev
+pack-4beb2278517eef691200ce05f5466ae5011fadd5.idx
+pack-4beb2278517eef691200ce05f5466ae5011fadd5.pack
+pack-4beb2278517eef691200ce05f5466ae5011fadd5.rev
+pack-db19f126a5a46c231c1ab478b5c68faab6cc1eed.idx
+pack-db19f126a5a46c231c1ab478b5c68faab6cc1eed.pack
+pack-db19f126a5a46c231c1ab478b5c68faab6cc1eed.rev
+               9 archivos        493.451 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\refs
+
+[.]       [heads]   [remotes] [tags]    
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\refs\heads
+
+[.]    [..]   main   
+               1 archivos             41 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\refs\remotes
+
+[.]      [..]     [origin] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\refs\remotes\origin
+
+[.]    [..]   HEAD   main   
+               2 archivos             71 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\.git\refs\tags
+
+[.]  [..] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app
+
+[.]           [..]          [config]      [controllers] [core]
+[models]      [services]    [views]       
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\config
+
+[.]            [..]           database.php   
+               1 archivos            655 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\controllers
+
+[.]                              [..]
+AcademicController.php           AuthController.php
+DashboardController.php          DiplomadosController.php
+ExportController.php             ProfileController.php
+RegisterController.php           SettingsCompanyController.php
+SettingsController.php           SettingsEmailController.php
+SettingsEventsController.php     SettingsWhatsappController.php
+UsersController.php              UserSecurityController.php
+              14 archivos         63.876 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\core
+
+[.]              [..]             Autoload.php     Bootstrap.php
+Controller.php   Database.php     Router.php       View.php
+               6 archivos         15.240 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\models
+
+[.]                     [..]                    DiplomadosModel.php
+UserModel.php           UserSecurityModel.php   
+               3 archivos          6.952 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\services
+
+[.]                       [..]                      AuditService.php
+MailService.php           MailServiceRegister.php   
+               3 archivos         10.673 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views
+
+[.]           [..]          [academic]    [auth]        [dashboard]
+index.php     layout.php    [settings]    sidebar.php   topnav.php
+[users]       
+               4 archivos          8.863 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\academic
+
+[.]          [..]         [diplomados] index.php    
+               1 archivos          3.448 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\academic\diplomados
+
+[.]          [..]         create.php   edit.php     index.php    
+               3 archivos         17.876 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\auth
+
+[.]                  [..]                 forgot.php
+login.php            password.php         password_reset.php
+register.php         token_error.php      
+               6 archivos         16.073 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\dashboard
+
+[.]         [..]        index.php   
+               1 archivos          1.281 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\settings
+
+[.]            [..]           empresa.php    eventos.php    index.php
+mail.php       whatsapp.php   
+               5 archivos         28.290 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\users
+
+[.]                 [..]                index.php           profile.php
+security.php        security_grid.php   
+               4 archivos         29.331 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\db
+
+[.]                            [..]
+db_diplomatic-20260213-3.sql   db_diplomatic-20260216-3.sql
+db_diplomatic-20260217-1.sql   db_diplomatic_20260210.sql
+db_diplomatic_20260211-1.sql   db_diplomatic_20260212-1.sql
+db_diplomatic_20260213-1.sql   db_diplomatic_20260213-2.sql
+db_diplomatic_20260216-1.sql   db_diplomatic_20260216-2.sql
+              10 archivos        699.755 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public
+
+[.]          [..]         .htaccess    [assets]     index.php    logout.php
+               3 archivos          2.094 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\assets
+
+[.]   [..]  [css] [img] [js]  
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\assets\css
+
+[.]                       [..]                      academic_diplomados.css
+access.css                company.css               events.css
+panel.css                 settings.css              settings_email.css
+settings_panel.css        users.css                 user_security.css
+whatsapp_manual.css       
+              11 archivos         13.407 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\assets\img
+
+[.]       [..]      [avatars] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\assets\img\avatars
+
+[.]                   [..]                  usr_1770810625.png
+usr_1770810835.png    usr_1770810903.png    usr_1770811774.png
+usr_1770814551.png    usr_1770814743.png    usr_1770986726.png
+usr_1771283375.webp   usr_1771290749.webp   usr_1771292139.webp
+usr_1771292929.webp   usr_1771295356.webp   
+              12 archivos        449.308 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\assets\js
+
+[.]                      [..]                     academic_diplomados.js
+access.js                company.js               events.js
+panel.js                 register.js              settings.js
+settings_email.js        users.js                 user_security.js
+whatsapp_manual.js       
+              11 archivos         35.924 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools
+
+[.]                 [..]                [dompdf]            generate_hash.php
+[phpmailer]         
+               1 archivos          2.125 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf
+
+[.]                [..]               AUTHORS.md         autoload.inc.php
+LICENSE.LGPL       README.md          [vendor]           VERSION
+               5 archivos         33.243 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor
+
+[.]            [..]           autoload.php   [composer]     [dompdf]
+[masterminds]  [sabberworm]   
+               1 archivos            178 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\composer
+
+[.]                       [..]                      autoload_classmap.php
+autoload_namespaces.php   autoload_psr4.php         autoload_real.php
+autoload_static.php       ClassLoader.php           installed.json
+installed.php             InstalledVersions.php     LICENSE
+platform_check.php        
+              11 archivos         51.840 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf
+
+[.]            [..]           [dompdf]       [php-font-lib] [php-svg-lib]
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf
+
+[.]             [..]            AUTHORS.md      composer.json   [lib]
+LICENSE.LGPL    phpunit.xml     README.md       [src]           VERSION
+               6 archivos         35.296 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\lib
+
+[.]        [..]       Cpdf.php   [fonts]    [res]      
+               1 archivos        236.612 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\lib\fonts
+
+[.]                              [..]
+Courier-Bold.afm                 Courier-BoldOblique.afm
+Courier-Oblique.afm              Courier.afm
+DejaVuSans-Bold.ttf              DejaVuSans-Bold.ufm
+DejaVuSans-BoldOblique.ttf       DejaVuSans-BoldOblique.ufm
+DejaVuSans-Oblique.ttf           DejaVuSans-Oblique.ufm
+DejaVuSans.ttf                   DejaVuSans.ufm
+DejaVuSansMono-Bold.ttf          DejaVuSansMono-Bold.ufm
+DejaVuSansMono-BoldOblique.ttf   DejaVuSansMono-BoldOblique.ufm
+DejaVuSansMono-Oblique.ttf       DejaVuSansMono-Oblique.ufm
+DejaVuSansMono.ttf               DejaVuSansMono.ufm
+DejaVuSerif-Bold.ttf             DejaVuSerif-Bold.ufm
+DejaVuSerif-BoldItalic.ttf       DejaVuSerif-BoldItalic.ufm
+DejaVuSerif-Italic.ttf           DejaVuSerif-Italic.ufm
+DejaVuSerif.ttf                  DejaVuSerif.ufm
+Helvetica-Bold.afm               Helvetica-BoldOblique.afm
+Helvetica-Oblique.afm            Helvetica.afm
+installed-fonts.dist.json        mustRead.html
+Symbol.afm                       Times-Bold.afm
+Times-BoldItalic.afm             Times-Italic.afm
+Times-Roman.afm                  ZapfDingbats.afm
+              40 archivos      7.796.880 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\lib\res
+
+[.]                    [..]                   broken_image.png
+broken_image.svg       html.css               sRGB2014.icc
+sRGB2014.icc.LICENSE   
+               5 archivos         12.301 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\src
+
+[.]                      [..]                     [Adapter]
+Canvas.php               CanvasFactory.php        Cellmap.php
+[Css]                    Dompdf.php               [Exception]
+Exception.php            FontMetrics.php          [Frame]
+Frame.php                [FrameDecorator]         [FrameReflower]
+Helpers.php              [Image]                  JavascriptEmbedder.php
+LineBox.php              Options.php              PhpEvaluator.php
+[Positioner]             [Renderer]               Renderer.php
+              13 archivos        239.366 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\src\Adapter
+
+[.]          [..]         CPDF.php     GD.php       PDFLib.php   
+               3 archivos        106.364 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\src\Css
+
+[.]                       [..]                      AttributeTranslator.php
+Color.php                 [Content]                 Style.php
+Stylesheet.php            
+               4 archivos        246.081 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\src\Css\Content
+
+[.]                [..]               Attr.php           CloseQuote.php
+ContentPart.php    Counter.php        Counters.php       NoCloseQuote.php
+NoOpenQuote.php    OpenQuote.php      StringPart.php     Url.php
+              10 archivos          3.728 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\src\Exception
+
+[.]                  [..]                 ImageException.php
+               1 archivos            571 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\src\Frame
+
+[.]                     [..]                    Factory.php
+FrameListIterator.php   FrameTree.php           FrameTreeIterator.php
+               4 archivos         20.750 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\src\FrameDecorator
+
+[.]                          [..]
+AbstractFrameDecorator.php   Block.php
+Image.php                    Inline.php
+ListBullet.php               ListBulletImage.php
+NullFrameDecorator.php       Page.php
+Table.php                    TableCell.php
+TableRow.php                 TableRowGroup.php
+Text.php                     
+              13 archivos         91.000 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\src\FrameReflower
+
+[.]                         [..]
+AbstractFrameReflower.php   Block.php
+Image.php                   Inline.php
+ListBullet.php              NullFrameReflower.php
+Page.php                    Table.php
+TableCell.php               TableRow.php
+TableRowGroup.php           Text.php
+              12 archivos        123.093 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\src\Image
+
+[.]         [..]        Cache.php   
+               1 archivos         11.534 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\src\Positioner
+
+[.]                      [..]                     Absolute.php
+AbstractPositioner.php   Block.php                Fixed.php
+Inline.php               ListBullet.php           NullPositioner.php
+TableCell.php            TableRow.php             
+               9 archivos         15.429 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\src\Renderer
+
+[.]                    [..]                   AbstractRenderer.php
+Block.php              Image.php              Inline.php
+ListBullet.php         TableCell.php          TableRow.php
+TableRowGroup.php      Text.php               
+               9 archivos         72.414 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib
+
+[.]             [..]            AUTHORS.md      composer.json   LICENSE
+[maps]          README.md       [src]           
+               4 archivos         27.158 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib\maps
+
+[.]                           [..]
+adobe-standard-encoding.map   cp1250.map
+cp1251.map                    cp1252.map
+cp1253.map                    cp1254.map
+cp1255.map                    cp1257.map
+cp1258.map                    cp874.map
+iso-8859-1.map                iso-8859-11.map
+iso-8859-15.map               iso-8859-16.map
+iso-8859-2.map                iso-8859-4.map
+iso-8859-5.map                iso-8859-7.map
+iso-8859-9.map                koi8-r.map
+koi8-u.map                    
+              21 archivos        103.891 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib\src
+
+[.]       [..]      [FontLib] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib\src\FontLib
+
+[.]                    [..]                   AdobeFontMetrics.php
+BinaryStream.php       EncodingMap.php        [EOT]
+[Exception]            Font.php               [Glyph]
+Header.php             [OpenType]             [Table]
+[TrueType]             [WOFF]                 
+               5 archivos         20.239 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib\src\FontLib\EOT
+
+[.]          [..]         File.php     Header.php   
+               2 archivos          6.563 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib\src\FontLib\Exception
+
+[.]                         [..]
+FontNotFoundException.php   
+               1 archivos            202 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib\src\FontLib\Glyph
+
+[.]                    [..]                   Outline.php
+OutlineComponent.php   OutlineComposite.php   OutlineSimple.php
+               4 archivos         18.424 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib\src\FontLib\OpenType
+
+[.]                       [..]                      File.php
+TableDirectoryEntry.php   
+               2 archivos            723 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib\src\FontLib\Table
+
+[.]                  [..]                 DirectoryEntry.php
+Table.php            [Type]               
+               2 archivos          4.158 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib\src\FontLib\Table\Type
+
+[.]              [..]             cmap.php         cvt.php
+fpgm.php         glyf.php         head.php         hhea.php
+hmtx.php         kern.php         loca.php         maxp.php
+name.php         nameRecord.php   os2.php          post.php
+prep.php         
+              15 archivos         38.930 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib\src\FontLib\TrueType
+
+[.]                       [..]                      Collection.php
+File.php                  Header.php                TableDirectoryEntry.php
+               4 archivos         18.953 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib\src\FontLib\WOFF
+
+[.]                       [..]                      File.php
+Header.php                TableDirectoryEntry.php   
+               3 archivos          3.487 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-svg-lib
+
+[.]             [..]            AUTHORS.md      composer.json   LICENSE
+README.md       [src]           
+               4 archivos          9.690 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-svg-lib\src
+
+[.]   [..]  [Svg] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-svg-lib\src\Svg
+
+[.]                [..]               CssLength.php      DefaultStyle.php
+Document.php       [Gradient]         Style.php          [Surface]
+[Tag]              
+               4 archivos         33.679 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-svg-lib\src\Svg\Gradient
+
+[.]        [..]       Stop.php   
+               1 archivos            258 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-svg-lib\src\Svg\Surface
+
+[.]                    [..]                   CPdf.php
+SurfaceCpdf.php        SurfaceInterface.php   SurfacePDFLib.php
+               4 archivos        245.379 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-svg-lib\src\Svg\Tag
+
+[.]                  [..]                 AbstractTag.php
+Anchor.php           Circle.php           ClipPath.php
+Ellipse.php          Group.php            Image.php
+Line.php             LinearGradient.php   Path.php
+Polygon.php          Polyline.php         RadialGradient.php
+Rect.php             Shape.php            Stop.php
+StyleTag.php         Symbol.php           Text.php
+UseTag.php           
+              20 archivos         50.547 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\masterminds
+
+[.]     [..]    [html5] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\masterminds\html5
+
+[.]             [..]            [bin]           composer.json   CREDITS
+LICENSE.txt     README.md       RELEASE.md      [src]           UPGRADING.md
+               6 archivos         20.111 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\masterminds\html5\bin
+
+[.]            [..]           entities.php   
+               1 archivos            638 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\masterminds\html5\src
+
+[.]         [..]        [HTML5]     HTML5.php   
+               1 archivos          8.516 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\masterminds\html5\src\HTML5
+
+[.]                        [..]
+Elements.php               Entities.php
+Exception.php              InstructionProcessor.php
+[Parser]                   [Serializer]
+               4 archivos         83.401 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\masterminds\html5\src\HTML5\Parser
+
+[.]                      [..]                     CharacterReference.php
+DOMTreeBuilder.php       EventHandler.php         FileInputStream.php
+InputStream.php          ParseError.php           README.md
+Scanner.php              StringInputStream.php    Tokenizer.php
+TreeBuildingRules.php    UTF8Utils.php            
+              12 archivos        102.293 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\masterminds\html5\src\HTML5\Serializer
+
+[.]                  [..]                 HTML5Entities.php
+OutputRules.php      README.md            RulesInterface.php
+Traverser.php        
+               5 archivos         69.031 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\sabberworm
+
+[.]              [..]             [php-css-parser] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\sabberworm\php-css-parser
+
+[.]             [..]            CHANGELOG.md    composer.json   LICENSE
+README.md       [src]           
+               4 archivos         37.513 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\sabberworm\php-css-parser\src
+
+[.]                   [..]                  [Comment]
+CSSElement.php        [CSSList]             OutputFormat.php
+OutputFormatter.php   Parser.php            [Parsing]
+[Position]            [Property]            Renderable.php
+[Rule]                [RuleSet]             Settings.php
+[Value]               
+               6 archivos         23.385 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\sabberworm\php-css-parser\src\Comment
+
+[.]               [..]              Comment.php       Commentable.php
+               2 archivos          1.728 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\sabberworm\php-css-parser\src\CSSList
+
+[.]                   [..]                  AtRuleBlockList.php
+CSSBlockList.php      CSSList.php           Document.php
+KeyFrame.php          
+               5 archivos         31.864 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\sabberworm\php-css-parser\src\Parsing
+
+[.]                            [..]
+Anchor.php                     OutputException.php
+ParserState.php                SourceException.php
+UnexpectedEOFException.php     UnexpectedTokenException.php
+               6 archivos         17.729 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\sabberworm\php-css-parser\src\Position
+
+[.]                [..]               Position.php       Positionable.php
+               2 archivos          2.625 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\sabberworm\php-css-parser\src\Property
+
+[.]                    [..]                   AtRule.php
+Charset.php            CSSNamespace.php       Import.php
+KeyframeSelector.php   Selector.php           
+               6 archivos         13.745 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\sabberworm\php-css-parser\src\Rule
+
+[.]        [..]       Rule.php   
+               1 archivos         10.605 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\sabberworm\php-css-parser\src\RuleSet
+
+[.]                    [..]                   AtRuleSet.php
+DeclarationBlock.php   RuleSet.php            
+               3 archivos         45.125 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\sabberworm\php-css-parser\src\Value
+
+[.]                     [..]                    CalcFunction.php
+CalcRuleValueList.php   Color.php               CSSFunction.php
+CSSString.php           LineName.php            PrimitiveValue.php
+RuleValueList.php       Size.php                URL.php
+Value.php               ValueList.php           
+              12 archivos         39.616 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\phpmailer
+
+[.]                      [..]                     COMMITMENT
+composer.json            DSNConfigurator.php      Exception.php
+get_oauth_token.php      [language]               LICENSE
+OAuth.php                OAuthTokenProvider.php   PHPMailer.php
+POP3.php                 README.md                SECURITY.md
+SMTP.php                 SMTPUTF8.md              VERSION
+              15 archivos        351.067 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\phpmailer\language
+
+[.]                          [..]
+phpmailer.lang-af.php        phpmailer.lang-ar.php
+phpmailer.lang-as.php        phpmailer.lang-az.php
+phpmailer.lang-ba.php        phpmailer.lang-be.php
+phpmailer.lang-bg.php        phpmailer.lang-bn.php
+phpmailer.lang-ca.php        phpmailer.lang-cs.php
+phpmailer.lang-da.php        phpmailer.lang-de.php
+phpmailer.lang-el.php        phpmailer.lang-eo.php
+phpmailer.lang-es.php        phpmailer.lang-et.php
+phpmailer.lang-fa.php        phpmailer.lang-fi.php
+phpmailer.lang-fo.php        phpmailer.lang-fr.php
+phpmailer.lang-gl.php        phpmailer.lang-he.php
+phpmailer.lang-hi.php        phpmailer.lang-hr.php
+phpmailer.lang-hu.php        phpmailer.lang-hy.php
+phpmailer.lang-id.php        phpmailer.lang-it.php
+phpmailer.lang-ja.php        phpmailer.lang-ka.php
+phpmailer.lang-ko.php        phpmailer.lang-ku.php
+phpmailer.lang-lt.php        phpmailer.lang-lv.php
+phpmailer.lang-mg.php        phpmailer.lang-mn.php
+phpmailer.lang-ms.php        phpmailer.lang-nb.php
+phpmailer.lang-nl.php        phpmailer.lang-pl.php
+phpmailer.lang-pt.php        phpmailer.lang-pt_br.php
+phpmailer.lang-ro.php        phpmailer.lang-ru.php
+phpmailer.lang-si.php        phpmailer.lang-sk.php
+phpmailer.lang-sl.php        phpmailer.lang-sr.php
+phpmailer.lang-sr_latn.php   phpmailer.lang-sv.php
+phpmailer.lang-tl.php        phpmailer.lang-tr.php
+phpmailer.lang-uk.php        phpmailer.lang-ur.php
+phpmailer.lang-vi.php        phpmailer.lang-zh.php
+phpmailer.lang-zh_cn.php     
+              57 archivos        130.772 bytes
+
+     Total de archivos en la lista:
+             632 archivos     12.724.136 bytes
+             514 dirs  704.582.332.416 bytes libres
