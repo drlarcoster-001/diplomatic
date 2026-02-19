@@ -23,8 +23,8 @@ use App\Controllers\UserSecurityController;
 use App\Controllers\AcademicController;
 use App\Controllers\DiplomadosController;
 use App\Controllers\CohortesController;
-use App\Controllers\CohortesConfigController; // <-- AQUÍ ESTÁ EL CONTROLADOR NUEVO
-use App\Controllers\GruposController;
+use App\Controllers\CohortesConfigController; 
+use App\Controllers\GruposController; // <-- Controlador de Grupos
 use App\Controllers\ProfesoresController;
 use App\Controllers\ExportController;
 use PDO;
@@ -120,7 +120,15 @@ final class Bootstrap
         $router->post('/academic/cohortes-config/updateStatus', [CohortesConfigController::class, 'updateStatus']);
         $router->post('/academic/cohortes-config/hardDelete', [CohortesConfigController::class, 'hardDelete']);
 
+        // --- GESTIÓN ACADÉMICA (GRUPOS) ---
         $router->get('/academic/grupos', [GruposController::class, 'index']);
+        $router->post('/academic/grupos/save', [GruposController::class, 'save']);
+        $router->post('/academic/grupos/update', [GruposController::class, 'update']);
+        $router->post('/academic/grupos/delete', [GruposController::class, 'delete']);
+        $router->get('/academic/grupos/getDetails', [GruposController::class, 'getDetails']);
+        $router->get('/academic/grupos/logAccess', [GruposController::class, 'logAccess']);
+
+        // --- GESTIÓN ACADÉMICA (PROFESORES) ---
         $router->get('/academic/profesores', [ProfesoresController::class, 'index']);
 
         // --- SEGURIDAD Y USUARIOS ---
