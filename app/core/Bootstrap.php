@@ -23,6 +23,7 @@ use App\Controllers\UserSecurityController;
 use App\Controllers\AcademicController;
 use App\Controllers\DiplomadosController;
 use App\Controllers\CohortesController;
+use App\Controllers\CohortesConfigController; // <-- AQUÍ ESTÁ EL CONTROLADOR NUEVO
 use App\Controllers\GruposController;
 use App\Controllers\ProfesoresController;
 use App\Controllers\ExportController;
@@ -111,8 +112,13 @@ final class Bootstrap
         $router->post('/academic/cohortes/delete', [CohortesController::class, 'delete']);
         $router->get('/academic/cohortes/getDetails', [CohortesController::class, 'getDetails']);
         $router->get('/academic/cohortes/changeStatus', [CohortesController::class, 'changeStatus']);
-        // RUTA FALTANTE AGREGADA PARA AUDITORÍA COMPLETA:
         $router->get('/academic/cohortes/logAccess', [CohortesController::class, 'logAccess']); 
+        
+        // --- GESTIÓN ACADÉMICA (CONFIGURACIÓN AVANZADA COHORTES) ---
+        $router->get('/academic/cohortes-config', [CohortesConfigController::class, 'index']);
+        $router->get('/academic/cohortes-config/getDetails', [CohortesConfigController::class, 'getDetails']);
+        $router->post('/academic/cohortes-config/updateStatus', [CohortesConfigController::class, 'updateStatus']);
+        $router->post('/academic/cohortes-config/hardDelete', [CohortesConfigController::class, 'hardDelete']);
 
         $router->get('/academic/grupos', [GruposController::class, 'index']);
         $router->get('/academic/profesores', [ProfesoresController::class, 'index']);

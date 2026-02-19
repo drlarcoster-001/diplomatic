@@ -5,6 +5,7 @@
  * Propósito: Interfaz de dashboard modular para acceso a entidades académicas.
  */
 $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
+$userRole = $_SESSION['user']['role'] ?? '';
 ?>
 
 <link rel="stylesheet" href="/diplomatic/public/assets/css/settings_panel.css">
@@ -63,5 +64,20 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
                 </div>
             </a>
         </div>
+
+        <?php if (in_array($userRole, ['ADMIN', 'OPERATOR'])): ?>
+        <div class="col-md-6 col-lg-3">
+            <a href="<?= htmlspecialchars($basePath) ?>/academic/cohortes-config" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #f6c23e !important;">
+                    <div class="bg-warning bg-opacity-10 text-warning p-3 rounded-circle mx-auto mb-3" style="width: fit-content;">
+                        <i class="bi bi-gear-fill fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold">Config. Cohortes</h5>
+                    <p class="text-muted small">Gestión de estatus extemporáneos y borrado físico.</p>
+                </div>
+            </a>
+        </div>
+        <?php endif; ?>
+
     </div>
 </div>
