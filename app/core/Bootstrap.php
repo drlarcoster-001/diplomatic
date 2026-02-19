@@ -24,7 +24,7 @@ use App\Controllers\AcademicController;
 use App\Controllers\DiplomadosController;
 use App\Controllers\CohortesController;
 use App\Controllers\CohortesConfigController; 
-use App\Controllers\GruposController; // <-- Controlador de Grupos
+use App\Controllers\GruposController;
 use App\Controllers\ProfesoresController;
 use App\Controllers\ExportController;
 use PDO;
@@ -33,7 +33,6 @@ final class Bootstrap
 {
     public function run(): void
     {
-        // --- 1. INICIALIZACIÓN DE PERSISTENCIA (RECORDARME) ---
         if (session_status() === PHP_SESSION_NONE) session_start();
 
         if (empty($_SESSION['user']['id']) && isset($_COOKIE['remember_me'])) {
@@ -60,12 +59,9 @@ final class Bootstrap
                         'avatar'    => $u['avatar'] ?? 'default_avatar.png',
                     ];
                 }
-            } catch (\Throwable $e) {
-                // Falla silenciosa
-            }
+            } catch (\Throwable $e) {}
         }
 
-        // --- 2. DEFINICIÓN DE RUTAS ---
         $router = new Router();
 
         // --- ACCESO Y DASHBOARD ---
@@ -130,6 +126,24 @@ final class Bootstrap
 
         // --- GESTIÓN ACADÉMICA (PROFESORES) ---
         $router->get('/academic/profesores', [ProfesoresController::class, 'index']);
+        $router->get('/academic/profesores/create', [ProfesoresController::class, 'create']);
+        $router->post('/academic/profesores/save', [ProfesoresController::class, 'save']);
+        $router->get('/academic/profesores/edit', [ProfesoresController::class, 'edit']);
+        $router->post('/academic/profesores/updateBase', [ProfesoresController::class, 'updateBase']);
+        $router->post('/academic/profesores/delete', [ProfesoresController::class, 'delete']);
+        $router->get('/academic/profesores/getDetails', [ProfesoresController::class, 'getDetails']);
+        $router->get('/academic/profesores/logAccess', [ProfesoresController::class, 'logAccess']);
+        
+        // Rutas Multitabla Profesores
+        $router->post('/academic/profesores/saveFormation', [ProfesoresController::class, 'saveFormation']);
+        $router->post('/academic/profesores/deleteFormation', [ProfesoresController::class, 'deleteFormation']);
+        $router->post('/academic/profesores/saveWork', [ProfesoresController::class, 'saveWork']);
+        $router->post('/academic/profesores/deleteWork', [ProfesoresController::class, 'deleteWork']);
+        $router->post('/academic/profesores/saveSpecialty', [ProfesoresController::class, 'saveSpecialty']);
+        $router->post('/academic/profesores/deleteSpecialty', [ProfesoresController::class, 'deleteSpecialty']);
+        $router->post('/academic/profesores/uploadDocument', [ProfesoresController::class, 'uploadDocument']);
+        $router->post('/academic/profesores/deleteDocument', [ProfesoresController::class, 'deleteDocument']);
+        $router->post('/academic/profesores/uploadPhoto', [ProfesoresController::class, 'uploadPhoto']);
 
         // --- SEGURIDAD Y USUARIOS ---
         $router->get('/UserSecurity', [UserSecurityController::class, 'index']);

@@ -1,0 +1,101 @@
+/**
+ * MÓDULO: GESTIÓN ACADÉMICA
+ * Archivo: public/assets/js/academic_profesores_edit.js
+ */
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // === 0. NOTIFICACIÓN DE ÉXITO (POPUP SWEETALERT) ===
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('updated') || urlParams.has('created')) {
+        Swal.fire({
+            icon: 'success',
+            title: '¡Operación Exitosa!',
+            text: 'La información del docente se ha procesado correctamente.',
+            confirmButtonColor: '#4e73df'
+        });
+        window.history.replaceState({}, document.title, window.location.pathname + "?id=" + document.querySelector('input[name="id"]').value);
+    }
+
+    // === 1. PERSISTENCIA DE PESTAÑAS ===
+    const triggerTabList = document.querySelectorAll('#expedienteTabs button');
+    const activeTabId = localStorage.getItem('activeProfessorTab');
+    if (activeTabId) {
+        const targetTab = document.querySelector(`#expedienteTabs button[data-bs-target="${activeTabId}"]`);
+        if (targetTab) new bootstrap.Tab(targetTab).show();
+    }
+    triggerTabList.forEach(t => t.addEventListener('shown.bs.tab', e => localStorage.setItem('activeProfessorTab', e.target.dataset.bsTarget)));
+
+    // === 2. DISPARADORES DE MODALES ===
+    const openM = (cls, id) => {
+        const b = document.querySelector(cls);
+        if (b) b.addEventListener('click', () => bootstrap.Modal.getOrCreateInstance(document.getElementById(id)).show());
+    };
+    openM('.btn-add-formation', 'modalFormation');
+    openM('.btn-add-work', 'modalWork');
+    openM('.btn-add-specialty', 'modalSpecialty');
+    openM('.btn-add-document', 'modalDocument');
+
+    // === 3. LÓGICA TRABAJO ACTUAL ===
+    const chk = document.getElementById('check_current');
+    const end = document.getElementById('work_end_date');
+    if (chk && end) chk.addEventListener('change', function() { end.disabled = this.checked; if (this.checked) end.value = ''; });
+
+    // === 4. BORRADO CON SWEETALERT ===
+    document.querySelectorAll('.btn-delete-record').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const f = this.closest('form');
+            Swal.fire({
+                title: '¿Eliminar registro?',
+                text: "Esta acción no se puede deshacer.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#e74a3b',
+                cancelButtonColor: '#858796',
+                confirmButtonText: 'Sí, borrar',
+                cancelButtonText: 'Cancelar'
+            }).then((res) => { if (res.isConfirmed) f.submit(); });
+        });
+    });
+
+    // === 5. CROPPER (FOTO) ===
+    const btnPh = document.querySelector('.btn-change-photo');
+    const inPh = document.getElementById('inputPhotoUpload');
+    const imgCr = document.getElementById('imageToCrop');
+    const modCr = document.getElementById('modalCrop');
+    const svCr = document.getElementById('btnSaveCrop');
+    let crop = null;
+
+    if (btnPh) btnPh.addEventListener('click', () => inPh.click());
+    if (inPh) inPh.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const rd = new FileReader();
+            rd.onload = (ev) => { imgCr.src = ev.target.result; bootstrap.Modal.getOrCreateInstance(modCr).show(); };
+            rd.readAsDataURL(file);
+        }
+    });
+
+    if (modCr) {
+        modCr.addEventListener('shown.bs.modal', () => { crop = new Cropper(imgCr, { aspectRatio: 1, viewMode: 1 }); });
+        modCr.addEventListener('hidden.bs.modal', () => { if (crop) { crop.destroy(); crop = null; } });
+    }
+
+    if (svCr) svCr.addEventListener('click', function() {
+        const canv = crop.getCroppedCanvas({ width: 300, height: 300 });
+        const b64 = canv.toDataURL('image/png');
+        const id = document.querySelector('input[name="id"]').value;
+        svCr.disabled = true;
+        fetch('/diplomatic/public/academic/profesores/uploadPhoto', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `id=${id}&image=${encodeURIComponent(b64)}`
+        }).then(r => r.json()).then(d => {
+            if (d.success) {
+                document.getElementById('profile-img-preview').src = d.path;
+                bootstrap.Modal.getOrCreateInstance(modCr).hide();
+                Swal.fire({ icon: 'success', title: '¡Foto actualizada!', confirmButtonColor: '#4e73df' });
+            }
+        }).finally(() => svCr.disabled = false);
+    });
+});
