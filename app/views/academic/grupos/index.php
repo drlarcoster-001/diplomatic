@@ -74,12 +74,12 @@
                                 <td class="text-muted small"><?= htmlspecialchars($g['description'] ?: 'Sin descripción') ?></td>
                                 <td><span class="badge bg-success rounded-pill">Activo</span></td>
                                 <td class="text-end pe-4">
-                                    <div class="btn-group-custom shadow-sm">
-                                        <button type="button" class="btn btn-edit" data-id="<?= $g['id'] ?>" title="Editar">
-                                            <i class="fas fa-pencil-alt"></i>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-white border text-primary btn-edit" data-id="<?= $g['id'] ?>" title="Editar">
+                                            <i class="bi bi-pencil"></i>
                                         </button>
-                                        <button type="button" class="btn btn-delete" data-id="<?= $g['id'] ?>" data-name="<?= htmlspecialchars($g['name']) ?>" title="Eliminar">
-                                            <i class="fas fa-trash-alt"></i>
+                                        <button type="button" class="btn btn-sm btn-white border text-danger btn-delete" data-id="<?= $g['id'] ?>" data-name="<?= htmlspecialchars($g['name']) ?>" title="Eliminar">
+                                            <i class="bi bi-trash"></i>
                                         </button>
                                     </div>
                                 </td>

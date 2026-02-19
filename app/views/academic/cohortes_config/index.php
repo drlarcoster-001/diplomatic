@@ -80,12 +80,12 @@
                                     <?php endif; ?>
                                 </td>
                                 <td class="text-end pe-4">
-                                    <div class="btn-group-custom shadow-sm">
-                                        <button type="button" class="btn btn-status" data-id="<?= $c['id'] ?>" title="Forzar Estatus / Revivir">
-                                            <i class="fas fa-sync-alt text-warning"></i>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-white border text-warning btn-status" data-id="<?= $c['id'] ?>" title="Forzar Estatus / Revivir">
+                                            <i class="bi bi-arrow-repeat"></i>
                                         </button>
-                                        <button type="button" class="btn btn-hard-delete" data-id="<?= $c['id'] ?>" data-name="<?= $c['name'] ?>" title="Borrado Físico Definitivo">
-                                            <i class="fas fa-skull-crossbones text-danger"></i>
+                                        <button type="button" class="btn btn-sm btn-white border text-danger btn-hard-delete" data-id="<?= $c['id'] ?>" data-name="<?= $c['name'] ?>" title="Borrado Físico Definitivo">
+                                            <i class="bi bi-trash-fill"></i>
                                         </button>
                                     </div>
                                 </td>

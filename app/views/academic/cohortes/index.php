@@ -66,23 +66,30 @@
                                 <td><?= date('d/m/Y', strtotime($c['end_date'])) ?></td>
                                 <td>
                                     <?php 
-                                        $bg = match($c['cohort_status']) {
-                                            'Planificada' => 'bg-secondary',
-                                            'En curso'    => 'bg-primary',
-                                            'Finalizada'  => 'bg-success',
+                                        $bg = match(trim(strtolower($c['cohort_status']))) {
+                                            'planificada' => 'bg-secondary',
+                                            'en curso'    => 'bg-primary',
+                                            'finalizada'  => 'bg-success',
+                                            'reabierta'   => 'bg-warning text-dark',
+                                            'suspendida'  => 'bg-danger',
+                                            'cancelada'   => 'bg-dark',
                                             default       => 'bg-light text-dark'
                                         };
                                     ?>
                                     <span class="badge rounded-pill <?= $bg ?>"><?= $c['cohort_status'] ?></span>
                                 </td>
                                 <td class="text-end pe-4">
-                                    <?php if ($c['cohort_status'] !== 'Finalizada'): ?>
-                                        <div class="btn-group btn-group-custom shadow-sm">
-                                            <button type="button" class="btn btn-edit" data-id="<?= $c['id'] ?>"><i class="fas fa-pencil-alt"></i></button>
-                                            <button type="button" class="btn btn-delete" data-id="<?= $c['id'] ?>" data-name="<?= $c['name'] ?>"><i class="fas fa-trash-alt"></i></button>
+                                    <?php if (trim(strtolower($c['cohort_status'])) === 'planificada'): ?>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-white border text-primary btn-edit" data-id="<?= $c['id'] ?>" title="Editar">
+                                                <i class="bi bi-pencil"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-white border text-danger btn-delete" data-id="<?= $c['id'] ?>" data-name="<?= $c['name'] ?>" title="Eliminar">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
                                         </div>
                                     <?php else: ?>
-                                        <i class="fas fa-lock text-muted" title="Cerrada"></i>
+                                        <i class="bi bi-lock-fill text-muted" title="Registro bloqueado (Solo lectura)"></i>
                                     <?php endif; ?>
                                 </td>
                             </tr>
