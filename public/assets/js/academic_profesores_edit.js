@@ -4,7 +4,7 @@
  */
 document.addEventListener('DOMContentLoaded', function() {
     
-    // === 0. NOTIFICACIÓN DE ÉXITO (POPUP SWEETALERT) ===
+    // === 0. NOTIFICACIÓN DE ÉXITO (POPUP ESTÁNDAR) ===
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('updated') || urlParams.has('created')) {
         Swal.fire({
@@ -28,14 +28,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // === 2. DISPARADORES DE MODALES ===
     const openM = (cls, id) => {
         const b = document.querySelector(cls);
-        if (b) b.addEventListener('click', () => bootstrap.Modal.getOrCreateInstance(document.getElementById(id)).show());
+        if (b) b.addEventListener('click', () => {
+            const el = document.getElementById(id);
+            if (el) bootstrap.Modal.getOrCreateInstance(el).show();
+        });
     };
     openM('.btn-add-formation', 'modalFormation');
     openM('.btn-add-work', 'modalWork');
     openM('.btn-add-specialty', 'modalSpecialty');
     openM('.btn-add-document', 'modalDocument');
 
-    // === 3. LÓGICA TRABAJO ACTUAL ===
+    // === 3. TRABAJO ACTUAL ===
     const chk = document.getElementById('check_current');
     const end = document.getElementById('work_end_date');
     if (chk && end) chk.addEventListener('change', function() { end.disabled = this.checked; if (this.checked) end.value = ''; });
@@ -51,7 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#e74a3b',
-                cancelButtonColor: '#858796',
                 confirmButtonText: 'Sí, borrar',
                 cancelButtonText: 'Cancelar'
             }).then((res) => { if (res.isConfirmed) f.submit(); });
@@ -71,7 +73,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const file = e.target.files[0];
         if (file) {
             const rd = new FileReader();
-            rd.onload = (ev) => { imgCr.src = ev.target.result; bootstrap.Modal.getOrCreateInstance(modCr).show(); };
+            rd.onload = (ev) => { 
+                imgCr.src = ev.target.result; 
+                bootstrap.Modal.getOrCreateInstance(modCr).show(); 
+            };
             rd.readAsDataURL(file);
         }
     });
@@ -90,12 +95,15 @@ document.addEventListener('DOMContentLoaded', function() {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `id=${id}&image=${encodeURIComponent(b64)}`
-        }).then(r => r.json()).then(d => {
+        })
+        .then(r => r.json())
+        .then(d => {
             if (d.success) {
                 document.getElementById('profile-img-preview').src = d.path;
                 bootstrap.Modal.getOrCreateInstance(modCr).hide();
                 Swal.fire({ icon: 'success', title: '¡Foto actualizada!', confirmButtonColor: '#4e73df' });
             }
-        }).finally(() => svCr.disabled = false);
+        })
+        .finally(() => { svCr.disabled = false; });
     });
 });

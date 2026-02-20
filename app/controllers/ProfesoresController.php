@@ -2,6 +2,7 @@
 /**
  * MÓDULO: GESTIÓN ACADÉMICA
  * Archivo: app/controllers/ProfesoresController.php
+ * Propósito: Controlador para la administración de expedientes docentes.
  */
 
 namespace App\Controllers;
@@ -16,8 +17,15 @@ class ProfesoresController extends Controller
     public function __construct()
     {
         if (session_status() === PHP_SESSION_NONE) session_start();
-        // Solo verificamos que exista la sesión para no bloquear el acceso
+        
+        // CORRECCIÓN: Si el usuario está logueado, permitir acceso. 
+        // Evita que las peticiones AJAX reciban el HTML del Dashboard por redirección.
         if (!isset($_SESSION['user'])) {
+            if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+                header('Content-Type: application/json');
+                echo json_encode(['ok' => false, 'error' => 'Sesión expirada']);
+                exit;
+            }
             header('Location: /diplomatic/public/');
             exit();
         }
@@ -32,23 +40,34 @@ class ProfesoresController extends Controller
         $this->view('academic/profesores/create');
     }
 
-    public function save(): void {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') return;
-        try {
-            $newId = $this->model->insertBasic($_POST, $_SESSION['user']['id']);
-            header("Location: /diplomatic/public/academic/profesores/edit?id={$newId}&created=1");
-            exit();
-        } catch (\Exception $e) {
-            header('Location: /diplomatic/public/academic/profesores/create?error=duplicate');
-            exit();
-        }
-    }
-
     public function edit(): void {
         $id = (int)($_GET['id'] ?? 0);
         $profesor = $this->model->getDetails($id);
         if (!$profesor) { header('Location: /diplomatic/public/academic/profesores'); exit(); }
         $this->view('academic/profesores/edit', ['profesor' => $profesor]);
+    }
+
+    /**
+     * Devuelve JSON limpio para la ficha del profesor
+     */
+    public function getDetails(): void {
+        if (ob_get_length()) ob_clean(); // ELIMINA CUALQUIER SALIDA HTML PREVIA
+        header('Content-Type: application/json');
+        $id = (int)($_GET['id'] ?? 0);
+        $profesor = $this->model->getDetails($id);
+        echo json_encode(['ok' => ($profesor ? true : false), 'profesor' => $profesor]);
+        exit();
+    }
+
+    public function save(): void {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') return;
+        try {
+            $newId = $this->model->insertBasic($_POST, $_SESSION['user']['id']);
+            header("Location: /diplomatic/public/academic/profesores/edit?id={$newId}&created=1");
+        } catch (\Exception $e) {
+            header('Location: /diplomatic/public/academic/profesores/create?error=duplicate');
+        }
+        exit();
     }
 
     public function updateBase(): void {
@@ -67,7 +86,7 @@ class ProfesoresController extends Controller
             $img = str_replace(['data:image/png;base64,', ' '], ['', '+'], $_POST['image']);
             $dir = $_SERVER['DOCUMENT_ROOT'] . '/diplomatic/public/assets/uploads/profesores/';
             if (!is_dir($dir)) mkdir($dir, 0777, true);
-            $name = 'prof_avatar_' . $id . '_' . time() . '.png';
+            $name = 'prof_' . $id . '_' . time() . '.png';
             file_put_contents($dir . $name, base64_decode($img));
             $path = '/diplomatic/public/assets/uploads/profesores/' . $name;
             $this->model->updatePhoto($id, $path);
@@ -76,12 +95,14 @@ class ProfesoresController extends Controller
         exit();
     }
 
+    // Métodos de gestión de tablas relacionadas
     public function saveFormation() { $this->model->insertFormation($_POST); header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); }
-    public function deleteFormation() { $this->model->deleteFormation($_POST['id']); header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); }
+    public function deleteFormation() { $this->model->deleteFormation((int)$_POST['id']); header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); }
     public function saveWork() { $this->model->insertWork($_POST); header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); }
-    public function deleteWork() { $this->model->deleteWork($_POST['id']); header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); }
+    public function deleteWork() { $this->model->deleteWork((int)$_POST['id']); header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); }
     public function saveSpecialty() { $this->model->insertSpecialty($_POST); header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); }
-    public function deleteSpecialty() { $this->model->deleteSpecialty($_POST['id']); header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); }
+    public function deleteSpecialty() { $this->model->deleteSpecialty((int)$_POST['id']); header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); }
+    
     public function uploadDocument(): void {
         $id = (int)$_POST['professor_id'];
         $dir = $_SERVER['DOCUMENT_ROOT'] . '/diplomatic/public/assets/uploads/profesores_docs/';
@@ -93,6 +114,6 @@ class ProfesoresController extends Controller
         header("Location: /diplomatic/public/academic/profesores/edit?id=$id&updated=1");
         exit();
     }
-    public function deleteDocument() { $this->model->deleteDocument($_POST['id']); header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); }
+    public function deleteDocument() { $this->model->deleteDocument((int)$_POST['id']); header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); }
     public function delete() { $this->model->setInactive((int)$_POST['id'], $_SESSION['user']['id']); header('Location: /diplomatic/public/academic/profesores?deleted=1'); exit(); }
 }
