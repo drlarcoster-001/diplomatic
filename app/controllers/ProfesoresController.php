@@ -18,8 +18,6 @@ class ProfesoresController extends Controller
     {
         if (session_status() === PHP_SESSION_NONE) session_start();
         
-        // CORRECCIÓN: Si el usuario está logueado, permitir acceso. 
-        // Evita que las peticiones AJAX reciban el HTML del Dashboard por redirección.
         if (!isset($_SESSION['user'])) {
             if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
                 header('Content-Type: application/json');
@@ -47,14 +45,10 @@ class ProfesoresController extends Controller
         $this->view('academic/profesores/edit', ['profesor' => $profesor]);
     }
 
-    /**
-     * Devuelve JSON limpio para la ficha del profesor
-     */
     public function getDetails(): void {
-        if (ob_get_length()) ob_clean(); // ELIMINA CUALQUIER SALIDA HTML PREVIA
+        if (ob_get_length()) ob_clean(); 
         header('Content-Type: application/json');
-        $id = (int)($_GET['id'] ?? 0);
-        $profesor = $this->model->getDetails($id);
+        $profesor = $this->model->getDetails((int)($_GET['id'] ?? 0));
         echo json_encode(['ok' => ($profesor ? true : false), 'profesor' => $profesor]);
         exit();
     }
@@ -95,25 +89,53 @@ class ProfesoresController extends Controller
         exit();
     }
 
-    // Métodos de gestión de tablas relacionadas
-    public function saveFormation() { $this->model->insertFormation($_POST); header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); }
-    public function deleteFormation() { $this->model->deleteFormation((int)$_POST['id']); header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); }
-    public function saveWork() { $this->model->insertWork($_POST); header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); }
-    public function deleteWork() { $this->model->deleteWork((int)$_POST['id']); header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); }
-    public function saveSpecialty() { $this->model->insertSpecialty($_POST); header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); }
-    public function deleteSpecialty() { $this->model->deleteSpecialty((int)$_POST['id']); header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); }
+    // ====== RUTAS INTELIGENTES (Crean o Actualizan sin cambiar de ruta) ======
+    public function saveFormation() { 
+        if (!empty($_POST['id'])) { $this->model->updateFormation((int)$_POST['id'], $_POST); } 
+        else { $this->model->insertFormation($_POST); }
+        header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); exit(); 
+    }
     
+    public function saveWork() { 
+        if (!empty($_POST['id'])) { $this->model->updateWork((int)$_POST['id'], $_POST); } 
+        else { $this->model->insertWork($_POST); }
+        header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); exit(); 
+    }
+    
+    public function saveSpecialty() { 
+        if (!empty($_POST['id'])) { $this->model->updateSpecialty((int)$_POST['id'], $_POST); } 
+        else { $this->model->insertSpecialty($_POST); }
+        header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); exit(); 
+    }
+
     public function uploadDocument(): void {
         $id = (int)$_POST['professor_id'];
-        $dir = $_SERVER['DOCUMENT_ROOT'] . '/diplomatic/public/assets/uploads/profesores_docs/';
-        if (!is_dir($dir)) mkdir($dir, 0777, true);
-        $name = 'doc_' . $id . '_' . time() . '.' . pathinfo($_FILES['document_file']['name'], PATHINFO_EXTENSION);
-        if (move_uploaded_file($_FILES['document_file']['tmp_name'], $dir . $name)) {
-            $this->model->insertDocument(['professor_id' => $id, 'document_type' => $_POST['document_type'], 'document_name' => $_POST['document_name'], 'file_path' => '/diplomatic/public/assets/uploads/profesores_docs/' . $name]);
+        $docId = !empty($_POST['id']) ? (int)$_POST['id'] : 0;
+        
+        $path = null;
+        if (isset($_FILES['document_file']) && $_FILES['document_file']['error'] === UPLOAD_ERR_OK) {
+            $dir = $_SERVER['DOCUMENT_ROOT'] . '/diplomatic/public/assets/uploads/profesores_docs/';
+            if (!is_dir($dir)) mkdir($dir, 0777, true);
+            $name = 'doc_' . $id . '_' . time() . '.' . pathinfo($_FILES['document_file']['name'], PATHINFO_EXTENSION);
+            if (move_uploaded_file($_FILES['document_file']['tmp_name'], $dir . $name)) {
+                $path = '/diplomatic/public/assets/uploads/profesores_docs/' . $name;
+                $_POST['file_path'] = $path; // Inyectamos la ruta para que el modelo la lea
+            }
         }
-        header("Location: /diplomatic/public/academic/profesores/edit?id=$id&updated=1");
-        exit();
+
+        if ($docId > 0) {
+            $this->model->updateDocumentData($docId, $_POST);
+        } else {
+            $this->model->insertDocument(['professor_id' => $id, 'document_type' => $_POST['document_type'], 'document_name' => $_POST['document_name'], 'file_path' => $path]);
+        }
+        
+        header("Location: /diplomatic/public/academic/profesores/edit?id=$id&updated=1"); exit();
     }
-    public function deleteDocument() { $this->model->deleteDocument((int)$_POST['id']); header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); }
+
+    // Eliminaciones
+    public function deleteFormation() { $this->model->deleteFormation((int)$_POST['id']); header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); exit(); }
+    public function deleteWork() { $this->model->deleteWork((int)$_POST['id']); header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); exit(); }
+    public function deleteSpecialty() { $this->model->deleteSpecialty((int)$_POST['id']); header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); exit(); }
+    public function deleteDocument() { $this->model->deleteDocument((int)$_POST['id']); header("Location: /diplomatic/public/academic/profesores/edit?id=".$_POST['professor_id']."&updated=1"); exit(); }
     public function delete() { $this->model->setInactive((int)$_POST['id'], $_SESSION['user']['id']); header('Location: /diplomatic/public/academic/profesores?deleted=1'); exit(); }
 }
