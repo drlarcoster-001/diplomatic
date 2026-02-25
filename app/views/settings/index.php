@@ -2,7 +2,7 @@
 /**
  * MÓDULO: CONFIGURACIÓN GLOBAL
  * Archivo: app/views/settings/index.php
- * Propósito: Panel central con 8 módulos de configuración (7 originales + 1 nuevo de seguridad).
+ * Propósito: Panel central con 9 módulos de configuración (8 originales + 1 nuevo de WordPress).
  */
 $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
 ?>
@@ -102,6 +102,18 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
                     </div>
                     <h5 class="fw-bold">Seguridad de Usuarios</h5>
                     <p class="text-muted small">Gestión de claves inmediatas y reactivación de cuentas.</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <a href="<?= htmlspecialchars($basePath) ?>/settings/wordpress" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item">
+                    <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-circle mx-auto mb-3" style="width: fit-content;">
+                        <i class="bi bi-wordpress fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold">WordPress</h5>
+                    <p class="text-muted small">Sincronización de profesores y entradas web.</p>
                 </div>
             </a>
         </div>

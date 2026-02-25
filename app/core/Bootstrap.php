@@ -26,6 +26,7 @@ use App\Controllers\CohortesController;
 use App\Controllers\CohortesConfigController; 
 use App\Controllers\GruposController;
 use App\Controllers\ProfesoresController;
+use App\Controllers\SettingsWordpressController;
 use App\Controllers\ExportController;
 use PDO;
 
@@ -88,6 +89,13 @@ final class Bootstrap
         $router->post('/settings/whatsapp/log', [SettingsWhatsappController::class, 'logSend']);
         $router->get('/settings/eventos', [SettingsEventsController::class, 'index']);
         $router->get('/settings/eventos/filter', [SettingsEventsController::class, 'filter']);
+
+        // --- INTEGRACIÓN WORDPRESS ---
+        $router->get('/settings/wordpress', [SettingsWordpressController::class, 'index']);
+        $router->post('/settings/wordpress/save', [SettingsWordpressController::class, 'saveConfig']);
+        $router->post('/settings/wordpress/test', [SettingsWordpressController::class, 'testConnection']);
+        $router->post('/settings/wordpress/sync-prof', [SettingsWordpressController::class, 'syncProfessor']);
+        $router->post('/settings/wordpress/unsync-prof', [SettingsWordpressController::class, 'unsyncProfessor']);
 
         // --- GESTIÓN ACADÉMICA (DIPLOMADOS) ---
         $router->get('/academic', [AcademicController::class, 'index']);
