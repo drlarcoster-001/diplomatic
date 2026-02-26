@@ -1,7 +1,7 @@
 /*
  * MÓDULO: USUARIOS, ROLES Y ACCESO
  * Archivo: public/assets/css/access.css
- * Propósito: estilos del login y dashboard base del sistema.
+ * Propósito: Estilos globales de acceso y normalización de la interfaz institucional.
  */
 
 :root{
@@ -70,4 +70,37 @@ body{
 .btn{
   border-radius: 14px;
   font-weight: 500;
+}
+
+/* --- NORMALIZACIÓN DE COMPONENTE TELEFÓNICO --- */
+
+/* Forzamos el ancho completo para que no se encoja el input */
+.iti { 
+    display: block !important; 
+    width: 100%; 
+}
+
+/* Ajuste de espacio para que el texto no pise la bandera */
+#phone_mask {
+    padding-left: 95px !important; 
+}
+
+/* SOLUCIÓN A BANDERAS INVISIBLES: Forzamos la ruta local de las imágenes */
+.iti__flag {
+    background-image: url("../img/flags.png") !important;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .iti__flag {
+        background-image: url("../img/flags@2x.png") !important;
+    }
+}
+
+/* Estilo del menú desplegable para que combine con Diplomatic */
+.iti__country-list {
+    color: #212529 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+    border: 1px solid var(--dp-border) !important;
+    z-index: 1060;
 }

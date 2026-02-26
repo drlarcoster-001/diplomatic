@@ -1,8 +1,8 @@
 <?php
 /**
- * MÓDULO: PERFIL DE USUARIO
+ * MÓDULO: GESTIÓN DE SEGURIDAD
  * Archivo: app/views/users/security.php
- * Propósito: Interfaz para que el usuario gestione el cambio de su contraseña con validación de identidad.
+ * Propósito: Interfaz para la actualización de credenciales de acceso con validación de identidad previa y auditoría de eventos.
  */
 
 declare(strict_types=1);
@@ -54,8 +54,8 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
                             <button type="submit" id="btnUpdatePass" class="btn btn-dark fw-bold py-2 shadow-sm">
                                 <i class="bi bi-key me-2"></i> Actualizar Contraseña
                             </button>
-                            <a href="<?= $basePath ?>/profile" class="btn btn-link btn-sm text-muted text-decoration-none">
-                                Cancelar y volver al perfil
+                            <a href="<?= $basePath ?>/dashboard" class="btn btn-link btn-sm text-muted text-decoration-none">
+                                Cancelar
                             </a>
                         </div>
                     </form>
@@ -93,6 +93,7 @@ document.getElementById('form-security-update').addEventListener('submit', funct
     
     const newPass = document.getElementById('new_password').value;
     const confirm = document.getElementById('confirm_password').value;
+    const bPath = this.getAttribute('data-basepath');
 
     // Validación básica antes de enviar al servidor
     if (newPass !== confirm) {
@@ -105,7 +106,7 @@ document.getElementById('form-security-update').addEventListener('submit', funct
 
     Swal.fire({
         title: '¿Confirmar cambio?',
-        text: "Se actualizarán sus credenciales y el cambio será registrado en la auditoría.",
+        text: "¡Todo listo! Al confirmar, actualizaremos tu contraseña para que tu cuenta esté siempre segura.",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#000',
@@ -119,15 +120,24 @@ document.getElementById('form-security-update').addEventListener('submit', funct
             btn.disabled = true;
             btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Procesando...';
 
-            fetch(`${this.getAttribute('data-basepath')}/profile/change-password`, {
+            fetch(`${bPath}/profile/change-password`, {
                 method: 'POST',
                 body: formData
             })
             .then(res => res.json())
             .then(data => {
                 if (data.ok) {
-                    Swal.fire('¡Éxito!', data.msg, 'success').then(() => {
-                        window.location.href = `${this.getAttribute('data-basepath')}/profile`;
+                    Swal.fire({
+                        title: '¡Contraseña Actualizada!',
+                        text: data.msg,
+                        icon: 'success',
+                        confirmButtonColor: '#0d6efd'
+                    }).then(() => {
+                        /**
+                         * REGLA DE ORO: Redirección al Dashboard tras éxito
+                         * Se corrige la ruta de destino para evitar el retorno al perfil.
+                         */
+                        window.location.href = `${bPath}/dashboard`;
                     });
                 } else {
                     Swal.fire('Error', data.msg, 'error');

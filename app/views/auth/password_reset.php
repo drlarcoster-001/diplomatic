@@ -1,8 +1,8 @@
 <?php
 /**
- * MÓDULO: USUARIOS Y ACCESO
+ * MÓDULO: GESTIÓN DE ACCESO
  * Archivo: app/views/auth/password_reset.php
- * Propósito: Vista de restablecimiento de contraseña tras validación de token de recuperación.
+ * Propósito: Interfaz para el restablecimiento de credenciales tras la validación de identidad por recuperación.
  */
 $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
 $cssAccess = $basePath . '/assets/css/access.css';
@@ -15,41 +15,40 @@ $cssAccess = $basePath . '/assets/css/access.css';
   <title>DIPLOMATIC · Nueva Contraseña</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="<?= htmlspecialchars($cssAccess) ?>" rel="stylesheet">
-  <style>
-      .dp-brand { font-weight: 800; letter-spacing: 2px; color: #0d6efd; text-decoration: none; }
-  </style>
 </head>
 <body>
-<div class="dp-auth-container px-3 d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+<div class="dp-auth-container px-3">
   <div class="container" style="max-width: 450px;">
     
     <div class="text-center mb-4">
-      <a href="<?= $basePath ?>/" class="dp-brand fs-3">DIPLOMATIC</a>
+      <a href="<?= $basePath ?>/" class="text-decoration-none">
+        <span class="dp-brand fs-3 text-primary" style="letter-spacing: 2px; font-weight: 700;">DIPLOMATIC</span>
+      </a>
     </div>
 
-    <div class="dp-card dp-shadow p-4 p-md-5 bg-white">
-      <div class="dp-title h4 fw-bold mb-1">Nueva Contraseña</div>
-      <p class="dp-subtitle mb-4 text-muted">Defina su nueva clave de acceso para continuar.</p>
+    <div class="dp-card dp-shadow p-4 p-md-5">
+      <div class="dp-title h4 mb-1">Nueva Contraseña</div>
+      <p class="dp-subtitle mb-4">Defina su nueva clave de acceso institucional para continuar.</p>
       
       <form id="formPassword" action="<?= $basePath ?>/register/create-password" method="POST" data-basepath="<?= $basePath ?>">
         <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
         
         <div class="mb-3">
-          <label class="form-label fw-semibold">Correo Electrónico</label>
+          <label class="form-label">Correo Electrónico</label>
           <input type="text" class="form-control bg-light" value="<?= htmlspecialchars($email) ?>" readonly>
         </div>
 
         <div class="mb-3">
-          <label class="form-label fw-semibold">Nueva Clave</label>
+          <label class="form-label">Nueva Contraseña</label>
           <input type="password" name="password" id="password" class="form-control" required minlength="8" placeholder="Mínimo 8 caracteres">
         </div>
 
         <div class="mb-4">
-          <label class="form-label fw-semibold">Confirmar Clave</label>
-          <input type="password" id="confirm_password" class="form-control" required minlength="8" placeholder="Repita su clave">
+          <label class="form-label">Confirmar Contraseña</label>
+          <input type="password" id="confirm_password" class="form-control" required minlength="8" placeholder="Repita su nueva contraseña">
         </div>
 
-        <button type="submit" class="btn btn-primary w-100 py-2 fw-bold" id="btnPass">Actualizar Contraseña</button>
+        <button type="submit" class="btn btn-primary w-100 py-2 shadow-sm">Actualizar Contraseña</button>
       </form>
     </div>
   </div>

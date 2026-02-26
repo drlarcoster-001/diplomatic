@@ -1,70 +1,80 @@
 /**
  * MÓDULO: GESTIÓN DE ACCESO
  * Archivo: public/assets/js/register.js
- * Propósito: Manejo de peticiones AJAX para Registro, Olvido y Cambio de Contraseña.
+ * Propósito: Gestión de la lógica de autenticación, validación de identidad y procesamiento de formularios de acceso.
  */
 
 document.addEventListener('DOMContentLoaded', function() {
     
-    // 1. CAPTURA DE FORMULARIOS
+    // --- 1. CONFIGURACIÓN DE ELEMENTOS ---
+    const phoneMask    = document.getElementById('phone_mask');
+    const fullPhone    = document.getElementById('full_phone');
     const formRegister = document.getElementById('formRegister');
-    const formForgot   = document.getElementById('formForgot');   // Agregado para recuperación
     const formPassword = document.getElementById('formPassword');
+    const formForgot   = document.getElementById('formForgot');
 
-    /**
-     * FUNCIÓN GENÉRICA PARA ENVÍO DE SOLICITUDES (Registro y Olvido)
-     * Maneja el feedback del botón y la respuesta del servidor.
-     */
+    // Determinamos el basePath dinámicamente para recursos
+    const basePath = window.location.pathname.split('/public')[0] + '/public';
+
+    // --- 2. LÓGICA DE TELÉFONO INTERNACIONAL ---
+    if (phoneMask) {
+        const iti = window.intlTelInput(phoneMask, {
+            initialCountry: "ve",
+            separateDialCode: true,
+            dropdownContainer: document.body,
+            utilsScript: basePath + "/assets/js/utils.js"
+        });
+
+        // Máscara Dinámica: (000)-(000-0000)
+        phoneMask.addEventListener('input', function(e) {
+            let num = e.target.value.replace(/\D/g, ''); 
+            let x = num.match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+            if (!x[1]) {
+                e.target.value = '';
+            } else {
+                e.target.value = !x[2] ? '(' + x[1] 
+                               : '(' + x[1] + ')-(' + x[2] + (x[3] ? '-' + x[3] + ')' : ')');
+            }
+        });
+
+        // Sincronizar formato final antes del envío: (+58)-(414)-(536-5380)
+        if (formRegister) {
+            formRegister.addEventListener('submit', function() {
+                const dialCode = iti.getSelectedCountryData().dialCode;
+                const localNum = phoneMask.value;
+                if (fullPhone) {
+                    fullPhone.value = "(+" + dialCode + ")-" + localNum;
+                }
+            });
+        }
+    }
+
+    // --- 3. LÓGICA AJAX PARA REGISTRO Y RECUPERACIÓN ---
     const handleAuthSubmit = (form) => {
         if (!form) return;
-
         form.addEventListener('submit', function(e) {
-            e.preventDefault(); // Evita la página blanca con JSON
-
+            e.preventDefault(); 
             const btn = this.querySelector('button[type="submit"]');
             const originalText = btn.innerHTML;
-
-            // Feedback visual
             btn.disabled = true;
-            btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Procesando...';
-
-            const formData = new FormData(this);
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Procesando...';
 
             fetch(this.action, {
                 method: 'POST',
-                body: formData,
+                body: new FormData(this),
                 headers: { 'X-Requested-With': 'XMLHttpRequest' }
             })
-            .then(response => {
-                if (!response.ok) throw new Error('Error en la respuesta del servidor');
-                return response.json();
-            })
+            .then(res => res.json())
             .then(data => {
                 if (data.ok) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: '¡Excelente!',
-                        text: data.msg,
-                        confirmButtonColor: '#1a73e8'
-                    });
-                    this.reset(); // Limpiamos campos tras el éxito
+                    Swal.fire({ icon: 'success', title: '¡Excelente!', text: data.msg, confirmButtonColor: '#0d6efd' });
+                    this.reset(); 
+                    if(phoneMask) phoneMask.value = ''; 
                 } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Atención',
-                        text: data.msg,
-                        confirmButtonColor: '#d33'
-                    });
+                    Swal.fire({ icon: 'error', title: 'Atención', text: data.msg, confirmButtonColor: '#d33' });
                 }
             })
-            .catch(error => {
-                console.error('Error AJAX:', error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error de conexión',
-                    text: 'No se pudo comunicar con el servidor. Verifique su conexión.'
-                });
-            })
+            .catch(() => Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo conectar con el servidor.' }))
             .finally(() => {
                 btn.disabled = false;
                 btn.innerHTML = originalText;
@@ -72,37 +82,26 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     };
 
-    // Inicializamos los formularios de solicitud
     handleAuthSubmit(formRegister);
     handleAuthSubmit(formForgot);
 
-    /**
-     * RUTINA PARA ESTABLECER/CAMBIAR CONTRASEÑA
-     * Incluye validación de coincidencia y longitud de caracteres.
-     */
+    // --- 4. LÓGICA ESPECÍFICA PARA ASIGNACIÓN DE CONTRASEÑA ---
     if (formPassword) {
         formPassword.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const pass = document.getElementById('password').value;
+            const pass    = document.getElementById('password').value;
             const confirm = document.getElementById('confirm_password').value;
-            const basePath = this.getAttribute('data-basepath') || '';
+            const bPath   = this.getAttribute('data-basepath') || '';
 
-            // Validación local previa al envío
             if (pass !== confirm) {
-                Swal.fire('Error', 'Las contraseñas no coinciden', 'warning');
-                return;
-            }
-
-            if (pass.length < 8) {
-                Swal.fire('Error', 'La contraseña debe tener al menos 8 caracteres', 'warning');
+                Swal.fire('Atención', 'Las contraseñas no coinciden.', 'warning');
                 return;
             }
 
             const btn = this.querySelector('button[type="submit"]');
-            const originalText = btn.innerHTML;
             btn.disabled = true;
-            btn.innerHTML = 'Actualizando...';
+            btn.innerHTML = 'Validando acceso...';
 
             fetch(this.action, {
                 method: 'POST',
@@ -114,23 +113,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (data.ok) {
                     Swal.fire({
                         icon: 'success',
-                        title: '¡Hecho!',
+                        title: '¡Acceso Concedido!',
                         text: data.msg,
-                        confirmButtonColor: '#1a73e8'
+                        confirmButtonColor: '#0d6efd'
                     }).then(() => {
-                        // Redirección al Login tras éxito
-                        window.location.href = basePath + '/';
+                        // REGLA DE ORO: Redirección automática al Login tras éxito
+                        window.location.href = bPath + '/';
                     });
                 } else {
                     Swal.fire('Error', data.msg, 'error');
                     btn.disabled = false;
-                    btn.innerHTML = originalText;
+                    btn.innerHTML = 'Validar y Finalizar';
                 }
             })
             .catch(() => {
-                Swal.fire('Error', 'Error crítico al procesar la solicitud', 'error');
+                Swal.fire('Error', 'Error crítico en el servidor.', 'error');
                 btn.disabled = false;
-                btn.innerHTML = originalText;
             });
         });
     }

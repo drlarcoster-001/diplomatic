@@ -2,7 +2,7 @@
 /**
  * MÓDULO: GESTIÓN DE ACCESO
  * Archivo: app/controllers/RegisterController.php
- * Propósito: Controlador unificado para Registro y Recuperación de Contraseña con validación de identidad.
+ * Propósito: Controlador maestro para la gestión de flujos de identidad, procesos de registro institucional y recuperación de credenciales de acceso.
  */
 
 declare(strict_types=1);
@@ -12,6 +12,7 @@ namespace App\Controllers;
 use App\Core\Controller;
 use App\Core\Database;
 use App\Services\MailServiceRegister;
+use App\Services\AuditService;
 use Throwable;
 use PDO;
 
@@ -29,7 +30,7 @@ final class RegisterController extends Controller
     public function forgotPasswordIndex(): void { $this->view('auth/forgot'); }
 
     /**
-     * REGISTRO: Proceso de prospecto inicial (PENDING / 0)
+     * REGISTRO: Proceso de prospecto inicial (PENDING)
      */
     public function submit(): void
     {
@@ -38,43 +39,50 @@ final class RegisterController extends Controller
 
         try {
             $email = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
-            
-            // Verificación previa para evitar duplicidad
+            $phone = trim($_POST['phone'] ?? '');
+
+            // Auditoría de validación de formato
+            AuditService::log([
+                'module'      => 'AUTH',
+                'action'      => 'REGISTER_SUBMIT',
+                'description' => "Iniciando registro para: $email con teléfono $phone",
+                'event_type'  => 'NORMAL'
+            ]);
+
+            if (!empty($phone) && !preg_match('/^\(\+\d+\)-\(\d{3}\)-\(\d{3}-\d{4}\)$/', $phone)) {
+                throw new \Exception("El formato del teléfono es inválido.");
+            }
+
             $stmtCheck = $this->db->prepare("SELECT id FROM tbl_users WHERE email = ? LIMIT 1");
             $stmtCheck->execute([$email]);
             if ($stmtCheck->fetch()) throw new \Exception("Este correo ya está registrado.");
 
             $this->db->beginTransaction();
 
-            // Insert inicial con status PENDING y email_verified 0
             $sql = "INSERT INTO tbl_pre_users (first_name, last_name, email, phone, document_id, status, email_verified) 
                     VALUES (?, ?, ?, ?, ?, 'PENDING', 0)";
             $this->db->prepare($sql)->execute([
-                trim($_POST['first_name'] ?? ''), 
-                trim($_POST['last_name'] ?? ''), 
-                $email, 
-                trim($_POST['phone'] ?? ''), 
-                trim($_POST['document_id'] ?? '')
+                trim($_POST['first_name'] ?? ''), trim($_POST['last_name'] ?? ''), 
+                $email, $phone, trim($_POST['document_id'] ?? '')
             ]);
             
             $preId = (int)$this->db->lastInsertId();
             $token = bin2hex(random_bytes(32));
 
-            // Token de registro
             $this->db->prepare("INSERT INTO tbl_pre_user_tokens (pre_user_id, token_hash, expires_at) VALUES (?, ?, NOW() + INTERVAL 24 HOUR)")
                      ->execute([$preId, hash('sha256', $token)]);
 
             $mailer = new MailServiceRegister();
             $res = $mailer->enviarValidacion($email, [
                 'nombre'           => $_POST['first_name'],
-                'apellido'         => $_POST['last_name'], // Sincronizado para evitar llaves en el correo
+                'apellido'         => $_POST['last_name'], 
                 'link_inscripcion' => $this->getLink($token, '/register/validate')
             ], 'INSCRIPCION');
 
             if (!$res['ok']) throw new \Exception($res['msg']);
 
             $this->db->commit();
-            echo json_encode(['ok' => true, 'msg' => 'Registro exitoso. Revisa tu correo.']);
+            echo json_encode(['ok' => true, 'msg' => 'Registro exitoso. Revisa tu correo institucional.']);
 
         } catch (Throwable $e) {
             if ($this->db->inTransaction()) $this->db->rollBack();
@@ -84,7 +92,7 @@ final class RegisterController extends Controller
     }
 
     /**
-     * FORGOT PASSWORD: Envío de enlace de recuperación con validación de Apellido
+     * FORGOT PASSWORD: Envío de enlace de recuperación
      */
     public function forgotPasswordSubmit(): void
     {
@@ -95,26 +103,36 @@ final class RegisterController extends Controller
             $email = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
             $doc   = trim($_POST['document_id'] ?? '');
 
-            // Validamos que el usuario exista y esté ACTIVO
             $stmt = $this->db->prepare("SELECT id, first_name, last_name FROM tbl_users WHERE email = ? AND document_id = ? AND status = 'ACTIVE' LIMIT 1");
             $stmt->execute([$email, $doc]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if (!$user) throw new \Exception("Los datos no coinciden con un usuario activo.");
 
+            // Auditoría de solicitud de recuperación
+            AuditService::log([
+                'module'      => 'AUTH',
+                'action'      => 'RECOVERY_REQUEST',
+                'description' => "Solicitud de recuperación de clave para el usuario ID: {$user['id']}",
+                'event_type'  => 'NORMAL'
+            ]);
+
             $this->db->beginTransaction();
             $token = bin2hex(random_bytes(32));
             
-            // Tabla de recuperación (vence en 2 horas)
             $this->db->prepare("INSERT INTO tbl_user_recovery_tokens (user_id, token_hash, expires_at) VALUES (?, ?, NOW() + INTERVAL 2 HOUR)")
                      ->execute([$user['id'], hash('sha256', $token)]);
 
-            // Envío de correo con Nombre y Apellido corregidos
             $mailer = new MailServiceRegister();
+            
+            /**
+             * CORRECCIÓN DE RUTA: Usamos '/register/validate' porque es la ruta que tu router
+             * ya reconoce. El método validateToken se encarga de buscar en la tabla correcta.
+             */
             $res = $mailer->enviarValidacion($email, [
                 'nombre'           => $user['first_name'],
-                'apellido'         => $user['last_name'], // SE AGREGA PARA QUE NO SALGA {{apellido}}
-                'link_inscripcion' => $this->getLink($token, '/forgot-password/validate')
+                'apellido'         => $user['last_name'],
+                'link_inscripcion' => $this->getLink($token, '/register/validate')
             ], 'RECUPERACION');
 
             if (!$res['ok']) throw new \Exception($res['msg']);
@@ -135,11 +153,14 @@ final class RegisterController extends Controller
     public function validateToken(): void
     {
         $token = $_GET['token'] ?? '';
-        if (empty($token)) { header("Location: /"); exit; }
+        if (empty($token)) { 
+            header("Location: " . rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/') . "/"); 
+            exit; 
+        }
         
         $hash = hash('sha256', $token);
         
-        // 1. ¿Es un token de recuperación?
+        // 1. Verificación en Recuperación
         $stmtR = $this->db->prepare("SELECT t.*, u.email FROM tbl_user_recovery_tokens t JOIN tbl_users u ON t.user_id = u.id WHERE t.token_hash = ? AND t.used_at IS NULL AND t.expires_at > NOW()");
         $stmtR->execute([$hash]);
         $rec = $stmtR->fetch(PDO::FETCH_ASSOC);
@@ -149,7 +170,7 @@ final class RegisterController extends Controller
             return;
         }
 
-        // 2. ¿Es un token de registro?
+        // 2. Verificación en Registro
         $stmtP = $this->db->prepare("SELECT t.*, p.email FROM tbl_pre_user_tokens t JOIN tbl_pre_users p ON t.pre_user_id = p.id WHERE t.token_hash = ? AND t.used_at IS NULL AND t.expires_at > NOW()");
         $stmtP->execute([$hash]);
         $pre = $stmtP->fetch(PDO::FETCH_ASSOC);
@@ -175,7 +196,6 @@ final class RegisterController extends Controller
             $hash  = hash('sha256', $token);
             $this->db->beginTransaction();
 
-            // CASO A: Recuperación de contraseña
             $stmtR = $this->db->prepare("SELECT id, user_id FROM tbl_user_recovery_tokens WHERE token_hash = ? AND used_at IS NULL");
             $stmtR->execute([$hash]);
             $rec = $stmtR->fetch(PDO::FETCH_ASSOC);
@@ -183,15 +203,19 @@ final class RegisterController extends Controller
             if ($rec) {
                 $this->db->prepare("UPDATE tbl_users SET password_hash = ? WHERE id = ?")->execute([$pass, $rec['user_id']]);
                 $this->db->prepare("UPDATE tbl_user_recovery_tokens SET used_at = NOW() WHERE id = ?")->execute([$rec['id']]);
+                
+                AuditService::log([
+                    'module' => 'AUTH', 'action' => 'PASSWORD_RESET',
+                    'description' => "Contraseña restablecida exitosamente para usuario ID: {$rec['user_id']}",
+                    'event_type' => 'NORMAL'
+                ]);
             } else {
-                // CASO B: Registro nuevo
                 $stmtP = $this->db->prepare("SELECT p.*, t.id as tid FROM tbl_pre_user_tokens t JOIN tbl_pre_users p ON t.pre_user_id = p.id WHERE t.token_hash = ? AND t.used_at IS NULL");
                 $stmtP->execute([$hash]);
                 $pre = $stmtP->fetch(PDO::FETCH_ASSOC);
                 
                 if (!$pre) throw new \Exception("Token inválido.");
 
-                // INSERT con PARTICIPANT / PARTICIPANT
                 $sqlI = "INSERT INTO tbl_users (user_type, status, first_name, last_name, email, role, phone, document_id, password_hash, created_at) 
                          VALUES ('PARTICIPANT', 'ACTIVE', ?, ?, ?, 'PARTICIPANT', ?, ?, ?, NOW())";
                 $this->db->prepare($sqlI)->execute([$pre['first_name'], $pre['last_name'], $pre['email'], $pre['phone'], $pre['document_id'], $pass]);

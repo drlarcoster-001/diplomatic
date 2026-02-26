@@ -1,7 +1,8 @@
 <?php
 /**
+ * MÓDULO: GESTIÓN DE ACCESO
  * Archivo: app/views/auth/password.php
- * Propósito: Establecer contraseña con enlace de retorno al sistema.
+ * Propósito: Interfaz para la definición de credenciales de acceso y finalización del proceso de registro o recuperación de cuenta.
  */
 $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
 $cssAccess = $basePath . '/assets/css/access.css';
@@ -11,7 +12,7 @@ $cssAccess = $basePath . '/assets/css/access.css';
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DIPLOMATIC · Finalizar Registro</title>
+  <title>DIPLOMATIC · Establecer Contraseña</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="<?= htmlspecialchars($cssAccess) ?>" rel="stylesheet">
 </head>
@@ -26,8 +27,8 @@ $cssAccess = $basePath . '/assets/css/access.css';
     </div>
 
     <div class="dp-card dp-shadow p-4 p-md-5">
-      <div class="dp-title h4 mb-1">Finalizar Registro</div>
-      <p class="dp-subtitle mb-4">Establezca una clave para su nueva cuenta.</p>
+      <div class="dp-title h4 mb-1">Finalizar Proceso</div>
+      <p class="dp-subtitle mb-4">Establezca una clave segura para su cuenta institucional.</p>
       
       <form id="formPassword" action="<?= $basePath ?>/register/create-password" method="POST" data-basepath="<?= $basePath ?>">
         <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
@@ -38,8 +39,9 @@ $cssAccess = $basePath . '/assets/css/access.css';
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Asignar Contraseña</label>
+          <label class="form-label">Nueva Contraseña</label>
           <input type="password" name="password" id="password" class="form-control" required minlength="8">
+          <div class="form-text text-muted small">Mínimo 8 caracteres.</div>
         </div>
 
         <div class="mb-4">
@@ -47,7 +49,7 @@ $cssAccess = $basePath . '/assets/css/access.css';
           <input type="password" id="confirm_password" class="form-control" required minlength="8">
         </div>
 
-        <button type="submit" class="btn btn-primary w-100 py-2">Validar y Crear Cuenta</button>
+        <button type="submit" class="btn btn-primary w-100 py-2 shadow-sm">Validar y Finalizar</button>
       </form>
     </div>
   </div>

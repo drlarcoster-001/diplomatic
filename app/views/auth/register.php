@@ -1,7 +1,8 @@
 <?php
 /**
- * MÓDULO: USUARIOS, ROLES Y ACCESO
+ * MÓDULO: GESTIÓN DE ACCESO
  * Archivo: app/views/auth/register.php
+ * Propósito: Interfaz de registro de usuarios y captura de prospectos institucionales.
  */
 $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
 $cssAccess = $basePath . '/assets/css/access.css';
@@ -13,6 +14,7 @@ $cssAccess = $basePath . '/assets/css/access.css';
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DIPLOMATIC · Registro</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="<?= $basePath ?>/assets/css/intlTelInput.min.css">
   <link href="<?= htmlspecialchars($cssAccess) ?>" rel="stylesheet">
 </head>
 <body>
@@ -31,23 +33,43 @@ $cssAccess = $basePath . '/assets/css/access.css';
           <p class="dp-subtitle mb-4">Crea tu cuenta institucional</p>
           
           <form id="formRegister" action="<?= $basePath ?>/register/submit" method="POST">
-            <div class="mb-3"><label class="form-label">Nombre</label><input type="text" name="first_name" class="form-control" required></div>
-            <div class="mb-3"><label class="form-label">Apellido</label><input type="text" name="last_name" class="form-control" required></div>
-            <div class="mb-3"><label class="form-label">Correo</label><input type="email" name="email" class="form-control" required></div>
+            <div class="mb-3">
+              <label class="form-label">Nombre</label>
+              <input type="text" name="first_name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Apellido</label>
+              <input type="text" name="last_name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Correo</label>
+              <input type="email" name="email" class="form-control" required>
+            </div>
             
-            <div class="mb-3"><label class="form-label">Teléfono</label><input type="text" name="phone" class="form-control"></div>
+            <div class="mb-3">
+                <label class="form-label">Teléfono</label>
+                <input type="tel" id="phone_mask" class="form-control">
+                <input type="hidden" name="phone" id="full_phone">
+            </div>
             
-            <div class="mb-3"><label class="form-label">Documento ID</label><input type="text" name="document_id" class="form-control"></div>
+            <div class="mb-3">
+              <label class="form-label">Documento ID</label>
+              <input type="text" name="document_id" class="form-control">
+            </div>
             <button type="submit" class="btn btn-primary w-100 py-2">Registrarme</button>
           </form>
           
-          <div class="text-center mt-4"><a href="<?= $basePath ?>/" class="dp-subtitle text-decoration-none">Volver al Acceso</a></div>
+          <div class="text-center mt-4">
+            <a href="<?= $basePath ?>/" class="dp-subtitle text-decoration-none">Volver al Acceso</a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="<?= $basePath ?>/assets/js/intlTelInput.min.js"></script>
 <script src="<?= $basePath ?>/assets/js/register.js"></script>
 </body>
 </html>
