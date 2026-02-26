@@ -1,11 +1,17 @@
 /**
  * MODULE: SETTINGS & CONFIGURATION
  * File: public/assets/js/settings_email.js
- * Propósito: Gestión de SMTP y plantillas con lógica de guardado único (No incremental).
+ * Propósito: Gestión de SMTP y plantillas con vista previa técnica (mantiene etiquetas) y envío de prueba.
  */
 
 "use strict";
 
+// Variable global para identificar qué formulario se está previsualizando
+let currentPreviewPrefix = '';
+
+/**
+ * Guarda la configuración del panel activo
+ */
 window.saveActiveSettings = async function () {
     const activePane = document.querySelector(".tab-pane.active");
     const form = activePane.querySelector("form");
@@ -24,6 +30,10 @@ window.saveActiveSettings = async function () {
     }
 };
 
+/**
+ * Abre el Modal XL para la vista previa del correo.
+ * Se mantiene el contenido íntegro (etiquetas incluidas) para revisión técnica.
+ */
 window.previewEmailPopup = function (prefix) {
     const form = document.getElementById(`form-${prefix}`);
     const asunto = form.querySelector('input[name="asunto"]').value;
@@ -34,35 +44,65 @@ window.previewEmailPopup = function (prefix) {
         return;
     }
 
-    // El POPUP de Vista Previa solicitado
-    Swal.fire({
-        title: 'Vista Previa del Mensaje',
-        html: `
-            <div style="text-align:left; border:1px solid #ddd; padding:15px; background:#fff; max-height:350px; overflow-y:auto;">
-                <p><strong>Asunto:</strong> ${asunto}</p>
-                <hr>
-                <div>${contenido}</div>
-            </div>
-            <p class="mt-3 small">¿Deseas enviar una prueba real a tu correo?</p>
-        `,
-        showCancelButton: true,
-        confirmButtonText: 'Sí, enviar prueba',
-        cancelButtonText: 'Cerrar',
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#6c757d',
-        width: '650px'
-    }).then(async (result) => {
-        if (result.isConfirmed) {
-            const { value: email } = await Swal.fire({
-                title: 'Email de destino',
-                input: 'email',
-                inputPlaceholder: 'tu@correo.com'
-            });
-            if (email) executeTest(prefix, "template", email);
-        }
+    currentPreviewPrefix = prefix;
+
+    // Inyectamos los datos originales (sin reemplazar etiquetas) en el Modal XL
+    document.getElementById('preview-subject-text').innerText = `Asunto: ${asunto}`;
+    document.getElementById('mail-render-area').innerHTML = contenido;
+
+    // Mostramos el modal desactivando el 'focus' forzado de Bootstrap para permitir el uso del teclado en popups
+    const modalEl = document.getElementById('modalPreviewEmail');
+    const myModal = new bootstrap.Modal(modalEl, {
+        focus: false 
     });
+    myModal.show();
 };
 
+/**
+ * Lógica del botón "Enviar Prueba" ubicado dentro del modal
+ */
+window.sendTestFromPreview = async function() {
+    if (!currentPreviewPrefix) return;
+
+    const { value: email } = await Swal.fire({
+        title: 'Enviar Prueba',
+        input: 'email',
+        inputPlaceholder: 'tu@correo.com',
+        showCancelButton: true,
+        confirmButtonText: 'Enviar',
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#0d6efd',
+        allowOutsideClick: false,
+        didOpen: () => {
+            const input = Swal.getInput();
+            if (input) {
+                input.focus();
+            }
+        }
+    });
+
+    if (email) {
+        executeTest(currentPreviewPrefix, "template", email);
+    }
+};
+
+/**
+ * Maximiza o restaura el tamaño del modal
+ */
+window.toggleFullscreenPreview = function() {
+    const dialog = document.getElementById('previewDialog');
+    if (dialog.classList.contains('modal-xl')) {
+        dialog.classList.remove('modal-xl', 'modal-dialog-centered');
+        dialog.classList.add('modal-fullscreen');
+    } else {
+        dialog.classList.add('modal-xl', 'modal-dialog-centered');
+        dialog.classList.remove('modal-fullscreen');
+    }
+};
+
+/**
+ * Ejecuta pruebas de envío (Conexión SMTP o Plantilla)
+ */
 async function executeTest(prefix, mode, emailTarget = "") {
     const form = document.getElementById(`form-${prefix}`);
     const path = form.getAttribute("data-basepath");
@@ -71,7 +111,14 @@ async function executeTest(prefix, mode, emailTarget = "") {
     formData.append("email_test", emailTarget);
 
     if (mode === 'connection' && !emailTarget) {
-        const { value: email } = await Swal.fire({ title: "Email de destino", input: "email" });
+        const { value: email } = await Swal.fire({ 
+            title: "Enviar Prueba", 
+            input: "email",
+            didOpen: () => {
+                const input = Swal.getInput();
+                if (input) input.focus();
+            }
+        });
         if (!email) return;
         formData.set("email_test", email);
     }
@@ -89,9 +136,17 @@ async function executeTest(prefix, mode, emailTarget = "") {
 window.insertTag = function (btn, tag) {
     const textarea = btn.closest(".card-body").querySelector("textarea");
     textarea.value += tag;
+    textarea.focus();
 };
 
 window.togglePassword = function (btn) {
     const input = btn.closest(".input-group").querySelector("input");
-    input.type = input.type === "password" ? "text" : "password";
+    const icon = btn.querySelector("i");
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.replace("bi-eye", "bi-eye-slash");
+    } else {
+        input.type = "password";
+        icon.classList.replace("bi-eye-slash", "bi-eye");
+    }
 };

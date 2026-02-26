@@ -155,8 +155,12 @@ final class Bootstrap
 
         // --- SEGURIDAD Y USUARIOS ---
         $router->get('/UserSecurity', [UserSecurityController::class, 'index']);
-        $router->post('/UserSecurityController/updatePassword', [UserSecurityController::class, 'changePassword']);
-        $router->post('/UserSecurityController/updateStatus', [UserSecurityController::class, 'changeStatus']);
+        
+        // CORRECCIÓN: Rutas de seguridad sincronizadas con el JS y el controlador
+        $router->post('/UserSecurity/updatePassword', [UserSecurityController::class, 'updatePassword']);
+        $router->post('/UserSecurity/updateStatus', [UserSecurityController::class, 'updateStatus']);
+        $router->post('/UserSecurity/deletePhysical', [UserSecurityController::class, 'deletePhysical']);
+        
         $router->get('/users', [UsersController::class, 'index']);
         $router->post('/users/save', [UsersController::class, 'save']);
         $router->post('/users/delete', [UsersController::class, 'delete']);

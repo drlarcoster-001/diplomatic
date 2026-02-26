@@ -10,7 +10,7 @@ async function saveCompanyInfo() {
     
     Swal.fire({
         title: '¿Confirmar actualización?',
-        text: "Los datos de identidad institucional serán guardados.",
+        text: "Seran actualizados los datos.",
         icon: 'info',
         showCancelButton: true,
         confirmButtonColor: '#0d6efd',

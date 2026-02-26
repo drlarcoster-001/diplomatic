@@ -1,8 +1,8 @@
 <?php
 /**
- * MÓDULO: CONFIGURACIÓN - VISTAS
+ * MÓDULO: CONFIGURACIÓN - MONITOREO
  * Archivo: app/views/settings/eventos.php
- * Propósito: Interfaz de terminal para la consola de auditoría.
+ * Propósito: Consola de auditoría en tiempo real para el seguimiento de eventos y seguridad del sistema.
  */
 $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
 ?>
@@ -10,6 +10,13 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
 <link rel="stylesheet" href="<?= $basePath ?>/assets/css/events.css?v=<?= time() ?>">
 
 <div class="container-fluid py-4">
+
+    <div class="d-flex justify-content-end mb-3">
+        <a href="<?= $basePath ?>/settings" class="btn btn-light px-4 fw-bold rounded-3 border shadow-sm">
+            <i class="bi bi-arrow-left me-1"></i> Volver
+        </a>
+    </div>
+
     <div class="card border-0 shadow-sm p-4 rounded-4 mb-4 bg-white">
         <form id="filter-events" class="row g-3 align-items-end" data-basepath="<?= $basePath ?>" onsubmit="event.preventDefault(); filterLogs();">
             <div class="col-lg-3">
@@ -33,7 +40,11 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
 
     <div class="console-wrapper shadow-lg rounded-4 overflow-hidden border border-dark">
         <div class="console-header d-flex justify-content-between align-items-center px-3 py-2">
-            <div class="d-flex gap-2"><span class="console-dot dot-red"></span><span class="console-dot dot-yellow"></span><span class="console-dot dot-green"></span></div>
+            <div class="d-flex gap-2">
+                <span class="console-dot dot-red"></span>
+                <span class="console-dot dot-yellow"></span>
+                <span class="console-dot dot-green"></span>
+            </div>
             <span class="console-title fw-mono small opacity-50">DIPLOMATIC_LIVE_MONITOR</span>
         </div>
         
@@ -53,7 +64,7 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
 
         <div class="console-footer d-flex justify-content-end p-2 bg-dark">
             <button class="btn btn-outline-success btn-xs fw-mono py-2 px-3" onclick="exportConsoleToCSV()">
-                <i class="bi bi-download me-1"></i> DESCARGAR LO QUE VEO (CSV)
+                <i class="bi bi-download me-1"></i> DESCARGAR LOGS (CSV)
             </button>
         </div>
     </div>

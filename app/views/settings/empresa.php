@@ -88,7 +88,7 @@ $e = $empresa;
 
         <div class="mt-4 d-flex justify-content-end">
             <button type="button" class="btn btn-primary px-5 py-3 fw-bold shadow-sm" onclick="saveCompanyInfo()">
-                <i class="bi bi-save2 me-2"></i> Guardar Información
+                <i class="bi bi-save2 me-2"></i> Guardar
             </button>
         </div>
     </form>

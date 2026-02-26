@@ -2,7 +2,7 @@
 /**
  * MÓDULO: SEGURIDAD DE USUARIOS
  * Archivo: app/views/users/security_grid.php
- * Propósito: Interfaz de cuadrícula con acciones dinámicas y soporte de iniciales.
+ * Propósito: Interfaz de cuadrícula con acciones de seguridad: Actualizar Credenciales, Activar/Inactivar y Eliminar.
  */
 ?>
 <link rel="stylesheet" href="/diplomatic/public/assets/css/user_security.css">
@@ -31,7 +31,7 @@
                             <th>Tipo</th>
                             <th>Rol</th>
                             <th>Estado</th>
-                            <th class="text-center">Acción</th>
+                            <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,19 +60,31 @@
                             </td>
                             <td class="text-center pe-4">
                                 <div class="btn-group">
-                                    <button class="btn btn-white btn-sm border" onclick="UserSecurity.openResetModal(<?= $u['id'] ?>, '<?= $u['email'] ?>')" title="Cambiar Clave">
-                                        <i class="bi bi-key text-primary"></i>
+                                    <button class="btn btn-white btn-sm border" 
+                                            onclick="UserSecurity.openResetModal(<?= $u['id'] ?>, '<?= $u['email'] ?>')" 
+                                            title="Actualizar Credenciales">
+                                        <i class="bi bi-shield-lock text-primary"></i>
                                     </button>
                                     
                                     <?php if($u['status'] === 'ACTIVE'): ?>
-                                        <button class="btn btn-white btn-sm border" onclick="UserSecurity.toggleStatus(<?= $u['id'] ?>, '<?= $u['email'] ?>', 'INACTIVE')" title="Inactivar">
-                                            <i class="bi bi-person-x-fill text-danger"></i>
+                                        <button class="btn btn-white btn-sm border" 
+                                                onclick="UserSecurity.toggleStatus(<?= $u['id'] ?>, '<?= $u['email'] ?>', 'INACTIVE')" 
+                                                title="Inactivar Acceso">
+                                            <i class="bi bi-person-x text-warning"></i>
                                         </button>
                                     <?php else: ?>
-                                        <button class="btn btn-white btn-sm border" onclick="UserSecurity.toggleStatus(<?= $u['id'] ?>, '<?= $u['email'] ?>', 'ACTIVE')" title="Activar">
-                                            <i class="bi bi-person-check-fill text-success"></i>
+                                        <button class="btn btn-white btn-sm border" 
+                                                onclick="UserSecurity.toggleStatus(<?= $u['id'] ?>, '<?= $u['email'] ?>', 'ACTIVE')" 
+                                                title="Activar Acceso">
+                                            <i class="bi bi-person-check text-success"></i>
                                         </button>
                                     <?php endif; ?>
+
+                                    <button class="btn btn-white btn-sm border" 
+                                            onclick="UserSecurity.deletePhysical(<?= $u['id'] ?>, '<?= $u['email'] ?>')" 
+                                            title="Eliminar">
+                                        <i class="bi bi-trash text-danger"></i>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -92,16 +104,17 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body p-4">
-                <p class="small">Cambiar contraseña para: <br><strong id="security_email_display" class="text-primary"></strong></p>
+                <p class="small">Establecer nueva contraseña para: <br><strong id="security_email_display" class="text-primary"></strong></p>
                 <input type="hidden" id="security_uid">
                 <input type="hidden" id="security_uemail_hidden">
                 <div class="form-group">
-                    <label class="small fw-bold">Nueva Clave Inmediata:</label>
-                    <input type="password" id="new_password_input" class="form-control" placeholder="****">
+                    <label class="small fw-bold">Nueva Contraseña:</label>
+                    <input type="password" id="new_password_input" class="form-control" placeholder="Ingrese la nueva clave">
                 </div>
             </div>
             <div class="modal-footer bg-light">
-                <button type="button" class="btn btn-primary btn-sm px-4" onclick="UserSecurity.saveNewPassword()">Guardar</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary btn-sm px-4" onclick="UserSecurity.saveNewPassword()">Guardar Cambios</button>
             </div>
         </div>
     </div>

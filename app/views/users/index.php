@@ -2,7 +2,7 @@
 /**
  * MÓDULO: USUARIOS
  * Archivo: app/views/users/index.php
- * Propósito: Interfaz de gestión con el esquema completo de tbl_users.
+ * Propósito: Interfaz de gestión simplificada. Se elimina la columna 'Estado' del grid para mayor claridad visual.
  */
 $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
 ?>
@@ -27,8 +27,7 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
                         <th class="ps-4">Usuario</th>
                         <th>ID / Teléfono</th>
                         <th>Perfil Académico</th>
-                        <th>Rol / Estado</th>
-                        <th class="text-end pe-4">Acciones</th>
+                        <th>Rol</th> <th class="text-end pe-4">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,11 +55,7 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
                             <small class="text-muted"><?= htmlspecialchars($u['provenance'] ?? '') ?></small>
                         </td>
                         <td>
-                            <div class="mb-1"><span class="badge bg-light text-dark border"><?= htmlspecialchars($u['role']) ?></span></div>
-                            <?php 
-                                $statusClass = ($u['status'] === 'ACTIVE') ? 'bg-success' : 'bg-warning text-dark';
-                            ?>
-                            <span class="badge <?= $statusClass ?>"><?= htmlspecialchars($u['status']) ?></span>
+                            <span class="badge bg-light text-dark border"><?= htmlspecialchars($u['role']) ?></span>
                         </td>
                         <td class="text-end pe-4">
                             <div class="btn-group">

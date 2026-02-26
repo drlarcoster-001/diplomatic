@@ -2,7 +2,7 @@
 /**
  * MODULE: SETTINGS & CONFIGURATION
  * File: app/views/settings/mail.php
- * Propósito: Interfaz independiente para configuración SMTP y plantillas transaccionales.
+ * Propósito: Interfaz para configuración SMTP y plantillas con vista previa extendida y funcional.
  */
 
 $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
@@ -26,7 +26,7 @@ $certificados = $conf['DOCUMENTOS'] ?? [];
     <div class="d-flex gap-2">
         <a class="btn btn-outline-secondary btn-sm px-3 shadow-sm border-2" href="<?= htmlspecialchars($basePath) ?>/settings">Volver</a>
         <button type="button" class="btn btn-primary btn-sm px-4 shadow-sm fw-bold" onclick="saveActiveSettings()">
-            <i class="bi bi-save me-1"></i> Guardar Todo
+            <i class="bi bi-save me-1"></i> Guardar
         </button>
     </div>
 </div>
@@ -56,9 +56,6 @@ $certificados = $conf['DOCUMENTOS'] ?? [];
 </div>
 
 <?php 
-/**
- * Función helper para renderizar la interfaz de SMTP de forma simétrica
- */
 function renderSmtpUI($data, $prefix) { 
     $isIns = ($prefix === 'ins');
 ?>
@@ -126,6 +123,40 @@ function renderSmtpUI($data, $prefix) {
     </div>
 </div>
 <?php } ?>
+
+<div class="modal fade" id="modalPreviewEmail" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" id="previewDialog">
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+            <div class="modal-header bg-light py-3 border-bottom">
+                <div class="d-flex align-items-center">
+                    <div class="bg-primary text-white rounded-circle p-2 me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                        <i class="bi bi-envelope-check-fill"></i>
+                    </div>
+                    <div>
+                        <h6 class="modal-title fw-bold mb-0">Vista Previa Institucional</h6>
+                        <small class="text-muted" id="preview-subject-text">Asunto: Cargando...</small>
+                    </div>
+                </div>
+                <div class="ms-auto">
+                    <button type="button" class="btn btn-sm btn-outline-secondary me-2" onclick="toggleFullscreenPreview()" title="Maximizar">
+                        <i class="bi bi-arrows-fullscreen"></i>
+                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="modal-body bg-light bg-opacity-50 p-0" style="background-color: #f4f6f9 !important;">
+                <div class="preview-mail-container py-5 px-3">
+                    <div id="mail-render-area" class="bg-white shadow-sm mx-auto p-4 p-md-5 border rounded-1" style="max-width: 800px; min-height: 600px; color: #333;">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer bg-white border-top justify-content-end gap-2">
+                <button type="button" class="btn btn-primary fw-bold" onclick="sendTestFromPreview()">Enviar Prueba</button>
+                <button type="button" class="btn btn-secondary fw-bold" data-bs-dismiss="modal">Cerrar Vista</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="<?= htmlspecialchars($basePath) ?>/assets/js/settings_email.js?v=<?= time() ?>"></script>
