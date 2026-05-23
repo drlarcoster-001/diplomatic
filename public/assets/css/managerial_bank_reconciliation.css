@@ -1,0 +1,262 @@
+/**
+ * MÓDULO: GESTIÓN GERENCIAL / CONCILIACIÓN BANCARIA
+ * ARCHIVO: managerial_bank_reconciliation.css
+ * PROPÓSITO: Estilos premium para el tablero analítico financiero.
+ */
+
+/* ==========================================================================
+   1. TIPOGRAFÍA Y CABECERAS
+   ========================================================================== */
+.helium-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 1.75rem;
+    letter-spacing: -0.5px;
+    color: #1e293b !important;
+}
+
+.helium-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: #64748b;
+    font-weight: 400;
+}
+
+.card-helium {
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* ==========================================================================
+   2. TARJETAS DE KPIs (SEMÁFORO)
+   ========================================================================== */
+.kpi-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06) !important;
+}
+
+.kpi-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.kpi-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #6c757d;
+    font-weight: 700;
+}
+
+.kpi-value {
+    font-size: 1.4rem;
+    letter-spacing: -0.5px;
+}
+
+/* ==========================================================================
+   3. FORMULARIOS Y FILTROS HELIUM
+   ========================================================================== */
+.helium-label-container {
+    margin-bottom: 0.4rem;
+}
+
+.helium-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #495057;
+    letter-spacing: 0.5px;
+}
+
+.helium-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.helium-input-wrapper:focus-within {
+    background-color: #ffffff;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.1);
+}
+
+.helium-input, .helium-select {
+    border: none;
+    background: transparent;
+    padding: 0.65rem 1rem;
+    width: 100%;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #212529;
+    outline: none;
+}
+
+.helium-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 12px 12px;
+    padding-right: 2.5rem;
+}
+
+/* ==========================================================================
+   4. BOTONES PREMIUM
+   ========================================================================== */
+.btn-helium-primary {
+    background: #0d6efd;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 50rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(13, 110, 253, 0.3);
+}
+
+.btn-helium-primary:hover {
+    background: #0b5ed7;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(13, 110, 253, 0.4);
+}
+
+.btn-helium-secondary {
+    background: #f8f9fa;
+    color: #495057;
+    border: 1px solid #dee2e6;
+    padding: 0.6rem 1.5rem;
+    border-radius: 50rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.btn-helium-secondary:hover {
+    background: #e9ecef;
+    color: #212529;
+}
+
+/* ⚡ Botón Mágico: Auto-Conciliar */
+.btn-helium-magic {
+    background: linear-gradient(135deg, #6f42c1 0%, #d63384 100%);
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 50rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(111, 66, 193, 0.4);
+    animation: pulse-magic 2s infinite;
+}
+
+.btn-helium-magic:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(111, 66, 193, 0.6);
+    color: #fff;
+}
+
+@keyframes pulse-magic {
+    0% { box-shadow: 0 0 0 0 rgba(111, 66, 193, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(111, 66, 193, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(111, 66, 193, 0); }
+}
+
+/* ==========================================================================
+   5. TABLA Y MATRIZ DE RESULTADOS
+   ========================================================================== */
+.helium-table-scroll {
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid #f1f2f5;
+    border-radius: 0 0 16px 16px;
+}
+
+/* Fix para navegadores webkit (Scrollbar limpia) */
+.helium-table-scroll::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.helium-table-scroll::-webkit-scrollbar-track {
+    background: #f8f9fa;
+}
+.helium-table-scroll::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+.helium-table-scroll::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+#reconciliation-matrix-table th {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 1rem;
+    background-color: #f8fafc;
+    border-bottom: 2px solid #e2e8f0;
+    white-space: nowrap;
+}
+
+#reconciliation-matrix-table td {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #334155;
+    padding: 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #f1f5f9;
+    white-space: nowrap;
+}
+
+/* Referencias Monofásicas (Para facilitar lectura de números) */
+.col-reference {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   6. BADGES DE ESTATUS (EL SEMÁFORO)
+   ========================================================================== */
+.badge-status {
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: inline-block;
+    border: 1px solid transparent;
+}
+
+.status-conciliado {
+    background-color: rgba(25, 135, 84, 0.1);
+    color: #198754;
+    border-color: rgba(25, 135, 84, 0.2);
+}
+
+.status-huerfano {
+    background-color: rgba(253, 126, 20, 0.1);
+    color: #fd7e14;
+    border-color: rgba(253, 126, 20, 0.2);
+}
+
+.status-falso {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    border-color: rgba(220, 53, 69, 0.2);
+}

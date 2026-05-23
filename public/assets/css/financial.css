@@ -1,0 +1,29 @@
+/**
+ * MÓDULO: GESTIÓN FINANCIERA
+ * ARCHIVO: public/assets/css/financial.css
+ * PROPÓSITO: Estilos específicos para el dashboard financiero y animaciones de tarjetas.
+ * VERSIÓN: 1.1.0 - Inclusión de clases para estandarización de tarjetas y soporte a nuevos módulos.
+ */
+
+/* Clase maestra para los enlaces de tarjetas */
+.card-financial-link {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    cursor: pointer;
+    text-decoration: none !important;
+}
+
+.card-financial-link:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+/* Asegurar consistencia de iconos en tarjetas financieras */
+.bg-opacity-10 i {
+    display: block;
+    line-height: 1;
+}
+
+/* Utilidades de bordes temáticos */
+.border-top-success { border-top: 4px solid #198754 !important; }
+.border-top-indigo { border-top: 4px solid #6610f2 !important; }
+.border-top-primary { border-top: 4px solid #0d6efd !important; }

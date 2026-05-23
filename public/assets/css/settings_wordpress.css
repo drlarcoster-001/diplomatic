@@ -1,0 +1,83 @@
+/**
+ * MÓDULO: CONFIGURACIÓN GLOBAL / INTEGRACIÓN
+ * ARCHIVO: public/assets/css/settings_wordpress.css
+ * PROPÓSITO: Estilos visuales para el formulario de configuración de WordPress y estados de conexión.
+ * VERSIÓN: 1.0.0 - Diseño inicial basado en el sistema de diseño del panel operativo.
+ */
+
+/* Contenedor de la tarjeta de configuración */
+.card.rounded-4 {
+    border-radius: 1rem !important;
+    border: none;
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Personalización de los Input Groups */
+.input-group-text {
+    color: #6c757d;
+    font-size: 1.1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+}
+
+.form-control.border-start-0:focus + .input-group-text,
+.input-group:focus-within .input-group-text {
+    border-color: #0d6efd;
+    background-color: #f8f9fa;
+}
+
+/* Etiquetas y títulos */
+.form-label.text-muted {
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+hr.opacity-25 {
+    border-top: 1px solid #dee2e6;
+    margin-top: 0.5rem;
+}
+
+/* Botones con estilo "Pill" */
+.btn-primary.rounded-pill {
+    font-weight: 600;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary.rounded-pill {
+    border-width: 2px;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+/* Animaciones de entrada (Si usas Animate.css) */
+.animate__fadeIn {
+    animation-duration: 0.6s;
+}
+
+/* Ajustes para móviles */
+@media (max-width: 768px) {
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+        margin-right: 0 !important;
+    }
+    
+    .card-body {
+        padding: 1.5rem !important;
+    }
+}

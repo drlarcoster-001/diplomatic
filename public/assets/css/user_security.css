@@ -1,0 +1,43 @@
+/**
+ * MÓDULO: SEGURIDAD DE USUARIOS
+ * Archivo: public/assets/css/user_security.css
+ */
+
+.user-security-grid .security-row {
+    transition: background-color 0.2s ease;
+}
+
+.user-security-grid .security-row:hover {
+    background-color: #f8f9fa !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cursor-pointer:hover {
+    text-decoration: underline;
+    color: #0d6efd !important;
+}
+
+.badge {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 0.5em 0.8em;
+}
+
+/* Estilo para los botones de acción blancos */
+.btn-white {
+    background-color: #ffffff;
+    border-color: #dee2e6;
+}
+
+.btn-white:hover {
+    background-color: #f8f9fa;
+    border-color: #ced4da;
+}
+
+/* Avatar con iniciales */
+.rounded-circle.bg-light {
+    border: 1px solid #e9ecef !important;
+}

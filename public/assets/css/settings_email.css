@@ -1,0 +1,22 @@
+/**
+ * MODULE: EMAIL SETTINGS
+ * File: public/assets/css/settings_email.css
+ * Propósito: Estilos específicos para la gestión de SMTP y plantillas.
+ */
+
+.animation-fade-in { animation: fadeIn 0.5s ease-in-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.card { transition: all 0.3s ease; border: 1px solid rgba(0,0,0,.1) !important; }
+.card:hover { box-shadow: 0 5px 15px rgba(0,0,0,.08) !important; }
+
+.border-2 { border-width: 2px !important; }
+.x-small { font-size: 0.7rem; }
+.uppercase { text-transform: uppercase; }
+
+.btn-white {
+    background: #fff;
+    color: #4e73df;
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+}

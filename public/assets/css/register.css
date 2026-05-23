@@ -1,0 +1,53 @@
+/**
+ * MÓDULO: GESTIÓN DE ACCESO
+ * Archivo: public/assets/css/register.css
+ * Propósito: Estilos para la interfaz de registro y correcciones de usabilidad.
+ */
+
+body, html {
+    height: 100%;
+}
+
+.dp-auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px;
+}
+
+.dp-reg-box {
+    width: 100%;
+    max-width: 550px;
+}
+
+/* Estilo para intlTelInput para que ocupe el ancho completo */
+.iti { 
+    width: 100%; 
+}
+
+/* Mejora de enfoque y sombras en los campos de texto */
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+}
+
+/* Soporte visual para campos que requieren mayúsculas */
+.form-control-caps {
+    text-transform: uppercase;
+}
+
+/* Nota informativa debajo del correo */
+.email-note {
+    font-size: 0.75rem;
+    color: #6c757d;
+    margin-top: 4px;
+    display: block;
+}
+
+/* Ajustes para dispositivos móviles */
+@media (max-width: 576px) {
+    .dp-card {
+        padding: 1.5rem !important;
+    }
+}

@@ -1,0 +1,112 @@
+/**
+ * MÓDULO: GESTIÓN FINANCIERA / VALIDACIÓN DE PAGOS (BINANCE)
+ * ARCHIVO: public/assets/css/financial_payment_validations_binance.css
+ * PROPÓSITO: Estilos específicos para la auditoría de cuotas en USDT y normalización del visor.
+ * VERSIÓN: 1.0.1 - Identidad visual Binance (Gold/Dark) y altura responsiva.
+ */
+
+/* Animación de entrada */
+.animate__fadeIn {
+    animation-duration: 0.8s;
+}
+
+/* --- VISOR DE AUDITORÍA BINANCE (DARK MODE) --- */
+#img-viewer-container {
+    background-color: #0b0e11; /* Color oficial de fondo de Binance */
+    height: 70vh;
+    min-height: 500px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #2b2f36;
+    /* Fondo decorativo de rejilla sutil */
+    background-image: radial-gradient(rgba(243, 186, 47, 0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+#v-screenshot {
+    max-width: 92%;
+    max-height: 92%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: grab;
+}
+
+#v-screenshot:active {
+    cursor: grabbing;
+}
+
+/* --- PROTOCOLO DE SEGURIDAD (INPUT DORADO) --- */
+#input-verify-reference {
+    font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+    font-size: 1.25rem;
+    text-align: center;
+    letter-spacing: 3px;
+    border: 2px solid #dee2e6;
+    text-transform: uppercase;
+    background-color: #fffdf3; /* Tinte amarillento sutil */
+    color: #212529;
+    font-weight: 700;
+}
+
+#input-verify-reference:focus {
+    border-color: #f3ba2f; /* Amarillo oficial de Binance */
+    box-shadow: 0 0 0 0.25rem rgba(243, 186, 47, 0.2);
+    background-color: #ffffff;
+}
+
+#input-verify-reference::placeholder {
+    letter-spacing: normal;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #adb5bd;
+}
+
+/* --- INTERFAZ DE TABLA --- */
+#table-binance-pending thead th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #f3ba2f; /* Línea dorada en la cabecera */
+    color: #474d57;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(243, 186, 47, 0.05) !important;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+}
+
+/* --- UTILIDADES VISUALES --- */
+#v-monto {
+    letter-spacing: -1.5px;
+    color: #f3ba2f; /* Color USDT Gold */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Scrollbar personalizado para el detalle del modal */
+.modal-body .col-lg-5 {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-body .col-lg-5::-webkit-scrollbar {
+    width: 5px;
+}
+
+.modal-body .col-lg-5::-webkit-scrollbar-thumb {
+    background: #f3ba2f; /* Scrollbar dorado */
+    border-radius: 10px;
+}
+
+.modal-body .col-lg-5::-webkit-scrollbar-thumb:hover {
+    background: #d4a125;
+}

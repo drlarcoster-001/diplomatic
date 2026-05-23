@@ -1,0 +1,15 @@
+/**
+ * MÓDULO - public/assets/css/company.css
+ * Estilos visuales exclusivos para el formulario de Empresa.
+ */
+.card {
+    transition: all 0.2s ease-in-out;
+}
+.form-control:focus {
+    background-color: #f8f9fa;
+    border-color: #0d6efd;
+}
+.form-label {
+    margin-bottom: 0.2rem;
+    color: #555;
+}

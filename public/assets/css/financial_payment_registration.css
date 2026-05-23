@@ -1,0 +1,115 @@
+/**
+ * MÓDULO: GESTIÓN FINANCIERA / REGISTRO DE PAGOS
+ * ARCHIVO: public/assets/css/financial_payment_registration.css
+ * PROPÓSITO: Estilos consolidados para el wizard de pagos (S1, S2, S4).
+ * VERSIÓN: 1.1.0 - FIX: Agregado custom-scroll para S2 y refinamiento de Z-index para búsqueda.
+ */
+
+/* --- 1. CLASES DE UTILIDAD --- */
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
+.smallest {
+    font-size: 0.75rem !important;
+}
+
+.text-balance {
+    text-wrap: balance;
+}
+
+.transition-all {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Scrollbar personalizada para listas largas (Paso 1 y Paso 2) */
+.custom-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 8px;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+    background: #c1c1c1; 
+    border-radius: 8px;
+}
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8; 
+}
+
+/* --- 2. PASO 1: BUSCADOR FLOTANTE --- */
+#searchResults {
+    position: absolute;
+    z-index: 1050;
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border-radius: 0 0 0.5rem 0.5rem;
+    background-color: #ffffff;
+    border: 1px solid rgba(0,0,0,0.05);
+    border-top: none;
+}
+
+/* --- 3. PASO 2: TARJETAS DE DIPLOMADOS --- */
+.offering-selection-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border: 2px solid #f0f2f5;
+    background: #fff;
+    position: relative;
+}
+
+.offering-selection-card:hover {
+    transform: translateY(-3px);
+    border-color: #0d6efd;
+    background-color: rgba(13, 110, 253, 0.02);
+    box-shadow: 0 5px 15px rgba(13, 110, 253, 0.1) !important;
+}
+
+.offering-selection-card.border-primary {
+    background-color: rgba(13, 110, 253, 0.05) !important;
+    border-width: 2px !important;
+}
+
+/* --- 4. PASO 3 (S4): TARJETAS DE PAGO --- */
+.payment-option-card {
+    transition: all 0.3s ease;
+    border: 2px solid #f0f2f5;
+    position: relative;
+}
+
+.payment-option-card:hover {
+    transform: translateY(-3px);
+    border-color: #dee2e6;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.payment-option-card.border-success {
+    background-color: rgba(25, 135, 84, 0.03) !important;
+    border-color: #198754 !important;
+}
+
+.payment-option-card.border-primary {
+    background-color: rgba(13, 110, 253, 0.03) !important;
+    border-color: #0d6efd !important;
+}
+
+.payment-option-card.active-selection {
+    transform: scale(1.02);
+}
+
+/* --- 5. ELEMENTOS INTERNOS --- */
+.icon-circle {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.selection-check {
+    z-index: 10;
+}

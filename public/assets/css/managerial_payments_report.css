@@ -1,0 +1,178 @@
+/**
+ * MÓDULO: PANEL GERENCIAL / REPORTE DE PAGOS
+ * ARCHIVO: public/assets/css/managerial_payments_report.css
+ * PROPÓSITO: Clonación estética de Helium 10 (Tipografía, Spacing, Botones).
+ * VERSIÓN: 2.1.0 - FIX: Scroll fino, Z-index de Exportación y Paginación Gerencial.
+ */
+
+:root {
+    --helium-orange: #fd7e14;
+    --helium-blue: #00aaff;
+    --helium-bg: #f5f7f9;
+    --helium-border: #e2e8f0;
+    --helium-label-color: #718096;
+    --helium-text-dark: #2d3748;
+    --helium-success: #38a169;
+    --helium-danger: #e53e3e;
+}
+
+body { 
+    background-color: var(--helium-bg); 
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--helium-text-dark);
+}
+
+/* --- TÍTULOS Y ENCABEZADOS --- */
+.helium-title { font-weight: 700; color: var(--helium-text-dark); letter-spacing: -0.02em; }
+.helium-subtitle { font-size: 0.85rem; color: var(--helium-label-color); }
+.helium-table-title { letter-spacing: 0.05em; color: var(--helium-text-dark); }
+
+/* --- CARDS Y CONTENEDORES --- */
+.card-helium { border-radius: 12px; background: #ffffff; border: none !important; }
+
+/* --- FORMULARIOS Y LABELS --- */
+.helium-label-container { display: flex; align-items: center; margin-bottom: 8px; }
+.helium-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--helium-label-color);
+}
+
+.helium-input-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: #f8fafc;
+    border: 1px solid var(--helium-border);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.helium-input, .helium-select {
+    width: 100%;
+    border: 1px solid var(--helium-border);
+    background-color: #f8fafc;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: var(--helium-text-dark);
+    font-weight: 400;
+    outline: none !important;
+}
+
+.helium-input-wrapper:focus-within, .helium-select:focus { 
+    border-color: var(--helium-orange); 
+    background: #fff; 
+    box-shadow: 0 0 0 3px rgba(253, 126, 20, 0.1);
+}
+
+/* --- BOTONES ESTILO PILL --- */
+.btn-helium-primary {
+    background-color: var(--helium-orange);
+    color: #fff !important;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 32px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    transition: 0.3s ease;
+}
+.btn-helium-primary:hover { background-color: #e66a00; transform: translateY(-1px); }
+
+.btn-helium-secondary {
+    background-color: transparent;
+    color: var(--helium-label-color) !important;
+    border: 1px solid var(--helium-border);
+    border-radius: 50px;
+    padding: 10px 24px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    transition: 0.2s;
+}
+.btn-helium-secondary:hover { background: #edf2f7; color: var(--helium-text-dark) !important; }
+
+.btn-helium-back {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--helium-label-color);
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 1px solid var(--helium-border);
+    border-radius: 50px;
+    background: #fff;
+    transition: 0.2s;
+}
+.btn-helium-back:hover { border-color: var(--helium-orange); color: var(--helium-orange); }
+
+/* --- TABLA, SCROLL Y Z-INDEX --- */
+.helium-table-scroll { 
+    max-height: 520px; 
+    overflow-y: auto; 
+    scrollbar-width: thin;
+    scrollbar-color: var(--helium-orange) #f1f1f1;
+}
+
+/* Scrollbar personalizado para Webkit (Chrome/Safari/Edge) */
+.helium-table-scroll::-webkit-scrollbar { width: 6px; }
+.helium-table-scroll::-webkit-scrollbar-track { background: #f1f1f1; }
+.helium-table-scroll::-webkit-scrollbar-thumb { 
+    background: var(--helium-orange); 
+    border-radius: 10px; 
+}
+
+#matrix-table thead th {
+    position: sticky; 
+    top: 0; 
+    z-index: 5; /* Z-index bajo para permitir que los dropdowns floten encima */
+    background-color: #f8fafc;
+    border-bottom: 2px solid var(--helium-border);
+    padding: 16px 12px;
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--helium-label-color);
+    white-space: nowrap;
+}
+
+/* Fix para el menú Exportar: Debe estar por encima del sticky header */
+.card-header .dropdown { position: relative; z-index: 1060; }
+.card-header .dropdown-menu { z-index: 1070 !important; border: none; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+
+#matrix-table tbody td { padding: 14px 12px; border-bottom: 1px solid #f1f5f9; font-size: 13.5px; }
+
+/* --- MOTOR DE PAGINACIÓN --- */
+.pagination-btn {
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    border: 1px solid var(--helium-border);
+    background: #fff;
+    color: var(--helium-label-color);
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.pagination-btn:first-child { border-radius: 8px 0 0 8px; }
+.pagination-btn:last-child { border-radius: 0 8px 8px 0; }
+.pagination-btn.active {
+    background: var(--helium-orange);
+    color: #fff;
+    border-color: var(--helium-orange);
+}
+.pagination-btn:hover:not(.active) { background: #edf2f7; color: var(--helium-text-dark); }
+
+/* --- ESTATUS Y ALERTAS --- */
+.text-orange { color: var(--helium-orange) !important; }
+.text-success-helium { color: var(--helium-success) !important; font-weight: 700; }
+.text-danger-helium { color: var(--helium-danger) !important; font-size: 12px; }
+
+.empty-icon-container {
+    width: 80px; height: 80px; background: #fff; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 32px; color: #cbd5e0; border: 1px solid #edf2f7;
+}
+
+/* Estilo para etiquetas de totalización en el footer */
+.h3, .h4 { letter-spacing: -0.03em; }

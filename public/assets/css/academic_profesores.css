@@ -1,0 +1,117 @@
+/**
+ * MÓDULO: GESTIÓN ACADÉMICA
+ * Archivo: public/assets/css/academic_profesores.css
+ * Propósito: Estilos para el directorio, búsqueda y lista de profesores.
+ */
+
+/* 1. Contenedor de Búsqueda y Filtros */
+.search-container {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+}
+
+.search-input-group {
+    border-radius: 50px;
+    overflow: hidden;
+    border: 1px solid #d1d3e2;
+    transition: all 0.2s ease;
+}
+
+.search-input-group:focus-within {
+    border-color: #4e73df;
+    box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+}
+
+/* 2. Estilos de la Tabla de Profesores */
+.table-profesores {
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table-profesores thead th {
+    background-color: #f8f9fc;
+    color: #4e73df;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05rem;
+    padding: 1rem;
+    border-top: none;
+    border-bottom: 2px solid #e3e6f0;
+}
+
+/* Efecto hover elegante solicitado */
+.profesor-row {
+    transition: all 0.2s ease-in-out;
+}
+
+.profesor-row:hover {
+    background-color: #f8f9fc !important;
+    transform: translateY(-1px);
+    box-shadow: inset 4px 0 0 #4e73df; /* Línea azul lateral al pasar el mouse */
+}
+
+/* 3. Miniaturas de Perfil (Avatares en la tabla) */
+.avatar-table {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 4. Badges (Insignias de Tipo) */
+.badge-type {
+    padding: 0.5em 1em;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.7rem;
+}
+
+.badge-docente { background-color: #eef2ff; color: #4e73df; }
+.badge-invitado { background-color: #fff4e5; color: #ff9800; }
+.badge-coordinador { background-color: #ebfaf2; color: #1cc88a; }
+
+/* 5. Botones de Acción Rápidos */
+.btn-action {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    margin: 0 2px;
+}
+
+.btn-action:hover {
+    transform: scale(1.1);
+}
+
+.btn-view { color: #4e73df; background-color: rgba(78, 115, 223, 0.1); border: none; }
+.btn-view:hover { background-color: #4e73df; color: #fff; }
+
+.btn-edit { color: #f6c23e; background-color: rgba(246, 194, 62, 0.1); border: none; }
+.btn-edit:hover { background-color: #f6c23e; color: #fff; }
+
+/* 6. Estado Vacío */
+.empty-state {
+    padding: 4rem 2rem;
+    text-align: center;
+    color: #858796;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+    opacity: 0.5;
+}

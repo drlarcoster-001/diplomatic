@@ -1,0 +1,141 @@
+/**
+ * MÓDULO: GESTIÓN ADMINISTRATIVA
+ * ARCHIVO: public/assets/css/administrative_inscriptions.css
+ * PROPÓSITO: Estilos para el listado de inscripciones, buscador y Grid de 3 tarjetas.
+ * VERSIÓN: 2.2.0 - Fix: Control de títulos, Grid 3-column y efectos de hover.
+ */
+
+/* --- 1. BUSCADOR ESTILO GOOGLE --- */
+.google-search-container {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    background: #ffffff;
+}
+
+.google-search-container:focus-within {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+    border-color: #4285f4 !important;
+}
+
+#studentSearch::placeholder {
+    color: #9aa0a6;
+    font-size: 0.95rem;
+}
+
+/* --- 2. OVERLAY DE RESULTADOS (DROPDOWN) --- */
+.google-results-overlay {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1050;
+    background: white;
+    border-radius: 0 0 24px 24px;
+    border: 1px solid #dfe1e5;
+    border-top: none;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.google-results-overlay .list-group-item {
+    border: none;
+    padding: 12px 20px;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+.google-results-overlay .list-group-item:hover {
+    background-color: #f8f9fa;
+}
+
+/* --- 3. CATÁLOGO DE OFERTAS (GRID DE 3) --- */
+.offering-card {
+    cursor: pointer;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    background: #ffffff;
+    border: 1px solid #f0f0f0;
+}
+
+.offering-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08) !important;
+    border-color: #4285f4;
+}
+
+.offering-header-line {
+    height: 5px;
+    background: linear-gradient(90deg, #4285f4 0%, #34a853 100%);
+}
+
+/* Fix para títulos largos: Forzamos a 2 líneas siempre */
+.card-title-main {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    font-weight: 700;
+    color: #202124;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Corta a la 2da línea con puntos suspensivos */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 3.1rem; /* Mantiene la misma altura en todas las tarjetas */
+}
+
+/* --- 4. ESTADÍSTICAS Y PROGRESO --- */
+.offering-stats {
+    background-color: #fcfcfc;
+}
+
+.progress {
+    background-color: #f1f3f4;
+    border-radius: 10px;
+}
+
+.badge-status-open {
+    background: #e6f4ea;
+    color: #1e8e3e;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    border: 1px solid #ceead6;
+}
+
+/* --- 5. TARJETA DE ESTUDIANTE SELECCIONADO --- */
+#selectedIndicator .bg-white {
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+#selectedIndicator .bg-white:hover {
+    border-color: #4285f4;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
+}
+
+#displayAvatar {
+    border: 2px solid #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* --- 6. BADGES Y TEXTOS --- */
+.smallest {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* --- 7. ANIMACIONES --- */
+@keyframes blinker {
+    50% { opacity: 0.3; }
+}
+.blink { animation: blinker 2s linear infinite; }
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.google-results-overlay:not(.d-none) {
+    animation: slideDown 0.2s ease-out;
+}

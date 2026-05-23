@@ -1,0 +1,95 @@
+/**
+ * MÓDULO: GESTIÓN ACADÉMICA
+ * Archivo: public/assets/css/academic_campuses.css
+ * Propósito: Estilos específicos para la administración de sedes, incluyendo diseño de tablas, efectos de tarjetas y personalización de modales.
+ * Version: 1.1.0 - Versión Maestra Inicial. Diseño responsive y consistencia visual con el panel académico.
+ */
+
+/* 1. CONTENEDOR DE TARJETAS (CARDS) */
+.card {
+    border-radius: 12px !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 2. DISEÑO DE LA TABLA DE SEDES */
+.table thead th {
+    background-color: #f8f9fc;
+    color: #4e73df;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    border-top: none;
+    padding: 15px 10px;
+}
+
+.table tbody tr {
+    transition: background-color 0.15s ease-in-out;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(78, 115, 223, 0.05) !important;
+}
+
+.table td {
+    padding: 15px 10px;
+    vertical-align: middle;
+    border-bottom: 1px solid #e3e6f0;
+}
+
+/* 3. BOTONES DE ACCIÓN (PEQUEÑOS) */
+.btn-group .btn {
+    border-radius: 8px !important;
+    margin: 0 2px;
+    padding: 5px 10px;
+    border: 1px solid #e3e6f0;
+    background-color: #fff;
+    transition: all 0.2s;
+}
+
+.btn-group .btn:hover {
+    background-color: #f8f9fc;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* 4. MODAL Y FORMULARIOS */
+.modal-content {
+    border-radius: 15px !important;
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: 20px 25px;
+}
+
+.modal-body {
+    padding: 25px !important;
+}
+
+.form-control, .form-select {
+    border-radius: 10px !important;
+    padding: 10px 15px;
+    border: 1px solid #d1d3e2;
+}
+
+.form-control:focus {
+    border-color: #bac8f3;
+    box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.1);
+}
+
+/* 5. SOMBRAS PERSONALIZADAS */
+.shadow-lg {
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 6. RESPONSIVIDAD */
+@media (max-width: 768px) {
+    .d-flex.justify-content-between {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 15px;
+    }
+    
+    .btn-group {
+        display: flex;
+        width: 100%;
+    }
+}

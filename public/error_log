@@ -1,0 +1,929 @@
+[18-May-2026 09:14:05 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[18-May-2026 09:14:10 America/Caracas] CONTROLADOR - Text: 'flor', Date: ''
+[19-May-2026 20:21:18 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[19-May-2026 20:21:22 America/Caracas] Pago ID 217: OK
+[19-May-2026 20:21:22 America/Caracas] Pago ID 216: OK
+[19-May-2026 20:21:22 America/Caracas] Pago ID 202: OK
+[19-May-2026 20:21:22 America/Caracas] Pago ID 218: OK
+[19-May-2026 20:21:22 America/Caracas] Pago ID 208: OK
+[19-May-2026 20:21:37 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[19-May-2026 20:21:51 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[19-May-2026 20:21:54 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[19-May-2026 20:22:00 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[19-May-2026 21:10:23 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[19-May-2026 21:10:27 America/Caracas] Pago ID 150: OK
+[19-May-2026 21:10:32 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[19-May-2026 21:10:35 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[19-May-2026 21:10:38 America/Caracas] Pago ID 50: OK
+[19-May-2026 21:10:38 America/Caracas] Pago ID 122: OK
+[19-May-2026 21:10:45 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[20-May-2026 08:28:09 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[20-May-2026 08:49:31 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[20-May-2026 08:50:01 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[20-May-2026 08:50:11 America/Caracas] CONTROLADOR - Text: 'flor', Date: ''
+[20-May-2026 08:50:15 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[20-May-2026 15:55:49 America/Caracas] PHP Fatal error:  Uncaught RuntimeException: Error de conexión a la base de datos. Verifique credenciales y que MySQL esté activo. in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php:59
+Stack trace:
+#0 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Bootstrap.php(127): App\Core\Database::getConnection()
+#1 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/public/index.php(20): App\Core\Bootstrap->run()
+#2 {main}
+  thrown in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php on line 59
+[20-May-2026 16:09:03 America/Caracas] PHP Fatal error:  Uncaught RuntimeException: Error de conexión a la base de datos. Verifique credenciales y que MySQL esté activo. in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php:59
+Stack trace:
+#0 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Bootstrap.php(127): App\Core\Database::getConnection()
+#1 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/public/index.php(20): App\Core\Bootstrap->run()
+#2 {main}
+  thrown in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php on line 59
+[20-May-2026 16:09:03 America/Caracas] PHP Fatal error:  Uncaught RuntimeException: Error de conexión a la base de datos. Verifique credenciales y que MySQL esté activo. in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php:59
+Stack trace:
+#0 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Bootstrap.php(127): App\Core\Database::getConnection()
+#1 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/public/index.php(20): App\Core\Bootstrap->run()
+#2 {main}
+  thrown in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php on line 59
+[20-May-2026 16:09:04 America/Caracas] PHP Fatal error:  Uncaught RuntimeException: Error de conexión a la base de datos. Verifique credenciales y que MySQL esté activo. in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php:59
+Stack trace:
+#0 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Bootstrap.php(127): App\Core\Database::getConnection()
+#1 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/public/index.php(20): App\Core\Bootstrap->run()
+#2 {main}
+  thrown in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php on line 59
+[20-May-2026 16:09:04 America/Caracas] PHP Fatal error:  Uncaught RuntimeException: Error de conexión a la base de datos. Verifique credenciales y que MySQL esté activo. in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php:59
+Stack trace:
+#0 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Bootstrap.php(127): App\Core\Database::getConnection()
+#1 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/public/index.php(20): App\Core\Bootstrap->run()
+#2 {main}
+  thrown in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php on line 59
+[20-May-2026 16:09:04 America/Caracas] PHP Fatal error:  Uncaught RuntimeException: Error de conexión a la base de datos. Verifique credenciales y que MySQL esté activo. in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php:59
+Stack trace:
+#0 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Bootstrap.php(127): App\Core\Database::getConnection()
+#1 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/public/index.php(20): App\Core\Bootstrap->run()
+#2 {main}
+  thrown in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php on line 59
+[20-May-2026 16:09:04 America/Caracas] PHP Fatal error:  Uncaught RuntimeException: Error de conexión a la base de datos. Verifique credenciales y que MySQL esté activo. in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php:59
+Stack trace:
+#0 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Bootstrap.php(127): App\Core\Database::getConnection()
+#1 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/public/index.php(20): App\Core\Bootstrap->run()
+#2 {main}
+  thrown in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php on line 59
+[20-May-2026 16:09:04 America/Caracas] PHP Fatal error:  Uncaught RuntimeException: Error de conexión a la base de datos. Verifique credenciales y que MySQL esté activo. in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php:59
+Stack trace:
+#0 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Bootstrap.php(127): App\Core\Database::getConnection()
+#1 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/public/index.php(20): App\Core\Bootstrap->run()
+#2 {main}
+  thrown in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php on line 59
+[20-May-2026 16:09:05 America/Caracas] PHP Fatal error:  Uncaught RuntimeException: Error de conexión a la base de datos. Verifique credenciales y que MySQL esté activo. in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php:59
+Stack trace:
+#0 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Bootstrap.php(127): App\Core\Database::getConnection()
+#1 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/public/index.php(20): App\Core\Bootstrap->run()
+#2 {main}
+  thrown in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php on line 59
+[20-May-2026 16:22:01 America/Caracas] PHP Fatal error:  Uncaught RuntimeException: Error de conexión a la base de datos. Verifique credenciales y que MySQL esté activo. in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php:59
+Stack trace:
+#0 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Bootstrap.php(127): App\Core\Database::getConnection()
+#1 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/public/index.php(20): App\Core\Bootstrap->run()
+#2 {main}
+  thrown in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php on line 59
+[20-May-2026 16:22:03 America/Caracas] PHP Fatal error:  Uncaught RuntimeException: Error de conexión a la base de datos. Verifique credenciales y que MySQL esté activo. in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php:59
+Stack trace:
+#0 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Bootstrap.php(127): App\Core\Database::getConnection()
+#1 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/public/index.php(20): App\Core\Bootstrap->run()
+#2 {main}
+  thrown in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php on line 59
+[20-May-2026 16:22:05 America/Caracas] PHP Fatal error:  Uncaught RuntimeException: Error de conexión a la base de datos. Verifique credenciales y que MySQL esté activo. in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php:59
+Stack trace:
+#0 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Bootstrap.php(127): App\Core\Database::getConnection()
+#1 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/public/index.php(20): App\Core\Bootstrap->run()
+#2 {main}
+  thrown in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php on line 59
+[20-May-2026 16:22:10 America/Caracas] PHP Fatal error:  Uncaught RuntimeException: Error de conexión a la base de datos. Verifique credenciales y que MySQL esté activo. in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php:59
+Stack trace:
+#0 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Bootstrap.php(127): App\Core\Database::getConnection()
+#1 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/public/index.php(20): App\Core\Bootstrap->run()
+#2 {main}
+  thrown in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php on line 59
+[20-May-2026 16:22:11 America/Caracas] PHP Fatal error:  Uncaught RuntimeException: Error de conexión a la base de datos. Verifique credenciales y que MySQL esté activo. in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php:59
+Stack trace:
+#0 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Bootstrap.php(127): App\Core\Database::getConnection()
+#1 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/public/index.php(20): App\Core\Bootstrap->run()
+#2 {main}
+  thrown in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php on line 59
+[20-May-2026 16:22:18 America/Caracas] PHP Fatal error:  Uncaught RuntimeException: Error de conexión a la base de datos. Verifique credenciales y que MySQL esté activo. in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php:59
+Stack trace:
+#0 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Bootstrap.php(127): App\Core\Database::getConnection()
+#1 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/public/index.php(20): App\Core\Bootstrap->run()
+#2 {main}
+  thrown in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php on line 59
+[20-May-2026 16:22:25 America/Caracas] PHP Fatal error:  Uncaught RuntimeException: Error de conexión a la base de datos. Verifique credenciales y que MySQL esté activo. in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php:59
+Stack trace:
+#0 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Bootstrap.php(127): App\Core\Database::getConnection()
+#1 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/public/index.php(20): App\Core\Bootstrap->run()
+#2 {main}
+  thrown in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php on line 59
+[20-May-2026 18:57:17 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[20-May-2026 18:57:21 America/Caracas] Pago ID 104: OK
+[20-May-2026 18:57:25 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[20-May-2026 18:57:28 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 10:04:25 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 10:04:29 America/Caracas] CONTROLADOR - Text: '3', Date: ''
+[21-May-2026 10:04:30 America/Caracas] CONTROLADOR - Text: '30', Date: ''
+[21-May-2026 10:04:32 America/Caracas] CONTROLADOR - Text: '30995939', Date: ''
+[21-May-2026 10:04:32 America/Caracas] CONTROLADOR - Text: '30995939', Date: ''
+[21-May-2026 10:57:17 America/Caracas] PHP Fatal error:  Uncaught RuntimeException: Error de conexión a la base de datos. Verifique credenciales y que MySQL esté activo. in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php:59
+Stack trace:
+#0 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Bootstrap.php(127): App\Core\Database::getConnection()
+#1 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/public/index.php(20): App\Core\Bootstrap->run()
+#2 {main}
+  thrown in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php on line 59
+[21-May-2026 10:57:23 America/Caracas] PHP Fatal error:  Uncaught RuntimeException: Error de conexión a la base de datos. Verifique credenciales y que MySQL esté activo. in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php:59
+Stack trace:
+#0 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Bootstrap.php(127): App\Core\Database::getConnection()
+#1 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/public/index.php(20): App\Core\Bootstrap->run()
+#2 {main}
+  thrown in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php on line 59
+[21-May-2026 10:57:25 America/Caracas] PHP Fatal error:  Uncaught RuntimeException: Error de conexión a la base de datos. Verifique credenciales y que MySQL esté activo. in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php:59
+Stack trace:
+#0 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Bootstrap.php(127): App\Core\Database::getConnection()
+#1 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/public/index.php(20): App\Core\Bootstrap->run()
+#2 {main}
+  thrown in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php on line 59
+[21-May-2026 10:58:27 America/Caracas] PHP Fatal error:  Uncaught RuntimeException: Error de conexión a la base de datos. Verifique credenciales y que MySQL esté activo. in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php:59
+Stack trace:
+#0 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Bootstrap.php(127): App\Core\Database::getConnection()
+#1 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/public/index.php(20): App\Core\Bootstrap->run()
+#2 {main}
+  thrown in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php on line 59
+[21-May-2026 10:58:29 America/Caracas] PHP Fatal error:  Uncaught RuntimeException: Error de conexión a la base de datos. Verifique credenciales y que MySQL esté activo. in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php:59
+Stack trace:
+#0 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Bootstrap.php(127): App\Core\Database::getConnection()
+#1 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/public/index.php(20): App\Core\Bootstrap->run()
+#2 {main}
+  thrown in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php on line 59
+[21-May-2026 10:58:29 America/Caracas] PHP Fatal error:  Uncaught RuntimeException: Error de conexión a la base de datos. Verifique credenciales y que MySQL esté activo. in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php:59
+Stack trace:
+#0 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Bootstrap.php(127): App\Core\Database::getConnection()
+#1 /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/public/index.php(20): App\Core\Bootstrap->run()
+#2 {main}
+  thrown in /home/platafo2/cohorte14.plataformadiplomados.com/diplomatic/app/core/Database.php on line 59
+[21-May-2026 12:04:46 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 12:05:12 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 12:05:18 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 12:05:36 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 12:05:41 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 12:05:52 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 12:05:56 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 12:06:00 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:13:14 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:13:20 America/Caracas] Pago ID 229: OK
+[21-May-2026 18:13:25 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:13:27 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:13:30 America/Caracas] Pago ID 228: OK
+[21-May-2026 18:13:30 America/Caracas] Pago ID 231: OK
+[21-May-2026 18:13:30 America/Caracas] Pago ID 121: OK
+[21-May-2026 18:13:39 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:19:35 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:19:38 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:19:42 America/Caracas] Pago ID 149: OK
+[21-May-2026 18:19:42 America/Caracas] Pago ID 161: OK
+[21-May-2026 18:19:48 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:22:20 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48315495920 es: 31421
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 94636023083 es: 15710.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6099864011 es: 15710.25
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6100167008 es: 36657.6
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 140453556326 es: 1042.35
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 160725007066 es: 15710.1
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 770258973 es: 15710.25
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6103805665 es: 18328.62
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6103860718 es: 523.68
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6089576173 es: 18232
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6090283774 es: 15627.43
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48315326150 es: 15627.43
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 175041005782 es: 10418.2
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 194812003926 es: 15627.43
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 769612503 es: 16919.29
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 947955947955 es: 18476.83
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6097703956 es: 18232
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 848808848808 es: 15538.86
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48315180312 es: 15538.86
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6083022072 es: 36258
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 876395876395 es: 15538.86
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6068421343 es: 15538.86
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48314931080 es: 15510
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6070686035 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6071847009 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6073804100 es: 36100
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 767481305 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6076352334 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6056405532 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6056737681 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6057136763 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6057360024 es: 154.55
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6058031112 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 113009018368 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 113241006456 es: 17093
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6062097069 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 160222003105 es: 18031.3
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 160951003107 es: 517.96
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6062319574 es: 15539
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6062689671 es: 18128.67
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6062835078 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 182441002140 es: 23183.1
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6064626834 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6038632226 es: 46366.2
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 62213000182 es: 18031.3
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 62630000184 es: 517.96
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6039488405 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6039951847 es: 17610.64
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48314422927 es: 36258
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 81628004196 es: 36120
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 764569962 es: 18128.67
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48314428002 es: 18128.6
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6040361769 es: 33000
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6040535751 es: 36062.6
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6040842328 es: 15412.6
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6040866186 es: 18031.3
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6041037611 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6041155539 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6041423196 es: 18128.6
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 112702002231 es: 36062.6
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6043477816 es: 36062.6
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6043673614 es: 36062.6
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6043948178 es: 18129.6
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 125557005277 es: 15538.86
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 131548000197 es: 36062.6
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 135029651761 es: 30910.8
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 145559013190 es: 15538.8
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6048697849 es: 15456
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6050985130 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6050985435 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6051175406 es: 18031.03
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6051294246 es: 18031.3
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 765826395 es: 15460
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6022832526 es: 36062.6
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6023353186 es: 36062.6
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6023368810 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6023902638 es: 36062.6
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 83158003289 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6024953393 es: 15455
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6025995362 es: 15455
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 61352904000 es: 18031.3
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 61353021764 es: 18031.3
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48314187039 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6027547467 es: 18031.3
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6029235565 es: 36100
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 61353968841 es: 18031.3
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 145644005088 es: 15456
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6031757646 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6033492657 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 185220001423 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6034311586 es: 18128.6
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6035398283 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 210131001778 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6037014865 es: 36062.6
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6037190321 es: 1159.15
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6037207440 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 764371852 es: 36257.2
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6037483224 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6037630270 es: 36257.33
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48314395831 es: 15539
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6012803645 es: 15324
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6017279394 es: 35755.3
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48314020033 es: 17877.56
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6019288096 es: 15323.62
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6020875704 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6021304736 es: 36062.6
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 205110014349 es: 17877.56
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6021800633 es: 15455.4
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 212548002413 es: 18031.3
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6005790967 es: 35602
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6005824552 es: 35602
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 100806646013 es: 35902
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 104243005733 es: 17801
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 123656039270 es: 35602
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48313819208 es: 35602
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 154008014326 es: 17801.01
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6009629119 es: 35602.03
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6010815425 es: 15258
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 80635008622 es: 15013.8
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 90714010512 es: 30294.88
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 111837004893 es: 106032.07
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5998184619 es: 1009.83
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 760817128 es: 15147.44
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48313643831 es: 30294.6
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6000446127 es: 17516.1
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6001553254 es: 15147.44
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6002088906 es: 35343.7
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 193209004620 es: 53015.55
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6002794360 es: 15258.01
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6003804339 es: 17671.85
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 222118005728 es: 17516.1
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5987943547 es: 35032.24
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5988596304 es: 15013.82
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5989619132 es: 15013
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5989644803 es: 15014
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5990171370 es: 35032.2
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 25250211426 es: 35032.2
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5994003329 es: 17516.1
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5976094875 es: 17495.13
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5978221616 es: 35032.2
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 759048916 es: 35032.2
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 71706009138 es: 14995.82
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5963433916 es: 15000
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5968987286 es: 17516.1
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 758135166 es: 17516.12
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 181552005717 es: 17516.1
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48313191009 es: 35032.24
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48312735336 es: 17495.13
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 104958027297 es: 29991.65
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5956530198 es: 59983.3
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 144051011477 es: 34990.2
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5961535520 es: 17516.1
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5942634637 es: 34778.11
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48312559480 es: 14904.9
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5944022830 es: 14904.9
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5944074701 es: 34778.1
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 755698779 es: 34778.1
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5946466310 es: 17389.05
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 180828557908 es: 34778.1
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 104900010471 es: 34536.6
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48312410636 es: 14801.3
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5936982125 es: 17268.3
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5939432666 es: 34778.1
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48312197672 es: 34303.09
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48312266790 es: 4900.44
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5930670831 es: 29602.59
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5912341950 es: 14686.64
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 104827005476 es: 14689
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48312000383 es: 9791.09
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48312057267 es: 14686.5
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5917014906 es: 34268.83
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48312075668 es: 34268.83
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5919182947 es: 14690
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5903353718 es: 2790.46
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5903886806 es: 34268.83
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5905670866 es: 14686.5
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5907850618 es: 34268.83
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5909132057 es: 29227.15
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5909516467 es: 34268.83
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 121153008296 es: 29227.15
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5892432107 es: 17225
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5892684140 es: 2800
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5893549707 es: 29227.15
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5894313911 es: 14614
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5898368601 es: 34268.83
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5898729354 es: 34268.83
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5899448632 es: 34268.88
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5899571673 es: 34268.82
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 749401806 es: 14614
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5874575520 es: 34268.83
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5875317035 es: 14613.58
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5877023556 es: 14686.5
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5879048699 es: 34268.83
+[21-May-2026 18:24:56 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5880122170 es: 14613.58
+[21-May-2026 18:24:58 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:25:02 America/Caracas] Pago ID 226: OK
+[21-May-2026 18:25:02 America/Caracas] Pago ID 230: OK
+[21-May-2026 18:25:02 America/Caracas] Pago ID 220: OK
+[21-May-2026 18:25:02 America/Caracas] Pago ID 210: OK
+[21-May-2026 18:25:02 America/Caracas] Pago ID 211: OK
+[21-May-2026 18:25:02 America/Caracas] Pago ID 203: OK
+[21-May-2026 18:25:02 America/Caracas] Error Cascade: El monto en el JSON es 0. No se puede procesar.
+[21-May-2026 18:25:15 America/Caracas] Pago ID 226: OK
+[21-May-2026 18:25:15 America/Caracas] Pago ID 230: OK
+[21-May-2026 18:25:15 America/Caracas] Pago ID 220: OK
+[21-May-2026 18:25:15 America/Caracas] Pago ID 210: OK
+[21-May-2026 18:25:15 America/Caracas] Pago ID 211: OK
+[21-May-2026 18:25:15 America/Caracas] Pago ID 203: OK
+[21-May-2026 18:25:15 America/Caracas] Error Cascade: El monto en el JSON es 0. No se puede procesar.
+[21-May-2026 18:26:04 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:26:09 America/Caracas] Error Cascade: El monto en el JSON es 0. No se puede procesar.
+[21-May-2026 18:26:25 America/Caracas] Error Cascade: El monto en el JSON es 0. No se puede procesar.
+[21-May-2026 18:27:16 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:28:37 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:28:39 America/Caracas] Pago ID 206: OK
+[21-May-2026 18:28:39 America/Caracas] Pago ID 207: OK
+[21-May-2026 18:28:39 America/Caracas] Pago ID 209: OK
+[21-May-2026 18:28:39 America/Caracas] Pago ID 219: OK
+[21-May-2026 18:28:39 America/Caracas] Pago ID 225: OK
+[21-May-2026 18:28:39 America/Caracas] Pago ID 197: OK
+[21-May-2026 18:28:55 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:32:02 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:32:59 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:39:21 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:39:45 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:42:21 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:48:51 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:49:51 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:52:03 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:52:53 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:53:04 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48315495920 es: 31421
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 94636023083 es: 15710.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6099864011 es: 15710.25
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6100167008 es: 36657.6
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 140453556326 es: 1042.35
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 160725007066 es: 15710.1
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 770258973 es: 15710.25
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6103805665 es: 18328.62
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6103860718 es: 523.68
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6089576173 es: 18232
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6090283774 es: 15627.43
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48315326150 es: 15627.43
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 175041005782 es: 10418.2
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 194812003926 es: 15627.43
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 769612503 es: 16919.29
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 947955947955 es: 18476.83
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6097703956 es: 18232
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 848808848808 es: 15538.86
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48315180312 es: 15538.86
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6083022072 es: 36258
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 876395876395 es: 15538.86
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6068421343 es: 15538.86
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48314931080 es: 15510
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6070686035 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6071847009 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6073804100 es: 36100
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 767481305 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6076352334 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6056405532 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6056737681 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6057136763 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6057360024 es: 154.55
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6058031112 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 113009018368 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 113241006456 es: 17093
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6062097069 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 160222003105 es: 18031.3
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 160951003107 es: 517.96
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6062319574 es: 15539
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6062689671 es: 18128.67
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6062835078 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 182441002140 es: 23183.1
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6064626834 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6038632226 es: 46366.2
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 62213000182 es: 18031.3
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 62630000184 es: 517.96
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6039488405 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6039951847 es: 17610.64
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48314422927 es: 36258
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 81628004196 es: 36120
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 764569962 es: 18128.67
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48314428002 es: 18128.6
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6040361769 es: 33000
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6040535751 es: 36062.6
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6040842328 es: 15412.6
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6040866186 es: 18031.3
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6041037611 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6041155539 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6041423196 es: 18128.6
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 112702002231 es: 36062.6
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6043477816 es: 36062.6
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6043673614 es: 36062.6
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6043948178 es: 18129.6
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 125557005277 es: 15538.86
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 131548000197 es: 36062.6
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 135029651761 es: 30910.8
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 145559013190 es: 15538.8
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6048697849 es: 15456
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6050985130 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6050985435 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6051175406 es: 18031.03
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6051294246 es: 18031.3
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 765826395 es: 15460
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6022832526 es: 36062.6
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6023353186 es: 36062.6
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6023368810 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6023902638 es: 36062.6
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 83158003289 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6024953393 es: 15455
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6025995362 es: 15455
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 61352904000 es: 18031.3
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 61353021764 es: 18031.3
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48314187039 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6027547467 es: 18031.3
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6029235565 es: 36100
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 61353968841 es: 18031.3
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 145644005088 es: 15456
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6031757646 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6033492657 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 185220001423 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6034311586 es: 18128.6
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6035398283 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 210131001778 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6037014865 es: 36062.6
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6037190321 es: 1159.15
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6037207440 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 764371852 es: 36257.2
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6037483224 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6037630270 es: 36257.33
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48314395831 es: 15539
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6012803645 es: 15324
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6017279394 es: 35755.3
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48314020033 es: 17877.56
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6019288096 es: 15323.62
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6020875704 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6021304736 es: 36062.6
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 205110014349 es: 17877.56
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6021800633 es: 15455.4
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 212548002413 es: 18031.3
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6005790967 es: 35602
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6005824552 es: 35602
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 100806646013 es: 35902
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 104243005733 es: 17801
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 123656039270 es: 35602
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48313819208 es: 35602
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 154008014326 es: 17801.01
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6009629119 es: 35602.03
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6010815425 es: 15258
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 80635008622 es: 15013.8
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 90714010512 es: 30294.88
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 111837004893 es: 106032.07
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5998184619 es: 1009.83
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 760817128 es: 15147.44
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48313643831 es: 30294.6
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6000446127 es: 17516.1
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6001553254 es: 15147.44
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6002088906 es: 35343.7
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 193209004620 es: 53015.55
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6002794360 es: 15258.01
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 6003804339 es: 17671.85
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 222118005728 es: 17516.1
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5987943547 es: 35032.24
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5988596304 es: 15013.82
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5989619132 es: 15013
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5989644803 es: 15014
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5990171370 es: 35032.2
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 25250211426 es: 35032.2
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5994003329 es: 17516.1
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5976094875 es: 17495.13
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5978221616 es: 35032.2
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 759048916 es: 35032.2
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 71706009138 es: 14995.82
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5963433916 es: 15000
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5968987286 es: 17516.1
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 758135166 es: 17516.12
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 181552005717 es: 17516.1
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48313191009 es: 35032.24
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48312735336 es: 17495.13
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 104958027297 es: 29991.65
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5956530198 es: 59983.3
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 144051011477 es: 34990.2
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5961535520 es: 17516.1
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5942634637 es: 34778.11
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48312559480 es: 14904.9
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5944022830 es: 14904.9
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5944074701 es: 34778.1
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 755698779 es: 34778.1
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5946466310 es: 17389.05
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 180828557908 es: 34778.1
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 104900010471 es: 34536.6
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48312410636 es: 14801.3
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5936982125 es: 17268.3
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5939432666 es: 34778.1
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48312197672 es: 34303.09
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48312266790 es: 4900.44
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5930670831 es: 29602.59
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5912341950 es: 14686.64
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 104827005476 es: 14689
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48312000383 es: 9791.09
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48312057267 es: 14686.5
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5917014906 es: 34268.83
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48312075668 es: 34268.83
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5919182947 es: 14690
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5903353718 es: 2790.46
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5903886806 es: 34268.83
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5905670866 es: 14686.5
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5907850618 es: 34268.83
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5909132057 es: 29227.15
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5909516467 es: 34268.83
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 121153008296 es: 29227.15
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5892432107 es: 17225
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5892684140 es: 2800
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5893549707 es: 29227.15
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5894313911 es: 14614
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5898368601 es: 34268.83
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5898729354 es: 34268.83
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5899448632 es: 34268.88
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5899571673 es: 34268.82
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 749401806 es: 14614
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5874575520 es: 34268.83
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5875317035 es: 14613.58
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5877023556 es: 14686.5
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5879048699 es: 34268.83
+[21-May-2026 18:54:00 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5880122170 es: 14613.58
+[21-May-2026 18:54:01 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:58:55 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:59:06 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 103438001361 es: 4738.7
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 160826001999 es: 14216.11
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 192756014248 es: 14216.11
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 221030020860 es: 14217
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5548581507 es: 14160
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5548796095 es: 14152
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 150120009189 es: 14151
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48315568941 es: 14151.01
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5553991633 es: 14151.01
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5554005607 es: 14151.01
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5537392454 es: 14055.44
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5538373502 es: 14055.44
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 150927787668 es: 56225
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48315435277 es: 14055.44
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5528022872 es: 14055.44
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5529316642 es: 7027.72
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48315282937 es: 14992.46
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5517222915 es: 14055.44
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5517657028 es: 9370
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 590663844 es: 14055.44
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5522698175 es: 14055.44
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5522865919 es: 14151
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5507778765 es: 1399.8
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5490386387 es: 13777.5
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5498683375 es: 13880.1
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5500870224 es: 13880
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5484321697 es: 13783.58
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 154810008060 es: 13783.58
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 1331088253 es: 27568
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 714443424 es: 13784
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 859572 es: 972.57
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 194334002494 es: 6856.14
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5479695170 es: 14000
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5463629337 es: 13657.64
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5463657213 es: 13713
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5466235157 es: 13657.64
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5466251969 es: 13658
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5467911283 es: 13657.64
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48314137067 es: 13658
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 82705012060 es: 13658
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5451363585 es: 13657.64
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5452500548 es: 13657.64
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5452960202 es: 40972.42
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5454743528 es: 13657.64
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5459620043 es: 13658
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 710250632 es: 13657.64
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 82848012810 es: 13657.64
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 567095567095 es: 13545.22
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 143845734532 es: 13657.64
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5443751899 es: 13657.64
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 614533614533 es: 13657.64
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5444391245 es: 13657.54
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48313751962 es: 13657.64
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5446389724 es: 13657.64
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5446533548 es: 13658
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5446951663 es: 13657
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 173786252158 es: 13658
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5448656795 es: 13657.64
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 72331006019 es: 13550
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5426346428 es: 13545.3
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5430386985 es: 13545.22
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5431935683 es: 13545.22
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5432628162 es: 27316
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5433571999 es: 13545.22
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 235409003880 es: 13545.22
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5420227472 es: 13545.25
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5423011143 es: 13545.22
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5424238910 es: 13545.22
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5407119948 es: 13451.03
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5407527801 es: 13451.06
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5407801966 es: 13440
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5409564478 es: 51562.39
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48313126813 es: 13451.06
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 175694577947 es: 13451.06
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 155548002073 es: 13451.06
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 162659016159 es: 40353.17
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5412648763 es: 13451.06
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 366753366753 es: 13452
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 522365148 es: 4483.69
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5394023989 es: 13404.14
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 81632012909 es: 13404.14
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 91303006677 es: 13404
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48312905080 es: 13404.14
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5397119090 es: 13405
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5397282684 es: 13405
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5398659415 es: 13404.14
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5403024628 es: 22340.24
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48313043061 es: 6702.07
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48313044220 es: 13404.14
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5404844483 es: 13404.14
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5405168727 es: 26608.29
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5382565448 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5382851498 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5383778759 es: 3000
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5385409902 es: 1329.78
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5385417290 es: 53191.04
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5385480308 es: 13297
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5386173516 es: 6648.88
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48312757996 es: 7978.66
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5387395374 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5387836831 es: 79786.57
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48312784989 es: 13300
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5388993216 es: 26595.52
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 185235003788 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5391530609 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5391672933 es: 11081.47
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5392038907 es: 35461
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5392197337 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5392402952 es: 13297.8
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5392761530 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 60735028002 es: 26808
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5366931423 es: 17730.35
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 90828004711 es: 13298
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5367328272 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48312466360 es: 1329.78
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 704419654 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5368518453 es: 13297.72
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 111852001233 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5369582203 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48312505566 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5371361550 es: 13298
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5372062670 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 140327017337 es: 22164
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5373482227 es: 13404
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5373899976 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 152812005043 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5374180983 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5374793972 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5375869113 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 174642392839 es: 13404
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5376456002 es: 22162.94
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5376530327 es: 132.97
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5376759314 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5376783498 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5377907023 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5378012947 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5379685385 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5380387823 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 225032007667 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48312186508 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5355088183 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5357796250 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5358465779 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5359949904 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5360126413 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5360446990 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5362828678 es: 13297.76
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5364527930 es: 13297
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5365058192 es: 26595.52
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5344895801 es: 13228.97
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 120856004243 es: 13146.15
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5340093238 es: 13146.15
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5341045747 es: 13146.15
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 224511013717 es: 13146.15
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5330334014 es: 4362.42
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 140608835173 es: 12930.34
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5298521093 es: 12994.8
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48311186824 es: 12930.34
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 111942013675 es: 25860.68
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5302614568 es: 12930.34
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 173716014049 es: 12930.34
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48310958060 es: 12930.34
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5287819326 es: 12930.3
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 150749024069 es: 12930.34
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5292421744 es: 12930.35
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5293653309 es: 17240.45
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5295957134 es: 12930.3
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48311154612 es: 12930.34
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 100742018836 es: 12837.91
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5281363726 es: 12838
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 150813007793 es: 12837.91
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48310863141 es: 12837.91
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 203409006750 es: 19256.86
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5270091354 es: 2128.37
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5272115532 es: 12770.22
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5273521590 es: 12770.22
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 183624001887 es: 12770.22
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 48310737231 es: 12750
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 213210015896 es: 12770.1
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5261138178 es: 12657
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5261813478 es: 12656.1
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 175753008811 es: 14806.12
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5266854518 es: 12656.32
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5250899482 es: 12599.62
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 110055337375 es: 12599.62
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5252798235 es: 12599.62
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 144008419321 es: 12599.62
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5254474142 es: 12600
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5247526173 es: 12520.5
+[21-May-2026 18:59:46 America/Caracas] RADAR (Modelo) - El monto que llegó para la ref 5247867019 es: 54257
+[21-May-2026 18:59:48 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 19:02:42 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 19:02:46 America/Caracas] Pago ID 232: OK
+[21-May-2026 19:02:46 America/Caracas] Pago ID 213: OK
+[21-May-2026 19:02:46 America/Caracas] Pago ID 108: OK
+[21-May-2026 19:02:46 America/Caracas] Pago ID 163: OK
+[21-May-2026 19:02:46 America/Caracas] Pago ID 55: OK
+[21-May-2026 19:02:46 America/Caracas] Pago ID 124: OK
+[21-May-2026 19:03:02 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 19:04:02 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 19:04:32 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 19:08:30 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 19:08:49 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 19:09:35 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 19:10:03 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 19:13:02 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 19:13:05 America/Caracas] Pago ID 233: OK
+[21-May-2026 19:13:05 America/Caracas] Pago ID 201: OK
+[21-May-2026 19:13:16 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 19:21:15 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 19:27:26 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 19:27:41 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 19:27:51 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 19:47:44 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[21-May-2026 20:53:35 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 01:38:39 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 01:43:45 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 08:33:21 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 08:33:31 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 08:33:45 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 08:33:53 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 14:46:20 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 14:46:21 America/Caracas] CONTROLADOR - Text: '27247446', Date: ''
+[22-May-2026 14:46:21 America/Caracas] CONTROLADOR - Text: '27247446', Date: ''
+[22-May-2026 14:46:24 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 14:46:24 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 14:46:32 America/Caracas] CONTROLADOR - Text: 'Elías López', Date: ''
+[22-May-2026 14:46:32 America/Caracas] CONTROLADOR - Text: 'Elías López', Date: ''
+[22-May-2026 14:46:36 America/Caracas] CONTROLADOR - Text: 'ELIAS', Date: ''
+[22-May-2026 14:46:36 America/Caracas] CONTROLADOR - Text: 'ELIAS', Date: ''
+[22-May-2026 14:47:21 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 14:47:24 America/Caracas] CONTROLADOR - Text: 'ELIAS', Date: ''
+[22-May-2026 14:47:26 America/Caracas] CONTROLADOR - Text: 'ELIA', Date: ''
+[22-May-2026 14:47:27 America/Caracas] CONTROLADOR - Text: 'ELI', Date: ''
+[22-May-2026 14:47:27 America/Caracas] CONTROLADOR - Text: 'EL', Date: ''
+[22-May-2026 14:47:30 America/Caracas] CONTROLADOR - Text: 'ELÍ', Date: ''
+[22-May-2026 14:47:31 America/Caracas] CONTROLADOR - Text: 'ELÍa', Date: ''
+[22-May-2026 14:47:32 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 15:03:20 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 15:03:21 America/Caracas] CONTROLADOR - Text: '26399829', Date: ''
+[22-May-2026 15:03:21 America/Caracas] CONTROLADOR - Text: '26399829', Date: ''
+[22-May-2026 15:03:23 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 15:03:23 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 15:18:01 America/Caracas] CONTROLADOR - Text: '25546554', Date: ''
+[22-May-2026 15:18:01 America/Caracas] CONTROLADOR - Text: '25546554', Date: ''
+[22-May-2026 15:45:30 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 16:33:07 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 16:33:08 America/Caracas] CONTROLADOR - Text: '2837089', Date: ''
+[22-May-2026 16:33:09 America/Caracas] CONTROLADOR - Text: '2837089', Date: ''
+[22-May-2026 16:33:10 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 16:33:11 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 18:49:26 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 18:49:28 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 18:49:36 America/Caracas] CONTROLADOR - Text: '18332911', Date: ''
+[22-May-2026 18:49:36 America/Caracas] CONTROLADOR - Text: '18332911', Date: ''
+[22-May-2026 19:54:14 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 19:54:18 America/Caracas] Pago ID 243: OK
+[22-May-2026 19:54:18 America/Caracas] Pago ID 253: OK
+[22-May-2026 19:54:18 America/Caracas] Pago ID 254: OK
+[22-May-2026 19:54:18 America/Caracas] Pago ID 255: OK
+[22-May-2026 19:54:18 America/Caracas] Pago ID 278: OK
+[22-May-2026 19:54:18 America/Caracas] Pago ID 284: OK
+[22-May-2026 19:54:18 America/Caracas] Pago ID 277: OK
+[22-May-2026 19:54:18 America/Caracas] Pago ID 283: OK
+[22-May-2026 19:54:18 America/Caracas] Pago ID 286: OK
+[22-May-2026 19:54:18 America/Caracas] Pago ID 252: OK
+[22-May-2026 19:54:18 America/Caracas] Pago ID 266: OK
+[22-May-2026 19:54:18 America/Caracas] Pago ID 269: OK
+[22-May-2026 19:54:18 America/Caracas] Pago ID 291: OK
+[22-May-2026 19:54:18 America/Caracas] Pago ID 257: OK
+[22-May-2026 19:54:18 America/Caracas] Pago ID 242: OK
+[22-May-2026 19:54:18 America/Caracas] Pago ID 276: OK
+[22-May-2026 19:54:18 America/Caracas] Pago ID 275: OK
+[22-May-2026 19:54:18 America/Caracas] Pago ID 289: OK
+[22-May-2026 19:54:18 America/Caracas] Pago ID 282: OK
+[22-May-2026 19:56:51 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 19:57:23 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 19:58:18 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 19:58:21 America/Caracas] CONTROLADOR - Text: 'jesus', Date: ''
+[22-May-2026 19:58:21 America/Caracas] CONTROLADOR - Text: 'jesus', Date: ''
+[22-May-2026 20:01:54 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 20:02:10 America/Caracas] Pago ID 265: OK
+[22-May-2026 20:02:10 America/Caracas] Pago ID 280: OK
+[22-May-2026 20:02:10 America/Caracas] Pago ID 241: OK
+[22-May-2026 20:02:10 America/Caracas] Pago ID 268: OK
+[22-May-2026 20:02:10 America/Caracas] Pago ID 292: OK
+[22-May-2026 20:02:10 America/Caracas] Pago ID 290: OK
+[22-May-2026 20:02:10 America/Caracas] Pago ID 250: OK
+[22-May-2026 20:02:10 America/Caracas] Pago ID 274: OK
+[22-May-2026 20:02:10 America/Caracas] Pago ID 273: OK
+[22-May-2026 20:02:10 America/Caracas] Pago ID 256: OK
+[22-May-2026 20:02:10 America/Caracas] Pago ID 264: OK
+[22-May-2026 20:02:10 America/Caracas] Pago ID 267: OK
+[22-May-2026 20:02:10 America/Caracas] Pago ID 263: OK
+[22-May-2026 20:02:10 America/Caracas] Pago ID 281: OK
+[22-May-2026 20:02:10 America/Caracas] Pago ID 279: OK
+[22-May-2026 20:02:10 America/Caracas] Pago ID 244: OK
+[22-May-2026 20:02:10 America/Caracas] Pago ID 262: OK
+[22-May-2026 20:02:10 America/Caracas] Pago ID 272: OK
+[22-May-2026 20:02:57 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 20:03:08 America/Caracas] Pago ID 240: OK
+[22-May-2026 20:03:08 America/Caracas] Pago ID 251: OK
+[22-May-2026 20:03:08 America/Caracas] Pago ID 260: OK
+[22-May-2026 20:03:08 America/Caracas] Pago ID 259: OK
+[22-May-2026 20:03:08 America/Caracas] Pago ID 248: OK
+[22-May-2026 20:03:08 America/Caracas] Pago ID 245: OK
+[22-May-2026 20:03:08 America/Caracas] Pago ID 288: OK
+[22-May-2026 20:03:26 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 20:05:05 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 20:19:34 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 20:19:57 America/Caracas] CONTROLADOR - Text: '', Date: ''
+[22-May-2026 20:20:00 America/Caracas] CONTROLADOR - Text: 'car', Date: ''
+[22-May-2026 20:20:00 America/Caracas] CONTROLADOR - Text: 'car', Date: ''
+[22-May-2026 20:20:34 America/Caracas] CONTROLADOR - Text: '', Date: ''

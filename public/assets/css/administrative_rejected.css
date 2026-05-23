@@ -1,0 +1,132 @@
+/**
+ * MÓDULO: ADMINISTRATIVO / DOCUMENTOS RECHAZADOS
+ * ARCHIVO: public/assets/css/administrative_rejected.css
+ * PROPÓSITO: Estilización de la grid de auditoría, filas interactivas y visor de detalles (Modal).
+ * VERSIÓN: 1.1.0 - Sincronización con filas cliqueables y visor de auditoría con soporte multirrol.
+ */
+
+/* 1. Contenedores y Tarjetas */
+.rounded-4 {
+    border-radius: 1rem !important;
+}
+
+.card {
+    border: none;
+    transition: all 0.3s ease;
+}
+
+/* 2. Estilización de la Tabla de Rechazados */
+#rejected-table thead th {
+    background-color: #f8f9fa;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #6c757d;
+    border-top: none;
+    padding: 1rem 0.75rem;
+}
+
+/* Filas Cliqueables */
+.clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.clickable-row:hover {
+    background-color: rgba(13, 110, 253, 0.04) !important;
+}
+
+.clickable-row:active {
+    transform: scale(0.995);
+}
+
+/* 3. Tipografía de Datos */
+.font-monospace {
+    font-family: 'SFMono-Regular', Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+    letter-spacing: 0.5px;
+}
+
+.italic {
+    font-style: italic;
+}
+
+/* 4. Badges Dinámicos (Métodos de Pago) */
+.badge {
+    font-weight: 600;
+    padding: 0.4em 0.8em;
+    border-radius: 6px;
+}
+
+.bg-info.bg-opacity-75 {
+    background-color: rgba(13, 202, 240, 0.15) !important;
+    color: #087990 !important;
+    border: 1px solid rgba(13, 202, 240, 0.3) !important;
+}
+
+.bg-secondary.bg-opacity-75 {
+    background-color: rgba(108, 117, 125, 0.1) !important;
+    color: #495057 !important;
+    border: 1px solid rgba(108, 117, 125, 0.2) !important;
+}
+
+/* 5. Personalización del Modal de Detalle */
+#modalDetail .modal-content {
+    border-radius: 1.25rem;
+    overflow: hidden;
+}
+
+#modalDetail .modal-header {
+    padding: 1.5rem;
+}
+
+#modalDetail .modal-body {
+    padding: 2rem;
+    background-color: #ffffff;
+}
+
+#modalDetail .modal-footer {
+    border-top: 1px solid #f1f1f1;
+    padding: 1.25rem;
+}
+
+/* Etiquetas de campo dentro del modal */
+.modal-body label {
+    margin-bottom: 0.25rem;
+    color: #adb5bd;
+    letter-spacing: 0.5px;
+}
+
+/* Bloque de Observación (Motivo) */
+.bg-danger.bg-opacity-10 {
+    background-color: rgba(220, 53, 69, 0.05) !important;
+    border-left: 4px solid #dc3545 !important;
+}
+
+/* 6. Botones de Acción */
+.btn-primary {
+    background-color: #0d6efd;
+    border: none;
+    transition: all 0.3s shadow;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.25);
+}
+
+/* 7. Animación de Entrada de Datos */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.item-row {
+    animation: fadeInUp 0.3s ease forwards;
+}

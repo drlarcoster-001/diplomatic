@@ -1,0 +1,112 @@
+/**
+ * MÓDULO: GESTIÓN OPERATIVA / NEWS (CARTELERA)
+ * ARCHIVO: public/assets/css/operational_news.css
+ * PROPÓSITO: Estilos para la grid de noticias, indicadores de recursos y bloqueos de sincronización.
+ * VERSIÓN: 1.1.0 - Soporte para estados deshabilitados y validación WP.
+ */
+
+/* Miniatura de la noticia en la tabla */
+.avatar-news {
+    width: 60px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 1px solid #dee2e6;
+}
+
+/* Indicadores de (Imagen / Contenido) */
+.resource-indicator {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.resource-item {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    transition: all 0.3s ease;
+}
+
+.resource-icon { font-size: 1.1rem; }
+
+/* Estados de los iconos */
+.resource-icon.missing { color: #adb5bd; } /* Gris: No hay nada */
+.resource-icon.active-photo { 
+    color: #0dcaf0; 
+    filter: drop-shadow(0 0 2px rgba(13, 202, 240, 0.4));
+}
+.resource-icon.active-content { 
+    color: #0d6efd; 
+    filter: drop-shadow(0 0 2px rgba(13, 110, 253, 0.4));
+}
+
+/* Badge de estado en WordPress */
+.wp-status-badge {
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 0.5px;
+}
+
+.status-offline {
+    background-color: #fff8e1;
+    color: #b8860b;
+    border: 1px solid #ffe082;
+}
+
+.status-online {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+}
+
+/* Botones de acción */
+.btn-action {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: #ffffff;
+    border: 1px solid #f1f3f5;
+}
+
+.btn-action:hover:not(:disabled) {
+    background-color: #f8f9fa;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+/* Bloqueo visual para botones deshabilitados (Sincronización activa) */
+.btn-action:disabled {
+    background-color: #f1f3f5 !important;
+    border-color: #e9ecef !important;
+    cursor: not-allowed;
+    opacity: 0.5;
+    filter: grayscale(1);
+}
+
+/* Ajuste para filas publicadas */
+tr.table-light {
+    background-color: rgba(248, 249, 250, 0.5);
+}
+
+/* Animación de entrada para la tabla */
+.animate__fadeIn {
+    animation-duration: 0.6s;
+}

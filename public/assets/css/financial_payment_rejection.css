@@ -1,0 +1,34 @@
+/**
+ * MÓDULO: GESTIÓN FINANCIERA / RECHAZOS DE PAGO
+ * ARCHIVO: public/assets/css/financial_payment_rejection.css
+ * PROPÓSITO: Estilos para filas clickeables y adaptaciones visuales del grid.
+ * VERSIÓN: 1.1.0 - Adición de utilidades visuales (.clickable-row) para interacción de popup.
+ */
+
+.nav-tabs .nav-link {
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: #6c757d !important;
+    transition: all 0.3s ease;
+}
+.nav-tabs .nav-link:hover {
+    border-color: #e9ecef;
+}
+.nav-tabs .nav-link.active {
+    border-bottom: 3px solid #212529 !important;
+    color: #212529 !important;
+    background-color: transparent !important;
+}
+.table > :not(caption) > * > * {
+    padding: 0.75rem;
+}
+
+/* Efecto para filas clicables */
+.clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.clickable-row:hover {
+    background-color: #f8f9fa !important;
+    box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.05);
+}

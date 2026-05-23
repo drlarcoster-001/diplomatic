@@ -1,0 +1,197 @@
+/**
+ * MÓDULO: GESTIÓN GERENCIAL / REPORTE DE MOVIMIENTOS
+ * ARCHIVO: public/assets/css/managerial_movements_report.css
+ * PROPÓSITO: Estilos de alta densidad para matriz horizontal 360° (Inscripción + 5 Cuotas).
+ * VERSIÓN: 1.2.1 - Fix: Refactorización estética total, scroll fino y columnas sticky blindadas para 42 columnas.
+ */
+
+/* 1. CONTENEDOR MAESTRO DE LA MATRIZ */
+.table-movements-wrapper {
+    max-height: 72vh;
+    overflow: auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+/* 2. TABLA DE ALTA DENSIDAD (Excel Style) */
+#movements-table {
+    font-size: 11px;
+    border-collapse: separate; /* Crucial para que las celdas sticky no se solapen */
+    border-spacing: 0;
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+}
+
+/* 3. ENCABEZADOS (STICKY TOP) */
+#movements-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 30; /* Por encima de las columnas pegajosas laterales */
+    background: #f8fafc;
+    padding: 12px 8px;
+    border-bottom: 2px solid #cbd5e1;
+    border-right: 1px solid #e2e8f0;
+    color: #475569;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+/* 4. COLUMNAS CONGELADAS (STICKY LEFT) */
+/* Columna NRO */
+.sticky-nro {
+    position: sticky;
+    left: 0;
+    z-index: 31 !important;
+    background: #f1f5f9 !important;
+    width: 45px;
+    min-width: 45px;
+    text-align: center;
+    border-right: 1px solid #cbd5e1;
+}
+
+/* Columna NOMBRE Y APELLIDO (Eje central) */
+.sticky-name {
+    position: sticky;
+    left: 45px; /* Debe coincidir con el ancho de .sticky-nro */
+    z-index: 31 !important;
+    background: #ffffff !important;
+    border-right: 3px solid #6610f2 !important; /* Divisor visual fuerte de color púrpura */
+    min-width: 250px;
+    box-shadow: 4px 0 10px -2px rgba(0,0,0,0.08);
+    font-weight: 700;
+}
+
+/* Ajuste de z-index para el cruce de sticky vertical y horizontal */
+#movements-table thead th.sticky-nro,
+#movements-table thead th.sticky-name {
+    z-index: 40;
+}
+
+/* 5. SEGMENTACIÓN CROMÁTICA POR BLOQUES (Guiado visual horizontal) */
+/* Inscripción: Azul suave */
+.col-inscripcion { background-color: rgba(239, 246, 255, 0.8) !important; }
+
+/* Cuotas Impares (C1, C3, C5): Ámbar suave */
+.col-cuota-impar { background-color: rgba(254, 252, 232, 0.8) !important; }
+
+/* Cuotas Pares (C2, C4): Verde suave */
+.col-cuota-par { background-color: rgba(240, 253, 244, 0.8) !important; }
+
+/* 6. ESTILOS DE CELDAS Y FILAS */
+#movements-table tbody td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #f1f5f9;
+    border-right: 1px solid #f1f5f9;
+    white-space: nowrap;
+    color: #334155;
+    vertical-align: middle;
+}
+
+#movements-table tbody tr:hover td {
+    background-color: #f1f5f9 !important;
+    color: #0f172a;
+}
+
+/* 7. ELEMENTOS DE INTERFAZ HELIUM (Filtros y Botones) */
+.helium-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: #64748b;
+    margin-bottom: 6px;
+    display: block;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.helium-input, .helium-select {
+    height: 46px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    padding: 0 14px;
+    font-size: 13px;
+    background: #f8fafc;
+    width: 100%;
+    transition: all 0.2s ease-in-out;
+}
+
+.helium-input:focus {
+    background: #ffffff;
+    border-color: #6610f2;
+    box-shadow: 0 0 0 4px rgba(102, 16, 242, 0.1);
+    outline: none;
+}
+
+/* BOTÓN PROCESAR PREMIUM (Purple Gradient) */
+.btn-helium-primary {
+    background: linear-gradient(135deg, #6610f2 0%, #4c0bba 100%);
+    color: #ffffff;
+    border: none;
+    height: 46px;
+    border-radius: 50px;
+    padding: 0 25px;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(102, 16, 242, 0.25);
+}
+
+.btn-helium-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 16, 242, 0.35);
+    filter: brightness(1.1);
+}
+
+/* BOTÓN VOLVER */
+.btn-helium-secondary {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 12px;
+    transition: all 0.2s;
+}
+
+.btn-helium-secondary:hover {
+    background: #e2e8f0;
+}
+
+/* 8. BARRA DE SCROLL PERSONALIZADA (Minimalista) */
+.table-movements-wrapper::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.table-movements-wrapper::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+.table-movements-wrapper::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+.table-movements-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* 9. TAGS DE MODO DE PAGO */
+.mode-tag {
+    font-size: 8px;
+    font-weight: 900;
+    padding: 2px 5px;
+    border-radius: 4px;
+    background: #475569;
+    color: #ffffff;
+    text-transform: uppercase;
+}

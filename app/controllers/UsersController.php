@@ -1,0 +1,177 @@
+<?php
+/**
+ * MÓDULO: USUARIOS
+ * Archivo: app/controllers/UsersController.php
+ * Propósito: Controlador central para la gestión de usuarios, perfiles y roles.
+ * Integra la lógica de tipos de usuario y estados de cuenta.
+ */
+
+declare(strict_types=1);
+
+namespace App\Controllers;
+
+use App\Core\Controller;
+use App\Models\UserModel;
+use App\Core\Database;
+use App\Services\AuditService; // Importación vital para la consola de eventos
+
+final class UsersController extends Controller
+{
+    public function index(): void
+    {
+        if (empty($_SESSION['user']['id'])) $this->redirect('/');
+
+        try {
+            $db = (new Database())->getConnection();
+            $stmt = $db->query("SELECT role_key, name FROM tbl_roles WHERE status = 'ACTIVE' ORDER BY level DESC");
+            $roles = $stmt->fetchAll();
+        } catch (\Exception $e) {
+            $roles = [];
+        }
+
+        $this->view('users/index', ['roles' => $roles]);
+    }
+
+    public function getUsers(): void
+    {
+        if (ob_get_length()) ob_clean();
+        header('Content-Type: application/json');
+
+        $text   = trim($_GET['text'] ?? '');
+        $page   = max(1, (int)($_GET['page'] ?? 1));
+        $limit  = 25;
+        $offset = ($page - 1) * $limit;
+
+        try {
+            $db     = (new Database())->getConnection();
+            $params = [];
+            $where  = "WHERE 1=1";
+
+            if (!empty($text)) {
+                $where .= " AND (first_name LIKE ? OR last_name LIKE ? OR email LIKE ? OR document_id LIKE ? OR phone LIKE ?)";
+                $search = "%" . $text . "%";
+                array_push($params, $search, $search, $search, $search, $search);
+            }
+
+            $stmtCount = $db->prepare("SELECT COUNT(*) FROM tbl_users $where");
+            $stmtCount->execute($params);
+            $total = (int)$stmtCount->fetchColumn();
+
+            $stmtData = $db->prepare("SELECT * FROM tbl_users $where ORDER BY id DESC LIMIT ? OFFSET ?");
+            foreach ($params as $i => $val) {
+                $stmtData->bindValue($i + 1, $val, \PDO::PARAM_STR);
+            }
+            $stmtData->bindValue(count($params) + 1, $limit, \PDO::PARAM_INT);
+            $stmtData->bindValue(count($params) + 2, $offset, \PDO::PARAM_INT);
+            $stmtData->execute();
+            $data = $stmtData->fetchAll(\PDO::FETCH_ASSOC);
+
+            echo json_encode([
+                'ok'   => true,
+                'data' => $data,
+                'pagination' => [
+                    'current_page'  => $page,
+                    'total_pages'   => (int)ceil($total / $limit),
+                    'total_records' => $total
+                ]
+            ], JSON_UNESCAPED_UNICODE);
+        } catch (\Exception $e) {
+            echo json_encode(['ok' => false, 'message' => $e->getMessage()]);
+        }
+        exit;
+    }
+
+    public function save(): void
+    {
+        header('Content-Type: application/json');
+        if (strtoupper($_SESSION['user']['role'] ?? '') !== 'ADMIN') {
+            echo json_encode(['ok' => false, 'msg' => 'No autorizado']);
+            return;
+        }
+
+        $id = (int)($_POST['id'] ?? 0);
+        $data = [
+            'user_type'            => $_POST['user_type'] ?? 'INTERNAL',
+            'status'               => $_POST['status'] ?? 'ACTIVE',
+            'first_name'           => trim($_POST['first_name'] ?? ''),
+            'last_name'            => trim($_POST['last_name'] ?? ''),
+            'document_id'          => trim($_POST['document_id'] ?? ''),
+            'phone'                => trim($_POST['phone'] ?? ''),
+            'email'                => trim($_POST['email'] ?? ''),
+            'role'                 => $_POST['role'] ?? 'PARTICIPANT',
+            'address'              => trim($_POST['address'] ?? ''),
+            'provenance'           => trim($_POST['provenance'] ?? ''),
+            'undergraduate_degree' => trim($_POST['undergraduate_degree'] ?? ''),
+            'avatar'               => $_POST['current_avatar'] ?? 'default_avatar.png'
+        ];
+
+        // Gestión de Avatar
+        if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
+            $fileName = 'usr_' . time() . '.' . pathinfo($_FILES['avatar']['name'], PATHINFO_EXTENSION);
+            if (move_uploaded_file($_FILES['avatar']['tmp_name'], dirname(__DIR__, 2) . '/public/assets/img/avatars/' . $fileName)) {
+                $data['avatar'] = $fileName;
+            }
+        }
+
+        $model = new UserModel();
+        try {
+            if ($id > 0) {
+                // ACTUALIZACIÓN
+                $success = $model->update($id, $data);
+                
+                if ($success) {
+                    // REGISTRO EN CONSOLA
+                    AuditService::log([
+                        'module'      => 'USUARIOS',
+                        'action'      => 'UPDATE',
+                        'description' => "Se actualizó al usuario: {$data['first_name']} {$data['last_name']} (ID: {$id})",
+                        'event_type'  => 'NORMAL'
+                    ]);
+                }
+            } else {
+                // CREACIÓN
+                $data['password_hash'] = password_hash($_POST['password'] ?? '123456', PASSWORD_DEFAULT);
+                $success = $model->create($data);
+
+                if ($success) {
+                    // REGISTRO EN CONSOLA
+                    AuditService::log([
+                        'module'      => 'USUARIOS',
+                        'action'      => 'CREATE',
+                        'description' => "Nuevo registro: {$data['first_name']} {$data['last_name']} ({$data['email']})",
+                        'event_type'  => 'SUCCESS'
+                    ]);
+                }
+            }
+            echo json_encode(['ok' => $success, 'msg' => 'Operación exitosa']);
+        } catch (\Exception $e) {
+            echo json_encode(['ok' => false, 'msg' => 'Error: ' . $e->getMessage()]);
+        }
+    }
+
+    public function delete(): void
+    {
+        header('Content-Type: application/json');
+        $id = (int)($_POST['id'] ?? 0);
+        
+        if ($id === (int)$_SESSION['user']['id']) {
+            echo json_encode(['ok' => false, 'msg' => 'No puede desactivarse a sí mismo']);
+            return;
+        }
+
+        $model = new UserModel();
+        $success = $model->delete($id);
+
+        if ($success) {
+            // REGISTRO EN CONSOLA: Se marca como WARNING para que salga en color ámbar/rojo
+            AuditService::log([
+                'module'      => 'USUARIOS',
+                'action'      => 'DELETE',
+                'description' => "Se ha desactivado al usuario con ID: {$id}",
+                'event_type'  => 'WARNING'
+            ]);
+        }
+
+        echo json_encode(['ok' => $success, 'msg' => 'Usuario desactivado']);
+    }
+}

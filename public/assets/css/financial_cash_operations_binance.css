@@ -1,0 +1,71 @@
+/**
+ * MÓDULO: GESTIÓN FINANCIERA / BINANCE PAY
+ * ARCHIVO: public/assets/css/financial_cash_operations_binance.css
+ * PROPÓSITO: Estilos específicos para la interfaz de conciliación USDT y normalización del visor.
+ * VERSIÓN: 1.0.2 - Fix: Restricción de dimensiones del visor para evitar desborde del modal (Object-fit).
+ */
+
+/* Animación suave para la entrada del panel */
+.animate__fadeIn {
+    animation-duration: 0.8s;
+}
+
+/* --- NORMALIZACIÓN DEL VISOR DE COMPROBANTES --- */
+#img-viewer-container {
+    background-color: #212529; /* Fondo oscuro para resaltar el capture */
+    height: 600px; /* Altura fija para que el modal no crezca más */
+    max-height: 600px;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden; /* Importante para que el zoom no se salga */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dee2e6;
+}
+
+#v-screenshot {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain; /* La imagen se ajusta al contenedor sin recortarse */
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Estilo para el input de protocolo de seguridad */
+.reference-input-audit {
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 1.2rem;
+    text-align: center;
+    letter-spacing: 2px;
+    border: 2px solid #ced4da;
+    text-transform: uppercase;
+    background-color: #fff9f9;
+}
+
+.reference-input-audit:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+    outline: none;
+}
+
+/* Tabla de Registros */
+.hover-shadow-sm:hover {
+    background-color: #f1f3f5 !important;
+    transition: background-color 0.2s ease;
+}
+
+#table-binance-pending thead th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+    color: #495057;
+    font-weight: 700;
+}
+
+/* Ajustes menores de tipografía en el modal */
+#v-monto {
+    letter-spacing: -1px;
+}

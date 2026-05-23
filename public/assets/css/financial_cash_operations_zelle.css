@@ -1,0 +1,66 @@
+/**
+ * MÓDULO: GESTIÓN FINANCIERA / ZELLE
+ * ARCHIVO: public/assets/css/financial_cash_operations_zelle.css
+ * PROPÓSITO: Estilos para el panel de conciliación Zelle, info-cards y visor de auditoría.
+ * VERSIÓN: 1.0.0 - Diseño estandarizado con soporte para scroll dinámico.
+ */
+
+.info-card-zelle {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 12px;
+}
+
+.info-card-zelle:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+#table-zelle-pending thead th {
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: 700;
+    border-bottom: 2px solid #dee2e6;
+    white-space: nowrap;
+}
+
+#img-viewer-container {
+    background-color: #2b2b2b;
+    border-radius: 8px;
+    cursor: grab;
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+}
+
+#img-viewer-container:active {
+    cursor: grabbing;
+}
+
+#v-screenshot {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.match-success {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 2px 8px;
+}
+
+.reference-input-audit {
+    font-family: 'Monaco', 'Consolas', monospace;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 1.2rem;
+    border: 2px solid #ced4da;
+}
+
+.reference-input-audit:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}

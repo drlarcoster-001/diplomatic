@@ -1,0 +1,140 @@
+/**
+ * MÓDULO: GESTIÓN ADMINISTRATIVA / EXCEPCIONES
+ * Archivo: public/assets/css/administrative_annulments.css
+ * PROPÓSITO: Estilos para el módulo de cancelación de inscripciones.
+ * VERSIÓN: 1.2.1 - UI: Soporte para alineación horizontal en modales y flex-height.
+ */
+
+/* 1. Personalización de Miga de Pan y Encabezados */
+.breadcrumb-item a:hover {
+    color: #b02a37 !important;
+    text-decoration: underline !important;
+}
+
+/* 2. Filtros y Búsqueda */
+#search-annulment {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1rem;
+    border-radius: 12px;
+}
+
+#search-annulment:focus {
+    border-color: #b02a37;
+    box-shadow: 0 0 0 0.25rem rgba(176, 42, 55, 0.15);
+}
+
+/* 3. Estilos de la Tabla / Grid */
+.table thead th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    font-size: 0.75rem;
+}
+
+/* 4. Soporte para Fila Clickeable */
+.row-clickable {
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.row-clickable:hover {
+    background-color: rgba(176, 42, 55, 0.05) !important;
+    transform: translateY(-1px);
+}
+
+.row-clickable:active {
+    background-color: rgba(176, 42, 55, 0.1) !important;
+    transform: translateY(0);
+}
+
+/* Badge de Diplomado personalizado */
+.badge.bg-light.text-primary.border {
+    background-color: rgba(13, 110, 253, 0.03) !important;
+    font-weight: 600;
+}
+
+/* 5. Escalas de Rojo para Botones y Alertas */
+.btn-outline-danger {
+    color: #b02a37;
+    border-color: #b02a37;
+}
+
+.btn-outline-danger:hover {
+    background-color: #b02a37;
+    border-color: #b02a37;
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(176, 42, 55, 0.2);
+}
+
+/* 6. Efectos de las Tarjetas (Dashboard Principal) */
+.settings-card-item {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.settings-card-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 7. Modal y Alertas Internas */
+.modal-content {
+    border: none;
+}
+
+/* Clase para igualar altura de cajas en el modal */
+.modal-info-box {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.alert-danger-soft {
+    background-color: rgba(176, 42, 55, 0.08);
+    color: #b02a37;
+    border: 1px solid rgba(176, 42, 55, 0.1);
+}
+
+/* 8. Animaciones y UX */
+#results-area.animate__fadeIn {
+    --animate-duration: 0.6s;
+}
+
+#empty-state i {
+    display: block;
+    margin-bottom: 1rem;
+    color: #ced4da;
+}
+
+/* Scrollbar personalizado */
+.table-responsive::-webkit-scrollbar {
+    height: 6px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: #dee2e6;
+    border-radius: 10px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: #b02a37;
+}
+
+/* 9. Responsividad */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    #btn-clear-filter {
+        width: 100%;
+        margin-top: 10px;
+    }
+    
+    .row-clickable:hover {
+        transform: none;
+    }
+}

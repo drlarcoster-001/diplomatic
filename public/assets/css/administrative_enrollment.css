@@ -1,0 +1,17 @@
+/**
+ * MÓDULO: GESTIÓN ADMINISTRATIVA
+ * ARCHIVO: public/assets/css/administrative_enrollment.css
+ * PROPÓSITO: Estilos para el listado de matrícula oficial.
+ * VERSIÓN: 1.0.0
+ */
+.thead-enroll-green {
+    background-color: #e6f4ea !important;
+    color: #1e7e34 !important;
+}
+
+.card { border-radius: 12px; }
+
+.table thead th {
+    border-bottom: 2px solid #dee2e6;
+    padding: 15px 10px;
+}

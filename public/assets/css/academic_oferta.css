@@ -1,0 +1,55 @@
+/**
+ * MÓDULO: GESTIÓN ACADÉMICA
+ * ARCHIVO: public/assets/css/academic_oferta.css
+ * PROPÓSITO: Definición de estilos visuales, breadcrumbs estandarizados y layout 8/4.
+ * VERSIÓN: 3.7.0 - Estandarización de espaciado de breadcrumbs y botones rounded-pill para todo el módulo.
+ */
+
+.cursor-pointer { cursor: pointer; }
+.row-oferta:hover { background-color: rgba(13, 110, 253, 0.04) !important; }
+
+/* Estilos de Breadcrumb */
+.breadcrumb-item a { transition: color 0.2s ease; }
+.breadcrumb-item a:hover { color: #0d6efd !important; }
+
+/* Encabezado de la Grid Azul Claro */
+.thead-blue { 
+    background-color: #e7f1ff !important; 
+    color: #084298 !important; 
+}
+
+/* Botones White y Rounded */
+.btn-white { background: #fff; color: #6c757d; }
+.btn-white:hover { background: #f8f9fa; color: #0d6efd; }
+.rounded-pill { border-radius: 50px !important; }
+
+/* Bordes de Secciones laterales */
+.border-left-primary { border-left: 4px solid #0d6efd !important; }
+.border-left-info { border-left: 4px solid #0dcaf0 !important; }
+.border-left-success { border-left: 4px solid #198754 !important; }
+.border-left-warning { border-left: 4px solid #ffc107 !important; }
+.border-left-danger { border-left: 4px solid #dc3545 !important; }
+.border-left-secondary { border-left: 4px solid #6c757d !important; }
+
+/* Componente Dual Listbox */
+.dual-listbox { 
+    height: 260px; 
+    overflow-y: auto; 
+    background-color: #fff; 
+    border: 1px solid #e9ecef; 
+    border-radius: 8px; 
+}
+
+.prof-item { 
+    padding: 10px; 
+    transition: all 0.2s; 
+    font-weight: 400 !important; 
+}
+
+.prof-item:hover { background-color: #f1f4f9; }
+
+.badge { font-weight: 600; letter-spacing: 0.3px; }
+/*.d-none { display: none !important; }*/
+
+/* Ajuste de grupos de botones */
+.btn-group .btn { border-radius: 8px; margin: 0 2px; }

@@ -1,0 +1,59 @@
+/**
+ * MÓDULO: GESTIÓN FINANCIERA / EFECTIVO
+ * ARCHIVO: public/assets/css/financial_cash_operations_efectivo.css
+ * PROPÓSITO: Estilos para la interfaz de cobro en ventanilla y tabla de arqueo.
+ * VERSIÓN: 1.0.0 - Lanzamiento inicial con normalización de visor y calculadora de billetes.
+ */
+
+:root {
+    --cash-green: #28a745;
+    --cash-dark: #1e7e34;
+    --cash-light: #eafaf1;
+}
+
+.animate__fadeIn { animation-duration: 0.8s; }
+
+/* Estilo de la Calculadora de Billetes */
+.bill-table th {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: #6c757d;
+}
+
+.bill-input {
+    font-weight: bold;
+    text-align: center;
+    border: 2px solid #dee2e6;
+}
+
+.bill-input:focus {
+    border-color: var(--cash-green);
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.subtotal-display {
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-weight: bold;
+    color: #495057;
+}
+
+/* Gran Total en el Modal */
+.total-cash-box {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+    border-left: 5px solid var(--cash-green);
+}
+
+#monto-contado {
+    transition: color 0.3s ease;
+}
+
+.match-success { color: var(--cash-green) !important; }
+.match-error { color: #dc3545 !important; }
+
+/* Tabla de Registros */
+#table-efectivo-pending thead th {
+    background-color: var(--cash-light);
+    border-bottom: 2px solid var(--cash-green);
+}
