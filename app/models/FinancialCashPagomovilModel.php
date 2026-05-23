@@ -283,13 +283,7 @@ private function generateLedger(int $enrollId, int $userId, int $offeringId, int
         $costoCuota = (float)$plan['amount'];
         $diferencia = $costoCuota - $dineroRestante;
 
-        // TOLERANCIA: Si faltan menos de $0.15 USD, damos la cuota por pagada.
-        // Esto evita que Paul (User 65) quede con deudas de centavos.
-        if ($dineroRestante > 0 && $diferencia <= 0.15) {
-            $abono = $costoCuota; // Forzamos el monto de la cuota completa
-            $estatus = 'PAGADO';
-            $dineroRestante = max(0, $dineroRestante - $costoCuota);
-        } elseif ($dineroRestante >= $costoCuota) {
+        if ($dineroRestante >= $costoCuota) {
             $abono = $costoCuota;
             $estatus = 'PAGADO';
             $dineroRestante -= $costoCuota;

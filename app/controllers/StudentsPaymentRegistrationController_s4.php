@@ -50,11 +50,8 @@ public function getLatestExchangeRate(): void
     $date = $_GET['date'] ?? date('Y-m-d');
 
     try {
-        // REGLA T-1: Desplazamos la búsqueda un día atrás para seguridad cambiaria.
-        $targetDate = date('Y-m-d', strtotime($date . ' -1 day'));
-
-        // Usamos el modelo local del módulo para el "rebote" de fechas.
-        $result = $this->model->getEffectiveRate($targetDate);
+        $rateData = \App\Services\PaymentValidationService::obtenerTasaCorrecta($date);
+        $result = $rateData;    
 
         if ($result && isset($result['dolar_bcv'])) {
             echo json_encode([
@@ -109,41 +106,27 @@ public function store(): void
         // 3. LECTURA DE TASA DESDE LA BASE DE DATOS (nunca del frontend)
         if ($method === 'PAGOMOVIL') {
             
-            $hoy      = date('Y-m-d');
-            $ayer     = date('Y-m-d', strtotime('-1 day'));
-            $fechaPago = $fechaComprobante;
 
             // Determinamos si el pago es reciente (hoy o ayer) o antiguo (antiayer o antes)
-            $esPagoReciente = ($fechaPago >= $ayer);
-
-            if ($esPagoReciente) {
-                // Pago de hoy o ayer: buscamos la tasa del mismo día, si no existe la de ayer
-                $rateRow = $this->model->getEffectiveRate($hoy);
-                if (!$rateRow) {
-                    $rateRow = $this->model->getEffectiveRate($ayer);
-                }
-            } else {
-                // Pago de antiayer o antes: buscamos la tasa del día ANTERIOR al pago
-                $diaPrevio = date('Y-m-d', strtotime($fechaPago . ' -1 day'));
-                $rateRow   = $this->model->getEffectiveRate($diaPrevio);
+            // ANTI-DUPLICADOS
+            $referencia = $rawMetadata['detalles_transaccion']['referencia'] ?? '';
+            $telefono   = $rawMetadata['detalles_origen']['cuenta_correo_telf'] ?? '';
+            $validacion = \App\Services\PaymentValidationService::verificarDuplicado(
+                $referencia, $montoNativo, $fechaComprobante, $telefono, $method
+            );
+            if ($validacion['duplicado']) {
+                throw new \Exception($validacion['mensaje']);
             }
 
-            if (!$rateRow || empty($rateRow['dolar_bcv'])) {
-                throw new \Exception("No se encontró tasa BCV para la fecha del pago ($fechaPago). Contacte al administrador.");
-            }
-
-            $tasaFinal   = round((float)$rateRow['dolar_bcv'], 2);
-            $rawUsd      = $montoNativo / $tasaFinal;
-
-            // Redondeo según momento del pago:
-            // Reciente (hoy/ayer): floor → a favor de la institución
-            // Antiguo (antiayer o antes): ceil → a favor del estudiante
-            $montoSistemaUsd = $esPagoReciente ? (int)floor($rawUsd) : (int)ceil($rawUsd);
+            // TASA CORRECTA + REDONDEO EXACTO
+            $calculo         = \App\Services\PaymentValidationService::calcularMontoUsd($montoNativo, $fechaComprobante);
+            $montoSistemaUsd = $calculo['monto_usd'];
+            $tasaFinal       = $calculo['tasa'];
             $monedaFinal     = 'BS';
 
         } else {
             // Zelle/Binance: monto directo en divisas, sin tasa
-            $montoSistemaUsd = (int)floor($montoNativo);
+            $montoSistemaUsd = round($montoNativo, 2);
             $monedaFinal     = ($method === 'BINANCE') ? 'USDT' : 'USD';
             $tasaFinal       = 1.00;
         }

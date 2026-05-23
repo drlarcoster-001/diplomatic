@@ -51,40 +51,26 @@ final class AdministrativeInscriptionsController_s4 extends Controller
         // ESCUDO DE TASAS: CONGELACIÓN DE LA VERDAD HISTÓRICA
         // ====================================================================
 if ($currency === 'BS') {
-            // Fecha del comprobante para aplicar la regla de tasa correcta
             $fechaComprobante = $metadata['detalles_transaccion']['fecha_comprobante'] ?? date('Y-m-d');
-            $hoy  = date('Y-m-d');
-            $ayer = date('Y-m-d', strtotime('-1 day'));
 
-            $esPagoReciente = ($fechaComprobante >= $ayer);
-
-            $modelAdmin = new AdministrativeInscriptionsModel();
-
-            if ($esPagoReciente) {
-                $rateRow = $modelAdmin->getEffectiveRate($hoy);
-                if (!$rateRow) {
-                    $rateRow = $modelAdmin->getEffectiveRate($ayer);
-                }
-            } else {
-                $diaPrevio = date('Y-m-d', strtotime($fechaComprobante . ' -1 day'));
-                $rateRow   = $modelAdmin->getEffectiveRate($diaPrevio);
+            // ANTI-DUPLICADOS
+            $referencia = $metadata['detalles_transaccion']['referencia'] ?? '';
+            $telefono   = $metadata['detalles_origen']['cuenta_correo_telf'] ?? '';
+            $validacion = \App\Services\PaymentValidationService::verificarDuplicado(
+                $referencia, $cleanAmount, $fechaComprobante, $telefono, $payMethod
+            );
+            if ($validacion['duplicado']) {
+                throw new \Exception($validacion['mensaje']);
             }
 
-            if (!$rateRow || empty($rateRow['dolar_bcv'])) {
-                error_log("[DEBUG S4] ERROR CRÍTICO: No se encontró tasa BCV para $fechaComprobante.");
-                $tasaFinal = 0.00;
-                $metadata['monto_sistema_usd'] = 0;
-            } else {
-                $tasaFinal = round((float)$rateRow['dolar_bcv'], 2);
-                $rawUsd    = $cleanAmount / $tasaFinal;
-                $metadata['monto_sistema_usd'] = $esPagoReciente ? (int)floor($rawUsd) : (int)ceil($rawUsd);
-            }
-
-            $metadata['tasa_cambio'] = $tasaFinal;
+            // TASA CORRECTA + REDONDEO EXACTO
+            $calculo = \App\Services\PaymentValidationService::calcularMontoUsd($cleanAmount, $fechaComprobante);
+            $metadata['monto_sistema_usd'] = $calculo['monto_usd'];
+            $metadata['tasa_cambio']       = $calculo['tasa'];
 
         } else {
             $metadata['tasa_cambio']       = 1;
-            $metadata['monto_sistema_usd'] = (int)floor($cleanAmount);
+            $metadata['monto_sistema_usd'] = round($cleanAmount, 2);
         }
 
         // ====================================================================

@@ -93,36 +93,29 @@ trait FinancialPaymentRegistrationController_s4
             $montoNativo = round((float)($rawMetadata['detalles_transaccion']['monto_nativo'] ?? 0.00), 2);
 
             // 3. LECTURA DE TASA DESDE LA BASE DE DATOS (nunca del frontend)
-            if ($method === 'PAGOMOVIL') {
+if ($method === 'PAGOMOVIL') {
 
                 $fechaComprobante = $rawMetadata['detalles_transaccion']['fecha_comprobante'] ?? date('Y-m-d');
-                $hoy  = date('Y-m-d');
-                $ayer = date('Y-m-d', strtotime('-1 day'));
 
-                $esPagoReciente = ($fechaComprobante >= $ayer);
-
-                if ($esPagoReciente) {
-                    $rateRow = $this->model->getEffectiveRate($hoy);
-                    if (!$rateRow) {
-                        $rateRow = $this->model->getEffectiveRate($ayer);
-                    }
-                } else {
-                    $diaPrevio = date('Y-m-d', strtotime($fechaComprobante . ' -1 day'));
-                    $rateRow   = $this->model->getEffectiveRate($diaPrevio);
+                // ANTI-DUPLICADOS
+                $referencia = $rawMetadata['detalles_transaccion']['referencia'] ?? '';
+                $telefono   = $rawMetadata['detalles_origen']['cuenta_correo_telf'] ?? '';
+                $validacion = \App\Services\PaymentValidationService::verificarDuplicado(
+                    $referencia, $montoNativo, $fechaComprobante, $telefono, $method
+                );
+                if ($validacion['duplicado']) {
+                    throw new \Exception($validacion['mensaje']);
                 }
 
-                if (!$rateRow || empty($rateRow['dolar_bcv'])) {
-                    throw new \Exception("No se encontró tasa BCV para la fecha del pago ($fechaComprobante).");
-                }
-
-                $tasaFinal       = round((float)$rateRow['dolar_bcv'], 2);
-                $rawUsd          = $montoNativo / $tasaFinal;
-                $montoSistemaUsd = $esPagoReciente ? (int)floor($rawUsd) : (int)ceil($rawUsd);
+                // TASA CORRECTA + REDONDEO EXACTO
+                $calculo         = \App\Services\PaymentValidationService::calcularMontoUsd($montoNativo, $fechaComprobante);
+                $montoSistemaUsd = $calculo['monto_usd'];
+                $tasaFinal       = $calculo['tasa'];
                 $monedaFinal     = 'BS';
                 $montoParaDB     = $montoNativo;
 
             } else {
-                $montoSistemaUsd = (int)floor($montoNativo);
+                $montoSistemaUsd = round($montoNativo, 2);
                 $monedaFinal     = ($method === 'BINANCE') ? 'USDT' : 'USD';
                 $tasaFinal       = 1.00;
                 $montoParaDB     = $montoNativo;

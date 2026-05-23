@@ -187,8 +187,7 @@ public function getTotalPendingPayments(array $filters = []): int
 
                 $deudaPendiente = (float)$cuota['amount_due'] - (float)$cuota['amount_paid'];
 
-                // TOLERANCIA: Si el dinero que tengo + 0.15 USD cubre la deuda, lo damos por PAGADO
-                if (($montoDisponible + 0.15) >= $deudaPendiente) {
+                if ($montoDisponible >= $deudaPendiente) {
                     $this->db->prepare("UPDATE tbl_financial_student_ledger SET amount_paid = amount_due, status = 'PAGADO' WHERE id = ?")
                              ->execute([$cuota['id']]);
                     $montoDisponible = max(0, $montoDisponible - $deudaPendiente);
