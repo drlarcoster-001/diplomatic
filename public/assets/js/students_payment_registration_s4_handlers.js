@@ -374,12 +374,15 @@ window.StudentsHandlers = {
 
             const btnConfirm = document.getElementById('btnConfirmFinalSubmit');
             btnConfirm.onclick = function() {
-                btnConfirm.disabled = true;
-                btnConfirm.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Enviando...';
-                if (typeof window.ejecutarPeticionFinal === 'function') {
-                    window.ejecutarPeticionFinal();
-                }
-            };
+    btnConfirm.disabled = true;
+    btnConfirm.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Enviando...';
+    if (typeof window.ejecutarPeticionFinal === 'function') {
+        window.ejecutarPeticionFinal().finally(() => {
+            btnConfirm.disabled = false;
+            btnConfirm.innerHTML = 'Confirmar y Enviar';
+        });
+    }
+};
 
         } catch (e) {
             console.error(e);

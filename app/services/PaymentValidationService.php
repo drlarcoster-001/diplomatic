@@ -47,6 +47,7 @@ final class PaymentValidationService
 
         // Últimos 4 dígitos de la referencia para comparación flexible
         $ultimos4 = substr(preg_replace('/\D/', '', $referencia), -4);
+        $telefono = preg_replace('/\D/', '', $telefono);
 
         // -------------------------------------------------------
         // VERIFICAR EN tbl_enrollments_payments (inscripciones)
@@ -55,9 +56,9 @@ final class PaymentValidationService
                  WHERE method = 'PAGOMOVIL'
                  AND status != 'REJECTED'
                  AND RIGHT(REGEXP_REPLACE(reference_id, '[^0-9]', ''), 4) = ?
-                 AND ABS(amount - ?) <= 0.01
+                 AND amount = ?
                  AND JSON_UNQUOTE(JSON_EXTRACT(payment_metadata, '$.detalles_transaccion.fecha_comprobante')) = ?
-                 AND JSON_UNQUOTE(JSON_EXTRACT(payment_metadata, '$.detalles_origen.cuenta_correo_telf')) = ?
+                 AND REGEXP_REPLACE(JSON_UNQUOTE(JSON_EXTRACT(payment_metadata, '$.detalles_origen.cuenta_correo_telf')), '[^0-9]', '') = ?
                  LIMIT 1";
 
         $stmt1 = $db->prepare($sql1);
@@ -81,7 +82,7 @@ final class PaymentValidationService
                  AND RIGHT(REGEXP_REPLACE(reference_id, '[^0-9]', ''), 4) = ?
                  AND ABS(amount - ?) <= 0.01
                  AND JSON_UNQUOTE(JSON_EXTRACT(payment_metadata, '$.detalles_transaccion.fecha_comprobante')) = ?
-                 AND JSON_UNQUOTE(JSON_EXTRACT(payment_metadata, '$.detalles_origen.cuenta_correo_telf')) = ?
+                 AND REGEXP_REPLACE(JSON_UNQUOTE(JSON_EXTRACT(payment_metadata, '$.detalles_origen.cuenta_correo_telf')), '[^0-9]', '') = ?
                  LIMIT 1";
 
         $stmt2 = $db->prepare($sql2);

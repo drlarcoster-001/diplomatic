@@ -295,7 +295,7 @@ window.StudentsUI = {
         let bs = parseFloat(inBs.value.replace(/\./g, '').replace(',', '.')) || 0;
         if (bs > 0) {
             // REGLA: Truncar a entero (No regalamos centavos)
-            let resultadoUsd = Math.floor(bs / tasa); 
+            let resultadoUsd = Math.round((bs / tasa) * 100) / 100;
             inUsd.value = resultadoUsd.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         } else {
             inUsd.value = "";
