@@ -67,7 +67,8 @@ public function list(): void {
         'search'     => $_GET['search'] ?? '',
         'diploma_id' => $_GET['diplomado'] ?? '', // id="filter-diplomado"
         'status'     => $_GET['status'] ?? '',    // id="filter-status"
-        'docs'       => $_GET['docs'] ?? ''       // id="filter-docs"
+        'docs'       => $_GET['docs'] ?? '',       // id="filter-docs"
+        'verified'   => $_GET['verified'] ?? ''
     ];
 
     $students = $this->model->getAllStudents($filters);
@@ -98,6 +99,47 @@ public function updateStatus(): void {
         } else {
             throw new Exception("No se pudo actualizar el estatus.");
         }
+    } catch (Exception $e) {
+        echo json_encode(['ok' => false, 'message' => $e->getMessage()]);
+    }
+    exit;
+}
+
+public function getDocumentVerification(): void {
+    while (ob_get_level() > 0) ob_end_clean();
+    header('Content-Type: application/json; charset=utf-8');
+    try {
+        $enrollmentId = (int)($_GET['enrollment_id'] ?? 0);
+        if ($enrollmentId <= 0) throw new Exception('ID inválido.');
+        $data = $this->model->getDocumentVerification($enrollmentId);
+        echo json_encode(['ok' => true, 'data' => $data ?? [
+            'id_card_approved' => 0,
+            'degree_approved'  => 0,
+            'cv_approved'      => 0,
+        ]], JSON_UNESCAPED_UNICODE);
+    } catch (Exception $e) {
+        echo json_encode(['ok' => false, 'message' => $e->getMessage()]);
+    }
+    exit;
+}
+
+public function saveDocumentVerification(): void {
+    while (ob_get_level() > 0) ob_end_clean();
+    header('Content-Type: application/json; charset=utf-8');
+    try {
+        $enrollmentId = (int)($_POST['enrollment_id'] ?? 0);
+        $studentId    = (int)($_POST['student_id']    ?? 0);
+        $field        = trim($_POST['field']          ?? '');
+        $userId       = (int)($_SESSION['user']['id'] ?? 0);
+
+        if ($enrollmentId <= 0 || $studentId <= 0 || empty($field)) {
+            throw new Exception('Datos incompletos.');
+        }
+
+        $result = $this->model->saveDocumentVerification($enrollmentId, $userId, $studentId, $field);
+        if (!$result) throw new Exception('No se pudo guardar. Verifique que el documento esté cargado.');
+
+        echo json_encode(['ok' => true, 'message' => 'Documento verificado correctamente.'], JSON_UNESCAPED_UNICODE);
     } catch (Exception $e) {
         echo json_encode(['ok' => false, 'message' => $e->getMessage()]);
     }

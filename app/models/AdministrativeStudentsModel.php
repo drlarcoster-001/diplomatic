@@ -41,7 +41,20 @@ public function getAllStudents(array $filters = []): array {
     // Filtros específicos
     if (!empty($filters['diploma_id'])) { $where .= " AND d.id = :dip"; $params[':dip'] = $filters['diploma_id']; }
     if (!empty($filters['status'])) { $where .= " AND s.status = :st"; $params[':st'] = $filters['status']; }
-    if (!empty($filters['docs'])) { $where .= " AND e.document_status = :doc"; $params[':doc'] = $filters['docs']; }
+    if (!empty($filters['docs'])) {
+    if ($filters['docs'] === 'COMPLETE') {
+        $where .= " AND e.document_status = 'COMPLETE'";
+    } elseif ($filters['docs'] === 'INCOMPLETE') {
+        $where .= " AND e.document_status != 'COMPLETE'";
+    }
+}
+if (!empty($filters['verified'])) {
+    if ($filters['verified'] === 'VERIFIED') {
+        $where .= " AND dv.id_card_approved = 1 AND dv.degree_approved = 1";
+    } elseif ($filters['verified'] === 'UNVERIFIED') {
+        $where .= " AND (dv.id IS NULL OR dv.id_card_approved = 0 OR dv.degree_approved = 0)";
+    }
+}
 
     $sql = "SELECT 
                 s.id, 
@@ -59,12 +72,17 @@ public function getAllStudents(array $filters = []): array {
                 e.doc_id_card, 
                 e.doc_degree, 
                 e.doc_cv,
-                DATE_FORMAT(s.admission_date, '%d/%m/%Y') AS fecha_ingreso
+                DATE_FORMAT(s.admission_date, '%d/%m/%Y') AS fecha_ingreso,
+                e.id AS enrollment_id,
+                COALESCE(dv.id_card_approved, 0) AS id_card_approved,
+                COALESCE(dv.degree_approved,  0) AS degree_approved,
+                COALESCE(dv.cv_approved,      0) AS cv_approved
             FROM tbl_students s
             INNER JOIN tbl_users u ON s.user_id = u.id
             LEFT JOIN tbl_enrollments e ON s.enrollment_id = e.id
             LEFT JOIN tbl_academic_offerings o ON e.offering_id = o.id
             LEFT JOIN tbl_diplomados d ON o.diploma_id = d.id
+            LEFT JOIN tbl_document_verifications dv ON dv.enrollment_id = e.id
             $where 
             ORDER BY s.id DESC";
 
@@ -77,7 +95,13 @@ public function getAllStudents(array $filters = []): array {
  * Necesario para llenar el select del filtro en el Front
  */
 public function getDiplomadosList(): array {
-    $sql = "SELECT id, name FROM tbl_diplomados WHERE status = 'ACTIVO' ORDER BY name ASC";
+    $sql = "SELECT DISTINCT d.id, d.name 
+            FROM tbl_diplomados d
+            INNER JOIN tbl_academic_offerings o ON d.id = o.diploma_id
+            INNER JOIN tbl_enrollments e ON o.id = e.offering_id
+            INNER JOIN tbl_students s ON s.enrollment_id = e.id
+            WHERE d.status = 'ACTIVO'
+            ORDER BY d.name ASC";
     return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }
 
@@ -89,6 +113,52 @@ public function getDiplomadosList(): array {
         ':id' => $studentId
     ]);
 } 
+
+public function getDocumentVerification(int $enrollmentId): ?array {
+    $sql = "SELECT * FROM tbl_document_verifications WHERE enrollment_id = ? LIMIT 1";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([$enrollmentId]);
+    return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+}
+
+public function saveDocumentVerification(int $enrollmentId, int $userId, int $studentId, string $field): bool {
+    // Validar que el campo sea permitido
+    $allowed = ['id_card_approved', 'degree_approved', 'cv_approved'];
+    if (!in_array($field, $allowed)) return false;
+
+    // Verificar que el documento existe en tbl_enrollments
+    $docMap = [
+        'id_card_approved' => 'doc_id_card',
+        'degree_approved'  => 'doc_degree',
+        'cv_approved'      => 'doc_cv',
+    ];
+    $docCol = $docMap[$field];
+    $check = $this->db->prepare("SELECT $docCol FROM tbl_enrollments WHERE id = ? LIMIT 1");
+    $check->execute([$enrollmentId]);
+    $row = $check->fetch(PDO::FETCH_ASSOC);
+
+    if (!$row || empty($row[$docCol])) return false;
+
+    // INSERT o UPDATE
+    // INSERT o UPDATE — toggle
+    $sql = "INSERT INTO tbl_document_verifications 
+            (enrollment_id, user_id, student_id, $field, verified_by)
+        VALUES 
+            (:enroll, :uid, :sid, 1, :vby)
+        ON DUPLICATE KEY UPDATE 
+            $field = IF($field = 1, 0, 1),
+            verified_by = :vby2,
+            updated_at = NOW()";
+
+    $stmt = $this->db->prepare($sql);
+    return $stmt->execute([
+        ':enroll' => $enrollmentId,
+        ':uid'    => $userId,
+        ':sid'    => $studentId,
+        ':vby'    => $userId,
+        ':vby2'   => $userId,
+    ]);
+}
 
 
 }

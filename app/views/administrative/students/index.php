@@ -69,7 +69,16 @@ $basePath = '/diplomatic/public';
                     <select class="form-select form-input-premium" id="filter-docs">
                         <option value="">Todos</option>
                         <option value="COMPLETE">Completos</option>
-                        <option value="INCOMPLETE">Pendientes</option>
+                        <option value="INCOMPLETE">Incompletos</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label small fw-bold text-muted px-2">Verificación</label>
+                    <select class="form-select form-input-premium" id="filter-verified">
+                        <option value="">Todos</option>
+                        <option value="VERIFIED">Verificados</option>
+                        <option value="UNVERIFIED">Sin Verificar</option>
                     </select>
                 </div>
 
@@ -97,13 +106,14 @@ $basePath = '/diplomatic/public';
             <table class="table table-premium align-middle mb-0" id="table-students-directory">
                 <thead>
                     <tr>
-                        <th class="ps-4">Expediente</th>
+                        <th class="ps-4">#</th>
+                        <th>Expediente</th>
                         <th>Nombre Completo</th>
                         <th>Cédula</th>
                         <th>Programa</th>
                         <th>Estado Académico</th>
-                        <th>Documentación</th> 
-                        <th class="text-end pe-4">Expediente</th> 
+                        <th>Docs</th>
+                        <th class="text-end pe-4">Acción</th>
                     </tr>
                 </thead>
                 <tbody id="studentsTableBody">
@@ -116,6 +126,8 @@ $basePath = '/diplomatic/public';
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="<?= $basePath ?>/tools/exceljs/exceljs.min.js"></script>
+<script src="<?= $basePath ?>/tools/exceljs/FileSaver.min.js"></script>
 
 <script> const BASE_URL = '<?= $basePath ?>'; </script>
 <script src="<?= $basePath ?>/assets/js/administrative_students.js?v=<?= time() ?>"></script>

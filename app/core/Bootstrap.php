@@ -290,6 +290,10 @@ final class Bootstrap
         $router->get('/administrative/students/directory', [AdministrativeStudentsController::class, 'index']);
         $router->get('/administrative/students/list', [AdministrativeStudentsController::class, 'list']);
         $router->post('/administrative/students/updateStatus', [AdministrativeStudentsController::class, 'updateStatus']);
+        $router->get('/administrative/students/getDocumentVerification', [AdministrativeStudentsController::class, 'getDocumentVerification']);
+        $router->post('/administrative/students/saveDocumentVerification', [AdministrativeStudentsController::class, 'saveDocumentVerification']);
+
+
         // =========================================================================
         // --- GESTIÓN DE MATRÍCULAS Y ACTAS DE NOTAS (NUEVO) ---
         // =========================================================================

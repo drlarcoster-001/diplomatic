@@ -19,9 +19,9 @@ $(document).ready(function() {
     });
 
     // 2. CORRECCIÓN: Escuchar cambios en TODOS los selectores
-    $('#filter-status, #filter-diplomado, #filter-docs').on('change', function() {
-        loadStudents();
-    });
+    $('#filter-status, #filter-diplomado, #filter-docs, #filter-verified').on('change', function() {
+    loadStudents();
+});
 
     // 3. Botón Limpiar: Resetea el formulario completo y recarga
     $('#btn-clear-filters').on('click', function() { 
@@ -41,10 +41,11 @@ $(document).ready(function() {
 function loadStudents() {
     // Capturamos los valores actuales de los 4 filtros
     const filters = {
-        search: $('#search-text').val(),
-        diplomado: $('#filter-diplomado').val(),
-        status: $('#filter-status').val(),
-        docs: $('#filter-docs').val()
+    search:   $('#search-text').val(),
+    diplomado: $('#filter-diplomado').val(),
+    status:   $('#filter-status').val(),
+    docs:     $('#filter-docs').val(),
+    verified: $('#filter-verified').val()
     };
     
     const tbody = $('#studentsTableBody');
@@ -66,6 +67,7 @@ function loadStudents() {
             return;
         }
 
+        let rowNum = 1;
         res.data.forEach(s => {
             // Colores de Estatus Académico
             let badgeClass = 'bg-secondary';
@@ -79,9 +81,18 @@ function loadStudents() {
             const docBadge = isComplete ? 'bg-success-subtle text-success border-success' : 'bg-warning-subtle text-warning-emphasis border-warning';
             const docText = isComplete ? 'COMPLETO' : 'PENDIENTE';
 
+            const ledCedula = s.id_card_approved == 1
+                ? '<span class="led led-on" title="Cédula verificada"></span>'
+                : '<span class="led led-off" title="Cédula pendiente"></span>';
+
+            const ledTitulo = s.degree_approved == 1
+                ? '<span class="led led-on" title="Título verificado"></span>'
+                : '<span class="led led-off" title="Título pendiente"></span>';
+
             tbody.append(`
                 <tr class="student-row" data-id="${s.id}">
-                    <td class="ps-4"><span class="font-monospace fw-bold text-dark">${s.expediente}</span></td>
+                    <td class="ps-4 text-muted small fw-bold">${rowNum++}</td>
+                    <td><span class="font-monospace fw-bold text-dark small">${s.expediente}</span></td>
                     <td class="fw-bold text-dark">${s.nombre_completo}</td>
                     <td class="text-muted small">${s.cedula}</td>
                     <td class="small text-truncate" style="max-width: 180px;" title="${s.diplomado_nombre}">
@@ -89,15 +100,21 @@ function loadStudents() {
                     </td>
                     <td><span class="badge ${badgeClass} status-badge-premium">${s.estatus_academico}</span></td>
                     <td>
-                        <span class="badge border ${docBadge}" style="font-size:0.65rem;">
-                            <i class="bi ${isComplete ? 'bi-check-circle-fill' : 'bi-exclamation-circle-fill'} me-1"></i>${docText}
-                        </span>
+                        <div class="d-flex align-items-center gap-2">
+                            ${ledCedula}
+                            ${ledTitulo}
+                            <span class="badge border ${docBadge}" style="font-size:0.65rem;">
+                                <i class="bi ${isComplete ? 'bi-check-circle-fill' : 'bi-exclamation-circle-fill'} me-1"></i>${docText}
+                            </span>
+                        </div>
                     </td>
                     <td class="text-end pe-4">
                         <i class="bi bi-eye-fill action-eye-icon" onclick="viewProfile(${s.id})" title="Abrir Expediente"></i>
                     </td>
                 </tr>
             `);
+
+
         });
         $('#total-results').text(`${res.data.length} estudiantes encontrados`);
     }, 'json');
@@ -140,14 +157,17 @@ function viewProfile(studentId) {
                 </div>
 
                 <div class="list-group list-group-flush border rounded shadow-sm">
-                    <button type="button" class="list-group-item list-group-item-action btn-doc-selector active py-3" data-doctype="cedula">
-                        <i class="bi bi-person-vcard me-2 text-primary"></i>Cédula de Identidad
+                    <button type="button" class="list-group-item list-group-item-action btn-doc-selector active py-3 d-flex justify-content-between align-items-center" data-doctype="cedula" data-field="id_card_approved">
+                        <span><i class="bi bi-person-vcard me-2 text-primary"></i>Cédula de Identidad</span>
+                        <i class="bi ${student.id_card_approved == 1 ? 'bi-check-circle-fill text-success' : 'bi-circle text-muted'} doc-check-icon" data-field="id_card_approved"></i>
                     </button>
-                    <button type="button" class="list-group-item list-group-item-action btn-doc-selector py-3" data-doctype="titulo">
-                        <i class="bi bi-mortarboard me-2 text-success"></i>Título Universitario
+                    <button type="button" class="list-group-item list-group-item-action btn-doc-selector py-3 d-flex justify-content-between align-items-center" data-doctype="titulo" data-field="degree_approved">
+                        <span><i class="bi bi-mortarboard me-2 text-success"></i>Título Universitario</span>
+                        <i class="bi ${student.degree_approved == 1 ? 'bi-check-circle-fill text-success' : 'bi-circle text-muted'} doc-check-icon" data-field="degree_approved"></i>
                     </button>
-                    <button type="button" class="list-group-item list-group-item-action btn-doc-selector py-3" data-doctype="cv">
-                        <i class="bi bi-file-earmark-person me-2 text-secondary"></i>Resumen Curricular
+                    <button type="button" class="list-group-item list-group-item-action btn-doc-selector py-3 d-flex justify-content-between align-items-center" data-doctype="cv" data-field="cv_approved">
+                        <span><i class="bi bi-file-earmark-person me-2 text-secondary"></i>Resumen Curricular</span>
+                        <i class="bi ${student.cv_approved == 1 ? 'bi-check-circle-fill text-success' : 'bi-circle text-muted'} doc-check-icon" data-field="cv_approved"></i>
                     </button>
                 </div>
             </div>
@@ -195,14 +215,72 @@ function viewProfile(studentId) {
         confirmButtonColor: '#000',
         cancelButtonColor: '#6c757d',
         customClass: { popup: 'rounded-4 shadow-lg overflow-hidden' },
+
         didOpen: () => {
-            $('.btn-doc-selector').on('click', function() {
-                $('.btn-doc-selector').removeClass('active');
-                $(this).addClass('active');
-                renderDocument($(this).data('doctype'), student);
-            });
-            renderDocument('cedula', student);
+    // Cambiar documento al hacer clic en el botón
+    $('.btn-doc-selector').on('click', function() {
+        $('.btn-doc-selector').removeClass('active');
+        $(this).addClass('active');
+        renderDocument($(this).data('doctype'), student);
+    });
+
+    // Verificar documento al hacer clic en el ícono check
+    $('.doc-check-icon').on('click', function(e) {
+        e.stopPropagation(); // No activar el selector de documento
+        const field = $(this).data('field');
+        const icon  = $(this);
+
+        // Solo aprobar si el documento está cargado
+        const docMap = {
+            'id_card_approved': student.doc_id_card,
+            'degree_approved':  student.doc_degree,
+            'cv_approved':      student.doc_cv,
+        };
+
+        if (!docMap[field] || docMap[field].trim() === '') {
+            Swal.fire('Atención', 'No se puede aprobar: el documento no está cargado.', 'warning');
+            return;
         }
+
+       $.ajax({
+    url: BASE_URL + '/administrative/students/saveDocumentVerification',
+    method: 'POST',
+    data: {
+        enrollment_id: student.enrollment_id,
+        student_id:    student.id,
+        field:         field
+    },
+    dataType: 'json',
+    success: function(res) {
+        if (res.ok) {
+            const isNowApproved = student[field] == 1 ? 0 : 1;
+            student[field] = isNowApproved;
+            if (isNowApproved) {
+                icon.removeClass('bi-circle text-muted')
+                    .addClass('bi-check-circle-fill text-success');
+            } else {
+                icon.removeClass('bi-check-circle-fill text-success')
+                    .addClass('bi-circle text-muted');
+            }
+
+            loadStudents();
+        } else {
+            Swal.getPopup()?.querySelector('.swal2-html-container')
+                ?.insertAdjacentHTML('beforeend', 
+                `<div class="alert alert-danger mt-2 small">${res.message}</div>`);
+        }
+    },
+    error: function(xhr) {
+        console.error('Error saveDocumentVerification:', xhr.status, xhr.responseText);
+    }
+}).fail(function() {
+    return false;
+}); 
+    });
+
+    renderDocument('cedula', student);
+}
+
     }).then((result) => {
         if (result.isConfirmed) executeStatusUpdate(student.id, $('#swal-status-select').val());
     });
@@ -255,67 +333,235 @@ function executeStatusUpdate(studentId, newStatus) {
 // --- Lógica de Exportación a Excel ---
 $('#btn-export-excel').on('click', async function(e) {
     e.preventDefault();
-    
+
     if (currentStudentsData.length === 0) {
         Swal.fire('Atención', 'No hay datos en la tabla para exportar.', 'warning');
         return;
     }
 
+    Swal.fire({ title: 'Generando Excel...', text: 'Preparando directorio...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+
     try {
-        const wb = XLSX.utils.book_new();
+        const now    = new Date();
+        const yy     = now.getFullYear();
+        const mm     = String(now.getMonth() + 1).padStart(2, '0');
+        const dd     = String(now.getDate()).padStart(2, '0');
+        const hh     = String(now.getHours()).padStart(2, '0');
+        const min    = String(now.getMinutes()).padStart(2, '0');
+        const ss     = String(now.getSeconds()).padStart(2, '0');
+        const fileName = `Directorio_Estudiantes_${yy}${mm}${dd}_${hh}${min}${ss}.xlsx`;
 
-        // 1. HOJA GENERAL: Todos los estudiantes filtrados
-        let wsGeneralData = [
-            ["DIRECTORIO INSTITUCIONAL DE ESTUDIANTES"],
-            [`Fecha de Reporte: ${new Date().toLocaleDateString()}`],
-            [],
-            ["EXPEDIENTE", "NOMBRE COMPLETO", "CÉDULA", "CORREO", "TELÉFONO", "DIPLOMADO", "ESTATUS ACADÉMICO", "DOCS", "FECHA INGRESO"]
-        ];
+        // Colores
+        const AZUL    = 'FF2E75B6';
+        const BLANCO  = 'FFFFFFFF';
+        const VERDE   = 'FFE2EFDA';
+        const AMARILLO= 'FFFFF2CC';
+        const GRIS_CL = 'FFF9F9F9';
+        const GRIS_HD = 'FFF2F2F2';
+        const ROJO_CL = 'FFFFD7D7';
 
-        currentStudentsData.forEach(s => {
-            wsGeneralData.push([
-                s.expediente, s.nombre_completo, s.cedula, s.email, s.phone || 'N/A',
-                s.diplomado_nombre, s.estatus_academico, s.estatus_digital, s.fecha_ingreso
-            ]);
+        const borderThin = {
+            top:    { style: 'thin', color: { argb: 'FFD9D9D9' } },
+            left:   { style: 'thin', color: { argb: 'FFD9D9D9' } },
+            bottom: { style: 'thin', color: { argb: 'FFD9D9D9' } },
+            right:  { style: 'thin', color: { argb: 'FFD9D9D9' } }
+        };
+
+        // Logos
+        const logosResp = await fetch(`${BASE_URL}/assets/logos/base64`);
+        const logos     = await logosResp.json();
+
+        const wb = new ExcelJS.Workbook();
+        wb.creator = 'Diplomatic';
+        wb.created = now;
+
+        const agregarLogo = async (ws, base64, extension, col, row, width, height) => {
+            if (!base64) return;
+            const imageId = wb.addImage({ base64, extension });
+            ws.addImage(imageId, { tl: { col, row }, ext: { width, height } });
+        };
+
+        // ============================================================
+        // HOJA 1: DIRECTORIO GENERAL
+        // ============================================================
+        const wsGeneral = wb.addWorksheet('Directorio General');
+
+        wsGeneral.addRow(['DIRECTORIO INSTITUCIONAL DE ESTUDIANTES']);
+        wsGeneral.mergeCells('A1:I1');
+        const gF1 = wsGeneral.getRow(1);
+        gF1.getCell(1).font      = { bold: true, size: 14, color: { argb: AZUL } };
+        gF1.getCell(1).fill      = { type: 'pattern', pattern: 'solid', fgColor: { argb: GRIS_HD } };
+        gF1.getCell(1).alignment = { horizontal: 'center', vertical: 'middle' };
+        gF1.height = 70;
+
+        wsGeneral.addRow([`Generado: ${dd}/${mm}/${yy} ${hh}:${min}:${ss}`]);
+        wsGeneral.getRow(2).getCell(1).font = { italic: true, size: 9, color: { argb: 'FF888888' } };
+        wsGeneral.addRow([]);
+
+        // Encabezados
+        wsGeneral.addRow(['#', 'EXPEDIENTE', 'NOMBRE COMPLETO', 'CÉDULA', 'CORREO', 'TELÉFONO', 'DIPLOMADO', 'ESTATUS', 'CÉDULA ✓', 'TÍTULO ✓', 'INGRESO']);
+        const gF4 = wsGeneral.getRow(4);
+        gF4.height = 25;
+        gF4.eachCell((cell) => {
+            cell.fill      = { type: 'pattern', pattern: 'solid', fgColor: { argb: AZUL } };
+            cell.font      = { bold: true, color: { argb: BLANCO }, size: 10 };
+            cell.alignment = { horizontal: 'center', vertical: 'middle' };
+            cell.border    = borderThin;
         });
 
-        const wsGeneral = XLSX.utils.aoa_to_sheet(wsGeneralData);
-        XLSX.utils.book_append_sheet(wb, wsGeneral, "Directorio General");
+        currentStudentsData.forEach((s, idx) => {
+            const row = wsGeneral.addRow([
+                idx + 1,
+                s.expediente,
+                s.nombre_completo,
+                s.cedula,
+                s.email,
+                s.phone || 'N/A',
+                s.diplomado_nombre,
+                s.estatus_academico,
+                s.id_card_approved == 1 ? '✅' : '⭕',
+                s.degree_approved  == 1 ? '✅' : '⭕',
+                s.fecha_ingreso
+            ]);
 
-        // 2. HOJAS POR DIPLOMADO (Segmentación)
-        const grouped = {};
+            row.eachCell((cell, colNum) => {
+                cell.border = borderThin;
+                cell.font   = { size: 10 };
+                if (idx % 2 === 0) cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: GRIS_CL } };
+
+                // Estatus académico con color
+                if (colNum === 8) {
+                    const val = (s.estatus_academico || '').toUpperCase();
+                    if (val === 'ACTIVO')    { cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: VERDE } };   cell.font = { bold: true, size: 10, color: { argb: 'FF1E6B24' } }; }
+                    if (val === 'EGRESADO')  { cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFD6E4F7' } }; cell.font = { bold: true, size: 10, color: { argb: 'FF1F4E79' } }; }
+                    if (val === 'RETIRADO' || val === 'SUSPENDIDO') { cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: ROJO_CL } }; cell.font = { bold: true, size: 10, color: { argb: 'FFCC0000' } }; }
+                    if (val === 'CONGELADO') { cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: AMARILLO } }; cell.font = { bold: true, size: 10 }; }
+                    cell.alignment = { horizontal: 'center' };
+                }
+
+                // LEDs verificación
+                if (colNum === 9 || colNum === 10) {
+                    cell.alignment = { horizontal: 'center' };
+                }
+            });
+        });
+
+        // Anchos
+        wsGeneral.getColumn(1).width  = 5;
+        wsGeneral.getColumn(2).width  = 28;
+        wsGeneral.getColumn(3).width  = 35;
+        wsGeneral.getColumn(4).width  = 14;
+        wsGeneral.getColumn(5).width  = 30;
+        wsGeneral.getColumn(6).width  = 16;
+        wsGeneral.getColumn(7).width  = 35;
+        wsGeneral.getColumn(8).width  = 14;
+        wsGeneral.getColumn(9).width  = 10;
+        wsGeneral.getColumn(10).width = 10;
+        wsGeneral.getColumn(11).width = 14;
+        wsGeneral.views = [{ state: 'frozen', xSplit: 0, ySplit: 4, topLeftCell: 'A5' }];
+
+        // ============================================================
+        // HOJAS POR DIPLOMADO
+        // ============================================================
+        const grouped  = {};
+        const usedNames = {};
         currentStudentsData.forEach(s => {
             if (!grouped[s.diplomado_nombre]) grouped[s.diplomado_nombre] = [];
             grouped[s.diplomado_nombre].push(s);
         });
 
         Object.keys(grouped).forEach(diploma => {
-            let wsDipData = [
-                [`PROGRAMA: ${diploma.toUpperCase()}`],
-                ["Lista de estudiantes inscritos en este programa."],
-                [],
-                ["EXPEDIENTE", "NOMBRE COMPLETO", "CÉDULA", "ESTATUS", "INGRESO"]
-            ];
+            let sheetName = diploma.substring(0, 28).replace(/[\\*?:/[\]]/g, "").trim();
+            if (usedNames[sheetName]) {
+                usedNames[sheetName]++;
+                sheetName = sheetName.substring(0, 26) + '_' + usedNames[sheetName];
+            } else {
+                usedNames[sheetName] = 1;
+            }
 
-            grouped[diploma].forEach(s => {
-                wsDipData.push([s.expediente, s.nombre_completo, s.cedula, s.estatus_academico, s.fecha_ingreso]);
+            const wsDip = wb.addWorksheet(sheetName);
+
+            wsDip.addRow([`PROGRAMA: ${diploma.toUpperCase()}`]);
+            wsDip.mergeCells('A1:H1');
+            const dF1 = wsDip.getRow(1);
+            dF1.getCell(1).font      = { bold: true, size: 13, color: { argb: AZUL } };
+            dF1.getCell(1).fill      = { type: 'pattern', pattern: 'solid', fgColor: { argb: GRIS_HD } };
+            dF1.getCell(1).alignment = { horizontal: 'center', vertical: 'middle' };
+            dF1.height = 70;
+
+            wsDip.addRow([`Generado: ${dd}/${mm}/${yy} ${hh}:${min}:${ss}`]);
+            wsDip.getRow(2).getCell(1).font = { italic: true, size: 9, color: { argb: 'FF888888' } };
+            wsDip.addRow([]);
+
+            wsDip.addRow(['#', 'EXPEDIENTE', 'NOMBRE COMPLETO', 'CÉDULA', 'ESTATUS', 'CÉDULA ✓', 'TÍTULO ✓', 'INGRESO']);
+            const dF4 = wsDip.getRow(4);
+            dF4.height = 25;
+            dF4.eachCell((cell) => {
+                cell.fill      = { type: 'pattern', pattern: 'solid', fgColor: { argb: AZUL } };
+                cell.font      = { bold: true, color: { argb: BLANCO }, size: 10 };
+                cell.alignment = { horizontal: 'center', vertical: 'middle' };
+                cell.border    = borderThin;
             });
 
-            const wsDip = XLSX.utils.aoa_to_sheet(wsDipData);
-            // Nombre de pestaña limitado a 30 caracteres (regla de Excel)
-            const sheetName = diploma.substring(0, 30).replace(/[\\*?:/[\]]/g, "");
-            XLSX.utils.book_append_sheet(wb, wsDip, sheetName);
+            grouped[diploma].forEach((s, idx) => {
+                const row = wsDip.addRow([
+                    idx + 1,
+                    s.expediente,
+                    s.nombre_completo,
+                    s.cedula,
+                    s.estatus_academico,
+                    s.id_card_approved == 1 ? '✅' : '⭕',
+                    s.degree_approved  == 1 ? '✅' : '⭕',
+                    s.fecha_ingreso
+                ]);
+
+                row.eachCell((cell, colNum) => {
+                    cell.border = borderThin;
+                    cell.font   = { size: 10 };
+                    if (idx % 2 === 0) cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: GRIS_CL } };
+
+                    if (colNum === 5) {
+                        const val = (s.estatus_academico || '').toUpperCase();
+                        if (val === 'ACTIVO')    { cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: VERDE } };   cell.font = { bold: true, size: 10, color: { argb: 'FF1E6B24' } }; }
+                        if (val === 'EGRESADO')  { cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFD6E4F7' } }; cell.font = { bold: true, size: 10, color: { argb: 'FF1F4E79' } }; }
+                        if (val === 'RETIRADO' || val === 'SUSPENDIDO') { cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: ROJO_CL } }; cell.font = { bold: true, size: 10, color: { argb: 'FFCC0000' } }; }
+                        if (val === 'CONGELADO') { cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: AMARILLO } }; cell.font = { bold: true, size: 10 }; }
+                        cell.alignment = { horizontal: 'center' };
+                    }
+                    if (colNum === 6 || colNum === 7) cell.alignment = { horizontal: 'center' };
+                });
+            });
+
+            wsDip.getColumn(1).width = 5;
+            wsDip.getColumn(2).width = 28;
+            wsDip.getColumn(3).width = 35;
+            wsDip.getColumn(4).width = 14;
+            wsDip.getColumn(5).width = 14;
+            wsDip.getColumn(6).width = 10;
+            wsDip.getColumn(7).width = 10;
+            wsDip.getColumn(8).width = 14;
+            wsDip.views = [{ state: 'frozen', xSplit: 0, ySplit: 4, topLeftCell: 'A5' }];
+
+            agregarLogo(wsDip, logos.ucla, 'png', 0, 0, 90, 70);
+            agregarLogo(wsDip, logos.medicina, 'jpeg', 7, 0, 90, 70);
         });
 
-        // Generar descarga
-        XLSX.writeFile(wb, `Directorio_Estudiantes_${new Date().getTime()}.xlsx`);
-        
+        // Logos hoja general
+        await agregarLogo(wsGeneral, logos.ucla,     'png',  0, 0, 90, 70);
+        await agregarLogo(wsGeneral, logos.medicina, 'jpeg', 10, 0, 90, 70);
+
+        // Descargar
+        const buffer = await wb.xlsx.writeBuffer();
+        const blob   = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        saveAs(blob, fileName);
+
+        Swal.close();
+
     } catch (error) {
         console.error("Error al exportar:", error);
-        Swal.fire('Error', 'No se pudo generar el archivo Excel.', 'error');
+        Swal.fire('Error', error.message, 'error');
     }
-
-    });  // <-- cierre del $('#btn-export-excel').on('click'...)
+});
 
 function openWhatsappStudent(nombre, telefono) {
     Swal.fire({
