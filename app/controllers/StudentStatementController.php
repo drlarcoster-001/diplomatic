@@ -328,4 +328,37 @@ class StudentStatementController extends Controller
         }
     }
 
+    public function getPaymentVoucher(): void
+{
+    if (ob_get_level() > 0) ob_end_clean();
+    header('Content-Type: application/json; charset=utf-8');
+
+    try {
+        $userId     = (int)$_SESSION['user']['id'];
+        $tipo       = trim($_GET['tipo']       ?? '');
+        $referencia = trim($_GET['referencia'] ?? '');
+
+        if (!in_array($tipo, ['inscripcion', 'cuota'], true)) {
+            throw new Exception('Tipo de pago no válido.');
+        }
+        if (empty($referencia)) {
+            throw new Exception('Referencia requerida.');
+        }
+
+        $this->validateActiveStudent($userId);
+
+        $voucher = $this->model->getPaymentVoucherData($tipo, $referencia, $userId);
+
+        if (!$voucher) {
+            throw new Exception('Comprobante no encontrado.');
+        }
+
+        echo json_encode(['ok' => true, 'data' => $voucher], JSON_UNESCAPED_UNICODE);
+
+    } catch (Exception $e) {
+        echo json_encode(['ok' => false, 'message' => $e->getMessage()], JSON_UNESCAPED_UNICODE);
+    }
+    exit;
+}
+
 }

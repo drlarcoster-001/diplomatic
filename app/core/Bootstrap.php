@@ -563,6 +563,8 @@ final class Bootstrap
         $router->get('/students/student_statement/getMyPaymentHistory', [StudentStatementController::class, 'getMyPaymentHistory']);
         $router->get('/students/student_statement/exportMyStatementPdf', [StudentStatementController::class, 'exportMyStatementPdf']);
         $router->get('/students/student_statement/exportMyPaymentPdf', [StudentStatementController::class, 'exportMyPaymentPdf']);
+        $router->get('/students/student_statement/getPaymentVoucher', [StudentStatementController::class, 'getPaymentVoucher']);
+
 
         // --- AUTOGESTIÓN ESTUDIANTIL: MIS CERTIFICADOS ---
         $router->get('/students/certificates', [StudentsCertificatesController::class, 'index']);

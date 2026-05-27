@@ -56,8 +56,13 @@
 
         // 3. Ver Historial de Pagos Global (Modal)
         if (btnViewPayments) {
-            btnViewPayments.addEventListener('click', fetchMyPaymentHistory);
-        }
+                btnViewPayments.addEventListener('click', () => {
+                    // Exponer baseUrl para el visor de comprobantes
+                    window._voucherBaseUrl = state.baseUrl;
+                    window._voucherModulo  = 'students';
+                    fetchMyPaymentHistory();
+    });
+}
 
         // 4. Exportar PDF: Historial Global (Desde el Modal)
         if (btnPdfPayments) {
@@ -215,24 +220,39 @@
                     tBs += mBs;
                     tUsd += mUsd;
 
-                    return `
-                        <tr>
-                            <td class="ps-4 small text-muted">${p.formatted_date}</td>
-                            <td>
-                                <div class="fw-bold text-dark" style="font-size:0.85rem;">${p.concepto}</div>
-                                <small class="text-muted">Tasa Ref: ${t.toFixed(2)} Bs.</small>
-                            </td>
-                            <td class="text-end text-primary fw-bold">
-                                Bs. ${mBs.toLocaleString('es-VE', {minimumFractionDigits: 2})}
-                            </td>
-                            <td class="text-end text-success fw-bold">
-                                $ ${mUsd.toFixed(2)}
-                            </td>
-                            <td class="text-center pe-4 font-monospace small">
-                                ${p.referencia || '---'}
-                            </td>
-                        </tr>
-                    `;
+const tipoVoucher = p.causa === 'Inscripción' ? 'inscripcion' : 'cuota';
+const tieneRef = p.referencia && p.referencia !== '---';
+
+            return `
+                <tr>
+                    <td class="ps-4 small text-muted">${p.formatted_date}</td>
+                    <td>
+                        <div class="fw-bold text-dark" style="font-size:0.85rem;">${p.concepto}</div>
+                        <small class="text-muted">Tasa Ref: ${t.toFixed(2)} Bs.</small>
+                    </td>
+                    <td class="text-end text-primary fw-bold">
+                        Bs. ${mBs.toLocaleString('es-VE', {minimumFractionDigits: 2})}
+                    </td>
+                    <td class="text-end text-success fw-bold">
+                        $ ${mUsd.toFixed(2)}
+                    </td>
+                    <td class="text-center font-monospace small">${p.referencia || '---'}</td>
+                    <td class="text-center pe-3">
+                        ${tieneRef
+                            ? `<button class="btn btn-sm btn-outline-primary rounded-circle btn-view-voucher"
+                                    title="Ver comprobante"
+                                    data-tipo="${tipoVoucher}"
+                                    data-ref="${p.referencia}"
+                                    style="width:30px;height:30px;padding:0;">
+                                    <i class="bi bi-eye"></i>
+                                </button>`
+                            : `<span class="text-muted">—</span>`
+                        }
+                    </td>
+                </tr>
+            `;
+
+
                 }).join('');
 
                 // Inyectar totales en el pie del modal

@@ -206,5 +206,76 @@ class StudentStatementModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getPaymentVoucherData(string $tipo, string $referencia, int $userId): ?array
+{
+    if ($tipo === 'inscripcion') {
+        $sql = "SELECT 
+                    ep.method,
+                    ep.amount,
+                    ep.currency,
+                    ep.reference_id,
+                    ep.screenshot_path,
+                    ep.payment_metadata
+                FROM tbl_enrollments_payments ep
+                INNER JOIN tbl_enrollments e ON ep.enrollment_id = e.id
+                WHERE ep.reference_id = :ref
+                  AND e.user_id = :uid
+                  AND ep.status = 'APPROVED'
+                LIMIT 1";
+    } else {
+        $sql = "SELECT 
+                    fp.method,
+                    fp.amount,
+                    fp.currency,
+                    fp.reference_id,
+                    fp.screenshot_path,
+                    fp.payment_metadata
+                FROM tbl_financial_payments fp
+                INNER JOIN tbl_students s ON fp.student_id = s.id
+                WHERE fp.reference_id = :ref
+                  AND s.user_id = :uid
+                  AND fp.status = 'APPROVED'
+                LIMIT 1";
+    }
+
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([':ref' => $referencia, ':uid' => $userId]);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$row) return null;
+
+    $meta = json_decode($row['payment_metadata'] ?? '{}', true) ?? [];
+
+    $result = [
+        'method'          => $row['method'],
+        'amount'          => $row['amount'],
+        'currency'        => $row['currency'],
+        'reference_id'    => $row['reference_id'],
+        'screenshot_path' => $row['screenshot_path'],
+        'origen'          => [
+            'identificador'      => $meta['detalles_origen']['identificador']      ?? 'N/A',
+            'cuenta_correo_telf' => $meta['detalles_origen']['cuenta_correo_telf'] ?? 'N/A',
+            'banco_emisor'       => $meta['detalles_origen']['banco_emisor']       ?? 'N/A',
+        ],
+        'transaccion' => [
+            'fecha_comprobante' => $meta['detalles_transaccion']['fecha_comprobante'] ?? 'N/A',
+            'monto_nativo'      => $meta['detalles_transaccion']['monto_nativo']      ?? $row['amount'],
+            'moneda_nativa'     => $meta['detalles_transaccion']['moneda_nativa']     ?? $row['currency'],
+        ],
+        'tasa_cambio' => $meta['tasa_cambio']       ?? 1,
+        'monto_usd'   => $meta['monto_sistema_usd'] ?? $row['amount'],
+    ];
+
+    if ($row['method'] === 'CASH') {
+        $result['arqueo'] = [
+            'desglose_billetes' => $meta['desglose_billetes']            ?? [],
+            'agente_receptor'   => $meta['auditoria']['agente_receptor'] ?? 'N/A',
+            'fecha_recepcion'   => $meta['auditoria']['fecha_recepcion'] ?? 'N/A',
+        ];
+    }
+
+    return $result;
+}
+
 
 }
