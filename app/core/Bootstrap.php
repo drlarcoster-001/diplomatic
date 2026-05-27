@@ -509,6 +509,7 @@ final class Bootstrap
         $router->get('/financial/student_statement/getPaymentHistory', [FinancialStudentStatementController::class, 'getPaymentHistory']);
         $router->get('/financial/student_statement/exportStatementPdf', [FinancialStudentStatementController::class, 'exportStatementPdf']);
         $router->get('/financial/student_statement/exportPaymentPdf', [FinancialStudentStatementController::class, 'exportPaymentPdf']);
+        $router->get('/financial/student_statement/getPaymentVoucher', [FinancialStudentStatementController::class, 'getPaymentVoucher']);
 
         
         // --- REVERSO DE OPERACIONES FINANCIERAS ---

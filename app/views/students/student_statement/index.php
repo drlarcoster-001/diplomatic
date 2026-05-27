@@ -337,9 +337,8 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
             </div>
         </div>
     </div>
-    ```
+    
 
-Una vez que guardes el archivo **`index.php`**, presiona **`Ctrl + F5`** en tu navegador para forzar a que descargue el HTML nuevo. Haz clic en el ojito y ahora sí se levantará con todo su esplendor. ¡Pruébalo y me confirmas!
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

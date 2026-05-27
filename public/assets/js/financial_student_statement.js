@@ -235,6 +235,9 @@ function renderSuggestions(students) {
      */
 async function loadStatement(enrollmentId, programName) {
     state.selectedEnrollmentId = enrollmentId;
+    // Exponer IDs para el visor de comprobantes
+    window._voucherEnrollId = enrollmentId;
+    window._voucherUserId   = state.selectedStudentId;
 
     try {
         // Enviamos AMBOS IDs para que el controlador verifique que el alumno es el dueño de la deuda
@@ -381,22 +384,38 @@ async function loadStatement(enrollmentId, programName) {
                     totalBs += montoBs;
                     totalUsd += montoUsd;
 
-                    return `
-                        <tr>
-                            <td class="ps-4 text-muted small">${p.formatted_date}</td>
-                            <td>
-                                <div class="fw-bold text-dark" style="font-size:0.85rem;">${p.concept}</div>
-                                <small class="text-muted">Tasa Ref: ${tasa.toFixed(2)} Bs.</small>
-                            </td>
-                            <td class="text-end text-primary fw-bold">
-                                Bs. ${montoBs.toLocaleString('es-VE', {minimumFractionDigits: 2})}
-                            </td>
-                            <td class="text-end text-success fw-bold">
-                                $ ${montoUsd.toFixed(2)}
-                            </td>
-                            <td class="text-center pe-4 font-monospace small">${p.referencia || '---'}</td>
-                        </tr>
-                    `;
+const tipoVoucher = p.causa === 'Inscripción' ? 'inscripcion' : 'cuota';
+const tieneRef = p.referencia && p.referencia !== '---';
+
+                return `
+                    <tr>
+                        <td class="ps-4 text-muted small">${p.formatted_date}</td>
+                        <td>
+                            <div class="fw-bold text-dark" style="font-size:0.85rem;">${p.concept}</div>
+                            <small class="text-muted">Tasa Ref: ${tasa.toFixed(2)} Bs.</small>
+                        </td>
+                        <td class="text-end text-primary fw-bold">
+                            Bs. ${montoBs.toLocaleString('es-VE', {minimumFractionDigits: 2})}
+                        </td>
+                        <td class="text-end text-success fw-bold">
+                            $ ${montoUsd.toFixed(2)}
+                        </td>
+                        <td class="text-center font-monospace small">${p.referencia || '---'}</td>
+                        <td class="text-center pe-3">
+                            ${tieneRef
+                                ? `<button class="btn btn-sm btn-outline-primary rounded-circle btn-view-voucher"
+                                        title="Ver comprobante"
+                                        data-tipo="${tipoVoucher}"
+                                        data-ref="${p.referencia}"
+                                        style="width:30px;height:30px;padding:0;">
+                                        <i class="bi bi-eye"></i>
+                                    </button>`
+                                : `<span class="text-muted">—</span>`
+                            }
+                        </td>
+                    </tr>
+                `;
+
                 }).join('');
 
                 if (totalBsEl) totalBsEl.innerText = `Bs. ${totalBs.toLocaleString('es-VE', {minimumFractionDigits: 2})}`;
@@ -411,5 +430,16 @@ async function loadStatement(enrollmentId, programName) {
             tbody.innerHTML = '<tr><td colspan="5" class="text-center text-danger py-4">Error al conectar con el servidor.</td></tr>';
         }
     }
+
+    // Evento: botón ver comprobante
+document.getElementById('table-history-payments')?.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-view-voucher');
+    if (!btn) return;
+
+    const tipo = btn.dataset.tipo;
+    const ref  = btn.dataset.ref;
+
+    console.log('Voucher click:', tipo, ref);
+});
 
 })();

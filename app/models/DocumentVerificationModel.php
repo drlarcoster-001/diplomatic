@@ -157,16 +157,23 @@ public function getPendingList(array $filters = []): array
     }
 
     private function generateUniversalStudentCode(string $cohortCode): string
-    {
-        $stmtSiglas = $this->db->query("SELECT siglas_estudiantes FROM tbl_company_settings LIMIT 1");
-        $siglas = $stmtSiglas->fetchColumn() ?: 'DCS';
-        $prefix = "{$siglas}-{$cohortCode}-";
-        $sql = "SELECT COUNT(*) FROM tbl_students WHERE student_code LIKE ?";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([$prefix . '%']);
-        $count = (int)$stmt->fetchColumn();
-        return $prefix . str_pad((string)($count + 1), 3, '0', STR_PAD_LEFT);
-    }
+{
+    $stmtSiglas = $this->db->query("SELECT siglas_estudiantes FROM tbl_company_settings LIMIT 1");
+    $siglas = $stmtSiglas->fetchColumn() ?: 'DCS';
+
+    $prefix = "{$siglas}-{$cohortCode}-";
+
+    // Busca el número más alto ya usado para este diplomado/cohorte
+    $sql = "SELECT MAX(CAST(SUBSTRING_INDEX(student_code, '-', -1) AS UNSIGNED)) 
+            FROM tbl_students 
+            WHERE student_code LIKE ?";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([$prefix . '%']);
+    $maxNum = (int)$stmt->fetchColumn();
+
+    // Siguiente número = máximo + 1, nunca habrá duplicado
+    return $prefix . str_pad((string)($maxNum + 1), 3, '0', STR_PAD_LEFT);
+}
 
     public function updateEnrollmentStatus(int $enrollmentId, string $status, string $reason, int $adminId): bool
     {
