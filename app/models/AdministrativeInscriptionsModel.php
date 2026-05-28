@@ -233,18 +233,5 @@ final class AdministrativeInscriptionsModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     
-    /**
-     * Obtiene la tasa de cambio activa.
-     */
-    public function getActiveExchangeRate(): float 
-    {
-        try {
-            $sql = "SELECT dolar_bcv FROM tbl_financial_exchange_rates WHERE status = 'ACTIVE' ORDER BY rate_date DESC, id DESC LIMIT 1";
-            $stmt = $this->db->query($sql);
-            $rate = $stmt->fetchColumn();
-            return $rate ? (float)$rate : 474.0598; 
-        } catch (Exception $e) {
-            return 474.05; 
-        }
-    }
+
 }

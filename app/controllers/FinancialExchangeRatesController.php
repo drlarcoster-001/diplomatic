@@ -192,10 +192,7 @@ final class FinancialExchangeRatesController extends Controller
         try {
             // Instanciamos el modelo donde tienes tu función
             // (Ajusta el namespace si tu modelo se llama distinto)
-            $model = new \App\Models\FinancialExchangeRatesModel(); 
-            
-            // Llamamos a TU función
-            $result = $model->getRateByDate($date);
+            $result = $this->model->getRateByDate($date);
 
             // Como devuelve un array (FETCH_ASSOC), extraemos el dólar
             if ($result && isset($result['dolar_bcv'])) {

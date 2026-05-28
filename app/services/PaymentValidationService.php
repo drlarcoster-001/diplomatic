@@ -113,7 +113,7 @@ final class PaymentValidationService
         $db = (new Database())->getConnection();
 
         // Siempre buscar la tasa del día anterior a la fecha del comprobante
-        $fechaBusqueda = date('Y-m-d', strtotime($fechaComprobante . ' -1 day'));
+        $fechaBusqueda = $fechaComprobante;
 
         // Buscar hacia atrás hasta encontrar una tasa (máximo 10 días para cubrir feriados largos)
         $sql = "SELECT dolar_bcv, euro_bcv, rate_date 

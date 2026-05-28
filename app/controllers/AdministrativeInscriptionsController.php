@@ -58,7 +58,12 @@ final class AdministrativeInscriptionsController extends Controller
 
         // --- INYECCIÓN DE TASA DE CAMBIO DINÁMICA ---
         // Se obtiene la tasa real desde la base de datos usando el modelo
-        $tasaActiva = $this->model->getActiveExchangeRate();
+        $today = date('Y-m-d');
+        $rateRow = $this->model->getEffectiveRate($today);
+        if (!$rateRow) {
+            $this->redirect('/administrative/inscriptions?error=sin_tasa');
+        }
+        $tasaActiva = (float)$rateRow['dolar_bcv'];
 
         $this->view('administrative/inscriptions/create', [
             'title'         => 'Asistente de Inscripción Manual',

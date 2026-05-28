@@ -57,8 +57,7 @@ class ManagerialMovementsReportModel
                 $safeConcept = str_replace("'", "''", $concept);
                 $alias = str_replace(' ', '_', mb_strtoupper($safeConcept, 'UTF-8')); 
                 
-                $isEnrollment = (stripos($concept, 'INSCRIP') !== false || $concept === 'CUOTA 1');
-                $pPrefix = $isEnrollment ? 'ep' : 'fp';
+               $pPrefix = 'ep';
 
                 $dynamicColumns .= "
                     -- MONTO
@@ -130,8 +129,8 @@ class ManagerialMovementsReportModel
                     INNER JOIN tbl_academic_offerings o ON e.offering_id = o.id
                     INNER JOIN tbl_diplomados d ON o.diploma_id = d.id
                     LEFT JOIN tbl_financial_student_ledger l ON l.enrollment_id = e.id
-                    LEFT JOIN tbl_enrollments_payments ep ON ep.id = COALESCE(l.payment_id, (SELECT MAX(id) FROM tbl_enrollments_payments WHERE enrollment_id = e.id))
-                    LEFT JOIN tbl_financial_payments fp ON fp.id = COALESCE(l.payment_id, (SELECT MAX(id) FROM tbl_financial_payments WHERE student_id = s.id))
+                    LEFT JOIN tbl_enrollments_payments ep ON ep.id = l.payment_id
+                    
                     " . $queryBuilder['where'] . "
                     GROUP BY u.id, e.id, d.id, o.id
                     ORDER BY d.name ASC, u.last_name ASC";
