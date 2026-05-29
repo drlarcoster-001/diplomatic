@@ -387,5 +387,65 @@ public function getPaymentVoucher(): void
     exit;
 }
 
+/**
+ * ACCIÓN: Anular pago y registrar reversión contable en el ledger.
+ */
+public function deletePayment(): void
+{
+    if (ob_get_level() > 0) ob_end_clean();
+    header('Content-Type: application/json; charset=utf-8');
+
+    try {
+        $body         = json_decode(file_get_contents('php://input'), true) ?? [];
+        $paymentId    = (int)($body['payment_id']    ?? 0);
+        $userId       = (int)($body['student_id']    ?? 0);
+        $inputId      = (int)($body['enrollment_id'] ?? 0);
+
+        if ($paymentId <= 0 || $userId <= 0 || $inputId <= 0) {
+            throw new Exception('Parámetros incompletos.');
+        }
+
+        $finalId = $this->resolveEnrollmentId($inputId, $userId);
+        $this->model->eliminarPago($paymentId, $finalId);
+
+        echo json_encode(['ok' => true, 'message' => 'Pago eliminado correctamente.'], JSON_UNESCAPED_UNICODE);
+
+    } catch (Exception $e) {
+        echo json_encode(['ok' => false, 'message' => $e->getMessage()], JSON_UNESCAPED_UNICODE);
+    }
+    exit;
+}
+
+
+/**
+ * ACCIÓN: Recalcular el ledger aplicando la tasa BCV actual.
+ */
+public function recalculateLedger(): void
+{
+    if (ob_get_level() > 0) ob_end_clean();
+    header('Content-Type: application/json; charset=utf-8');
+
+    try {
+        $body    = json_decode(file_get_contents('php://input'), true) ?? [];
+        $userId  = (int)($body['student_id']    ?? 0);
+        $inputId = (int)($body['enrollment_id'] ?? 0);
+
+        if ($userId <= 0 || $inputId <= 0) {
+            throw new Exception('Parámetros incompletos.');
+        }
+
+        $finalId = $this->resolveEnrollmentId($inputId, $userId);
+        $this->model->recalcularLedger($finalId);
+
+        echo json_encode([
+            'ok'      => true,
+            'message' => 'Ledger recalculado correctamente.'
+        ], JSON_UNESCAPED_UNICODE);
+
+    } catch (Exception $e) {
+        echo json_encode(['ok' => false, 'message' => $e->getMessage()], JSON_UNESCAPED_UNICODE);
+    }
+    exit;
+}
 
     }

@@ -12,6 +12,7 @@ namespace App\Models;
 
 use App\Core\Database;
 use PDO;
+use Exception;
 
 class FinancialStudentStatementModel
 {
@@ -138,6 +139,8 @@ public function getPaymentHistoryByEnrollment(int $enrollmentId): array
 {
     $sql = "
         SELECT 
+            payment_id,
+            causa,
             fecha,
             formatted_date,
             concept,
@@ -146,12 +149,12 @@ public function getPaymentHistoryByEnrollment(int $enrollmentId): array
             tasa,
             -- Si el monto_usd es 0 o nulo en el JSON, lo calculamos para que no quede vacío
             IF(monto_usd > 0, monto_usd, ROUND(monto_real_bs / tasa, 2)) as monto_usd,
-            causa,
             tipo_pago,
             referencia
         FROM (
             SELECT 
                 ep.created_at as fecha,
+                ep.id as payment_id,
                 DATE_FORMAT(ep.created_at, '%d/%m/%Y') as formatted_date,
                 'Pago Inicial de Inscripción' as concept,
                 -- Ruta: detalles_transaccion -> monto_nativo
@@ -171,6 +174,7 @@ public function getPaymentHistoryByEnrollment(int $enrollmentId): array
 
             SELECT 
                 fp.created_at as fecha,
+                fp.id as payment_id,
                 DATE_FORMAT(fp.created_at, '%d/%m/%Y') as formatted_date,
                 'Abono a Cuenta / Cuota' as concept,
                 CAST(JSON_VALUE(fp.payment_metadata, '$.detalles_transaccion.monto_nativo') AS DECIMAL(12,2)) as monto_real_bs,
@@ -260,5 +264,115 @@ public function getPaymentVoucherData(string $tipo, string $referencia, int $enr
 
     return $result;
 }
+
+
+public function eliminarPago(int $paymentId, int $enrollmentId): bool
+{
+    $this->db->beginTransaction();
+
+    try {
+        $stmt = $this->db->prepare("
+            SELECT fp.id, fp.screenshot_path
+            FROM tbl_financial_payments fp
+            INNER JOIN tbl_student_matriculations m ON fp.matriculation_id = m.id
+            WHERE fp.id = ? AND m.enrollment_id = ? AND fp.status = 'APPROVED'
+            LIMIT 1
+        ");
+        $stmt->execute([$paymentId, $enrollmentId]);
+        $pago = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$pago) {
+            throw new Exception('Pago no encontrado.');
+        }
+
+        // 1. Eliminar archivo físico
+        if (!empty($pago['screenshot_path'])) {
+            $fullPath = dirname(__DIR__, 2) . '/public/' . $pago['screenshot_path'];
+            if (file_exists($fullPath)) {
+                unlink($fullPath);
+            }
+        }
+
+        // 2. Eliminar registro
+        $this->db->prepare(
+            "DELETE FROM tbl_financial_payments WHERE id = ?"
+        )->execute([$pago['id']]);
+
+        // 3. Recalcular ledger
+        $this->recalcularLedger($enrollmentId);
+
+        $this->db->commit();
+        return true;
+
+    } catch (Exception $e) {
+        $this->db->rollBack();
+        throw $e;
+    }
+}
+/**
+ * Recalcula los montos Bs. del ledger usando la tasa BCV actual.
+ * Lee la tasa desde tbl_exchange_rates (la más reciente).
+ */
+public function recalcularLedger(int $enrollmentId): bool
+{
+    // 1. Resetear todas las filas activas
+    $this->db->prepare("
+        UPDATE tbl_financial_student_ledger
+        SET amount_paid = 0, status = 'PENDIENTE', payment_id = NULL
+        WHERE enrollment_id = ? AND status != 'ANULADO'
+    ")->execute([$enrollmentId]);
+
+    // 2. Sumar total pagado de inscripción
+    // 2. Sumar total pagado de inscripción en USD
+    $stmtInsc = $this->db->prepare("
+        SELECT COALESCE(SUM(CAST(JSON_VALUE(payment_metadata, '$.monto_sistema_usd') AS DECIMAL(12,2))), 0) as total
+        FROM tbl_enrollments_payments
+        WHERE enrollment_id = ? AND status = 'APPROVED'
+    ");
+    $stmtInsc->execute([$enrollmentId]);
+    $totalInsc = (float)$stmtInsc->fetchColumn();
+
+    
+    // 3. Sumar total pagado de cuotas en USD
+    $stmtCuotas = $this->db->prepare("
+        SELECT COALESCE(SUM(CAST(JSON_VALUE(fp.payment_metadata, '$.monto_sistema_usd') AS DECIMAL(12,2))), 0) as total
+        FROM tbl_financial_payments fp
+        INNER JOIN tbl_student_matriculations m ON fp.matriculation_id = m.id
+        WHERE m.enrollment_id = ? AND fp.status = 'APPROVED'
+    ");
+    $stmtCuotas->execute([$enrollmentId]);
+    $totalCuotas = (float)$stmtCuotas->fetchColumn();
+
+    // 4. Total disponible para distribuir
+    $montoRestante = $totalInsc + $totalCuotas;
+
+    // 5. Distribuir en cascada sobre las cuotas en orden
+    $stmtFilas = $this->db->prepare("
+        SELECT id, amount_due
+        FROM tbl_financial_student_ledger
+        WHERE enrollment_id = ? AND status != 'ANULADO'
+        ORDER BY due_date ASC, id ASC
+    ");
+    $stmtFilas->execute([$enrollmentId]);
+    $filas = $stmtFilas->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($filas as $fila) {
+        if ($montoRestante <= 0) break;
+
+        $abonar = min($montoRestante, (float)$fila['amount_due']);
+        $status = $abonar >= (float)$fila['amount_due'] ? 'PAGADO' : 'ABONADO';
+
+        $this->db->prepare("
+            UPDATE tbl_financial_student_ledger
+            SET amount_paid = ?, status = ?
+            WHERE id = ?
+        ")->execute([$abonar, $status, $fila['id']]);
+
+        $montoRestante -= $abonar;
+    }
+
+    return true;
+}
+
 
 }

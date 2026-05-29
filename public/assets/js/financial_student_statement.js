@@ -54,22 +54,23 @@
                 }
 
                 if (term.length < 3) {
-                    hideAutocomplete();
+                    hideSearchGrid();
                     return;
                 }
 
                 clearTimeout(state.searchTimeout);
                 state.searchTimeout = setTimeout(() => {
                     fetchStudentSuggestions(term);
-                }, 300);
-            });
+                }, 350);
+            }); 
         }
 
         // 2. Evento del botón Limpiar (X)
         if (btnClear) {
             btnClear.addEventListener('click', () => {
                 searchInput.value = '';
-                resetWorkflow(true);
+                hideSearchGrid();
+                resetWorkflow(true)
             });
         }
 
@@ -90,10 +91,10 @@
 
         // 4. Cerrar autocompletado si se hace clic fuera
         document.addEventListener('click', (e) => {
-            if (searchInput && resultsContainer) {
-                if (!searchInput.contains(e.target) && !resultsContainer.contains(e.target)) {
-                    hideAutocomplete();
-                }
+            const section = document.getElementById('search-results-section');
+            const searchGroup = document.querySelector('.search-group-modern');
+            if (section && searchGroup && !searchGroup.contains(e.target) && !section.contains(e.target)) {
+                hideSearchGrid();
             }
         });
 
@@ -109,49 +110,85 @@
      * PASO 1: Buscar Estudiantes (Dropdown predictivo)
      */
     async function fetchStudentSuggestions(term) {
-        if (!resultsContainer) return;
+        const section = document.getElementById('search-results-section');
+        const tbody   = document.getElementById('search-results-tbody');
+        const counter = document.getElementById('search-results-count');
+        if (!tbody) return;
 
-        resultsContainer.innerHTML = '<div class="list-group-item text-center small py-3"><span class="spinner-border spinner-border-sm me-2"></span> Buscando...</div>';
-        resultsContainer.classList.remove('d-none');
+        tbody.innerHTML = `<tr><td colspan="5" class="text-center py-4">
+            <span class="spinner-border spinner-border-sm me-2 text-primary"></span>
+            <span class="text-muted">Buscando...</span>
+        </td></tr>`;
+        if (section) section.classList.remove('d-none');
 
         try {
             const response = await fetch(`${state.baseUrl}/financial/student_statement/searchStudents?term=${encodeURIComponent(term)}`);
             const result = await response.json();
 
             if (result.ok && result.data.length > 0) {
-                renderSuggestions(result.data);
+                renderSearchGrid(result.data);
             } else {
-                resultsContainer.innerHTML = '<div class="list-group-item text-center text-muted small py-3">No se encontraron coincidencias.</div>';
+                if (counter) counter.textContent = '0';
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-muted">
+                    <i class="bi bi-search me-2"></i>No se encontraron coincidencias.
+                </td></tr>`;
             }
         } catch (error) {
-            resultsContainer.innerHTML = '<div class="list-group-item text-center text-danger small py-3">Error de conexión.</div>';
+            tbody.innerHTML = `<tr><td colspan="5" class="text-center text-danger py-4">
+                <i class="bi bi-wifi-off me-2"></i>Error de conexión.
+            </td></tr>`;
         }
     }
 
-function renderSuggestions(students) {
-    resultsContainer.innerHTML = students.map(s => `
-        <button type="button" class="list-group-item list-group-item-action py-3 student-suggestion-item" 
-                data-id="${s.user_id}" 
-                data-enrollment="${s.enrollment_id}" 
-                data-name="${s.first_name} ${s.last_name}">
-            <div class="d-flex align-items-center">
-                <div class="icon-box-diplomado me-3 rounded-circle" style="width:40px; height:40px; display:flex; align-items:center; justify-content:center; background: rgba(102, 16, 242, 0.1); color:#6610f2;">
-                    <i class="bi bi-person-fill"></i>
-                </div>
-                <div>
-                    <div class="fw-bold text-dark">${s.first_name} ${s.last_name}</div>
-                    <small class="text-muted">ID: ${s.document_id} | ${s.diplomado}</small>
-                </div>
-            </div>
-        </button>
-    `).join('');
+    function renderSearchGrid(students) {
+        const tbody   = document.getElementById('search-results-tbody');
+        const counter = document.getElementById('search-results-count');
+        if (!tbody) return;
 
-    document.querySelectorAll('.student-suggestion-item').forEach(btn => {
-        btn.addEventListener('click', function() {
-            selectStudent(this.dataset.id, this.dataset.name);
+        if (counter) counter.textContent = students.length;
+
+tbody.innerHTML = students.map((s, i) => `
+            <tr style="cursor:pointer;" class="student-result-row" data-id="${s.user_id}" data-name="${s.first_name} ${s.last_name}">
+                <td class="ps-4 text-muted">${i + 1}</td>
+                <td>
+                    <div class="fw-bold text-dark">${s.first_name} ${s.last_name}</div>
+                    <small class="text-muted">${s.email || ''}</small>
+                </td>
+                <td class="font-monospace">${s.document_id}</td>
+                <td><span class="badge bg-light text-primary border rounded-pill">${s.diplomado || 'Sin programa'}</span></td>
+                <td class="text-center pe-4">
+                    <button class="btn btn-sm btn-primary rounded-pill px-3 btn-select-student"
+                            data-id="${s.user_id}"
+                            data-name="${s.first_name} ${s.last_name}">
+                        <i class="bi bi-folder2-open me-1"></i>Ver Cuenta
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+
+tbody.querySelectorAll('.btn-select-student').forEach(btn => {
+            btn.addEventListener('click', function() {
+                selectStudent(this.dataset.id, this.dataset.name);
+                document.getElementById('search-results-section')?.classList.add('d-none');
+                if (searchInput) searchInput.value = this.dataset.name;
+            });
         });
-    });
-}
+
+        tbody.querySelectorAll('.student-result-row').forEach(row => {
+            row.addEventListener('click', function(e) {
+                if (e.target.closest('.btn-select-student')) return;
+                selectStudent(this.dataset.id, this.dataset.name);
+                document.getElementById('search-results-section')?.classList.add('d-none');
+                if (searchInput) searchInput.value = this.dataset.name;
+            });
+        });
+    }
+
+    function hideSearchGrid() {
+        document.getElementById('search-results-section')?.classList.add('d-none');
+    }
+
+
 
 
 
@@ -255,7 +292,8 @@ async function loadStatement(enrollmentId, programName) {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
             showAlert('Error de Seguridad', result.message, 'error');
-            resetWorkflow(true); 
+            hideSearchGrid();
+                resetWorkflow(true);
         }
     } catch (error) {
         showAlert('Error', 'No se pudo conectar con el servidor financiero.', 'error');
@@ -388,7 +426,7 @@ const tipoVoucher = p.causa === 'Inscripción' ? 'inscripcion' : 'cuota';
 const tieneRef = p.referencia && p.referencia !== '---';
 
                 return `
-                    <tr>
+                    <tr data-bs="${montoBs}" data-usd="${montoUsd}">
                         <td class="ps-4 text-muted small">${p.formatted_date}</td>
                         <td>
                             <div class="fw-bold text-dark" style="font-size:0.85rem;">${p.concept}</div>
@@ -401,7 +439,7 @@ const tieneRef = p.referencia && p.referencia !== '---';
                             $ ${montoUsd.toFixed(2)}
                         </td>
                         <td class="text-center font-monospace small">${p.referencia || '---'}</td>
-                        <td class="text-center pe-3">
+                    <td class="text-center pe-3">
                             ${tieneRef
                                 ? `<button class="btn btn-sm btn-outline-primary rounded-circle btn-view-voucher"
                                         title="Ver comprobante"
@@ -413,7 +451,22 @@ const tieneRef = p.referencia && p.referencia !== '---';
                                 : `<span class="text-muted">—</span>`
                             }
                         </td>
+                        <td class="text-center pe-3">
+                            ${p.causa === 'Mensualidad'
+                                ? `<button class="btn btn-sm btn-outline-danger rounded-circle btn-delete-payment"
+                                        title="Eliminar pago"
+                                        data-payment-id="${p.payment_id}"
+                                        data-ref="${p.referencia || '---'}"
+                                        data-usd="${montoUsd}"
+                                        style="width:30px;height:30px;padding:0;">
+                                        <i class="bi bi-trash3"></i>
+                                   </button>`
+                                : `<span class="text-muted">—</span>`
+                            }
+                        </td>
                     </tr>
+
+
                 `;
 
                 }).join('');
@@ -441,5 +494,148 @@ document.getElementById('table-history-payments')?.addEventListener('click', (e)
 
     console.log('Voucher click:', tipo, ref);
 });
+
+// ── BOTÓN ELIMINAR PAGO ──────────────────────────────────────────────────
+    document.getElementById('table-history-payments')?.addEventListener('click', (e) => {
+        const btn = e.target.closest('.btn-delete-payment');
+        if (!btn) return;
+
+        const paymentId = btn.dataset.paymentId;
+        const ref       = btn.dataset.ref;
+        const amountUsd = btn.dataset.usd;
+        const row       = btn.closest('tr');
+
+        Swal.fire({
+            title: '¿Eliminar este pago?',
+            html: `
+                <div class="text-start p-2">
+                    <p class="mb-1"><strong>Referencia:</strong> <span class="font-monospace">${ref}</span></p>
+                    <p class="mb-1"><strong>Monto:</strong> <span class="text-success fw-bold">$ ${amountUsd}</span></p>
+                    <hr>
+                    <p class="text-danger small mb-0">
+                        <i class="bi bi-exclamation-triangle me-1"></i>
+                        Esta acción genera una reversión contable en el estado de cuenta y no puede deshacerse.
+                    </p>
+                </div>`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc3545',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: '<i class="bi bi-trash3 me-1"></i>Sí, eliminar',
+            cancelButtonText: 'Cancelar',
+            reverseButtons: true
+        }).then(async (result) => {
+            if (!result.isConfirmed) return;
+
+            // Cerrar el modal antes de proceder
+            const modalEl = document.getElementById('modalPayments');
+            if (modalEl) bootstrap.Modal.getInstance(modalEl)?.hide();
+
+            try {
+                const response = await fetch(`${state.baseUrl}/financial/student_statement/deletePayment`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        payment_id:    paymentId,
+                        student_id:    state.selectedStudentId,
+                        enrollment_id: state.selectedEnrollmentId
+                    })
+                });
+                const data = await response.json();
+
+                if (data.ok) {
+                    row.style.transition = 'opacity 0.4s';
+                    row.style.opacity = '0';
+                    setTimeout(() => {
+                        row.remove();
+                        recalcModalTotals();
+                    }, 400);
+
+                    // Refresca el ledger principal
+
+                    Swal.fire({
+                        title: '¡Pago eliminado!',
+                        text: 'El ledger ha sido actualizado.',
+                        icon: 'success',
+                        timer: 2500,
+                        showConfirmButton: false
+                    }).then(() => {
+                        loadStatement(state.selectedEnrollmentId,
+                            document.getElementById('info-current-diplomado')?.innerText || '');
+                    });
+                } else {
+                    Swal.fire('Error', data.message || 'No se pudo anular el pago.', 'error');
+                }
+            } catch (err) {
+                Swal.fire('Error', 'Fallo la conexión con el servidor.', 'error');
+            }
+        });
+    });
+
+    function recalcModalTotals() {
+        let totalBs  = 0;
+        let totalUsd = 0;
+
+        document.querySelectorAll('#table-history-payments tbody tr').forEach(tr => {
+            totalBs  += parseFloat(tr.dataset.bs  || 0);
+            totalUsd += parseFloat(tr.dataset.usd || 0);
+        });
+
+        const totalBsEl  = document.getElementById('total-bs-modal');
+        const totalUsdEl = document.getElementById('total-usd-modal');
+        if (totalBsEl)  totalBsEl.innerText  = `Bs. ${totalBs.toLocaleString('es-VE', {minimumFractionDigits: 2})}`;
+        if (totalUsdEl) totalUsdEl.innerText = `$ ${totalUsd.toFixed(2)}`;
+    }
+
+    // ── BOTÓN RECALCULAR LEDGER ──────────────────────────────────────────────
+    document.getElementById('btn-recalculate-ledger')?.addEventListener('click', async function() {
+        const btn = this;
+        const modalEl = document.getElementById('modalPayments');
+        if (modalEl) bootstrap.Modal.getInstance(modalEl)?.hide();
+        await new Promise(resolve => setTimeout(resolve, 400));
+
+        if (!state.selectedEnrollmentId) {
+            Swal.fire('Atención', 'No hay un estado de cuenta activo.', 'info');
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Recalculando...';
+
+        try {
+            const response = await fetch(`${state.baseUrl}/financial/student_statement/recalculateLedger`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    student_id:    state.selectedStudentId,
+                    enrollment_id: state.selectedEnrollmentId
+                })
+            });
+            const data = await response.json();
+
+            if (data.ok) {
+                // Refresca modal y ledger
+                fetchPaymentHistory(state.selectedEnrollmentId);
+                loadStatement(state.selectedEnrollmentId,
+                    document.getElementById('info-current-diplomado')?.innerText || '');
+
+                Swal.fire({
+                    title: '¡Ledger actualizado!',
+                    text: 'Los saldos han sido recalculados correctamente.',
+                    icon: 'success',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            } else {
+                Swal.fire('Error', data.message || 'No se pudo recalcular.', 'error');
+            }
+        } catch (err) {
+            Swal.fire('Error', 'Fallo la conexión.', 'error');
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="bi bi-arrow-repeat me-2"></i>Recalcular Ledger';
+        }
+    });
+
 
 })();

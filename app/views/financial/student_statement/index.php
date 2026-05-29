@@ -46,22 +46,49 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
         </div>
         </div>
 
-    <div class="row mb-4 justify-content-center">
-        <div class="col-lg-8">
-            <div class="search-group-modern d-flex align-items-center position-relative">
-                <i class="bi bi-search text-primary ms-3 fs-5"></i>
-                <input type="text" id="search-input" class="form-control form-control-lg border-0 shadow-none bg-transparent" 
-                        placeholder="Escriba nombre o cédula del estudiante..." autocomplete="off">
-                <button class="btn btn-link text-muted d-none" type="button" id="btn-clear-input">
-                    <i class="bi bi-x-circle"></i>
-                </button>
-                
-                <div id="autocomplete-results" class="list-group position-absolute w-100 shadow-lg d-none" style="z-index: 1000;">
-                    </div>
-            </div>
-            <input type="hidden" id="selected-student-id">
+<!-- DESPUÉS: esto -->
+<div class="row mb-4 justify-content-center">
+    <div class="col-lg-8">
+        <div class="search-group-modern d-flex align-items-center position-relative">
+            <i class="bi bi-search text-primary ms-3 fs-5"></i>
+            <input type="text" id="search-input" class="form-control form-control-lg border-0 shadow-none bg-transparent"
+                   placeholder="Escriba nombre o cédula del estudiante..." autocomplete="off">
+            <button class="btn btn-link text-muted d-none" type="button" id="btn-clear-input">
+                <i class="bi bi-x-circle"></i>
+            </button>
+        </div>
+        <input type="hidden" id="selected-student-id">
+    </div>
+</div>
+
+
+<div id="search-results-section" class="d-none animate__animated animate__fadeIn mb-4">
+    <div class="d-flex align-items-center justify-content-between mb-2 px-1">
+        <small class="text-muted fw-bold text-uppercase">
+            <i class="bi bi-people me-1"></i>Resultados de Búsqueda 
+            <span class="badge bg-primary rounded-pill ms-1" id="search-results-count">0</span>
+        </small>
+        <small class="text-muted">Haga clic en un estudiante para ver su estado de cuenta</small>
+    </div>
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0" id="table-search-results">
+                <thead class="bg-light small text-muted">
+                    <tr>
+                        <th class="ps-4" style="width:5%;">#</th>
+                        <th style="width:35%;">Estudiante</th>
+                        <th style="width:15%;">Cédula</th>
+                        <th style="width:30%;">Carrera / Programa</th>
+                        <th class="text-center pe-4" style="width:15%;">Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="search-results-tbody" class="small">
+                    <!-- filas generadas por JS -->
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 
     <div id="enrollments-section" class="d-none animate__animated animate__fadeIn mb-5">
         <div class="d-flex align-items-center mb-3">
@@ -174,16 +201,17 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
                 <div class="modal-body p-0">
                     <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0" id="table-history-payments">
-                            <thead class="bg-light small text-muted">
-                                <tr>
-                                    <th class="ps-4" style="width: 13%;">Fecha</th>
-                                    <th style="width: 28%;">Concepto / Detalle</th>
-                                    <th class="text-end" style="width: 13%;">Monto Bs.</th>
-                                    <th class="text-end" style="width: 15%;">Monto USD ($)</th>
-                                    <th class="text-center" style="width: 18%;">Nro. Referencia</th>
-                                    <th class="text-center pe-3" style="width: 13%;">Comprobante</th>
-                                </tr>
-                            </thead>
+                        <thead class="bg-light small text-muted">
+                            <tr>
+                                <th class="ps-4" style="width: 12%;">Fecha</th>
+                                <th style="width: 26%;">Concepto / Detalle</th>
+                                <th class="text-end" style="width: 12%;">Monto Bs.</th>
+                                <th class="text-end" style="width: 14%;">Monto USD ($)</th>
+                                <th class="text-center" style="width: 16%;">Nro. Referencia</th>
+                                <th class="text-center" style="width: 10%;">Comprobante</th>
+                                <th class="text-center pe-3" style="width: 10%;">Eliminar</th>
+                            </tr>
+                        </thead>
 
                             <tbody class="small">
                                 </tbody>
@@ -193,17 +221,26 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
                                     <td class="text-end text-primary py-3" id="total-bs-modal">Bs. 0,00</td>
                                     <td class="text-end text-success py-3 fs-6" id="total-usd-modal">$ 0.00</td>
                                     <td></td>
+                                    <td></td>
+                                    <td></td> <!-- columna extra para Anular -->
                                 </tr>
                             </tfoot>
                         </table>
 
                     </div>
                 </div>
-                <div class="modal-footer border-0">
-                    <button type="button" class="btn btn-danger rounded-pill px-4 shadow-sm" id="btn-pdf-payments">
-                        <i class="bi bi-file-earmark-pdf me-2"></i>Descargar PDF
+                <div class="modal-footer border-0 justify-content-between">
+                    <!-- Izquierda: Recalcular -->
+                    <button type="button" class="btn btn-outline-warning rounded-pill px-4 shadow-sm fw-bold" id="btn-recalculate-ledger">
+                        <i class="bi bi-arrow-repeat me-2"></i>Recalcular Ledger
                     </button>
-                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cerrar</button>
+                    <!-- Derecha: PDF + Cerrar -->
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-danger rounded-pill px-4 shadow-sm" id="btn-pdf-payments">
+                            <i class="bi bi-file-earmark-pdf me-2"></i>Descargar PDF
+                        </button>
+                        <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
                 </div>
             </div>
         </div>
