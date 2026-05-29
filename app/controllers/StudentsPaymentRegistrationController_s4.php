@@ -139,8 +139,8 @@ public function store(): void
         // 4. RECONSTRUCCIÓN DEL MASTER JSON (Garantizando tipos de datos numéricos)
         $masterJson = [
             'metodo'               => $method,
-            'monto_sistema_usd'    => (float)$montoSistemaUsd,
-            'tasa_cambio'          => (float)$tasaFinal,
+            'monto_sistema_usd'    => round($montoSistemaUsd, 2),
+            'tasa_cambio'          => round($tasaFinal, 2),
             'detalles_origen'      => [
                 'identificador'      => $identificadorEstudiante,
                 'cuenta_correo_telf' => $rawMetadata['detalles_origen']['cuenta_correo_telf'] ?? 'N/A',
@@ -150,7 +150,7 @@ public function store(): void
             'detalles_transaccion' => [
                 'referencia'        => $rawMetadata['detalles_transaccion']['referencia'] ?? 'N/A',
                 'fecha_comprobante' => $fechaComprobante, // FECHA REAL DEL PAGO (No del servidor)
-                'monto_nativo'      => (float)$montoNativo,
+                'monto_nativo'      => round($montoNativo, 2),
                 'moneda_nativa'     => $monedaFinal
             ],
             'auditoria' => [
@@ -189,7 +189,7 @@ public function store(): void
         $payload = [
             'user_id'         => $userId,
             'offering_id'     => $offeringId,
-            'amount'          => (float)$montoNativo, 
+            'amount'          => round($montoNativo, 2),
             'currency'        => $monedaFinal,
             'method'          => $method,
             'reference_id'    => $masterJson['detalles_transaccion']['referencia'],

@@ -112,21 +112,21 @@ if ($method === 'PAGOMOVIL') {
                 $montoSistemaUsd = $calculo['monto_usd'];
                 $tasaFinal       = $calculo['tasa'];
                 $monedaFinal     = 'BS';
-                $montoParaDB     = $montoNativo;
+                $montoParaDB     = round($montoNativo, 2);
 
             } else {
                 $montoSistemaUsd = round($montoNativo, 2);
                 $monedaFinal     = ($method === 'BINANCE') ? 'USDT' : 'USD';
                 $tasaFinal       = 1.00;
-                $montoParaDB     = $montoNativo;
+                $montoParaDB     = round($montoNativo, 2);
             }
             
 
             // 3. CONSTRUCCIÓN DEL MASTER JSON NORMALIZADO (Para auditoría y reportes)
             $masterJson = [
                 'metodo'            => $method,
-                'monto_sistema_usd' => $montoSistemaUsd, // Valor referencial para contabilidad en USD
-                'tasa_cambio'       => $tasaFinal,
+                'monto_sistema_usd' => round($montoSistemaUsd, 2),
+                'tasa_cambio'       => round($tasaFinal, 2),
                 'detalles_origen'   => [
                     'identificador'      => $rawMetadata['detalles_origen']['identificador'] ?? 'N/A',
                     'cuenta_correo_telf' => $rawMetadata['detalles_origen']['cuenta_correo_telf'] ?? 'N/A',
