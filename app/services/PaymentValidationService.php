@@ -152,7 +152,7 @@ final class PaymentValidationService
 
         return [
             'monto_usd'  => $montoUsd,
-            'tasa'       => round($tasa, 4),
+            'tasa'       => round($tasa, 2),
             'tasa_fecha' => $tasaData['rate_date']
         ];
     }

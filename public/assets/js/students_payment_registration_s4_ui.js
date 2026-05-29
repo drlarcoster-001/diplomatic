@@ -249,7 +249,8 @@ window.StudentsUI = {
         const data = await response.json();
 
         if (data.success && data.tasa > 0) {
-            inputTasa.value = parseFloat(data.tasa).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            const tasaLimpia = Math.round(parseFloat(data.tasa) * 100) / 100;
+            inputTasa.value = tasaLimpia.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             if (inUsd) inUsd.value = '---';
             if (inBs)  inBs.value  = '';
             

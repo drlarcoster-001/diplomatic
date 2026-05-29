@@ -369,7 +369,7 @@ document.getElementById('btnOptCash')?.addEventListener('click', async function(
                     const response = await fetch(`${getBaseUrl()}/students/inscriptions/getRateByDate?date=${fecha}`);
                     const res = await response.json();
                     if (res.success && res.dolar_bcv > 0) {
-                        sysTasaBcv = parseFloat(res.dolar_bcv);
+                        sysTasaBcv = Math.round(parseFloat(res.dolar_bcv) * 100) / 100;
                         tasaInput.value = sysTasaBcv.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                         if (usdInput) usdInput.value = '---';
                     } else {

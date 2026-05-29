@@ -579,7 +579,7 @@ async function buscarTasaPorFecha(fechaStr) {
         const data = await response.json();
 
      if (data.success && data.tasa > 0) {
-            const tasaFinal = parseFloat(data.tasa);
+            const tasaFinal = Math.round(parseFloat(data.tasa) * 100) / 100;
             inputTasa.value = tasaFinal.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             
             // Habilitar el campo USD ahora que hay tasa

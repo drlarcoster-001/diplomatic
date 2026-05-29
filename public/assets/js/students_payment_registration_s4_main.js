@@ -188,7 +188,7 @@
             const response = await fetch(`${BASE_URL}/students/payment_registration/getLatestExchangeRate`);
             const res = await response.json();
             if(res.status === 'success') {
-                window.sysTasaBcv = parseFloat(res.rate) || 1.00;
+                window.sysTasaBcv = Math.round(parseFloat(res.rate) * 100) / 100 || 1.00;
                 const label = document.getElementById('displayTasaBcv');
                 if (label && window.StudentsUtils) {
                     label.innerText = window.StudentsUtils.formatNumberToCurrency(window.sysTasaBcv) + " Bs.";

@@ -128,7 +128,8 @@ if ($currency === 'BS') {
             
             // Si tienes un método que busca por fecha úsalo aquí. 
             // Si no, usamos el que ya vi que tienes para traer la tasa activa:
-            $tasa = (float) $modelAdmin->getActiveExchangeRate(); 
+            $rateRow = \App\Services\PaymentValidationService::obtenerTasaCorrecta(date('Y-m-d'));
+            $tasa = $rateRow ? round((float)$rateRow['dolar_bcv'], 2) : 0.00;
             
             if ($tasa > 0) {
                 echo json_encode(['success' => true, 'tasa' => $tasa]);

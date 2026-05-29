@@ -166,7 +166,7 @@ class FinancialPaymentRegistrationModel
         $sql = "SELECT dolar_bcv FROM tbl_financial_exchange_rates WHERE status = 'ACTIVE' ORDER BY rate_date DESC, id DESC LIMIT 1";
         $stmt = $this->db->query($sql);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result ? (float)$result['dolar_bcv'] : 1.00;
+        return $result ? round((float)$result['dolar_bcv'], 2) : 1.00;
     }
 
 public function getEffectiveRate(string $date): array|false

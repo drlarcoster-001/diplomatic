@@ -90,7 +90,7 @@ final class StudentsInscriptionsController extends Controller
             $tasaData = PaymentValidationService::obtenerTasaCorrecta(date('Y-m-d'));
             
             // Si no hay tasa en absoluto, enviamos 0.00 para que el JS bloquee
-            $tasaBcv = $tasaData ? (float)$tasaData['dolar_bcv'] : 0.00;
+            $tasaBcv = $tasaData ? round((float)$tasaData['dolar_bcv'], 2) : 0.00;
 
             echo json_encode([
                 'success' => true, 
@@ -124,8 +124,8 @@ final class StudentsInscriptionsController extends Controller
             if ($rateData) {
                 echo json_encode([
                     'success'    => true,
-                    'dolar_bcv'  => (float)$rateData['dolar_bcv'],
-                    'euro_bcv'   => (float)$rateData['euro_bcv'],
+                    'dolar_bcv'  => round((float)$rateData['dolar_bcv'], 2),
+                    'euro_bcv'   => round((float)$rateData['euro_bcv'], 2),
                     'found_date' => $rateData['rate_date']
                 ]);
             } else {
