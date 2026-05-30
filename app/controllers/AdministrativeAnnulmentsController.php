@@ -44,14 +44,33 @@ final class AdministrativeAnnulmentsController extends Controller
      * Responde a la búsqueda inteligente por cédula, nombre o diplomado.
      */
     public function list(): void {
-        $term = $_GET['term'] ?? '';
-        try {
-            $data = $this->model->getApprovedEnrollments($term);
-            $this->jsonFinal($data);
-        } catch (Throwable $e) {
-            $this->jsonFinal(['error' => 'Error al listar inscripciones: ' . $e->getMessage()], 500);
-        }
+            $student   = trim($_GET['student']   ?? '');
+            $diplomado = trim($_GET['diplomado'] ?? '');
+            $dateFrom  = trim($_GET['date_from'] ?? '');
+            $dateTo    = trim($_GET['date_to']   ?? '');
+            $page      = max(1, (int)($_GET['page'] ?? 1));
+
+             
+
+
+
+            try {
+                $result = $this->model->getApprovedEnrollments($student, $diplomado, $dateFrom, $dateTo, $page, 25);
+                $this->jsonFinal($result);
+            } catch (Throwable $e) {
+                $this->jsonFinal(['error' => 'Error al listar: ' . $e->getMessage()], 500);
+            }
+}
+
+public function getDiplomados(): void {
+    try {
+        $data = $this->model->getDiplomados();
+        $this->jsonFinal($data);
+    } catch (Throwable $e) {
+        $this->jsonFinal([]);
     }
+}
+
 
     /**
      * Endpoint para el Popup (Modal). 

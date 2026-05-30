@@ -39,25 +39,55 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
         </div>
     </div>
 
-    <div class="card border-0 shadow-sm rounded-4 mb-4 animate__animated animate__fadeIn">
-        <div class="card-body p-3">
-            <div class="position-relative">
-                <div class="input-group input-group-lg border rounded-pill overflow-hidden bg-white shadow-sm">
-                    <span class="input-group-text bg-white border-0 text-muted ps-3">
-                        <i class="bi bi-search"></i>
-                    </span>
-                    <input type="text" id="search-input" class="form-control border-0 shadow-none bg-transparent py-3" 
-                           placeholder="Escriba nombre o cédula del estudiante..." autocomplete="off">
-                    <button class="btn btn-white border-0 text-muted d-none" type="button" id="btn-clear-input">
-                        <i class="bi bi-x-circle-fill"></i>
-                    </button>
+<div class="card border-0 shadow-sm rounded-4 mb-4 animate__animated animate__fadeIn">
+    <div class="card-body p-4">
+        <div class="row g-3 align-items-end">
+            <div class="col-md-10">
+                <label class="form-label small fw-bold text-secondary text-uppercase mb-1">
+                    <i class="bi bi-person-search me-1"></i> Buscar Estudiante
+                </label>
+                <div class="input-group border rounded-3 overflow-hidden">
+                    <span class="input-group-text bg-white border-0 text-muted"><i class="bi bi-search"></i></span>
+                    <input type="text" id="search-input" class="form-control border-0 shadow-none bg-white"
+                           placeholder="Cédula o nombre del estudiante..." autocomplete="off">
                 </div>
-                <div id="autocomplete-results" class="list-group position-absolute w-100 shadow-lg d-none mt-2" 
-                     style="z-index: 1050; border-radius: 15px; overflow: hidden; border: 1px solid #eee;">
-                </div>
+            </div>
+            <div class="col-md-2 d-flex gap-2">
+                <button type="button" class="btn btn-warning rounded-pill px-3 fw-bold shadow-sm flex-grow-1" id="btn-search">
+                    <i class="bi bi-search me-1"></i> Buscar
+                </button>
+                <button type="button" class="btn btn-light rounded-pill px-3 fw-bold text-muted border shadow-sm" id="btn-clear-input" title="Limpiar">
+                    <i class="bi bi-eraser"></i>
+                </button>
             </div>
         </div>
     </div>
+</div>
+
+<div id="search-results-area" class="d-none mb-4 animate__animated animate__fadeIn">
+    <div class="d-flex justify-content-between align-items-center mb-2 px-1">
+        <span id="search-results-info" class="small text-muted"></span>
+        <div id="search-pagination-top"></div>
+    </div>
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="ps-4 py-3 text-secondary small text-uppercase" style="width:50px;">#</th>
+                        <th class="py-3 text-secondary small text-uppercase">Cédula</th>
+                        <th class="py-3 text-secondary small text-uppercase">Nombre</th>
+                        <th class="py-3 text-secondary small text-uppercase">Correo</th>
+                    </tr>
+                </thead>
+                <tbody id="search-table-body"></tbody>
+            </table>
+        </div>
+    </div>
+    <div class="d-flex justify-content-end mt-3">
+        <div id="search-pagination-bottom"></div>
+    </div>
+</div>
 
     <div id="certificates-area" class="d-none animate__animated animate__fadeIn">
         

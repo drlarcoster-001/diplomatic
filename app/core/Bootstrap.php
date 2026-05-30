@@ -357,6 +357,7 @@ final class Bootstrap
         $router->get('/administrative/annulments', [AdministrativeAnnulmentsController::class, 'index']);
         $router->get('/administrative/annulments/list', [AdministrativeAnnulmentsController::class, 'list']);
         $router->get('/administrative/annulments/getDetails', [AdministrativeAnnulmentsController::class, 'getDetails']);
+        $router->get('/administrative/annulments/getDiplomados', [AdministrativeAnnulmentsController::class, 'getDiplomados']);
         $router->post('/administrative/annulments/process', [AdministrativeAnnulmentsController::class, 'process']);
 
         // RUTAS DE REACTIVACIÓN

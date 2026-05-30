@@ -41,34 +41,70 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
         </a>
     </div>
 
-    <div class="card border-0 shadow-sm rounded-4 mb-4 animate__animated animate__fadeIn">
-        <div class="card-body p-4">
-            <div class="row align-items-center">
-                <div class="col-md-8 position-relative">
-                    <label class="form-label small fw-bold text-secondary text-uppercase mb-2">
-                        <i class="bi bi-person-search me-1"></i> Localizar Inscripción
-                    </label>
-                    <div class="input-group input-group-lg border rounded-3 overflow-hidden">
-                        <span class="input-group-text bg-white border-0 text-muted"><i class="bi bi-search"></i></span>
-                        <input type="text" id="search-annulment" class="form-control border-0 shadow-none bg-white" 
-                               placeholder="Cédula, nombre o diplomado..." autocomplete="off">
-                    </div>
-                </div>
-                <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                    <button type="button" class="btn btn-light rounded-pill px-4 fw-bold text-muted border shadow-sm" id="btn-clear-filter">
-                        <i class="bi bi-eraser me-1"></i> Limpiar Filtros
-                    </button>
+<div class="card border-0 shadow-sm rounded-4 mb-4 animate__animated animate__fadeIn">
+    <div class="card-body p-4">
+        <div class="row g-3 align-items-end">
+
+            <div class="col-md-3">
+                <label class="form-label small fw-bold text-secondary text-uppercase mb-1">
+                    <i class="bi bi-person-search me-1"></i> Estudiante
+                </label>
+                <div class="input-group border rounded-3 overflow-hidden">
+                    <span class="input-group-text bg-white border-0 text-muted"><i class="bi bi-search"></i></span>
+                    <input type="text" id="filter-student" class="form-control border-0 shadow-none bg-white"
+                           placeholder="Cédula o nombre..." autocomplete="off">
                 </div>
             </div>
+
+            <div class="col-md-3">
+    <label class="form-label small fw-bold text-secondary text-uppercase mb-1">
+        <i class="bi bi-bookmark-fill me-1"></i> Diplomado
+    </label>
+    <select id="filter-diplomado" class="form-select border rounded-3 shadow-none">
+        <option value="">Todos los diplomados</option>
+    </select>
+</div>
+
+            <div class="col-md-2">
+                <label class="form-label small fw-bold text-secondary text-uppercase mb-1">
+                    <i class="bi bi-calendar-event me-1"></i> Desde
+                </label>
+                <input type="date" id="filter-date-from" class="form-control border rounded-3 shadow-none">
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label small fw-bold text-secondary text-uppercase mb-1">
+                    <i class="bi bi-calendar-check me-1"></i> Hasta
+                </label>
+                <input type="date" id="filter-date-to" class="form-control border rounded-3 shadow-none">
+            </div>
+
+            <div class="col-md-2 d-flex gap-2">
+                <button type="button" class="btn btn-danger rounded-pill px-3 fw-bold shadow-sm flex-grow-1" id="btn-search">
+                    <i class="bi bi-search me-1"></i> Buscar
+                </button>
+                <button type="button" class="btn btn-light rounded-pill px-3 fw-bold text-muted border shadow-sm" id="btn-clear-filter" title="Limpiar">
+                    <i class="bi bi-eraser"></i>
+                </button>
+            </div>
+
         </div>
     </div>
+</div>
 
     <div id="results-area" class="d-none animate__animated animate__fadeIn">
+
+    <div class="d-flex justify-content-between align-items-center mb-2 px-1">
+        <span id="results-info" class="small text-muted"></span>
+        <div id="pagination-top"></div>
+    </div>
+
         <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
                     <thead class="bg-light">
                         <tr>
+                            <th class="ps-4 py-3 text-secondary small text-uppercase" style="width:50px;">#</th>
                             <th class="ps-4 py-3 text-secondary small text-uppercase">Cédula</th>
                             <th class="py-3 text-secondary small text-uppercase">Estudiante</th>
                             <th class="py-3 text-secondary small text-uppercase">Diplomado / Programa</th>
@@ -81,6 +117,10 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
                 </table>
             </div>
         </div>
+    </div>
+
+    <div class="d-flex justify-content-end mt-3">
+        <div id="pagination-bottom"></div>
     </div>
 
     <div id="empty-state" class="py-5 text-center animate__animated animate__fadeIn">

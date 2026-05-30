@@ -206,4 +206,36 @@ class AdministrativeCertificatesModel
             return null;
         }
     }
+
+    public function searchStudentsPaged(string $term, int $limit, int $offset): array
+{
+    try {
+        $t = "%{$term}%";
+        $sql = "SELECT DISTINCT u.id as user_id, u.first_name, u.last_name, u.document_id, u.email
+                FROM tbl_users u
+                INNER JOIN tbl_students s ON u.id = s.user_id
+                WHERE u.document_id LIKE '{$t}' OR u.first_name LIKE '{$t}' OR u.last_name LIKE '{$t}'
+                ORDER BY u.last_name ASC
+                LIMIT {$limit} OFFSET {$offset}";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Throwable $e) {
+        return [];
+    }
+}
+
+public function countStudents(string $term): int
+{
+    try {
+        $t = "%{$term}%";
+        $sql = "SELECT COUNT(DISTINCT u.id)
+                FROM tbl_users u
+                INNER JOIN tbl_students s ON u.id = s.user_id
+                WHERE u.document_id LIKE '{$t}' OR u.first_name LIKE '{$t}' OR u.last_name LIKE '{$t}'";
+        $stmt = $this->db->query($sql);
+        return (int) $stmt->fetchColumn();
+    } catch (Throwable $e) {
+        return 0;
+    }
+}
 }

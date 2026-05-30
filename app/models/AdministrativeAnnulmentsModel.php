@@ -66,46 +66,78 @@ class AdministrativeAnnulmentsModel
      * Obtiene la lista de inscripciones APROBADAS para alimentar la grid inicial.
      * FIX: Se añadió e.status para corregir el badge 'null'
      */
-    public function getApprovedEnrollments(string $search = ''): array
-    {
-        try {
-            $sql = "SELECT 
-                        e.id as enrollment_id,
-                        u.document_id,
-                        u.first_name,
-                        u.last_name,
-                        d.name as diplomado,
-                        c.name as cohorte,
-                        e.status, -- <--- ESTA LÍNEA FALTABA (Corrige el badge null)
-                        e.created_at
-                    FROM tbl_enrollments e
+
+    public function getApprovedEnrollments(
+    string $student   = '',
+    string $diplomado = '',
+    string $dateFrom  = '',
+    string $dateTo    = '',
+    int    $page      = 1,
+    int    $perPage   = 25
+): array {
+    try {
+        $where  = ["e.status = 'APROBADO'"];
+        $params = [];
+
+        if ($student !== '') {
+    $s = "%{$student}%";
+    $where[] = "(u.document_id LIKE '{$s}' OR u.first_name LIKE '{$s}' OR u.last_name LIKE '{$s}')";
+}
+
+        if ($diplomado !== '') {
+    $where[]              = "d.name = :diplomado";
+    $params[':diplomado'] = $diplomado;
+}
+        if ($dateFrom !== '') {
+            $where[]             = "DATE(e.created_at) >= :dateFrom";
+            $params[':dateFrom'] = $dateFrom;
+        }
+        if ($dateTo !== '') {
+            $where[]           = "DATE(e.created_at) <= :dateTo";
+            $params[':dateTo'] = $dateTo;
+        }
+
+        $whereSQL = 'WHERE ' . implode(' AND ', $where);
+
+        $baseSQL = "FROM tbl_enrollments e
                     INNER JOIN tbl_users u ON e.user_id = u.id
                     INNER JOIN tbl_academic_offerings ao ON e.offering_id = ao.id
                     INNER JOIN tbl_diplomados d ON ao.diploma_id = d.id
                     INNER JOIN tbl_cohortes c ON ao.cohort_id = c.id
-                    WHERE e.status = 'APROBADO'";
+                    {$whereSQL}";
 
-            if ($search !== '') {
-                $sql .= " AND (u.document_id LIKE :s 
-                           OR u.first_name LIKE :s 
-                           OR u.last_name LIKE :s 
-                           OR d.name LIKE :s)";
-            }
+        $stmtCount = $this->db->prepare("SELECT COUNT(*) {$baseSQL}");
+        $stmtCount->execute($params);
+        $total = (int) $stmtCount->fetchColumn();
+        $pages = max(1, (int) ceil($total / $perPage));
 
-            $sql .= " ORDER BY e.created_at DESC LIMIT 100";
+        $offset = ($page - 1) * $perPage;
 
-            $stmt = $this->db->prepare($sql);
-            if ($search !== '') {
-                $stmt->bindValue(':s', "%$search%");
-            }
-            $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (Throwable $e) {
-            error_log("Error en getApprovedEnrollments: " . $e->getMessage());
-            return [];
+        $sql = "SELECT e.id as enrollment_id, u.document_id, u.first_name, u.last_name,
+                       d.name as diplomado, c.name as cohorte, e.status, e.created_at
+                {$baseSQL}
+                ORDER BY e.created_at DESC
+                LIMIT :limit OFFSET :offset";
+
+        $stmt = $this->db->prepare($sql);
+        foreach ($params as $key => $value) {
+            $stmt->bindValue($key, $value);
         }
-    }
+        $stmt->bindValue(':limit',  $perPage, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset,  PDO::PARAM_INT);
+        $stmt->execute();
 
+        return [
+            'data'  => $stmt->fetchAll(PDO::FETCH_ASSOC),
+            'total' => $total,
+            'pages' => $pages,
+            'page'  => $page,
+        ];
+    } catch (Throwable $e) {
+        error_log("Error en getApprovedEnrollments: " . $e->getMessage());
+        return ['data' => [], 'total' => 0, 'pages' => 1, 'page' => 1];
+    }
+}
     /**
      * Ejecuta la lógica de cancelación condicional y limpieza de registros.
      * FIX: Ahora permite anular aunque no exista el registro en tbl_students
@@ -174,4 +206,16 @@ class AdministrativeAnnulmentsModel
             return ['success' => false, 'message' => 'Error de base de datos al procesar la anulación: ' . $e->getMessage()];
         }
     }
+
+public function getDiplomados(): array {
+    $stmt = $this->db->query(
+        "SELECT DISTINCT d.id, d.name 
+         FROM tbl_diplomados d
+         INNER JOIN tbl_academic_offerings ao ON ao.diploma_id = d.id
+         INNER JOIN tbl_enrollments e ON e.offering_id = ao.id
+         WHERE e.status = 'APROBADO'
+         ORDER BY d.name"
+    );
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

@@ -21,9 +21,14 @@
 
     // Referencias centralizadas al DOM
     const DOM = {
-        searchInput: document.getElementById('search-input'),
-        resultsBox: document.getElementById('autocomplete-results'),
-        btnClear: document.getElementById('btn-clear-input'),
+        searchInput:        document.getElementById('search-input'),
+        btnSearch:          document.getElementById('btn-search'),
+        btnClear:           document.getElementById('btn-clear-input'),
+        searchResultsArea:  document.getElementById('search-results-area'),
+        searchTableBody:    document.getElementById('search-table-body'),
+        searchInfo:         document.getElementById('search-results-info'),
+        paginTop:           document.getElementById('search-pagination-top'),
+        paginBot:           document.getElementById('search-pagination-bottom'),
         
         certificatesArea: document.getElementById('certificates-area'),
         emptyState: document.getElementById('empty-state'),
@@ -58,23 +63,15 @@
             });
         }
 
-        // 1. Buscador con Debounce
+        // 1. Buscar con Enter o botón
         if (DOM.searchInput) {
-            DOM.searchInput.addEventListener('input', (e) => {
-                const term = e.target.value.trim();
-                if (DOM.btnClear) DOM.btnClear.classList.toggle('d-none', term.length === 0);
-
-                if (term.length < 3) {
-                    DOM.resultsBox.classList.add('d-none');
-                    return;
-                }
-
-                clearTimeout(state.searchTimeout);
-                state.searchTimeout = setTimeout(() => app.fetchStudents(term), 300);
+            DOM.searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') app.fetchStudents(1);
             });
         }
+        DOM.btnSearch?.addEventListener('click', () => app.fetchStudents(1));
 
-        // 2. Limpieza de búsqueda
+        // 2. Limpieza
         DOM.btnClear?.addEventListener('click', () => {
             DOM.searchInput.value = '';
             app.resetWorkflow();
@@ -96,12 +93,8 @@
         DOM.btnDownload?.addEventListener('click', () => app.executeFinalizeDownload());
         DOM.btnSendEmail?.addEventListener('click', () => app.executeSendEmail());
 
-        // Cerrar autocomplete al hacer clic fuera
-        document.addEventListener('click', (e) => {
-            if (DOM.searchInput && !DOM.searchInput.contains(e.target)) {
-                DOM.resultsBox.classList.add('d-none');
-            }
-        });
+
+        
     });
 
     /**
@@ -127,43 +120,58 @@
         /**
          * NIVEL 1: Búsqueda
          */
-        fetchStudents: async (term) => {
-            app.log(`1. Iniciando búsqueda: ${term}`);
-            DOM.resultsBox.innerHTML = '<div class="list-group-item text-center py-3"><span class="spinner-border spinner-border-sm me-2 text-warning"></span> Buscando...</div>';
-            DOM.resultsBox.classList.remove('d-none');
+        fetchStudents: async (page = 1) => {
+    const term = document.getElementById('search-input')?.value.trim() || '';
+    if (term.length < 2) return;
 
-            try {
-                const res = await fetch(`${BASE_URL}/administrative/certificates/search?term=${encodeURIComponent(term)}`);
-                const result = await res.json();
-                
-                if (result.ok && result.data.length > 0) {
-                    DOM.resultsBox.innerHTML = result.data.map(s => {
-                        const fullName = `${s.first_name} ${s.last_name}`;
-                        // Aplicamos escapeJS al nombre para el atributo onclick
-                        const safeName = app.escapeJS(fullName);
-                        return `
-                        <button type="button" class="list-group-item list-group-item-action py-3 animate__animated animate__fadeIn" 
-                                onclick="app.selectStudent(${s.user_id}, '${safeName}')">
-                            <div class="d-flex align-items-center">
-                                <div class="rounded-circle me-3 d-flex align-items-center justify-content-center" 
-                                     style="width:40px; height:40px; background: rgba(102, 16, 242, 0.1); color:#6610f2;">
-                                    <i class="bi bi-person-fill"></i>
-                                </div>
-                                <div>
-                                    <div class="fw-bold text-dark">${fullName}</div>
-                                    <small class="text-muted">ID: ${s.document_id}</small>
-                                </div>
-                            </div>
-                        </button>`;
-                    }).join('');
-                } else {
-                    DOM.resultsBox.innerHTML = '<div class="list-group-item text-center text-muted small py-3">Sin coincidencias.</div>';
-                }
-            } catch (err) { 
-                console.error("Fallo fetch:", err);
-                DOM.resultsBox.innerHTML = '<div class="list-group-item text-center text-danger small py-3">Error de red.</div>';
-            }
-        },
+    try {
+        const params = new URLSearchParams({ term, page });
+        const res    = await fetch(`${BASE_URL}/administrative/certificates/search?${params}`);
+        const result = await res.json();
+
+        if (!result.ok || result.data.length === 0) {
+            DOM.searchResultsArea.classList.add('d-none');
+            return;
+        }
+
+        const offset = (page - 1) * 25;
+        DOM.searchTableBody.innerHTML = result.data.map((s, i) => `
+            <tr class="row-clickable" onclick="app.selectStudent(${s.user_id}, '${app.escapeJS(s.first_name + ' ' + s.last_name)}')" style="cursor:pointer;">
+                <td class="ps-4 text-muted small">${offset + i + 1}</td>
+                <td class="fw-bold">${s.document_id}</td>
+                <td>${s.first_name} ${s.last_name}</td>
+                <td class="text-muted small">${s.email}</td>
+            </tr>
+        `).join('');
+
+        if (DOM.searchInfo) DOM.searchInfo.textContent = `${result.total} resultado${result.total !== 1 ? 's' : ''}`;
+
+        const paginHTML = app.buildPagination(result.page, result.pages);
+        if (DOM.paginTop) DOM.paginTop.innerHTML = paginHTML;
+        if (DOM.paginBot) DOM.paginBot.innerHTML = paginHTML;
+
+        DOM.searchResultsArea.classList.remove('d-none');
+        DOM.emptyState.classList.add('d-none');
+
+    } catch (err) {
+        console.error('Error búsqueda:', err);
+    }
+},
+
+buildPagination: (page, pages) => {
+    if (pages <= 1) return '';
+    let btns = '';
+    btns += `<button class="btn btn-sm btn-light border rounded-pill px-3 me-1" ${page === 1 ? 'disabled' : ''} onclick="app.fetchStudents(${page - 1})">‹</button>`;
+    for (let p = 1; p <= pages; p++) {
+        if (pages > 7 && p > 2 && p < pages - 1 && Math.abs(p - page) > 1) {
+            if (p === 3 || p === pages - 2) btns += `<span class="me-1">…</span>`;
+            continue;
+        }
+        btns += `<button class="btn btn-sm ${p === page ? 'btn-warning' : 'btn-light border'} rounded-pill px-3 me-1" onclick="app.fetchStudents(${p})">${p}</button>`;
+    }
+    btns += `<button class="btn btn-sm btn-light border rounded-pill px-3" ${page === pages ? 'disabled' : ''} onclick="app.fetchStudents(${page + 1})">›</button>`;
+    return btns;
+},
 
         /**
          * NIVEL 2: Carga de Diplomados
@@ -172,7 +180,7 @@
             app.log(`2. Estudiante fijado: ${name} (ID: ${id})`, "#ffeb3b");
             state.selectedUserId = id; 
             DOM.searchInput.value = name;
-            DOM.resultsBox.classList.add('d-none');
+            DOM.searchResultsArea.classList.add('d-none');
             
             DOM.emptyState.classList.add('d-none');
             DOM.certificatesArea.classList.remove('d-none');
@@ -313,11 +321,10 @@
 
         resetWorkflow: () => {
             app.log("Módulo reiniciado");
-            if (DOM.btnClear) DOM.btnClear.classList.add('d-none');
             DOM.certificatesArea.classList.add('d-none');
             DOM.optionsSection.classList.add('d-none');
+            DOM.searchResultsArea.classList.add('d-none');
             DOM.emptyState.classList.remove('d-none');
-            DOM.resultsBox.classList.add('d-none');
             state.selectedUserId = null;
         }
     };

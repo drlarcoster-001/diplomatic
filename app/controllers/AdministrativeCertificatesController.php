@@ -52,10 +52,22 @@ final class AdministrativeCertificatesController extends Controller
     }
 
     public function search(): void {
-        $term = $_GET['term'] ?? '';
-        $data = $this->model->searchStudents($term);
-        $this->jsonFinal(['ok' => true, 'data' => $data]);
-    }
+    $term   = trim($_GET['term'] ?? '');
+    $page   = max(1, (int)($_GET['page'] ?? 1));
+    $limit  = 25;
+    $offset = ($page - 1) * $limit;
+
+    $data  = $this->model->searchStudentsPaged($term, $limit, $offset);
+    $total = $this->model->countStudents($term);
+
+    $this->jsonFinal([
+        'ok'    => true,
+        'data'  => $data,
+        'total' => $total,
+        'pages' => max(1, (int)ceil($total / $limit)),
+        'page'  => $page
+    ]);
+}
 
     public function getStudentPrograms(): void {
         $userId = (int)($_GET['user_id'] ?? 0);
