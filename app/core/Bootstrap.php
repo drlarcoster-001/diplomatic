@@ -525,6 +525,8 @@ final class Bootstrap
         $router->post('/financial/reverse_operations/search_cuotas', [FinancialReverseOperationsController::class, 'search_cuotas']);
         $router->post('/financial/reverse_operations/reverse_inscripcion', [FinancialReverseOperationsController::class, 'reverse_inscripcion']);
         $router->post('/financial/reverse_operations/reverse_cuota', [FinancialReverseOperationsController::class, 'reverse_cuota']);
+        $router->post('/financial/reverse_operations/search_estudiantes_cuotas', [FinancialReverseOperationsController::class, 'search_estudiantes_cuotas']);
+        $router->post('/financial/reverse_operations/get_cuotas_by_user', [FinancialReverseOperationsController::class, 'get_cuotas_by_user']);
 
 
         // --- MÓDULO: RECHAZOS DE PAGO ---

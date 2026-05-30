@@ -179,6 +179,12 @@ document.addEventListener("DOMContentLoaded", function () {
                  </li>`;
 
         for (let i = 1; i <= totalPages; i++) {
+            if (totalPages > 7 && i > 2 && i < totalPages - 1 && Math.abs(i - state.currentPage) > 1) {
+                if (i === 3 || i === totalPages - 2) {
+                    html += `<li class="page-item disabled"><span class="page-link">…</span></li>`;
+                }
+                continue;
+            }
             html += `<li class="page-item ${i === state.currentPage ? 'active' : ''}">
                         <a class="page-link" href="#" data-page="${i}">${i}</a>
                      </li>`;

@@ -77,6 +77,34 @@ final class FinancialReverseOperationsController extends Controller
         });
     }
 
+    public function search_estudiantes_cuotas(): void {
+    $this->executeJsonSafely(function() {
+        $search = trim($_POST['search'] ?? '');
+        $page   = max(1, (int)($_POST['page'] ?? 1));
+        $limit  = 25;
+        $offset = ($page - 1) * $limit;
+
+        $data  = $this->model->searchEstudiantesCuotas($search, $limit, $offset);
+        $total = $this->model->countEstudiantesCuotas($search);
+
+        return [
+            'data'  => $data,
+            'total' => $total,
+            'pages' => max(1, (int)ceil($total / $limit)),
+            'page'  => $page
+        ];
+    });
+}
+
+public function get_cuotas_by_user(): void {
+    $this->executeJsonSafely(function() {
+        $userId = (int)($_POST['user_id'] ?? 0);
+        if ($userId <= 0) throw new Exception("ID de usuario inválido.");
+        return $this->model->getCuotasByUserId($userId);
+    });
+}
+
+
     /**
      * ACCIÓN CRÍTICA: Reverso de Inscripción (RESET).
      * Dispara la eliminación del Ledger (SOLO PARA INSCRIPCIONES).

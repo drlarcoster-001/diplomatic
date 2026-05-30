@@ -207,4 +207,61 @@ final class FinancialReverseOperationsModel
             throw new Exception("Error en cascada inversa: " . $e->getMessage());
         }
     }
+
+    public function searchEstudiantesCuotas(string $search, int $limit, int $offset): array
+{
+    $t = "%{$search}%";
+    $sql = "SELECT DISTINCT
+                u.id as user_id,
+                u.document_id as cedula,
+                CONCAT(u.first_name, ' ', u.last_name) AS participante,
+                COUNT(fp.id) as total_pagos
+            FROM tbl_financial_payments fp
+            INNER JOIN tbl_students s ON fp.student_id = s.id
+            INNER JOIN tbl_users u ON s.user_id = u.id
+            WHERE fp.status = 'APPROVED'
+            AND (u.document_id LIKE '{$t}' OR u.first_name LIKE '{$t}' OR u.last_name LIKE '{$t}')
+            GROUP BY u.id, u.document_id, u.first_name, u.last_name
+            ORDER BY u.last_name ASC
+            LIMIT {$limit} OFFSET {$offset}";
+    $stmt = $this->db->query($sql);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function countEstudiantesCuotas(string $search): int
+{
+    $t = "%{$search}%";
+    $sql = "SELECT COUNT(DISTINCT u.id)
+            FROM tbl_financial_payments fp
+            INNER JOIN tbl_students s ON fp.student_id = s.id
+            INNER JOIN tbl_users u ON s.user_id = u.id
+            WHERE fp.status = 'APPROVED'
+            AND (u.document_id LIKE '{$t}' OR u.first_name LIKE '{$t}' OR u.last_name LIKE '{$t}')";
+    $stmt = $this->db->query($sql);
+    return (int) $stmt->fetchColumn();
+}
+
+public function getCuotasByUserId(int $userId): array
+{
+    $sql = "SELECT 
+                fp.id AS payment_id,
+                DATE_FORMAT(fp.created_at, '%d/%m/%Y %h:%i %p') AS fecha_pago,
+                u.document_id AS cedula,
+                CONCAT(u.first_name, ' ', u.last_name) AS participante,
+                d.name AS diplomado,
+                fp.amount AS monto,
+                fp.currency AS moneda,
+                fp.method AS metodo_pago
+            FROM tbl_financial_payments fp
+            INNER JOIN tbl_students s ON fp.student_id = s.id
+            INNER JOIN tbl_users u ON s.user_id = u.id
+            INNER JOIN tbl_student_matriculations sm ON fp.matriculation_id = sm.id
+            INNER JOIN tbl_academic_offerings ao ON sm.offering_id = ao.id
+            INNER JOIN tbl_diplomados d ON ao.diploma_id = d.id
+            WHERE fp.status = 'APPROVED'
+            AND u.id = {$userId}
+            ORDER BY fp.created_at DESC";
+    $stmt = $this->db->query($sql);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

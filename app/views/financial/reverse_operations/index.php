@@ -85,32 +85,73 @@ $basePath = '/diplomatic/public';
                 </div>
 
                 <div class="tab-pane fade" id="tab-cuotas" role="tabpanel">
-                    <form id="form-search-cuotas" class="row g-3 align-items-end mb-4 bg-white p-3 rounded-3 shadow-sm border">
-                        <div class="col-12">
-                            <label class="form-label small fw-bold text-muted mb-1">Filtrar Pagos de Cuotas</label>
-                            <div class="input-group">
-                                <span class="input-group-text bg-white text-muted"><i class="bi bi-search"></i></span>
-                                <input type="text" class="form-control border-start-0" id="search-cuota" placeholder="Buscar por nombre del alumno, recibo o método..." autocomplete="off">
-                            </div>
-                        </div>
-                    </form>
+<div class="row g-3 align-items-end mb-4 bg-white p-3 rounded-3 shadow-sm border">
+    <div class="col-md-10">
+        <label class="form-label small fw-bold text-muted mb-1">Buscar Estudiante</label>
+        <div class="input-group">
+            <span class="input-group-text bg-white text-muted"><i class="bi bi-search"></i></span>
+            <input type="text" class="form-control border-start-0" id="search-cuota" placeholder="Cédula o nombre..." autocomplete="off">
+        </div>
+    </div>
+    <div class="col-md-2 d-flex gap-2">
+        <button type="button" class="btn btn-primary rounded-pill px-3 fw-bold flex-grow-1" id="btn-search-cuota">
+            <i class="bi bi-search me-1"></i> Buscar
+        </button>
+        <button type="button" class="btn btn-light rounded-pill px-3 border" id="btn-clear-cuota" title="Limpiar">
+            <i class="bi bi-eraser"></i>
+        </button>
+    </div>
+</div>
 
-                    <div class="table-responsive bg-white rounded-3 shadow-sm border">
-                        <table class="table table-hover align-middle mb-0 clickable-table" id="grid-cuotas">
-                            <thead class="table-light">
-                                <tr class="text-uppercase small text-muted">
-                                    <th class="ps-3" style="width: 15%">Fecha</th>
-                                    <th style="width: 25%">Participante</th>
-                                    <th style="width: 15%">Método</th>
-                                    <th style="width: 15%">Referencia</th>
-                                    <th style="width: 15%">Monto</th>
-                                    <th class="text-end pe-3" style="width: 10%">Acción</th>
-                                </tr>
-                            </thead>
-                            <tbody id="resultsCuotas">
-                                </tbody>
-                        </table>
-                    </div>
+<!-- Grid de estudiantes -->
+<div id="cuotas-estudiantes-area">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <span id="cuotas-info" class="small text-muted"></span>
+        <div id="cuotas-paginacion-top"></div>
+    </div>
+    <div class="table-responsive bg-white rounded-3 shadow-sm border">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr class="text-uppercase small text-muted">
+                    <th class="ps-3" style="width:50px;">#</th>
+                    <th>Cédula</th>
+                    <th>Participante</th>
+                    <th class="text-end pe-3">Pagos</th>
+                </tr>
+            </thead>
+            <tbody id="cuotas-estudiantes-body"></tbody>
+        </table>
+    </div>
+    <div class="d-flex justify-content-end mt-2">
+        <div id="cuotas-paginacion-bottom"></div>
+    </div>
+</div>
+
+<!-- Grid de pagos del estudiante seleccionado -->
+<div id="cuotas-pagos-area" class="d-none mt-4">
+    <div class="d-flex align-items-center mb-3">
+        <button class="btn btn-sm btn-light border rounded-pill px-3 me-3" id="btn-volver-estudiantes">
+            <i class="bi bi-arrow-left me-1"></i> Volver
+        </button>
+        <span id="cuotas-pagos-titulo" class="fw-bold text-dark"></span>
+    </div>
+    <div class="table-responsive bg-white rounded-3 shadow-sm border">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr class="text-uppercase small text-muted">
+                    <th class="ps-3">#</th>
+                    <th>Fecha</th>
+                    <th>Diplomado</th>
+                    <th>Método</th>
+                    <th>Monto</th>
+                    <th class="text-end pe-3">Acción</th>
+                </tr>
+            </thead>
+            <tbody id="cuotas-pagos-body"></tbody>
+        </table>
+    </div>
+</div>
+
                 </div>
 
             </div>
