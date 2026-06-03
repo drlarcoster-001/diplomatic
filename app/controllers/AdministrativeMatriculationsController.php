@@ -169,8 +169,9 @@ class AdministrativeMatriculationsController extends Controller
         $html = "
         <html>
         <head>
+            <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
             <style>
-                body { font-family: 'Helvetica', sans-serif; padding: 15px; color: #333; }
+                body { font-family: Arial, sans-serif; padding: 15px; color: #333; }
                 .header-box { border-bottom: 3px double #000; padding-bottom: 10px; margin-bottom: 20px; }
                 .header-table { width: 100%; border-collapse: collapse; }
                 .header-logo { width: 80px; text-align: center; vertical-align: middle; }
@@ -270,7 +271,7 @@ class AdministrativeMatriculationsController extends Controller
         </html>";
 
         // 5. Generación del PDF
-        $dompdf->loadHtml($html);
+        $dompdf->loadHtml($html, 'UTF-8');
         $dompdf->setPaper('letter', 'portrait');
         $dompdf->render();
 
@@ -335,8 +336,9 @@ class AdministrativeMatriculationsController extends Controller
         $html = "
         <html>
         <head>
+            <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
             <style>
-                body { font-family: 'Helvetica', sans-serif; padding: 20px; color: #333; }
+                body { font-family: Arial, sans-serif; padding: 20px; color: #333; }
                 .header { text-align: center; margin-bottom: 30px; border-bottom: 3px double #000; padding-bottom: 10px; }
                 .title { font-size: 18px; font-weight: bold; text-transform: uppercase; margin-bottom: 5px; }
                 .info-table { width: 100%; margin-bottom: 20px; font-size: 13px; }
@@ -413,7 +415,7 @@ class AdministrativeMatriculationsController extends Controller
         </body>
         </html>";
 
-        $dompdf->loadHtml($html);
+        $dompdf->loadHtml($html, 'UTF-8');
         $dompdf->setPaper('letter', 'portrait');
         $dompdf->render();
 
