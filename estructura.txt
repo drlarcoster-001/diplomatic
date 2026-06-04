@@ -1,0 +1,3757 @@
+
+
+ Directorio de C:\xampp\htdocs\diplomatic\app
+
+[.]           [..]          [config]      [controllers] [core]
+[models]      [scripts]     [services]    [views]       
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\config
+
+[.]            [..]           database.php   
+               1 archivos            473 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\controllers
+
+[.]
+[..]
+AcademicController.php
+AdministrativeAnnulmentsController.php
+AdministrativeCertificatesController.php
+AdministrativeController.php
+AdministrativeInscriptionsController.php
+AdministrativeInscriptionsController_s1.php
+AdministrativeInscriptionsController_s2.php
+AdministrativeInscriptionsController_s3.php
+AdministrativeInscriptionsController_s4.php
+AdministrativeInscriptionsController_s5.php
+AdministrativeInscriptionsController_s6.php
+AdministrativeMatriculationsController.php
+AdministrativeReactivationsController.php
+AdministrativeRejectedController.php
+AdministrativeStudentsController.php
+AdministrativeSuspensionController.php
+AuthController.php
+bcv_debug.html
+CampusesController.php
+CohortesConfigController.php
+CohortesController.php
+DashboardController.php
+DiplomadosController.php
+DocumentVerificationController.php
+ExportController.php
+FinancialBankStatementsController.php
+FinancialCashBinanceController.php
+FinancialCashEfectivoController.php
+FinancialCashPagomovilController.php
+FinancialCashZelleController.php
+FinancialController.php
+FinancialExchangeRatesController.php
+FinancialPaymentRegistrationController.php
+FinancialPaymentRegistrationController_s1.php
+FinancialPaymentRegistrationController_s2.php
+FinancialPaymentRegistrationController_s4.php
+FinancialPaymentRegistrationController_s5.php
+FinancialPaymentRejectionController.php
+FinancialPaymentValidationsBinanceController.php
+FinancialPaymentValidationsBinanceModel.php
+FinancialPaymentValidationsController.php
+FinancialPaymentValidationsEfectivoController.php
+FinancialPaymentValidationsNotificationsController.php
+FinancialPaymentValidationsPagomovilController.php
+FinancialPaymentValidationsZelleController.php
+FinancialReverseOperationsController.php
+FinancialStudentStatementController.php
+GruposController.php
+InscriptionModel.php
+ManagerialAcademicControlController.php
+ManagerialBankReconciliationController.php
+ManagerialController.php
+ManagerialMovementsReportController.php
+ManagerialPaymentsController.php
+ManagerialPaymentsReportController.php
+ManagerialPendingPaymentsController.php
+MetodosController.php
+OfertaAcademicaController.php
+OperationalController.php
+OperationalNewsController.php
+OperationalProfessorsController.php
+ProfesoresController.php
+ProfileController.php
+RegisterController.php
+SettingsCompanyController.php
+SettingsController.php
+SettingsEmailController.php
+SettingsEventsController.php
+SettingsSecurityController.php
+SettingsWhatsappController.php
+SettingsWordpressController.php
+StudentsCertificatesController.php
+StudentsController.php
+StudentsDocumentManagementController.php
+StudentsInscriptionsController.php
+StudentsInscriptionsController_s1.php
+StudentsInscriptionsController_s2.php
+StudentsInscriptionsController_s3.php
+StudentsInscriptionsController_s4.php
+StudentsInscriptionsController_s5.php
+StudentsInscriptionsController_s6.php
+StudentsPaymentRegistrationController.php
+StudentsPaymentRegistrationController_s1.php
+StudentsPaymentRegistrationController_s2.php
+StudentsPaymentRegistrationController_s4.php
+StudentsPaymentRegistrationController_s5.php
+StudentStatementController.php
+UsersController.php
+UserSecurityController.php
+              89 archivos        755.703 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\core
+
+[.]              [..]             Autoload.php     Bootstrap.php
+Controller.php   Database.php     [libs]           Router.php
+View.php         
+               6 archivos         56.273 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\core\libs
+
+[.]                [..]               SimpleXLSX.php     SimpleXLSXEx.php
+               2 archivos         65.830 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\models
+
+[.]
+[..]
+AdministrativeAnnulmentsModel.php
+AdministrativeCertificatesModel.php
+AdministrativeInscriptionsModel.php
+AdministrativeInscriptionsModel_s1.php
+AdministrativeInscriptionsModel_s2.php
+AdministrativeInscriptionsModel_s3.php
+AdministrativeInscriptionsModel_s4.php
+AdministrativeMatriculationsModel.php
+AdministrativeReactivationsModel.php
+AdministrativeRejectedModel.php
+AdministrativeStudentsModel.php
+AdministrativeSuspensionModel.php
+CampusesModel.php
+CohortesConfigModel.php
+CohortesModel.php
+DiplomadosModel.php
+DocumentVerificationModel.php
+FinancialBankStatementsModel.php
+FinancialCashBinanceModel.php
+FinancialCashEfectivoModel.php
+FinancialCashPagomovilController.php
+FinancialCashPagomovilModel.php
+FinancialCashZelleModel.php
+FinancialExchangeRatesModel.php
+FinancialPaymentRegistrationModel.php
+FinancialPaymentRejectionModel.php
+FinancialPaymentValidationsBinanceModel.php
+FinancialPaymentValidationsEfectivoModel.php
+FinancialPaymentValidationsModel.php
+FinancialPaymentValidationsPagomovilModel.php
+FinancialPaymentValidationsZelleModel.php
+FinancialReverseOperationsModel.php
+FinancialStudentStatementModel.php
+GruposModel.php
+ManagerialAcademicControlModel.php
+ManagerialBankReconciliationModel.php
+ManagerialModel.php
+ManagerialMovementsReportModel.php
+ManagerialPaymentsModel.php
+ManagerialPaymentsReportModel.php
+ManagerialPendingPaymentsModel.php
+MetodosModel.php
+OfertaAcademicaModel.php
+OperationalNewsModel.php
+OperationalProfessorsModel.php
+ProfesoresModel.php
+SettingsSecurityModel.php
+StudentCertificatesModel.php
+StudentModel.php
+StudentsDocumentManagementModel.php
+StudentsInscriptionsModel.php
+StudentsInscriptionsModel_s1.php
+StudentsInscriptionsModel_s2.php
+StudentsInscriptionsModel_s3.php
+StudentsInscriptionsModel_s4.php
+StudentsInscriptionsModel_s5.php
+StudentsInscriptionsModel_s6.php
+StudentsPaymentRegistrationModel.php
+StudentStatementModel.php
+UserModel.php
+UserSecurityModel.php
+WordpressConfigModel.php
+              62 archivos        370.757 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\scripts
+
+[.]                 [..]                cron_bcv_sync.php   cron_log.txt
+               2 archivos         74.230 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\services
+
+[.]                            [..]
+AuditService.php               CertificateValidator.php
+MailService.php                MailServiceRegister.php
+PaymentValidationService.php   WordpressService.php
+               6 archivos         24.852 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views
+
+[.]              [..]             [academic]       [administrative]
+[auth]           [dashboard]      [financial]      index.php
+layout.php       [managerial]     [operational]    [settings]
+sidebar.php      [students]       topnav.php       [users]
+               4 archivos         12.008 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\academic
+
+[.]               [..]              [campuses]        [cohortes]
+[cohortes_config] [diplomados]      [grupos]          index.php
+[oferta]          [profesores]      
+               1 archivos          6.291 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\academic\campuses
+
+[.]         [..]        index.php   
+               1 archivos          6.728 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\academic\cohortes
+
+[.]         [..]        index.php   
+               1 archivos         12.473 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\academic\cohortes_config
+
+[.]         [..]        index.php   
+               1 archivos          8.063 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\academic\diplomados
+
+[.]          [..]         create.php   edit.php     index.php    
+               3 archivos         23.594 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\academic\grupos
+
+[.]         [..]        index.php   
+               1 archivos          8.165 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\academic\oferta
+
+[.]          [..]         create.php   detail.php   edit.php     index.php
+               4 archivos         42.406 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\academic\profesores
+
+[.]          [..]         create.php   edit.php     index.php    
+               3 archivos         37.303 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\administrative
+
+[.]                     [..]                    [annulments]
+[certificates]          [document_verification] [enrollment]
+index.php               [inscriptions]          [matriculations]
+[reactivations]         [rejected]              [students]
+[suspensions]           
+               1 archivos          8.387 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\administrative\annulments
+
+[.]         [..]        index.php   
+               1 archivos          6.938 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\administrative\certificates
+
+[.]         [..]        index.php   
+               1 archivos          9.312 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\administrative\document_verification
+
+[.]         [..]        index.php   
+               1 archivos         12.950 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\administrative\enrollment
+
+[.]         [..]        index.php   
+               1 archivos          3.192 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\administrative\inscriptions
+
+[.]             [..]            create.php      create_s1.php   create_s2.php
+create_s3.php   create_s4.php   create_s5.php   index.php       
+               7 archivos         36.632 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\administrative\matriculations
+
+[.]          [..]         index.php    manage.php   print.php    
+               3 archivos         22.486 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\administrative\reactivations
+
+[.]          [..]         index.php    manage.php   
+               2 archivos          9.493 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\administrative\rejected
+
+[.]         [..]        index.php   
+               1 archivos          7.087 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\administrative\students
+
+[.]         [..]        index.php   
+               1 archivos          6.397 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\administrative\suspensions
+
+[.]          [..]         index.php    manage.php   
+               2 archivos         15.605 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\auth
+
+[.]                  [..]                 forgot.php
+login.php            password.php         password_reset.php
+register.php         token_error.php      
+               6 archivos         19.849 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\dashboard
+
+[.]         [..]        index.php   
+               1 archivos          1.248 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\financial
+
+[.]                    [..]                   [bank_statements]
+[cash_operations]      [exchange_rates]       index.php
+[payment_registration] [payment_rejection]    [payment_validations]
+[reverse_operations]   [student_statement]    
+               1 archivos          7.399 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\financial\bank_statements
+
+[.]           [..]          index.php     [movimientos] [tpago]
+               1 archivos          4.613 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\financial\bank_statements\movimientos
+
+[.]         [..]        index.php   
+               1 archivos         10.753 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\financial\bank_statements\tpago
+
+[.]         [..]        index.php   
+               1 archivos         10.552 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\financial\cash_operations
+
+[.]         [..]        [binance]   [efectivo]  index.php   [pagomovil]
+[zelle]     
+               1 archivos          7.834 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\financial\cash_operations\binance
+
+[.]         [..]        index.php   
+               1 archivos         11.004 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\financial\cash_operations\efectivo
+
+[.]         [..]        index.php   
+               1 archivos          9.671 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\financial\cash_operations\pagomovil
+
+[.]         [..]        index.php   
+               1 archivos         16.552 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\financial\cash_operations\zelle
+
+[.]         [..]        index.php   
+               1 archivos         10.967 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\financial\exchange_rates
+
+[.]         [..]        index.php   
+               1 archivos         12.074 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\financial\payment_registration
+
+[.]               [..]              index.php         [modals]
+registry_s1.php   registry_s2.php   registry_s4.php   
+               4 archivos         12.841 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\financial\payment_registration\modals
+
+[.]                        [..]
+modal_account_status.php   modal_digital.php
+               2 archivos          8.440 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\financial\payment_rejection
+
+[.]         [..]        index.php   
+               1 archivos          6.029 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\financial\payment_validations
+
+[.]         [..]        [binance]   [efectivo]  index.php   [pagomovil]
+[zelle]     
+               1 archivos          7.939 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\financial\payment_validations\binance
+
+[.]         [..]        index.php   
+               1 archivos         10.234 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\financial\payment_validations\efectivo
+
+[.]         [..]        index.php   
+               1 archivos          9.203 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\financial\payment_validations\pagomovil
+
+[.]         [..]        index.php   
+               1 archivos         22.630 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\financial\payment_validations\zelle
+
+[.]         [..]        index.php   
+               1 archivos         10.458 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\financial\reverse_operations
+
+[.]         [..]        index.php   
+               1 archivos          7.129 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\financial\student_statement
+
+[.]         [..]        index.php   
+               1 archivos         11.738 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\managerial
+
+[.]                   [..]                  [academic_control]
+[bank_reconciliation] index.php             [movements_report]
+[payments_report]     [pending_payments]    
+               1 archivos          5.189 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\managerial\academic_control
+
+[.]              [..]             index.php        pdf_export.php
+               2 archivos         17.121 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\managerial\bank_reconciliation
+
+[.]         [..]        index.php   
+               1 archivos         12.665 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\managerial\movements_report
+
+[.]         [..]        index.php   
+               1 archivos          9.479 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\managerial\payments_report
+
+[.]              [..]             index.php        pdf_export.php
+               2 archivos         20.305 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\managerial\pending_payments
+
+[.]              [..]             index.php        pdf_export.php
+               2 archivos         17.143 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\operational
+
+[.]          [..]         index.php    [news]       [professors] 
+               1 archivos          2.467 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\operational\news
+
+[.]         [..]        index.php   
+               1 archivos          4.704 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\operational\professors
+
+[.]         [..]        index.php   
+               1 archivos          5.679 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\settings
+
+[.]             [..]            empresa.php     eventos.php     index.php
+mail.php        metodos.php     [seguridad]     whatsapp.php    wordpress.php
+               7 archivos         47.639 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\settings\seguridad
+
+[.]         [..]        index.php   
+               1 archivos          6.453 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\students
+
+[.]                    [..]                   [certificates]
+[document_management]  index.php              [inscriptions]
+[payment_registration] [student_statement]    
+               1 archivos          9.189 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\students\certificates
+
+[.]         [..]        index.php   
+               1 archivos          8.611 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\students\document_management
+
+[.]         [..]        index.php   
+               1 archivos         10.829 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\students\inscriptions
+
+[.]             [..]            create.php      create_s1.php   create_s2.php
+create_s3.php   create_s4.php   create_s5.php   index.php       
+               7 archivos         43.005 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\students\payment_registration
+
+[.]               [..]              index.php         [modals]
+registry_s1.php   registry_s2.php   registry_s4.php   
+               4 archivos         16.448 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\students\payment_registration\modals
+
+[.]                              [..]
+modal_account_status.php         modal_digital.php
+modal_payment_confirmation.php   
+               3 archivos         13.132 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\students\student_statement
+
+[.]         [..]        index.php   
+               1 archivos         24.159 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\app\views\users
+
+[.]                 [..]                index.php           profile.php
+security.php        security_grid.php   
+               4 archivos         27.749 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\db
+
+[.]                            [..]
+[db old]                       db_diplomatic-15042026-1.sql
+               1 archivos      3.810.978 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\db\db old
+
+[.]                             [..]
+db_diplomatic-02032026-1.sql    db_diplomatic-02042026-1.sql
+db_diplomatic-03042026-1.sql    db_diplomatic-03042026-2.sql
+db_diplomatic-03042026-3.sql    db_diplomatic-04042026-1.sql
+db_diplomatic-04042026-2.sql    db_diplomatic-04042026-3.sql
+db_diplomatic-05042026-1.sql    db_diplomatic-07042026-1.sql
+db_diplomatic-08042026-1.sql    db_diplomatic-09042026-1.sql
+db_diplomatic-10042026-1.sql    db_diplomatic-10042026-2.sql
+db_diplomatic-12042026-1.sql    db_diplomatic-19022026-1.sql
+db_diplomatic-20260213-3.sql    db_diplomatic-20260216-3.sql
+db_diplomatic-20260217-1.sql    db_diplomatic-20260217-2.sql
+db_diplomatic-20260218-1.sql    db_diplomatic-20260304-1.sql
+db_diplomatic-20260309-2.sql    db_diplomatic-20260311-2.sql
+db_diplomatic-20260315-02.sql   db_diplomatic-20260316-2.sql
+db_diplomatic-24022026-1.sql    db_diplomatic-30032026.sql
+db_diplomatic_20260210.sql      db_diplomatic_20260211-1.sql
+db_diplomatic_20260212-1.sql    db_diplomatic_20260213-1.sql
+db_diplomatic_20260213-2.sql    db_diplomatic_20260216-1.sql
+db_diplomatic_20260216-2.sql    
+              35 archivos     50.689.632 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public
+
+[.]             [..]            .htaccess       [assets]        error_log
+index.php       logout.php      [tools]         [uploads]       verificar.php
+               5 archivos        100.702 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\assets
+
+[.]       [..]      [css]     [img]     [js]      [temp]    [uploads] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\assets\css
+
+[.]
+[..]
+academic_campuses.css
+academic_cohortes.css
+academic_cohortes_config.css
+academic_diplomados.css
+academic_grupos.css
+academic_oferta.css
+academic_profesores.css
+academic_profesores_edit.css
+access.css
+administrative.css
+administrative_annulments.css
+administrative_certificates.css
+administrative_document_verification.css
+administrative_enrollment.css
+administrative_inscriptions.css
+administrative_inscriptions_create.css
+administrative_matriculations.css
+administrative_matriculations_print.css
+administrative_reactivations.css
+administrative_rejected.css
+administrative_students.css
+administrative_suspension.css
+company.css
+events.css
+financial.css
+financial_bank_statements.css
+financial_cash_operations.css
+financial_cash_operations_binance.css
+financial_cash_operations_efectivo.css
+financial_cash_operations_pagomovil.css
+financial_cash_operations_zelle.css
+financial_exchange_rates.css
+financial_payment_registration.css
+financial_payment_rejection.css
+financial_payment_validations.css
+financial_payment_validations_binance.css
+financial_payment_validations_efectivo.css
+financial_payment_validations_pagomovil.css
+financial_payment_validations_zelle.css
+financial_reverse_operations.css
+financial_student_statement.css
+intlTelInput.min.css
+managerial.css
+managerial_academic_control.css
+managerial_bank_reconciliation.css
+managerial_movements_report.css
+managerial_payments_report.css
+managerial_pending_payments.css
+operational.css
+operational_news.css
+operational_professors.css
+panel.css
+register.css
+settings.css
+settings_email.css
+settings_metodos.css
+settings_panel.css
+settings_wordpress.css
+students.css
+students_certificates.css
+students_document_management.css
+students_inscriptions.css
+students_inscriptions_create.css
+students_payment_confirmation.css
+students_payment_registration.css
+student_statement.css
+users.css
+user_security.css
+whatsapp_manual.css
+              69 archivos        171.498 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\assets\img
+
+[.]            [..]           [avatars]      default.png    flags.png
+flags@2x.png   
+               3 archivos        145.658 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\assets\img\avatars
+
+[.]                   [..]                  default.png
+default_avatar.png    usr_1770810625.png    usr_1770810835.png
+usr_1770810903.png    usr_1770811774.png    usr_1770814551.png
+usr_1770814743.png    usr_1770986726.png    usr_1771283375.webp
+usr_1771290749.webp   usr_1771292139.webp   usr_1771292929.webp
+usr_1771295356.webp   usr_1772117429.webp   usr_1773176014.png
+usr_1773414669.jpg    usr_1773419533.jpg    usr_1775183032.jpg
+usr_1775187407.jpg    usr_1775384459.jpg    usr_1775390200.jpg
+usr_1775855980.png    usr_1775856145.png    usr_1776459225.png
+usr_1777061964.jpg    usr_1777146041.jpg    usr_1778252161.webp
+usr_1778603426.jpeg   usr_1778951628.png    usr_1779114128.jpg
+              31 archivos     11.797.976 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\assets\js
+
+[.]
+[..]
+academic_campuses.js
+academic_cohortes.js
+academic_cohortes_config.js
+academic_diplomados.js
+academic_grupos.js
+academic_oferta.js
+academic_profesores.js
+academic_profesores_edit.js
+access.js
+administrative_annulments.js
+administrative_certificates.js
+administrative_document_verification.js
+administrative_enrollment.js
+administrative_inscriptions.js
+administrative_inscriptions_create.js
+administrative_inscriptions_create_s1.js
+administrative_inscriptions_create_s2.js
+administrative_inscriptions_create_s3.js
+administrative_inscriptions_create_s4.js
+administrative_inscriptions_create_s5.js
+administrative_inscriptions_create_s6.js
+administrative_matriculations.js
+administrative_matriculations_print.js
+administrative_reactivations.js
+administrative_rejected.js
+administrative_students.js
+administrative_suspension.js
+company.js
+events.js
+financial_bank_statements.js
+financial_bank_statements_movimientos.js
+financial_bank_statements_tpago.js
+financial_cash_operations.js
+financial_cash_operations_binance.js
+financial_cash_operations_efectivo.js
+financial_cash_operations_pagomovil.js
+financial_cash_operations_zelle.js
+financial_exchange_rates.js
+financial_payment_registration.js
+financial_payment_registration_s1.js
+financial_payment_registration_s2.js
+financial_payment_registration_s4_handlers.js
+financial_payment_registration_s4_main.js
+financial_payment_registration_s4_ui.js
+financial_payment_registration_s4_utils.js
+financial_payment_rejection.js
+financial_payment_validations.js
+financial_payment_validations_binance.js
+financial_payment_validations_efectivo.js
+financial_payment_validations_notifications.js
+financial_payment_validations_pagomovil.js
+financial_payment_validations_zelle.js
+financial_reverse_operations.js
+financial_student_statement.js
+intlTelInput.min.js
+managerial.js
+managerial_academic_control.js
+managerial_bank_reconciliation.js
+managerial_movements_report.js
+managerial_payments_report.js
+managerial_pending_payments.js
+operational_news.js
+operational_professors.js
+panel.js
+register.js
+settings.js
+settings_email.js
+settings_metodos.js
+settings_security.js
+settings_wordpress.js
+students.js
+students_certificates.js
+students_document_management.js
+students_inscriptions.js
+students_inscriptions_create.js
+students_inscriptions_create_s1.js
+students_inscriptions_create_s2.js
+students_inscriptions_create_s3.js
+students_inscriptions_create_s4.js
+students_inscriptions_create_s5.js
+students_inscriptions_create_s6.js
+students_payment_registration.js
+students_payment_registration_s1.js
+students_payment_registration_s2.js
+students_payment_registration_s4_handlers.js
+students_payment_registration_s4_main.js
+students_payment_registration_s4_ui.js
+students_payment_registration_s4_utils.js
+student_statement.js
+users.js
+user_security.js
+utils.js
+whatsapp_manual.js
+              93 archivos      1.269.412 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\assets\temp
+
+[.]  [..] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\assets\uploads
+
+[.]               [..]              [logos]           [news_web]
+[profesores]      [profesores_docs] [profesores_web]  
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\assets\uploads\logos
+
+[.]                 [..]                logo-medicina.jpg   logo-ucla.png
+               2 archivos        169.019 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\assets\uploads\news_web
+
+[.]                     [..]                    news_1_1775409585.png
+news_2_1775409665.png   news_3_1775570690.png   news_4_1776371710.png
+news_5_1776375911.png   news_5_1776377996.png   news_6_1776381073.png
+news_6_1776381703.png   news_7_1776380069.png   news_8_1776623520.png
+news_9_1777874482.png   news_9_1777874557.png   
+              12 archivos      1.485.584 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\assets\uploads\profesores
+
+[.]                            [..]
+prof_6_1771588026.png          prof_7_1771977600.png
+prof_7_1771985602.png          prof_avatar_2_1771508568.png
+prof_avatar_2_1771508815.png   prof_avatar_2_1771509776.png
+prof_avatar_3_1771510031.png   
+               7 archivos      1.241.054 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\assets\uploads\profesores_docs
+
+[.]                    [..]                   doc_2_1771508554.pdf
+doc_6_1771587978.pdf   doc_6_1772455294.pdf   
+               3 archivos        126.647 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\assets\uploads\profesores_web
+
+[.]                         [..]
+prof_web_3_1775512190.png   prof_web_3_1775524901.png
+prof_web_7_1775407852.png   prof_web_7_1775525161.png
+               4 archivos      1.640.288 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\tools
+
+[.]       [..]      [exceljs] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\tools\exceljs
+
+[.]                [..]               exceljs.min.js     FileSaver.min.js
+               2 archivos      1.171.268 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads
+
+[.]           [..]          [constancias] [enrollments] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\constancias
+
+[.]  [..] [1]  [2]  [22] [24] [47] [51] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\constancias\1
+
+[.]                                 [..]
+Certificado_CRT-2026-011DE164.pdf   Certificado_CRT-2026-56025746.pdf
+               2 archivos        787.340 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\constancias\2
+
+[.]                                 [..]
+Certificado_CRT-2026-2CC5F751.pdf   
+               1 archivos        393.378 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\constancias\22
+
+[.]                                [..]
+Constancia_CRT-2026-30ED2AAC.pdf   Constancia_CRT-2026-BC607834.pdf
+               2 archivos        787.350 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\constancias\24
+
+[.]  [..] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\constancias\47
+
+[.]                                 [..]
+Certificado_CRT-2026-46EFB876.pdf   
+               1 archivos        393.569 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\constancias\51
+
+[.]                                 [..]
+Certificado_CRT-2026-22564D13.pdf   Certificado_CRT-2026-EB1CE7B5.pdf
+               2 archivos        787.617 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments
+
+[.]   [..]  [100] [103] [104] [105] [106] [107] [108] [109] [110] [111] [112]
+[113] [115] [116] [117] [119] [120] [121] [122] [123] [124] [125] [126] [127]
+[129] [130] [131] [132] [134] [135] [136] [137] [138] [139] [141] [142] [143]
+[146] [147] [148] [150] [151] [152] [153] [154] [156] [157] [159] [160] [161]
+[162] [163] [164] [165] [166] [167] [170] [171] [172] [173] [174] [175] [177]
+[179] [180] [182] [183] [184] [185] [186] [187] [188] [189] [190] [191] [192]
+[193] [194] [197] [198] [199] [200] [201] [202] [204] [205] [206] [208] [21]
+[210] [211] [212] [213] [214] [216] [218] [219] [22]  [220] [221] [222] [223]
+[224] [226] [227] [228] [229] [23]  [231] [232] [233] [234] [235] [238] [24]
+[240] [241] [243] [28]  [29]  [86]  [87]  [88]  [90]  [91]  [92]  [93]  [94]
+[96]  [99]  
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\100
+
+[.]                                 [..]
+DOC_100_doc_cv_1779236282.pdf       DOC_100_doc_degree_1779236282.pdf
+DOC_100_doc_id_1779236282.pdf       [payment]
+               3 archivos        606.373 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\100\payment
+
+[.]                                     [..]
+DOC_100_pay_screenshot_1779236282.jpg   
+               1 archivos         34.845 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\103
+
+[.]                                  [..]
+DOC_103_doc_id_card_1779483992.pdf   [payment]
+               1 archivos         59.664 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\103\payment
+
+[.]  [..] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\104
+
+[.]                                 [..]
+DOC_104_doc_cv_1778270184.pdf       DOC_104_doc_degree_1778270184.pdf
+DOC_104_doc_id_1778270184.pdf       [payment]
+               3 archivos      2.302.532 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\104\payment
+
+[.]  [..] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\105
+
+[.]                                  [..]
+DOC_105_doc_cv_1778863617.pdf        DOC_105_doc_degree_1778863609.pdf
+DOC_105_doc_id_card_1778863597.pdf   [payment]
+               3 archivos        447.293 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\105\payment
+
+[.]                                     [..]
+DOC_105_pay_screenshot_1778603144.jpg   STU_105_REP_1779474038_0959.jpg
+STU_105_REP_1779474274_9da4.jpg         STU_105_REP_1779474507_0e94.jpg
+STU_105_REP_1779474657_25ab.jpg         STU_105_REP_1779474816_d9be.jpg
+               6 archivos        207.322 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\106
+
+[.]                                 [..]
+DOC_106_doc_cv_1778251035.pdf       DOC_106_doc_cv_1778605321.pdf
+DOC_106_doc_degree_1778251035.pdf   DOC_106_doc_degree_1778605321.pdf
+DOC_106_doc_id_1778251035.pdf       DOC_106_doc_id_1778605321.pdf
+[payment]                           
+               6 archivos      3.464.185 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\106\payment
+
+[.]                                     [..]
+DOC_106_pay_screenshot_1778605321.jpg   
+               1 archivos         38.363 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\107
+
+[.]                                 [..]
+DOC_107_doc_cv_1779218419.pdf       DOC_107_doc_degree_1779218419.pdf
+DOC_107_doc_id_1779218419.pdf       [payment]
+               3 archivos        809.310 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\107\payment
+
+[.]
+[..]
+DOC_107_pay_screenshot_1779218419.jpeg
+STU_107_REP_1779372969_1c92.jpeg
+STU_107_REP_1779373068_bd37.jpeg
+STU_107_REP_1779373159_7b10.jpeg
+STU_107_REP_1779373668_81b9.jpeg
+               5 archivos        264.227 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\108
+
+[.]                                 [..]
+DOC_108_doc_cv_1778433736.pdf       DOC_108_doc_cv_1778606584.pdf
+DOC_108_doc_degree_1778433736.pdf   DOC_108_doc_degree_1778606584.pdf
+DOC_108_doc_id_1778433736.pdf       DOC_108_doc_id_1778606584.pdf
+[payment]                           
+               6 archivos        550.188 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\108\payment
+
+[.]
+[..]
+DOC_108_pay_screenshot_1778433736.jpeg
+DOC_108_pay_screenshot_1778606584.jpeg
+STU_108_REP_1778608367_4a4f.jpeg
+STU_108_REP_1778608479_bc97.jpeg
+STU_108_REP_1778608585_8e90.jpeg
+STU_108_REP_1778608689_25a1.jpeg
+STU_108_REP_1778608959_d37f.jpeg
+               7 archivos        284.838 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\109
+
+[.]                                 [..]
+DOC_109_doc_cv_1778274662.pdf       DOC_109_doc_degree_1778274662.pdf
+DOC_109_doc_id_1778274662.pdf       [payment]
+               3 archivos        340.862 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\109\payment
+
+[.]
+[..]
+DOC_109_pay_screenshot_1778274662.jpeg
+STU_109_REP_1778607508_972c.jpeg
+STU_109_REP_1778607647_60f5.jpeg
+STU_109_REP_1778607771_a3bb.jpeg
+STU_109_REP_1778848555_4248.jpg
+STU_109_REP_1778848753_e1d2.jpg
+STU_109_REP_1778848870_d475.jpg
+               7 archivos        761.250 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\110
+
+[.]                                 [..]
+DOC_110_doc_cv_1778712070.pdf       DOC_110_doc_cv_1779403150.pdf
+DOC_110_doc_degree_1778712070.pdf   DOC_110_doc_degree_1779403150.pdf
+DOC_110_doc_id_1778712070.pdf       DOC_110_doc_id_1779403150.pdf
+[payment]                           
+               6 archivos      2.020.666 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\110\payment
+
+[.]                                     [..]
+DOC_110_pay_screenshot_1778712070.jpg   DOC_110_pay_screenshot_1779403150.jpg
+               2 archivos        108.808 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\111
+
+[.]                                 [..]
+DOC_111_doc_cv_1779152407.pdf       DOC_111_doc_degree_1779152407.pdf
+DOC_111_doc_id_1779152407.pdf       [payment]
+               3 archivos        461.964 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\111\payment
+
+[.]                                     [..]
+DOC_111_pay_screenshot_1779152407.jpg   
+               1 archivos         45.598 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\112
+
+[.]                                 [..]
+DOC_112_doc_cv_1778206481.pdf       DOC_112_doc_cv_1778604668.pdf
+DOC_112_doc_degree_1778206481.pdf   DOC_112_doc_degree_1778604668.pdf
+DOC_112_doc_id_1778206481.pdf       DOC_112_doc_id_1778604668.pdf
+[payment]                           
+               6 archivos      3.228.197 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\112\payment
+
+[.]
+[..]
+DOC_112_pay_screenshot_1778206481.jpeg
+DOC_112_pay_screenshot_1778604668.png
+STU_112_REP_1778606460_9335.png
+STU_112_REP_1778606624_6fd2.png
+STU_112_REP_1778606746_780b.png
+STU_112_REP_1778835487_2919.png
+               6 archivos      2.086.663 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\113
+
+[.]                                 [..]
+DOC_113_doc_cv_1778608577.pdf       DOC_113_doc_cv_1778608985.pdf
+DOC_113_doc_cv_1778694988.pdf       DOC_113_doc_degree_1778608577.pdf
+DOC_113_doc_degree_1778608985.pdf   DOC_113_doc_degree_1778694988.pdf
+DOC_113_doc_id_1778608577.pdf       DOC_113_doc_id_1778608985.pdf
+DOC_113_doc_id_1778694988.pdf       [payment]
+               9 archivos      5.231.517 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\113\payment
+
+[.]
+[..]
+DOC_113_pay_screenshot_1778608577.jpeg
+DOC_113_pay_screenshot_1778608985.jpeg
+DOC_113_pay_screenshot_1778694988.jpeg
+               3 archivos        155.316 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\115
+
+[.]                                 [..]
+DOC_115_doc_cv_1778958984.pdf       DOC_115_doc_degree_1778958984.pdf
+DOC_115_doc_id_1778958984.pdf       [payment]
+               3 archivos        913.738 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\115\payment
+
+[.]                                     [..]
+DOC_115_pay_screenshot_1778958984.jpg   
+               1 archivos         25.371 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\116
+
+[.]                                  [..]
+DOC_116_doc_cv_1778602816.pdf        DOC_116_doc_degree_1778602816.pdf
+DOC_116_doc_id_card_1778605996.pdf   [payment]
+               3 archivos      1.470.230 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\116\payment
+
+[.]                                     [..]
+DOC_116_pay_screenshot_1778602816.jpg   STU_116_REP_1778606471_cdb6.jpg
+STU_116_REP_1778607041_349e.jpg         STU_116_REP_1778607272_cded.jpg
+               4 archivos      1.096.690 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\117
+
+[.]                                 [..]
+DOC_117_doc_cv_1778274674.pdf       DOC_117_doc_cv_1778608436.pdf
+DOC_117_doc_degree_1778274674.pdf   DOC_117_doc_degree_1778608436.pdf
+DOC_117_doc_id_1778274674.pdf       DOC_117_doc_id_1778608436.pdf
+[payment]                           
+               6 archivos      3.008.696 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\117\payment
+
+[.]                                     [..]
+DOC_117_pay_screenshot_1778274674.jpg   DOC_117_pay_screenshot_1778608436.pdf
+STU_117_REP_1778960115_03a7.jpg         STU_117_REP_1778960257_e9ab.jpg
+STU_117_REP_1778960411_5573.jpg         STU_117_REP_1779049174_8d5b.jpg
+STU_117_REP_1779215569_a69a.jpg         
+               7 archivos        826.463 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\119
+
+[.]                                  [..]
+DOC_119_doc_cv_1779476722.pdf        DOC_119_doc_degree_1779476669.pdf
+DOC_119_doc_id_card_1779476707.pdf   [payment]
+               3 archivos        197.582 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\119\payment
+
+[.]                                     [..]
+DOC_119_pay_screenshot_1779476385.jpg   
+               1 archivos         29.321 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\120
+
+[.]                                 [..]
+DOC_120_doc_cv_1778609665.pdf       DOC_120_doc_cv_1778614099.pdf
+DOC_120_doc_degree_1778609665.pdf   DOC_120_doc_degree_1778614099.pdf
+DOC_120_doc_id_1778609665.pdf       DOC_120_doc_id_1778614099.pdf
+[payment]                           
+               6 archivos      1.291.148 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\120\payment
+
+[.]                                     [..]
+DOC_120_pay_screenshot_1778609665.jpg   DOC_120_pay_screenshot_1778614099.jpg
+STU_120_REP_1778875199_32b7.jpg         STU_120_REP_1778875517_76fc.jpg
+STU_120_REP_1778875938_7157.jpg         STU_120_REP_1778876221_95ef.jpg
+STU_120_REP_1778897289_5550.jpg         STU_120_REP_1779027321_3699.jpg
+               8 archivos      1.769.408 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\121
+
+[.]                                 [..]
+DOC_121_doc_cv_1778343812.pdf       DOC_121_doc_cv_1778344006.pdf
+DOC_121_doc_cv_1778344065.pdf       DOC_121_doc_cv_1778344165.pdf
+DOC_121_doc_cv_1778344258.pdf       DOC_121_doc_cv_1778344897.pdf
+DOC_121_doc_cv_1778345020.pdf       DOC_121_doc_cv_1778345133.pdf
+DOC_121_doc_cv_1778345221.pdf       DOC_121_doc_cv_1778345654.pdf
+DOC_121_doc_cv_1778606297.pdf       DOC_121_doc_degree_1778343812.pdf
+DOC_121_doc_degree_1778344006.pdf   DOC_121_doc_degree_1778344065.pdf
+DOC_121_doc_degree_1778344165.pdf   DOC_121_doc_degree_1778344258.pdf
+DOC_121_doc_degree_1778344897.pdf   DOC_121_doc_degree_1778345020.pdf
+DOC_121_doc_degree_1778345133.pdf   DOC_121_doc_degree_1778345221.pdf
+DOC_121_doc_degree_1778345654.pdf   DOC_121_doc_degree_1778606297.pdf
+DOC_121_doc_id_1778343812.pdf       DOC_121_doc_id_1778344006.pdf
+DOC_121_doc_id_1778344065.pdf       DOC_121_doc_id_1778344165.pdf
+DOC_121_doc_id_1778344258.pdf       DOC_121_doc_id_1778344897.pdf
+DOC_121_doc_id_1778345020.pdf       DOC_121_doc_id_1778345133.pdf
+DOC_121_doc_id_1778345221.pdf       DOC_121_doc_id_1778345654.pdf
+DOC_121_doc_id_1778606297.pdf       [payment]
+              33 archivos      5.086.279 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\121\payment
+
+[.]                                     [..]
+DOC_121_pay_screenshot_1778343812.jpg   DOC_121_pay_screenshot_1778344006.jpg
+DOC_121_pay_screenshot_1778344065.jpg   DOC_121_pay_screenshot_1778344165.jpg
+DOC_121_pay_screenshot_1778344258.jpg   DOC_121_pay_screenshot_1778344897.jpg
+DOC_121_pay_screenshot_1778345020.jpg   DOC_121_pay_screenshot_1778345133.jpg
+DOC_121_pay_screenshot_1778345221.jpg   DOC_121_pay_screenshot_1778345654.jpg
+DOC_121_pay_screenshot_1778606297.jpg   STU_121_REP_1778641183_5835.jpg
+STU_121_REP_1778641277_b617.jpg         STU_121_REP_1779056340_05e9.jpg
+STU_121_REP_1779056774_fd3e.jpg         
+              15 archivos        917.501 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\122
+
+[.]                                 [..]
+DOC_122_doc_cv_1778207692.pdf       DOC_122_doc_cv_1778207856.pdf
+DOC_122_doc_cv_1778207965.pdf       DOC_122_doc_cv_1778208012.pdf
+DOC_122_doc_cv_1778208097.pdf       DOC_122_doc_cv_1778210045.pdf
+DOC_122_doc_cv_1778210134.pdf       DOC_122_doc_cv_1778252804.pdf
+DOC_122_doc_cv_1778252848.pdf       DOC_122_doc_cv_1778616011.pdf
+DOC_122_doc_degree_1778207692.pdf   DOC_122_doc_degree_1778207856.pdf
+DOC_122_doc_degree_1778207965.pdf   DOC_122_doc_degree_1778208012.pdf
+DOC_122_doc_degree_1778208097.pdf   DOC_122_doc_degree_1778210045.pdf
+DOC_122_doc_degree_1778210134.pdf   DOC_122_doc_degree_1778252803.pdf
+DOC_122_doc_degree_1778252848.pdf   DOC_122_doc_degree_1778616011.pdf
+DOC_122_doc_id_1778207692.pdf       DOC_122_doc_id_1778207856.pdf
+DOC_122_doc_id_1778207965.pdf       DOC_122_doc_id_1778208012.pdf
+DOC_122_doc_id_1778208097.pdf       DOC_122_doc_id_1778210045.pdf
+DOC_122_doc_id_1778210134.pdf       DOC_122_doc_id_1778252803.pdf
+DOC_122_doc_id_1778252848.pdf       DOC_122_doc_id_1778616011.pdf
+[payment]                           
+              30 archivos     15.740.470 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\122\payment
+
+[.]                                     [..]
+DOC_122_pay_screenshot_1778207692.png   DOC_122_pay_screenshot_1778207856.png
+DOC_122_pay_screenshot_1778207965.png   DOC_122_pay_screenshot_1778208012.png
+DOC_122_pay_screenshot_1778208097.png   DOC_122_pay_screenshot_1778210045.png
+DOC_122_pay_screenshot_1778210134.png   DOC_122_pay_screenshot_1778252804.png
+DOC_122_pay_screenshot_1778252848.png   DOC_122_pay_screenshot_1778616011.png
+              10 archivos      1.067.080 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\123
+
+[.]                                 [..]
+DOC_123_doc_cv_1778265409.pdf       DOC_123_doc_cv_1778682926.pdf
+DOC_123_doc_degree_1778265409.pdf   DOC_123_doc_degree_1778682926.pdf
+DOC_123_doc_id_1778265409.pdf       DOC_123_doc_id_1778682926.pdf
+[payment]                           
+               6 archivos      2.554.798 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\123\payment
+
+[.]
+[..]
+DOC_123_pay_screenshot_1778265409.jpeg
+DOC_123_pay_screenshot_1778682926.jpeg
+               2 archivos         61.276 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\124
+
+[.]                                 [..]
+DOC_124_doc_cv_1778384514.pdf       DOC_124_doc_degree_1778384514.pdf
+DOC_124_doc_id_1778384514.pdf       [payment]
+               3 archivos        490.381 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\124\payment
+
+[.]
+[..]
+DOC_124_pay_screenshot_1778384514.jpeg
+DOC_124_pay_screenshot_1779474595.jpeg
+               2 archivos         78.238 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\125
+
+[.]                                  [..]
+DOC_125_doc_cv_1778361550.pdf        DOC_125_doc_degree_1778777197.pdf
+DOC_125_doc_id_card_1778776831.pdf   [payment]
+               3 archivos        721.954 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\125\payment
+
+[.]
+[..]
+DOC_125_pay_screenshot_1778361550.jpeg
+STU_125_REP_1778777613_4888.jpeg
+STU_125_REP_1778777791_9b99.jpeg
+STU_125_REP_1779486549_58c2.jpeg
+               4 archivos        276.127 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\126
+
+[.]                                 [..]
+DOC_126_doc_degree_1778330383.pdf   DOC_126_doc_id_1778330383.pdf
+[payment]                           
+               2 archivos      2.196.439 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\126\payment
+
+[.]                                     [..]
+DOC_126_pay_screenshot_1778330383.jpg   STU_126_REP_1778606075_3825.jpg
+STU_126_REP_1778606323_b564.jpg         STU_126_REP_1778606440_518d.jpg
+               4 archivos        184.062 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\127
+
+[.]                                 [..]
+DOC_127_doc_cv_1778211983.pdf       DOC_127_doc_cv_1778605673.pdf
+DOC_127_doc_degree_1778211983.pdf   DOC_127_doc_degree_1778605673.pdf
+DOC_127_doc_id_1778211983.pdf       DOC_127_doc_id_1778605673.pdf
+[payment]                           
+               6 archivos      1.783.782 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\127\payment
+
+[.]
+[..]
+DOC_127_pay_screenshot_1778211983.jpeg
+DOC_127_pay_screenshot_1778605673.jpeg
+STU_127_REP_1778607382_7a19.jpeg
+STU_127_REP_1778607809_75a4.jpeg
+STU_127_REP_1778608365_9c4e.jpeg
+STU_127_REP_1778608732_cd90.jpeg
+STU_127_REP_1778608904_b1af.jpeg
+               7 archivos        318.707 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\129
+
+[.]       [..]      [payment] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\129\payment
+
+[.]                                     [..]
+DOC_129_pay_screenshot_1778178521.jpg   DOC_129_pay_screenshot_1778601312.jpg
+               2 archivos        743.044 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\130
+
+[.]       [..]      [payment] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\130\payment
+
+[.]                                     [..]
+DOC_130_pay_screenshot_1777910950.png   
+               1 archivos          6.438 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\131
+
+[.]                             [..]
+DOC_131_doc_cv_1778201936.pdf   DOC_131_doc_id_1778201936.pdf
+[payment]                       
+               2 archivos        303.192 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\131\payment
+
+[.]                                     [..]
+DOC_131_pay_screenshot_1778201936.png   STU_131_REP_1778608150_bb5d.png
+               2 archivos      1.918.337 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\132
+
+[.]                                 [..]
+DOC_132_doc_cv_1778532555.pdf       DOC_132_doc_cv_1778604045.pdf
+DOC_132_doc_degree_1778532555.pdf   DOC_132_doc_degree_1778604045.pdf
+DOC_132_doc_id_1778532555.pdf       DOC_132_doc_id_1778604045.pdf
+[payment]                           
+               6 archivos      1.566.632 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\132\payment
+
+[.]                                     [..]
+DOC_132_pay_screenshot_1778532555.jpg   DOC_132_pay_screenshot_1778604045.jpg
+               2 archivos        117.300 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\134
+
+[.]                                 [..]
+DOC_134_doc_cv_1778251737.pdf       DOC_134_doc_degree_1778251737.pdf
+DOC_134_doc_id_1778251737.pdf       [payment]
+               3 archivos      1.337.203 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\134\payment
+
+[.]  [..] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\135
+
+[.]                                  [..]
+DOC_135_doc_cv_1778256318.pdf        DOC_135_doc_cv_1778681496.pdf
+DOC_135_doc_degree_1778256318.pdf    DOC_135_doc_degree_1778681466.pdf
+DOC_135_doc_id_1778256318.pdf        DOC_135_doc_id_card_1778681423.pdf
+[payment]                            
+               6 archivos      3.309.358 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\135\payment
+
+[.]                                     [..]
+DOC_135_pay_screenshot_1778256318.jpg   DOC_135_pay_screenshot_1778638691.jpg
+STU_135_REP_1778682601_c030.jpg         STU_135_REP_1778682780_d8ff.jpg
+STU_135_REP_1778683037_210c.jpg         STU_135_REP_1779321764_29ef.jpg
+               6 archivos        516.314 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\136
+
+[.]                                  [..]
+DOC_136_doc_degree_1778278520.pdf    DOC_136_doc_degree_1778625634.pdf
+DOC_136_doc_degree_1778686451.pdf    DOC_136_doc_id_1778625634.pdf
+DOC_136_doc_id_1778686451.pdf        DOC_136_doc_id_card_1778278357.pdf
+[payment]                            
+               6 archivos        727.482 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\136\payment
+
+[.]                                     [..]
+DOC_136_pay_screenshot_1778209369.jpg   DOC_136_pay_screenshot_1778625634.jpg
+DOC_136_pay_screenshot_1778686451.jpg   STU_136_REP_1778691514_df95.jpg
+STU_136_REP_1778691785_7fa9.jpg         STU_136_REP_1778697060_1228.jpg
+STU_136_REP_1778788382_78c7.jpg         
+               7 archivos        866.295 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\137
+
+[.]                                 [..]
+DOC_137_doc_cv_1778702316.pdf       DOC_137_doc_degree_1778702316.pdf
+DOC_137_doc_id_1778702316.pdf       [payment]
+               3 archivos      2.507.437 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\137\payment
+
+[.]                                     [..]
+DOC_137_pay_screenshot_1778702316.pdf   
+               1 archivos        317.686 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\138
+
+[.]                                 [..]
+DOC_138_doc_cv_1778239947.pdf       DOC_138_doc_cv_1779472670.pdf
+DOC_138_doc_degree_1778239947.pdf   DOC_138_doc_degree_1779472670.pdf
+DOC_138_doc_id_1778239947.pdf       DOC_138_doc_id_1779472670.pdf
+[payment]                           
+               6 archivos      4.030.806 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\138\payment
+
+[.]                                     [..]
+DOC_138_pay_screenshot_1778239947.jpg   DOC_138_pay_screenshot_1779472670.jpg
+               2 archivos         97.700 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\139
+
+[.]                                 [..]
+DOC_139_doc_cv_1778261393.pdf       DOC_139_doc_cv_1778459407.pdf
+DOC_139_doc_degree_1778261393.PDF   DOC_139_doc_degree_1778459407.PDF
+DOC_139_doc_id_1778261393.PDF       DOC_139_doc_id_1778459407.PDF
+[payment]                           
+               6 archivos      2.277.864 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\139\payment
+
+[.]                                     [..]
+DOC_139_pay_screenshot_1778261393.jpg   DOC_139_pay_screenshot_1778459407.jpg
+STU_139_REP_1778613659_de2a.jpg         STU_139_REP_1778613854_09da.jpg
+STU_139_REP_1778692493_dd6f.jpg         
+               5 archivos        349.285 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\141
+
+[.]                                  [..]
+DOC_141_doc_id_card_1779482174.pdf   [payment]
+               1 archivos        213.306 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\141\payment
+
+[.]
+[..]
+DOC_141_pay_screenshot_1779480367.jpeg
+               1 archivos         32.064 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\142
+
+[.]                                 [..]
+DOC_142_doc_degree_1778613918.pdf   DOC_142_doc_degree_1778680075.pdf
+DOC_142_doc_id_1778613918.pdf       DOC_142_doc_id_1778680075.pdf
+[payment]                           
+               4 archivos      3.977.850 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\142\payment
+
+[.]                                     [..]
+DOC_142_pay_screenshot_1778613918.jpg   DOC_142_pay_screenshot_1778680075.jpg
+               2 archivos         64.166 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\143
+
+[.]                                 [..]
+DOC_143_doc_cv_1778252258.pdf       DOC_143_doc_cv_1778606577.pdf
+DOC_143_doc_degree_1778253802.pdf   DOC_143_doc_degree_1778606577.pdf
+DOC_143_doc_id_1778252258.pdf       DOC_143_doc_id_1778606577.pdf
+[payment]                           
+               6 archivos      2.809.718 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\143\payment
+
+[.]                                     [..]
+DOC_143_pay_screenshot_1778252258.jpg   DOC_143_pay_screenshot_1778606577.jpg
+STU_143_REP_1778607736_1996.jpg         STU_143_REP_1778609100_e2be.jpg
+STU_143_REP_1778609340_a4b8.jpg         STU_143_REP_1778609615_dec3.jpg
+STU_143_REP_1778609800_3dc4.jpg         STU_143_REP_1778611158_3ec4.jpg
+STU_143_REP_1778630625_72cb.jpg         
+               9 archivos      1.220.247 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\146
+
+[.]                                  [..]
+DOC_146_doc_degree_1778260659.pdf    DOC_146_doc_degree_1778606818.pdf
+DOC_146_doc_id_1778606818.pdf        DOC_146_doc_id_card_1778260630.pdf
+[payment]                            
+               4 archivos        303.076 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\146\payment
+
+[.]                                     [..]
+DOC_146_pay_screenshot_1778260404.jpg   DOC_146_pay_screenshot_1778606818.jpg
+STU_146_REP_1778685941_a1b0.jpg         STU_146_REP_1778686091_7858.jpg
+STU_146_REP_1778686268_066c.jpg         
+               5 archivos      1.688.111 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\147
+
+[.]                                 [..]
+DOC_147_doc_degree_1778261177.pdf   DOC_147_doc_degree_1778604286.pdf
+DOC_147_doc_id_1778261177.pdf       DOC_147_doc_id_1778604286.pdf
+[payment]                           
+               4 archivos      4.016.070 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\147\payment
+
+[.]                                     [..]
+DOC_147_pay_screenshot_1778261177.jpg   DOC_147_pay_screenshot_1778604286.jpg
+               2 archivos         65.246 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\148
+
+[.]                                 [..]
+DOC_148_doc_cv_1778692333.pdf       DOC_148_doc_cv_1778693504.pdf
+DOC_148_doc_cv_1778693978.pdf       DOC_148_doc_degree_1778692333.pdf
+DOC_148_doc_degree_1778693504.pdf   DOC_148_doc_degree_1778693978.pdf
+DOC_148_doc_id_1778692333.pdf       DOC_148_doc_id_1778693504.pdf
+DOC_148_doc_id_1778693978.pdf       [payment]
+               9 archivos      7.036.425 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\148\payment
+
+[.]                                     [..]
+DOC_148_pay_screenshot_1778692333.jpg   DOC_148_pay_screenshot_1778693504.jpg
+DOC_148_pay_screenshot_1778693978.jpg   STU_148_REP_1778694427_6465.jpg
+STU_148_REP_1778694824_ae30.jpg         STU_148_REP_1778695075_0961.jpg
+STU_148_REP_1778695196_163e.jpg         
+               7 archivos        234.966 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\150
+
+[.]       [..]      [payment] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\150\payment
+
+[.]                                     [..]
+DOC_150_pay_screenshot_1778613759.jpg   
+               1 archivos         45.120 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\151
+
+[.]                                 [..]
+DOC_151_doc_cv_1778466153.pdf       DOC_151_doc_cv_1778519038.pdf
+DOC_151_doc_cv_1778607761.pdf       DOC_151_doc_degree_1778466153.pdf
+DOC_151_doc_degree_1778519038.pdf   DOC_151_doc_degree_1778607761.pdf
+DOC_151_doc_id_1778466153.pdf       DOC_151_doc_id_1778519038.pdf
+DOC_151_doc_id_1778607761.pdf       [payment]
+               9 archivos      2.559.582 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\151\payment
+
+[.]
+[..]
+DOC_151_pay_screenshot_1778466153.jpeg
+DOC_151_pay_screenshot_1778519038.jpeg
+DOC_151_pay_screenshot_1778607761.jpeg
+STU_151_REP_1778608980_d72b.jpeg
+STU_151_REP_1778609236_1949.jpeg
+STU_151_REP_1778609582_7cd0.jpeg
+STU_151_REP_1779155886_f769.jpeg
+               7 archivos        519.768 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\152
+
+[.]                                 [..]
+DOC_152_doc_cv_1778273329.pdf       DOC_152_doc_cv_1778273394.pdf
+DOC_152_doc_cv_1778510745.pdf       DOC_152_doc_cv_1778616520.pdf
+DOC_152_doc_degree_1778273329.pdf   DOC_152_doc_degree_1778273394.pdf
+DOC_152_doc_degree_1778510745.pdf   DOC_152_doc_degree_1778616520.pdf
+DOC_152_doc_id_1778273329.pdf       DOC_152_doc_id_1778273394.pdf
+DOC_152_doc_id_1778510745.pdf       DOC_152_doc_id_1778616520.pdf
+[payment]                           
+              12 archivos     13.298.824 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\152\payment
+
+[.]
+[..]
+DOC_152_pay_screenshot_1778273329.jpeg
+DOC_152_pay_screenshot_1778273394.jpeg
+DOC_152_pay_screenshot_1778510745.jpeg
+DOC_152_pay_screenshot_1778616520.jpeg
+STU_152_REP_1778702196_9e2e.jpeg
+STU_152_REP_1778702459_be7e.jpeg
+STU_152_REP_1779474848_8991.jpeg
+STU_152_REP_1779474995_44c4.jpeg
+STU_152_REP_1779475110_9dd0.jpeg
+               9 archivos        511.681 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\153
+
+[.]                                 [..]
+DOC_153_doc_cv_1778354563.pdf       DOC_153_doc_cv_1778354624.pdf
+DOC_153_doc_cv_1778354734.pdf       DOC_153_doc_cv_1778354815.pdf
+DOC_153_doc_cv_1778457072.pdf       DOC_153_doc_cv_1778457105.pdf
+DOC_153_doc_cv_1778457143.pdf       DOC_153_doc_cv_1778457192.pdf
+DOC_153_doc_cv_1778457232.pdf       DOC_153_doc_cv_1778457865.pdf
+DOC_153_doc_cv_1778457869.pdf       DOC_153_doc_cv_1778457873.pdf
+DOC_153_doc_cv_1778457878.pdf       DOC_153_doc_cv_1778457883.pdf
+DOC_153_doc_cv_1778457887.pdf       DOC_153_doc_cv_1778457890.pdf
+DOC_153_doc_cv_1778457894.pdf       DOC_153_doc_cv_1778457898.pdf
+DOC_153_doc_cv_1778457901.pdf       DOC_153_doc_cv_1778457906.pdf
+DOC_153_doc_cv_1778457911.pdf       DOC_153_doc_cv_1778457915.pdf
+DOC_153_doc_cv_1778457919.pdf       DOC_153_doc_cv_1778457923.pdf
+DOC_153_doc_cv_1778457928.pdf       DOC_153_doc_cv_1778457934.pdf
+DOC_153_doc_cv_1778457938.pdf       DOC_153_doc_cv_1778457942.pdf
+DOC_153_doc_cv_1778457947.pdf       DOC_153_doc_cv_1778457954.pdf
+DOC_153_doc_cv_1778457959.pdf       DOC_153_doc_cv_1778457964.pdf
+DOC_153_doc_cv_1778457970.pdf       DOC_153_doc_cv_1778457976.pdf
+DOC_153_doc_cv_1778457980.pdf       DOC_153_doc_cv_1778457991.pdf
+DOC_153_doc_cv_1778458008.pdf       DOC_153_doc_cv_1778458012.pdf
+DOC_153_doc_cv_1778458017.pdf       DOC_153_doc_cv_1778458021.pdf
+DOC_153_doc_cv_1778458025.pdf       DOC_153_doc_cv_1778458029.pdf
+DOC_153_doc_cv_1778458033.pdf       DOC_153_doc_cv_1778458036.pdf
+DOC_153_doc_cv_1778458040.pdf       DOC_153_doc_cv_1778458045.pdf
+DOC_153_doc_cv_1778458049.pdf       DOC_153_doc_cv_1778458053.pdf
+DOC_153_doc_cv_1778458057.pdf       DOC_153_doc_cv_1778458061.pdf
+DOC_153_doc_cv_1778458066.pdf       DOC_153_doc_cv_1778458070.pdf
+DOC_153_doc_cv_1778458079.pdf       DOC_153_doc_cv_1778458088.pdf
+DOC_153_doc_cv_1778458093.pdf       DOC_153_doc_cv_1778458099.pdf
+DOC_153_doc_cv_1778458103.pdf       DOC_153_doc_cv_1778458107.pdf
+DOC_153_doc_cv_1778458211.pdf       DOC_153_doc_cv_1778458222.pdf
+DOC_153_doc_cv_1778458225.pdf       DOC_153_doc_cv_1778527042.pdf
+DOC_153_doc_degree_1778354563.pdf   DOC_153_doc_degree_1778354624.pdf
+DOC_153_doc_degree_1778354734.pdf   DOC_153_doc_degree_1778354815.pdf
+DOC_153_doc_degree_1778457072.pdf   DOC_153_doc_degree_1778457105.pdf
+DOC_153_doc_degree_1778457143.pdf   DOC_153_doc_degree_1778457192.pdf
+DOC_153_doc_degree_1778457232.pdf   DOC_153_doc_degree_1778457865.pdf
+DOC_153_doc_degree_1778457869.pdf   DOC_153_doc_degree_1778457873.pdf
+DOC_153_doc_degree_1778457878.pdf   DOC_153_doc_degree_1778457883.pdf
+DOC_153_doc_degree_1778457887.pdf   DOC_153_doc_degree_1778457890.pdf
+DOC_153_doc_degree_1778457894.pdf   DOC_153_doc_degree_1778457898.pdf
+DOC_153_doc_degree_1778457901.pdf   DOC_153_doc_degree_1778457906.pdf
+DOC_153_doc_degree_1778457911.pdf   DOC_153_doc_degree_1778457915.pdf
+DOC_153_doc_degree_1778457919.pdf   DOC_153_doc_degree_1778457923.pdf
+DOC_153_doc_degree_1778457928.pdf   DOC_153_doc_degree_1778457934.pdf
+DOC_153_doc_degree_1778457938.pdf   DOC_153_doc_degree_1778457942.pdf
+DOC_153_doc_degree_1778457947.pdf   DOC_153_doc_degree_1778457954.pdf
+DOC_153_doc_degree_1778457959.pdf   DOC_153_doc_degree_1778457964.pdf
+DOC_153_doc_degree_1778457970.pdf   DOC_153_doc_degree_1778457976.pdf
+DOC_153_doc_degree_1778457980.pdf   DOC_153_doc_degree_1778457991.pdf
+DOC_153_doc_degree_1778458008.pdf   DOC_153_doc_degree_1778458012.pdf
+DOC_153_doc_degree_1778458017.pdf   DOC_153_doc_degree_1778458021.pdf
+DOC_153_doc_degree_1778458025.pdf   DOC_153_doc_degree_1778458029.pdf
+DOC_153_doc_degree_1778458033.pdf   DOC_153_doc_degree_1778458036.pdf
+DOC_153_doc_degree_1778458040.pdf   DOC_153_doc_degree_1778458045.pdf
+DOC_153_doc_degree_1778458049.pdf   DOC_153_doc_degree_1778458053.pdf
+DOC_153_doc_degree_1778458057.pdf   DOC_153_doc_degree_1778458061.pdf
+DOC_153_doc_degree_1778458066.pdf   DOC_153_doc_degree_1778458070.pdf
+DOC_153_doc_degree_1778458079.pdf   DOC_153_doc_degree_1778458088.pdf
+DOC_153_doc_degree_1778458093.pdf   DOC_153_doc_degree_1778458099.pdf
+DOC_153_doc_degree_1778458103.pdf   DOC_153_doc_degree_1778458107.pdf
+DOC_153_doc_degree_1778458211.pdf   DOC_153_doc_degree_1778458222.pdf
+DOC_153_doc_degree_1778458225.pdf   DOC_153_doc_degree_1778527042.pdf
+DOC_153_doc_id_1778354563.pdf       DOC_153_doc_id_1778354624.pdf
+DOC_153_doc_id_1778354734.pdf       DOC_153_doc_id_1778354815.pdf
+DOC_153_doc_id_1778457072.pdf       DOC_153_doc_id_1778457105.pdf
+DOC_153_doc_id_1778457143.pdf       DOC_153_doc_id_1778457192.pdf
+DOC_153_doc_id_1778457232.pdf       DOC_153_doc_id_1778457865.pdf
+DOC_153_doc_id_1778457869.pdf       DOC_153_doc_id_1778457873.pdf
+DOC_153_doc_id_1778457878.pdf       DOC_153_doc_id_1778457883.pdf
+DOC_153_doc_id_1778457887.pdf       DOC_153_doc_id_1778457890.pdf
+DOC_153_doc_id_1778457894.pdf       DOC_153_doc_id_1778457898.pdf
+DOC_153_doc_id_1778457901.pdf       DOC_153_doc_id_1778457906.pdf
+DOC_153_doc_id_1778457911.pdf       DOC_153_doc_id_1778457915.pdf
+DOC_153_doc_id_1778457919.pdf       DOC_153_doc_id_1778457923.pdf
+DOC_153_doc_id_1778457928.pdf       DOC_153_doc_id_1778457934.pdf
+DOC_153_doc_id_1778457938.pdf       DOC_153_doc_id_1778457942.pdf
+DOC_153_doc_id_1778457947.pdf       DOC_153_doc_id_1778457954.pdf
+DOC_153_doc_id_1778457959.pdf       DOC_153_doc_id_1778457964.pdf
+DOC_153_doc_id_1778457970.pdf       DOC_153_doc_id_1778457976.pdf
+DOC_153_doc_id_1778457980.pdf       DOC_153_doc_id_1778457991.pdf
+DOC_153_doc_id_1778458008.pdf       DOC_153_doc_id_1778458012.pdf
+DOC_153_doc_id_1778458017.pdf       DOC_153_doc_id_1778458021.pdf
+DOC_153_doc_id_1778458025.pdf       DOC_153_doc_id_1778458029.pdf
+DOC_153_doc_id_1778458033.pdf       DOC_153_doc_id_1778458036.pdf
+DOC_153_doc_id_1778458040.pdf       DOC_153_doc_id_1778458045.pdf
+DOC_153_doc_id_1778458049.pdf       DOC_153_doc_id_1778458053.pdf
+DOC_153_doc_id_1778458057.pdf       DOC_153_doc_id_1778458061.pdf
+DOC_153_doc_id_1778458066.pdf       DOC_153_doc_id_1778458070.pdf
+DOC_153_doc_id_1778458079.pdf       DOC_153_doc_id_1778458088.pdf
+DOC_153_doc_id_1778458093.pdf       DOC_153_doc_id_1778458099.pdf
+DOC_153_doc_id_1778458103.pdf       DOC_153_doc_id_1778458107.pdf
+DOC_153_doc_id_1778458211.pdf       DOC_153_doc_id_1778458222.pdf
+DOC_153_doc_id_1778458225.pdf       DOC_153_doc_id_1778527042.pdf
+[payment]                           
+             186 archivos     32.397.480 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\153\payment
+
+[.]                                     [..]
+DOC_153_pay_screenshot_1778354563.jpg   DOC_153_pay_screenshot_1778354624.jpg
+DOC_153_pay_screenshot_1778354734.jpg   DOC_153_pay_screenshot_1778354815.jpg
+DOC_153_pay_screenshot_1778457072.jpg   DOC_153_pay_screenshot_1778457105.jpg
+DOC_153_pay_screenshot_1778457143.jpg   DOC_153_pay_screenshot_1778457192.jpg
+DOC_153_pay_screenshot_1778457232.jpg   DOC_153_pay_screenshot_1778457865.jpg
+DOC_153_pay_screenshot_1778457869.jpg   DOC_153_pay_screenshot_1778457873.jpg
+DOC_153_pay_screenshot_1778457878.jpg   DOC_153_pay_screenshot_1778457883.jpg
+DOC_153_pay_screenshot_1778457887.jpg   DOC_153_pay_screenshot_1778457890.jpg
+DOC_153_pay_screenshot_1778457894.jpg   DOC_153_pay_screenshot_1778457898.jpg
+DOC_153_pay_screenshot_1778457901.jpg   DOC_153_pay_screenshot_1778457906.jpg
+DOC_153_pay_screenshot_1778457911.jpg   DOC_153_pay_screenshot_1778457915.jpg
+DOC_153_pay_screenshot_1778457919.jpg   DOC_153_pay_screenshot_1778457923.jpg
+DOC_153_pay_screenshot_1778457928.jpg   DOC_153_pay_screenshot_1778457934.jpg
+DOC_153_pay_screenshot_1778457938.jpg   DOC_153_pay_screenshot_1778457942.jpg
+DOC_153_pay_screenshot_1778457947.jpg   DOC_153_pay_screenshot_1778457954.jpg
+DOC_153_pay_screenshot_1778457959.jpg   DOC_153_pay_screenshot_1778457964.jpg
+DOC_153_pay_screenshot_1778457970.jpg   DOC_153_pay_screenshot_1778457976.jpg
+DOC_153_pay_screenshot_1778457980.jpg   DOC_153_pay_screenshot_1778457991.jpg
+DOC_153_pay_screenshot_1778458008.jpg   DOC_153_pay_screenshot_1778458012.jpg
+DOC_153_pay_screenshot_1778458017.jpg   DOC_153_pay_screenshot_1778458021.jpg
+DOC_153_pay_screenshot_1778458025.jpg   DOC_153_pay_screenshot_1778458029.jpg
+DOC_153_pay_screenshot_1778458033.jpg   DOC_153_pay_screenshot_1778458036.jpg
+DOC_153_pay_screenshot_1778458040.jpg   DOC_153_pay_screenshot_1778458045.jpg
+DOC_153_pay_screenshot_1778458049.jpg   DOC_153_pay_screenshot_1778458053.jpg
+DOC_153_pay_screenshot_1778458057.jpg   DOC_153_pay_screenshot_1778458061.jpg
+DOC_153_pay_screenshot_1778458066.jpg   DOC_153_pay_screenshot_1778458070.jpg
+DOC_153_pay_screenshot_1778458079.jpg   DOC_153_pay_screenshot_1778458088.jpg
+DOC_153_pay_screenshot_1778458093.jpg   DOC_153_pay_screenshot_1778458099.jpg
+DOC_153_pay_screenshot_1778458103.jpg   DOC_153_pay_screenshot_1778458107.jpg
+DOC_153_pay_screenshot_1778458211.jpg   DOC_153_pay_screenshot_1778458222.jpg
+DOC_153_pay_screenshot_1778458225.jpg   DOC_153_pay_screenshot_1778527042.jpg
+STU_153_REP_1778736087_ae04.jpg         STU_153_REP_1778736182_9b8f.jpg
+STU_153_REP_1778736700_81be.jpg         STU_153_REP_1779484922_eb76.jpg
+STU_153_REP_1779485060_00c1.jpg         STU_153_REP_1779485355_4ab2.jpg
+              68 archivos      2.739.522 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\154
+
+[.]                             [..]
+DOC_154_doc_id_1778275231.pdf   [payment]
+               1 archivos        188.552 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\154\payment
+
+[.]                                     [..]
+DOC_154_pay_screenshot_1778275231.jpg   DOC_154_pay_screenshot_1778620275.jpg
+               2 archivos         97.946 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\156
+
+[.]                                 [..]
+DOC_156_doc_cv_1778640753.pdf       DOC_156_doc_degree_1778640753.pdf
+DOC_156_doc_id_1778640753.pdf       [payment]
+               3 archivos      1.266.112 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\156\payment
+
+[.]                                     [..]
+DOC_156_pay_screenshot_1778640753.jpg   STU_156_REP_1778845687_0907.jpg
+STU_156_REP_1778845883_97ac.jpg         STU_156_REP_1778846066_cfb9.jpg
+STU_156_REP_1778846219_6179.jpg         STU_156_REP_1778879809_370c.jpg
+STU_156_REP_1779026381_893b.jpg         
+               7 archivos        869.052 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\157
+
+[.]                                 [..]
+DOC_157_doc_cv_1778282977.pdf       DOC_157_doc_cv_1778283025.pdf
+DOC_157_doc_cv_1778283083.pdf       DOC_157_doc_cv_1778283142.pdf
+DOC_157_doc_cv_1778283258.pdf       DOC_157_doc_cv_1778283351.pdf
+DOC_157_doc_cv_1778283439.pdf       DOC_157_doc_cv_1778283949.pdf
+DOC_157_doc_cv_1778283995.pdf       DOC_157_doc_cv_1778284058.pdf
+DOC_157_doc_cv_1778284146.pdf       DOC_157_doc_cv_1778284204.pdf
+DOC_157_doc_cv_1778321604.pdf       DOC_157_doc_cv_1778321679.pdf
+DOC_157_doc_cv_1778321777.pdf       DOC_157_doc_cv_1778321847.pdf
+DOC_157_doc_cv_1778321892.pdf       DOC_157_doc_cv_1778322060.pdf
+DOC_157_doc_cv_1778324713.pdf       DOC_157_doc_cv_1778324757.pdf
+DOC_157_doc_cv_1778331640.pdf       DOC_157_doc_cv_1778542422.pdf
+DOC_157_doc_cv_1778611357.pdf       DOC_157_doc_degree_1778282977.pdf
+DOC_157_doc_degree_1778283025.pdf   DOC_157_doc_degree_1778283083.pdf
+DOC_157_doc_degree_1778283142.pdf   DOC_157_doc_degree_1778283258.pdf
+DOC_157_doc_degree_1778283351.pdf   DOC_157_doc_degree_1778283439.pdf
+DOC_157_doc_degree_1778283949.pdf   DOC_157_doc_degree_1778283995.pdf
+DOC_157_doc_degree_1778284058.pdf   DOC_157_doc_degree_1778284146.pdf
+DOC_157_doc_degree_1778284204.pdf   DOC_157_doc_degree_1778321604.pdf
+DOC_157_doc_degree_1778321679.pdf   DOC_157_doc_degree_1778321777.pdf
+DOC_157_doc_degree_1778321847.pdf   DOC_157_doc_degree_1778321892.pdf
+DOC_157_doc_degree_1778322060.pdf   DOC_157_doc_degree_1778324713.pdf
+DOC_157_doc_degree_1778324757.pdf   DOC_157_doc_degree_1778331640.pdf
+DOC_157_doc_degree_1778542422.pdf   DOC_157_doc_degree_1778611357.pdf
+DOC_157_doc_id_1778282977.pdf       DOC_157_doc_id_1778283025.pdf
+DOC_157_doc_id_1778283083.pdf       DOC_157_doc_id_1778283142.pdf
+DOC_157_doc_id_1778283258.pdf       DOC_157_doc_id_1778283351.pdf
+DOC_157_doc_id_1778283439.pdf       DOC_157_doc_id_1778283949.pdf
+DOC_157_doc_id_1778283995.pdf       DOC_157_doc_id_1778284058.pdf
+DOC_157_doc_id_1778284146.pdf       DOC_157_doc_id_1778284204.pdf
+DOC_157_doc_id_1778321604.pdf       DOC_157_doc_id_1778321679.pdf
+DOC_157_doc_id_1778321777.pdf       DOC_157_doc_id_1778321847.pdf
+DOC_157_doc_id_1778321892.pdf       DOC_157_doc_id_1778322060.pdf
+DOC_157_doc_id_1778324713.pdf       DOC_157_doc_id_1778324757.pdf
+DOC_157_doc_id_1778331640.pdf       DOC_157_doc_id_1778542422.pdf
+DOC_157_doc_id_1778611357.pdf       [payment]
+              69 archivos     12.960.017 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\157\payment
+
+[.]                                     [..]
+DOC_157_pay_screenshot_1778282977.jpg   DOC_157_pay_screenshot_1778283025.jpg
+DOC_157_pay_screenshot_1778283083.jpg   DOC_157_pay_screenshot_1778283142.jpg
+DOC_157_pay_screenshot_1778283258.jpg   DOC_157_pay_screenshot_1778283351.jpg
+DOC_157_pay_screenshot_1778283439.jpg   DOC_157_pay_screenshot_1778283949.jpg
+DOC_157_pay_screenshot_1778283995.jpg   DOC_157_pay_screenshot_1778284058.jpg
+DOC_157_pay_screenshot_1778284146.jpg   DOC_157_pay_screenshot_1778284204.jpg
+DOC_157_pay_screenshot_1778321604.jpg   DOC_157_pay_screenshot_1778321679.jpg
+DOC_157_pay_screenshot_1778321777.jpg   DOC_157_pay_screenshot_1778321847.jpg
+DOC_157_pay_screenshot_1778321892.jpg   DOC_157_pay_screenshot_1778322060.jpg
+DOC_157_pay_screenshot_1778324713.jpg   DOC_157_pay_screenshot_1778324757.jpg
+DOC_157_pay_screenshot_1778331640.jpg   DOC_157_pay_screenshot_1778542422.jpg
+DOC_157_pay_screenshot_1778611357.jpg   STU_157_REP_1779031344_19d0.jpg
+STU_157_REP_1779032001_b397.jpg         
+              25 archivos      5.017.167 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\159
+
+[.]                                 [..]
+DOC_159_doc_cv_1778516813.pdf       DOC_159_doc_cv_1778616692.pdf
+DOC_159_doc_degree_1778516813.pdf   DOC_159_doc_degree_1778616692.pdf
+DOC_159_doc_id_1778516813.pdf       DOC_159_doc_id_1778616692.pdf
+[payment]                           
+               6 archivos      2.650.390 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\159\payment
+
+[.]                                     [..]
+DOC_159_pay_screenshot_1778516813.jpg   DOC_159_pay_screenshot_1778616692.jpg
+STU_159_REP_1778696955_ac0d.jpg         STU_159_REP_1778897389_6a98.jpg
+               4 archivos        344.847 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\160
+
+[.]                                 [..]
+DOC_160_doc_cv_1778707632.pdf       DOC_160_doc_degree_1778707632.pdf
+DOC_160_doc_id_1778707632.pdf       [payment]
+               3 archivos        584.782 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\160\payment
+
+[.]                                     [..]
+DOC_160_pay_screenshot_1778707632.jpg   STU_160_REP_1779488887_3701.png
+STU_160_REP_1779489155_e420.png         STU_160_REP_1779489288_0ca9.png
+               4 archivos        678.684 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\161
+
+[.]                                 [..]
+DOC_161_doc_cv_1778287126.pdf       DOC_161_doc_cv_1778714391.pdf
+DOC_161_doc_degree_1778287126.pdf   DOC_161_doc_degree_1778714391.pdf
+DOC_161_doc_id_1778287126.pdf       DOC_161_doc_id_1778714391.pdf
+[payment]                           
+               6 archivos      1.585.330 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\161\payment
+
+[.]
+[..]
+DOC_161_pay_screenshot_1778287126.jpeg
+DOC_161_pay_screenshot_1778714391.jpeg
+               2 archivos        101.976 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\162
+
+[.]                                 [..]
+DOC_162_doc_cv_1778532551.pdf       DOC_162_doc_cv_1778678922.pdf
+DOC_162_doc_degree_1778532551.pdf   DOC_162_doc_degree_1778678922.pdf
+DOC_162_doc_id_1778532551.pdf       DOC_162_doc_id_1778678922.pdf
+[payment]                           
+               6 archivos      3.657.872 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\162\payment
+
+[.]                                     [..]
+DOC_162_pay_screenshot_1778532551.png   DOC_162_pay_screenshot_1778678922.png
+STU_162_REP_1778682039_59b3.png         STU_162_REP_1778682168_2efd.png
+STU_162_REP_1778682279_d909.png         STU_162_REP_1778682358_344c.png
+STU_162_REP_1779136361_b08e.png         STU_162_REP_1779406529_4f9a.png
+STU_162_REP_1779406617_9f16.png         
+               9 archivos      2.098.197 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\163
+
+[.]                                 [..]
+DOC_163_doc_cv_1778546746.pdf       DOC_163_doc_degree_1778546746.pdf
+DOC_163_doc_id_1778546746.pdf       [payment]
+               3 archivos        664.005 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\163\payment
+
+[.]                                     [..]
+DOC_163_pay_screenshot_1778546746.jpg   STU_163_REP_1778616272_0d1b.jpg
+STU_163_REP_1778616367_1b41.jpg         STU_163_REP_1778616457_a8d7.jpg
+STU_163_REP_1779373307_12f1.jpg         
+               5 archivos      1.090.804 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\164
+
+[.]                                 [..]
+DOC_164_doc_cv_1778292558.pdf       DOC_164_doc_cv_1778292615.pdf
+DOC_164_doc_cv_1778292674.pdf       DOC_164_doc_cv_1778292738.pdf
+DOC_164_doc_cv_1778292785.pdf       DOC_164_doc_cv_1778292849.pdf
+DOC_164_doc_cv_1778292917.pdf       DOC_164_doc_cv_1778292971.pdf
+DOC_164_doc_cv_1778293021.pdf       DOC_164_doc_cv_1778330648.pdf
+DOC_164_doc_cv_1778330706.pdf       DOC_164_doc_cv_1778607502.pdf
+DOC_164_doc_cv_1778608789.pdf       DOC_164_doc_degree_1778292558.pdf
+DOC_164_doc_degree_1778292615.pdf   DOC_164_doc_degree_1778292674.pdf
+DOC_164_doc_degree_1778292738.pdf   DOC_164_doc_degree_1778292785.pdf
+DOC_164_doc_degree_1778292849.pdf   DOC_164_doc_degree_1778292917.pdf
+DOC_164_doc_degree_1778292971.pdf   DOC_164_doc_degree_1778293021.pdf
+DOC_164_doc_degree_1778330648.pdf   DOC_164_doc_degree_1778330706.pdf
+DOC_164_doc_degree_1778607502.pdf   DOC_164_doc_degree_1778608789.pdf
+DOC_164_doc_id_1778292558.pdf       DOC_164_doc_id_1778292615.pdf
+DOC_164_doc_id_1778292674.pdf       DOC_164_doc_id_1778292738.pdf
+DOC_164_doc_id_1778292785.pdf       DOC_164_doc_id_1778292849.pdf
+DOC_164_doc_id_1778292917.pdf       DOC_164_doc_id_1778292971.pdf
+DOC_164_doc_id_1778293021.pdf       DOC_164_doc_id_1778330648.pdf
+DOC_164_doc_id_1778330706.pdf       DOC_164_doc_id_1778607502.pdf
+DOC_164_doc_id_1778608789.pdf       [payment]
+              39 archivos     13.495.404 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\164\payment
+
+[.]                                     [..]
+DOC_164_pay_screenshot_1778292558.jpg   DOC_164_pay_screenshot_1778292615.jpg
+DOC_164_pay_screenshot_1778292674.jpg   DOC_164_pay_screenshot_1778292738.jpg
+DOC_164_pay_screenshot_1778292785.jpg   DOC_164_pay_screenshot_1778292849.jpg
+DOC_164_pay_screenshot_1778292917.jpg   DOC_164_pay_screenshot_1778292971.jpg
+DOC_164_pay_screenshot_1778293021.jpg   DOC_164_pay_screenshot_1778330648.jpg
+DOC_164_pay_screenshot_1778330706.jpg   DOC_164_pay_screenshot_1778607502.jpg
+DOC_164_pay_screenshot_1778608789.jpg   STU_164_REP_1778616488_6b6f.jpg
+STU_164_REP_1778616615_dca7.jpg         
+              15 archivos        726.644 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\165
+
+[.]                                 [..]
+DOC_165_doc_cv_1778294619.pdf       DOC_165_doc_degree_1778294619.pdf
+DOC_165_doc_id_1778294619.pdf       [payment]
+               3 archivos      1.174.566 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\165\payment
+
+[.]                                     [..]
+DOC_165_pay_screenshot_1778294619.jpg   STU_165_REP_1778606551_930f.jpg
+STU_165_REP_1778606755_02d5.jpg         STU_165_REP_1778606928_1296.jpg
+STU_165_REP_1778957921_b503.jpg         
+               5 archivos        634.444 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\166
+
+[.]                                 [..]
+DOC_166_doc_cv_1778328404.pdf       DOC_166_doc_cv_1778328454.pdf
+DOC_166_doc_cv_1778328567.pdf       DOC_166_doc_cv_1778506365.pdf
+DOC_166_doc_cv_1778604605.pdf       DOC_166_doc_degree_1778328404.pdf
+DOC_166_doc_degree_1778328454.pdf   DOC_166_doc_degree_1778328567.pdf
+DOC_166_doc_degree_1778506365.pdf   DOC_166_doc_degree_1778604605.pdf
+DOC_166_doc_id_1778328404.pdf       DOC_166_doc_id_1778328454.pdf
+DOC_166_doc_id_1778328567.pdf       DOC_166_doc_id_1778506365.pdf
+DOC_166_doc_id_1778604605.pdf       [payment]
+              15 archivos      5.711.365 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\166\payment
+
+[.]
+[..]
+DOC_166_pay_screenshot_1778328404.jpeg
+DOC_166_pay_screenshot_1778328454.jpeg
+DOC_166_pay_screenshot_1778328567.jpeg
+DOC_166_pay_screenshot_1778506365.jpg
+DOC_166_pay_screenshot_1778604605.jpg
+STU_166_REP_1778606861_fa02.jpg
+STU_166_REP_1778607072_4ba0.jpg
+STU_166_REP_1778607239_dc3b.jpg
+STU_166_REP_1778847783_94fb.jpg
+STU_166_REP_1778847885_5959.jpg
+STU_166_REP_1778848002_3dd1.jpg
+STU_166_REP_1778848489_c7d5.png
+STU_166_REP_1778877257_803c.png
+              13 archivos        697.117 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\167
+
+[.]                                 [..]
+DOC_167_doc_cv_1778852538.pdf       DOC_167_doc_degree_1778852538.pdf
+DOC_167_doc_id_1778852538.pdf       [payment]
+               3 archivos      1.155.742 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\167\payment
+
+[.]                                     [..]
+DOC_167_pay_screenshot_1778852538.jpg   STU_167_REP_1779482857_e8b8.jpg
+STU_167_REP_1779483120_0812.jpg         STU_167_REP_1779483308_6c17.jpg
+STU_167_REP_1779483451_dd75.jpg         
+               5 archivos        511.066 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\170
+
+[.]                                  [..]
+DOC_170_doc_cv_1778342160.pdf        DOC_170_doc_degree_1778342160.pdf
+DOC_170_doc_degree_1779375265.pdf    DOC_170_doc_id_1778342160.pdf
+DOC_170_doc_id_card_1779375228.pdf   [payment]
+               5 archivos        676.089 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\170\payment
+
+[.]                                     [..]
+DOC_170_pay_screenshot_1778342160.jpg   DOC_170_pay_screenshot_1778700066.jpg
+STU_170_REP_1779396744_fa21.jpg         STU_170_REP_1779396844_f4c9.jpg
+STU_170_REP_1779397391_2322.jpg         
+               5 archivos        501.173 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\171
+
+[.]                                 [..]
+DOC_171_doc_cv_1778341998.pdf       DOC_171_doc_degree_1778341998.pdf
+DOC_171_doc_id_1778341998.pdf       [payment]
+               3 archivos      1.545.884 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\171\payment
+
+[.]
+[..]
+DOC_171_pay_screenshot_1778341998.jpeg
+               1 archivos         50.106 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\172
+
+[.]                             [..]
+DOC_172_doc_cv_1778698192.pdf   DOC_172_doc_id_1778698192.pdf
+[payment]                       
+               2 archivos        202.016 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\172\payment
+
+[.]
+[..]
+DOC_172_pay_screenshot_1778698192.jpeg
+               1 archivos         44.424 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\173
+
+[.]                                 [..]
+DOC_173_doc_cv_1778693645.pdf       DOC_173_doc_degree_1778693645.pdf
+DOC_173_doc_id_1778693645.pdf       [payment]
+               3 archivos        335.067 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\173\payment
+
+[.]
+[..]
+DOC_173_pay_screenshot_1778339680.jpg
+DOC_173_pay_screenshot_1778693645.jpeg
+               2 archivos        220.501 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\174
+
+[.]                                 [..]
+DOC_174_doc_degree_1778340102.pdf   DOC_174_doc_degree_1778604563.pdf
+DOC_174_doc_id_1778340102.pdf       DOC_174_doc_id_1778604563.pdf
+[payment]                           
+               4 archivos        195.752 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\174\payment
+
+[.]                                     [..]
+DOC_174_pay_screenshot_1778340102.jpg   DOC_174_pay_screenshot_1778604563.jpg
+STU_174_REP_1778606563_9083.jpg         STU_174_REP_1779111215_9f49.jpg
+               4 archivos        175.470 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\175
+
+[.]                             [..]
+DOC_175_doc_id_1779485649.pdf   [payment]
+               1 archivos      1.128.626 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\175\payment
+
+[.]                                     [..]
+DOC_175_pay_screenshot_1779485649.jpg   DOC_175_pay_screenshot_1779485911.jpg
+               2 archivos        972.920 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\177
+
+[.]                                 [..]
+DOC_177_doc_cv_1778605822.pdf       DOC_177_doc_cv_1778606349.pdf
+DOC_177_doc_degree_1778605822.pdf   DOC_177_doc_degree_1778606349.pdf
+DOC_177_doc_id_1778605822.pdf       DOC_177_doc_id_1778606349.pdf
+[payment]                           
+               6 archivos      4.113.636 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\177\payment
+
+[.]                                     [..]
+DOC_177_pay_screenshot_1778605822.jpg   DOC_177_pay_screenshot_1778606349.jpg
+STU_177_REP_1779481138_2e8e.jpg         STU_177_REP_1779481542_c97f.jpg
+STU_177_REP_1779481771_bb2d.jpg         STU_177_REP_1779493646_997b.jpg
+STU_177_REP_1779494260_15ca.jpg         
+               7 archivos        207.871 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\179
+
+[.]                                 [..]
+DOC_179_doc_cv_1778359410.pdf       DOC_179_doc_degree_1778359410.pdf
+DOC_179_doc_id_1778359410.pdf       [payment]
+               3 archivos        376.886 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\179\payment
+
+[.]  [..] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\180
+
+[.]                                 [..]
+DOC_180_doc_cv_1779056707.pdf       DOC_180_doc_degree_1779056707.pdf
+DOC_180_doc_id_1779056707.pdf       [payment]
+               3 archivos        714.488 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\180\payment
+
+[.]
+[..]
+DOC_180_pay_screenshot_1779056707.jpeg
+               1 archivos         31.888 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\182
+
+[.]                                 [..]
+DOC_182_doc_cv_1778363659.pdf       DOC_182_doc_degree_1778363659.pdf
+DOC_182_doc_id_1778363659.pdf       [payment]
+               3 archivos        462.574 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\182\payment
+
+[.]                                     [..]
+DOC_182_pay_screenshot_1778363659.jpg   
+               1 archivos         40.275 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\183
+
+[.]                             [..]
+DOC_183_doc_cv_1778366523.pdf   DOC_183_doc_cv_1778683008.pdf
+DOC_183_doc_cv_1778690944.pdf   DOC_183_doc_id_1778366523.pdf
+DOC_183_doc_id_1778683008.pdf   DOC_183_doc_id_1778690944.pdf
+[payment]                       
+               6 archivos        999.484 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\183\payment
+
+[.]
+[..]
+DOC_183_pay_screenshot_1778366523.jpeg
+DOC_183_pay_screenshot_1778683008.jpeg
+DOC_183_pay_screenshot_1778690944.jpeg
+               3 archivos        327.141 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\184
+
+[.]                                 [..]
+DOC_184_doc_cv_1778605001.pdf       DOC_184_doc_degree_1778605001.pdf
+DOC_184_doc_id_1778605001.pdf       [payment]
+               3 archivos        380.072 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\184\payment
+
+[.]                                     [..]
+DOC_184_pay_screenshot_1778605001.jpg   
+               1 archivos         45.630 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\185
+
+[.]                                 [..]
+DOC_185_doc_degree_1778382056.pdf   DOC_185_doc_id_1778382056.pdf
+[payment]                           
+               2 archivos        997.304 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\185\payment
+
+[.]  [..] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\186
+
+[.]                                 [..]
+DOC_186_doc_cv_1778716761.pdf       DOC_186_doc_degree_1778716761.pdf
+DOC_186_doc_id_1778716761.pdf       [payment]
+               3 archivos      1.401.606 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\186\payment
+
+[.]                                     [..]
+DOC_186_pay_screenshot_1778716761.png   
+               1 archivos         87.399 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\187
+
+[.]                                 [..]
+DOC_187_doc_cv_1778384941.pdf       DOC_187_doc_cv_1778811921.pdf
+DOC_187_doc_degree_1778384941.pdf   DOC_187_doc_degree_1778811921.pdf
+DOC_187_doc_id_1778384941.pdf       DOC_187_doc_id_1778811921.pdf
+[payment]                           
+               6 archivos      2.747.452 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\187\payment
+
+[.]                                     [..]
+DOC_187_pay_screenshot_1778384941.jpg   DOC_187_pay_screenshot_1778811921.jpg
+               2 archivos         65.026 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\188
+
+[.]                                 [..]
+DOC_188_doc_cv_1778471251.pdf       DOC_188_doc_cv_1779117221.pdf
+DOC_188_doc_degree_1778471251.pdf   DOC_188_doc_degree_1779117221.pdf
+DOC_188_doc_id_1778471251.pdf       DOC_188_doc_id_1779117221.pdf
+[payment]                           
+               6 archivos      1.523.984 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\188\payment
+
+[.]                                     [..]
+DOC_188_pay_screenshot_1778471251.jpg   DOC_188_pay_screenshot_1779117221.jpg
+               2 archivos         96.326 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\189
+
+[.]                                 [..]
+DOC_189_doc_cv_1778456245.pdf       DOC_189_doc_degree_1778456245.pdf
+DOC_189_doc_id_1778456245.pdf       [payment]
+               3 archivos      1.033.024 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\189\payment
+
+[.]                                     [..]
+DOC_189_pay_screenshot_1778456245.jpg   STU_189_REP_1778624685_cddd.jpg
+STU_189_REP_1778624879_7aa6.jpg         STU_189_REP_1778625735_f123.jpg
+STU_189_REP_1778772726_e0fd.jpg         STU_189_REP_1778933597_07f6.jpg
+               6 archivos        339.887 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\190
+
+[.]                                 [..]
+DOC_190_doc_cv_1779031540.pdf       DOC_190_doc_degree_1779031540.pdf
+DOC_190_doc_id_1779031540.pdf       [payment]
+               3 archivos      1.581.332 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\190\payment
+
+[.]                                     [..]
+DOC_190_pay_screenshot_1779031540.jpg   STU_190_REP_1779482847_e5f2.jpg
+STU_190_REP_1779483181_f167.jpg         STU_190_REP_1779483392_cd65.jpg
+STU_190_REP_1779483578_3ef3.jpg         
+               5 archivos        377.821 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\191
+
+[.]                                 [..]
+DOC_191_doc_cv_1779475395.pdf       DOC_191_doc_degree_1779475395.pdf
+DOC_191_doc_id_1779475395.pdf       [payment]
+               3 archivos      1.727.490 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\191\payment
+
+[.]                                     [..]
+DOC_191_pay_screenshot_1779475395.jpg   
+               1 archivos         51.020 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\192
+
+[.]                                 [..]
+DOC_192_doc_cv_1778773039.pdf       DOC_192_doc_degree_1779413747.pdf
+DOC_192_doc_id_1778773039.pdf       [payment]
+               3 archivos        668.032 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\192\payment
+
+[.]
+[..]
+DOC_192_pay_screenshot_1778773039.jpeg
+STU_192_REP_1779414017_77e4.jpeg
+STU_192_REP_1779414159_faa6.jpeg
+STU_192_REP_1779414310_261f.jpeg
+               4 archivos        208.048 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\193
+
+[.]                                 [..]
+DOC_193_doc_cv_1778455652.pdf       DOC_193_doc_degree_1778455652.pdf
+DOC_193_doc_id_1778455652.pdf       [payment]
+               3 archivos        874.983 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\193\payment
+
+[.]                                     [..]
+DOC_193_pay_screenshot_1778455652.jpg   STU_193_REP_1778627387_ee0c.jpg
+STU_193_REP_1778627538_1f91.jpg         STU_193_REP_1778627733_f4ab.png
+STU_193_REP_1778627833_1f2d.png         STU_193_REP_1778975470_0164.png
+               6 archivos      1.617.303 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\194
+
+[.]                                 [..]
+DOC_194_doc_degree_1778536393.pdf   DOC_194_doc_degree_1778607772.pdf
+DOC_194_doc_id_1778536393.pdf       DOC_194_doc_id_1778607772.pdf
+[payment]                           
+               4 archivos        550.122 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\194\payment
+
+[.]
+[..]
+DOC_194_pay_screenshot_1778536393.jpeg
+DOC_194_pay_screenshot_1778607772.jpeg
+STU_194_REP_1779152150_5700.png
+STU_194_REP_1779152378_cc26.png
+STU_194_REP_1779152707_db56.jpeg
+STU_194_REP_1779152822_f106.jpeg
+STU_194_REP_1779482732_e483.jpeg
+               7 archivos      1.777.336 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\197
+
+[.]       [..]      [payment] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\197\payment
+
+[.]                                     [..]
+DOC_197_pay_screenshot_1778780477.jpg   
+               1 archivos      6.043.543 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\198
+
+[.]                                 [..]
+DOC_198_doc_cv_1778463671.pdf       DOC_198_doc_degree_1778463671.pdf
+DOC_198_doc_id_1778463671.pdf       [payment]
+               3 archivos      1.318.307 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\198\payment
+
+[.]                                     [..]
+DOC_198_pay_screenshot_1778463671.pdf   STU_198_REP_1778616593_bfcc.jpeg
+STU_198_REP_1778616705_442b.jpeg        STU_198_REP_1778616874_ad60.jpeg
+STU_198_REP_1778617013_b474.jpeg        STU_198_REP_1779405817_122d.jpeg
+               6 archivos        321.431 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\199
+
+[.]                                 [..]
+DOC_199_doc_cv_1778541630.pdf       DOC_199_doc_cv_1778761244.pdf
+DOC_199_doc_degree_1778541630.pdf   DOC_199_doc_degree_1778761244.pdf
+DOC_199_doc_id_1778541630.pdf       DOC_199_doc_id_1778761244.pdf
+[payment]                           
+               6 archivos        743.696 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\199\payment
+
+[.]                                     [..]
+DOC_199_pay_screenshot_1778761244.jpg   
+               1 archivos        311.168 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\200
+
+[.]                                 [..]
+DOC_200_doc_cv_1778523881.pdf       DOC_200_doc_cv_1778611954.pdf
+DOC_200_doc_degree_1778523881.pdf   DOC_200_doc_degree_1778611954.pdf
+DOC_200_doc_id_1778523881.pdf       DOC_200_doc_id_1778611954.pdf
+[payment]                           
+               6 archivos      2.576.184 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\200\payment
+
+[.]
+[..]
+DOC_200_pay_screenshot_1778523881.jpeg
+DOC_200_pay_screenshot_1778611954.jpeg
+STU_200_REP_1778675981_2aa1.jpeg
+STU_200_REP_1778676761_e133.jpeg
+STU_200_REP_1778676909_008f.jpeg
+STU_200_REP_1778677033_c1e6.jpeg
+STU_200_REP_1779194891_bf58.jpeg
+               7 archivos        244.281 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\201
+
+[.]                                 [..]
+DOC_201_doc_cv_1778525313.pdf       DOC_201_doc_degree_1778525313.pdf
+DOC_201_doc_id_1778525313.pdf       [payment]
+               3 archivos      1.092.830 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\201\payment
+
+[.]
+[..]
+DOC_201_pay_screenshot_1778525313.jpeg
+               1 archivos         37.702 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\202
+
+[.]                                 [..]
+DOC_202_doc_cv_1778530527.pdf       DOC_202_doc_degree_1778530527.pdf
+DOC_202_doc_id_1778530527.pdf       [payment]
+               3 archivos        482.988 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\202\payment
+
+[.]                                     [..]
+DOC_202_pay_screenshot_1778530527.jpg   
+               1 archivos        307.568 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\204
+
+[.]                                 [..]
+DOC_204_doc_cv_1778609945.pdf       DOC_204_doc_cv_1778610085.pdf
+DOC_204_doc_degree_1778609945.pdf   DOC_204_doc_degree_1778610085.pdf
+DOC_204_doc_id_1778609945.pdf       DOC_204_doc_id_1778610085.pdf
+[payment]                           
+               6 archivos      3.261.550 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\204\payment
+
+[.]                                     [..]
+DOC_204_pay_screenshot_1778609945.jpg   DOC_204_pay_screenshot_1778610085.jpg
+               2 archivos         92.430 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\205
+
+[.]                                 [..]
+DOC_205_doc_degree_1778597658.pdf   DOC_205_doc_id_1778597658.pdf
+[payment]                           
+               2 archivos      1.748.428 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\205\payment
+
+[.]
+[..]
+DOC_205_pay_screenshot_1778597658.jpeg
+STU_205_REP_1778607517_f6e1.jpeg
+STU_205_REP_1778607853_863f.jpeg
+STU_205_REP_1778608158_e6f8.jpeg
+               4 archivos        241.344 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\206
+
+[.]       [..]      [payment] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\206\payment
+
+[.]
+[..]
+DOC_206_pay_screenshot_1778617492.jpeg
+               1 archivos         49.438 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\208
+
+[.]                                 [..]
+DOC_208_doc_cv_1778634855.pdf       DOC_208_doc_degree_1778634855.pdf
+DOC_208_doc_id_1778634855.pdf       [payment]
+               3 archivos      1.050.268 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\208\payment
+
+[.]
+[..]
+DOC_208_pay_screenshot_1778634855.jpeg
+STU_208_REP_1778679882_5084.jpeg
+STU_208_REP_1778680002_41ef.jpeg
+STU_208_REP_1778680105_91e8.jpeg
+STU_208_REP_1779486095_96e7.png
+               5 archivos        409.962 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\21
+
+[.]                                [..]
+DOC_21_doc_cv_1775623223.pdf       DOC_21_doc_degree_1775623223.pdf
+DOC_21_doc_degree_1775625100.pdf   DOC_21_doc_degree_1775849533.pdf
+DOC_21_doc_degree_1775851507.pdf   DOC_21_doc_degree_1775859195.pdf
+DOC_21_doc_degree_1775859926.pdf   DOC_21_doc_id_1775623223.pdf
+DOC_21_doc_id_1775625100.pdf       DOC_21_doc_id_1775858844.pdf
+DOC_21_doc_id_1775859195.pdf       DOC_21_doc_id_1775859926.pdf
+[payment]                          
+              12 archivos        611.963 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\21\payment
+
+[.]                                    [..]
+DOC_21_pay_1775866862_6970a287.png     DOC_21_pay_screenshot_1775623223.png
+DOC_21_pay_screenshot_1775625100.png   DOC_21_pay_screenshot_1775865506.png
+               4 archivos         25.752 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\210
+
+[.]                                 [..]
+DOC_210_doc_cv_1778612683.pdf       DOC_210_doc_degree_1778612683.pdf
+DOC_210_doc_id_1778612683.pdf       [payment]
+               3 archivos        587.742 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\210\payment
+
+[.]                                     [..]
+DOC_210_pay_screenshot_1778612683.jpg   
+               1 archivos        416.726 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\211
+
+[.]                                 [..]
+DOC_211_doc_cv_1778622608.pdf       DOC_211_doc_degree_1778622608.pdf
+DOC_211_doc_id_1778622608.pdf       [payment]
+               3 archivos        792.860 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\211\payment
+
+[.]                                     [..]
+DOC_211_pay_screenshot_1778622608.jpg   STU_211_REP_1778784134_70a5.jpg
+STU_211_REP_1778784355_fa76.jpg         STU_211_REP_1778784511_114d.jpg
+               4 archivos        243.409 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\212
+
+[.]                             [..]
+DOC_212_doc_cv_1778616262.pdf   [payment]
+               1 archivos        203.084 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\212\payment
+
+[.]                                     [..]
+DOC_212_pay_screenshot_1778616262.jpg   
+               1 archivos         29.703 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\213
+
+[.]                                  [..]
+DOC_213_doc_cv_1778694715.pdf        DOC_213_doc_degree_1778694535.pdf
+DOC_213_doc_id_card_1778694520.pdf   [payment]
+               3 archivos      1.742.068 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\213\payment
+
+[.]
+[..]
+DOC_213_pay_screenshot_1778689465.jpeg
+DOC_213_pay_screenshot_1778689734.jpeg
+               2 archivos        112.396 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\214
+
+[.]                                  [..]
+DOC_214_doc_cv_1779487517.pdf        DOC_214_doc_degree_1779487968.pdf
+DOC_214_doc_id_card_1779487419.pdf   [payment]
+               3 archivos        420.457 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\214\payment
+
+[.]                                     [..]
+DOC_214_pay_screenshot_1778625359.jpg   
+               1 archivos         57.444 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\216
+
+[.]                                 [..]
+DOC_216_doc_degree_1778639238.pdf   DOC_216_doc_id_1778639238.pdf
+[payment]                           
+               2 archivos        329.844 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\216\payment
+
+[.]                                     [..]
+DOC_216_pay_screenshot_1778639238.jpg   DOC_216_pay_screenshot_1779036065.jpg
+STU_216_REP_1779485086_9088.jpg         STU_216_REP_1779485201_c508.jpg
+STU_216_REP_1779485345_47a3.jpg         STU_216_REP_1779487210_d428.jpg
+               6 archivos        282.755 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\218
+
+[.]       [..]      [payment] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\218\payment
+
+[.]
+[..]
+DOC_218_pay_screenshot_1778682883.jpeg
+               1 archivos         45.802 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\219
+
+[.]                                 [..]
+DOC_219_doc_cv_1778682017.pdf       DOC_219_doc_degree_1778682017.pdf
+DOC_219_doc_id_1778682017.pdf       [payment]
+               3 archivos        654.661 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\219\payment
+
+[.]                                     [..]
+DOC_219_pay_screenshot_1778682017.JPG   STU_219_REP_1778781486_9586.jpg
+STU_219_REP_1778781646_77e4.jpg         STU_219_REP_1778781851_bd92.jpg
+               4 archivos        176.910 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\22
+
+[.]                                [..]
+DOC_22_doc_cv_1775616180.pdf       DOC_22_doc_cv_1775623044.pdf
+DOC_22_doc_cv_1775623707.pdf       DOC_22_doc_cv_1775702270.pdf
+DOC_22_doc_cv_1775859003.pdf       DOC_22_doc_cv_1776271362.pdf
+DOC_22_doc_degree_1775616180.pdf   DOC_22_doc_degree_1775621700.pdf
+DOC_22_doc_degree_1775621880.pdf   DOC_22_doc_degree_1775623044.pdf
+DOC_22_doc_degree_1775623522.pdf   DOC_22_doc_degree_1775623707.pdf
+DOC_22_doc_degree_1775624035.pdf   DOC_22_doc_degree_1775624204.pdf
+DOC_22_doc_degree_1775702270.pdf   DOC_22_doc_degree_1775702973.pdf
+DOC_22_doc_degree_1775704134.pdf   DOC_22_doc_degree_1775706781.pdf
+DOC_22_doc_degree_1775707446.pdf   DOC_22_doc_degree_1775708377.pdf
+DOC_22_doc_degree_1775709568.pdf   DOC_22_doc_degree_1775711924.pdf
+DOC_22_doc_degree_1775712145.pdf   DOC_22_doc_degree_1775747955.pdf
+DOC_22_doc_degree_1775851452.pdf   DOC_22_doc_degree_1775851614.pdf
+DOC_22_doc_degree_1775858072.pdf   DOC_22_doc_degree_1775859003.pdf
+DOC_22_doc_degree_1775859087.pdf   DOC_22_doc_degree_1775859312.pdf
+DOC_22_doc_degree_1775859487.pdf   DOC_22_doc_degree_1775863667.pdf
+DOC_22_doc_degree_1775863737.pdf   DOC_22_doc_degree_1775880363.pdf
+DOC_22_doc_degree_1776271362.pdf   DOC_22_doc_degree_1776272680.pdf
+DOC_22_doc_id_1775616180.pdf       DOC_22_doc_id_1775621700.pdf
+DOC_22_doc_id_1775621880.pdf       DOC_22_doc_id_1775623044.pdf
+DOC_22_doc_id_1775623522.pdf       DOC_22_doc_id_1775623707.pdf
+DOC_22_doc_id_1775624035.pdf       DOC_22_doc_id_1775624204.pdf
+DOC_22_doc_id_1775702270.pdf       DOC_22_doc_id_1775702973.pdf
+DOC_22_doc_id_1775704134.pdf       DOC_22_doc_id_1775706781.pdf
+DOC_22_doc_id_1775707446.pdf       DOC_22_doc_id_1775708377.pdf
+DOC_22_doc_id_1775709568.pdf       DOC_22_doc_id_1775711924.pdf
+DOC_22_doc_id_1775712145.pdf       DOC_22_doc_id_1775747955.pdf
+DOC_22_doc_id_1775858072.pdf       DOC_22_doc_id_1775859003.pdf
+DOC_22_doc_id_1775859087.pdf       DOC_22_doc_id_1775859312.pdf
+DOC_22_doc_id_1775859487.pdf       DOC_22_doc_id_1775863667.pdf
+DOC_22_doc_id_1775863702.pdf       DOC_22_doc_id_1775880363.pdf
+DOC_22_doc_id_1776271362.pdf       DOC_22_doc_id_1776272680.pdf
+[payment]                          
+              64 archivos      3.434.262 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\22\payment
+
+[.]                                     [..]
+DOC_22_pay_1775616243_e612a38f.png      DOC_22_pay_1775618770_5979cfc0.png
+DOC_22_pay_1775655197_97db4fde.png      DOC_22_pay_1775655609_aeeeec07.png
+DOC_22_pay_1775697956_b647f465.png      DOC_22_pay_1775707100_4d030ee2.png
+DOC_22_pay_1775707585_206d7fd2.png      DOC_22_pay_1775708506_4d195eb1.png
+DOC_22_pay_1775765694_69864f59.png      DOC_22_pay_1775868565_6f91acf3.png
+DOC_22_pay_1775868859_0283f3cf.png      DOC_22_pay_1776515300_25475adc.png
+DOC_22_pay_1776515704_dc9f7ca8.png      DOC_22_pay_1776516060_037a6e89.jpeg
+DOC_22_pay_screenshot_1775616180.png    DOC_22_pay_screenshot_1775621700.png
+DOC_22_pay_screenshot_1775621880.png    DOC_22_pay_screenshot_1775623044.png
+DOC_22_pay_screenshot_1775623522.png    DOC_22_pay_screenshot_1775623707.png
+DOC_22_pay_screenshot_1775624035.png    DOC_22_pay_screenshot_1775624204.png
+DOC_22_pay_screenshot_1775702270.png    DOC_22_pay_screenshot_1775708377.png
+DOC_22_pay_screenshot_1775711924.png    DOC_22_pay_screenshot_1775747955.png
+DOC_22_pay_screenshot_1775868471.png    DOC_22_pay_screenshot_1775880363.png
+DOC_22_pay_screenshot_1776271362.png    DOC_22_pay_screenshot_1776513144.png
+DOC_22_pay_screenshot_1776513461.jpeg   
+              31 archivos        263.958 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\220
+
+[.]                                 [..]
+DOC_220_doc_cv_1778690649.pdf       DOC_220_doc_degree_1778690649.pdf
+DOC_220_doc_id_1778690649.pdf       [payment]
+               3 archivos      3.050.384 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\220\payment
+
+[.]                                     [..]
+DOC_220_pay_screenshot_1778690649.png   STU_220_REP_1778695127_9822.png
+STU_220_REP_1778695526_0ff0.png         STU_220_REP_1778877101_52e8.png
+STU_220_REP_1779325252_0f73.png         STU_220_REP_1779495617_4a61.png
+               6 archivos      1.452.382 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\221
+
+[.]       [..]      [payment] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\221\payment
+
+[.]                                     [..]
+DOC_221_pay_screenshot_1778961642.jpg   STU_221_REP_1779474809_836e.jpg
+STU_221_REP_1779475118_a6f8.jpg         STU_221_REP_1779475309_5f31.jpg
+STU_221_REP_1779475484_7103.jpg         
+               5 archivos        224.944 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\222
+
+[.]                                 [..]
+DOC_222_doc_cv_1778712363.pdf       DOC_222_doc_degree_1778712363.pdf
+DOC_222_doc_id_1778712363.pdf       [payment]
+               3 archivos      1.396.489 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\222\payment
+
+[.]
+[..]
+DOC_222_pay_screenshot_1778712363.jpeg
+               1 archivos         32.647 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\223
+
+[.]       [..]      [payment] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\223\payment
+
+[.]                                     [..]
+DOC_223_pay_screenshot_1779493875.pdf   
+               1 archivos        233.073 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\224
+
+[.]                                 [..]
+DOC_224_doc_cv_1779155401.pdf       DOC_224_doc_degree_1779155401.pdf
+DOC_224_doc_id_1779155401.pdf       [payment]
+               3 archivos        904.952 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\224\payment
+
+[.]                                     [..]
+DOC_224_pay_screenshot_1779155401.pdf   
+               1 archivos         61.093 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\226
+
+[.]                                 [..]
+DOC_226_doc_cv_1779488318.pdf       DOC_226_doc_degree_1779488318.pdf
+DOC_226_doc_id_1779488318.pdf       [payment]
+               3 archivos      2.718.672 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\226\payment
+
+[.]                                     [..]
+DOC_226_pay_screenshot_1779488318.jpg   
+               1 archivos         31.817 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\227
+
+[.]                                 [..]
+DOC_227_doc_degree_1778721264.pdf   DOC_227_doc_id_1778721264.pdf
+[payment]                           
+               2 archivos        297.125 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\227\payment
+
+[.]
+[..]
+DOC_227_pay_screenshot_1778721264.jpeg
+               1 archivos         51.123 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\228
+
+[.]                                 [..]
+DOC_228_doc_cv_1778771273.pdf       DOC_228_doc_degree_1778771273.pdf
+DOC_228_doc_id_1778771273.pdf       [payment]
+               3 archivos      1.407.576 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\228\payment
+
+[.]                                     [..]
+DOC_228_pay_screenshot_1778771273.jpg   
+               1 archivos        264.368 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\229
+
+[.]                                 [..]
+DOC_229_doc_cv_1778781859.pdf       DOC_229_doc_cv_1779386306.pdf
+DOC_229_doc_degree_1778781859.pdf   DOC_229_doc_degree_1779386306.pdf
+DOC_229_doc_id_1778781859.pdf       DOC_229_doc_id_1779386306.pdf
+[payment]                           
+               6 archivos      1.475.088 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\229\payment
+
+[.]                                     [..]
+DOC_229_pay_screenshot_1778781859.pdf   DOC_229_pay_screenshot_1779386306.pdf
+               2 archivos      3.894.476 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\23
+
+[.]                                [..]
+DOC_23_doc_cv_1775655396.pdf       DOC_23_doc_degree_1775655396.pdf
+DOC_23_doc_degree_1775709136.pdf   DOC_23_doc_degree_1775709520.pdf
+DOC_23_doc_degree_1775711841.pdf   DOC_23_doc_degree_1775850492.pdf
+DOC_23_doc_degree_1775850798.pdf   DOC_23_doc_degree_1775851073.pdf
+DOC_23_doc_degree_1775858874.pdf   DOC_23_doc_id_1775655396.pdf
+DOC_23_doc_id_1775709136.pdf       DOC_23_doc_id_1775709520.pdf
+DOC_23_doc_id_1775711841.pdf       [payment]
+              13 archivos        591.040 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\23\payment
+
+[.]                                    [..]
+DOC_23_pay_screenshot_1775655396.png   DOC_23_pay_screenshot_1775711841.png
+               2 archivos         12.876 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\231
+
+[.]       [..]      [payment] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\231\payment
+
+[.]  [..] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\232
+
+[.]                                 [..]
+DOC_232_doc_cv_1778948748.pdf       DOC_232_doc_degree_1779381240.pdf
+DOC_232_doc_id_1778948748.pdf       [payment]
+               3 archivos        586.963 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\232\payment
+
+[.]                                     [..]
+DOC_232_pay_screenshot_1778948748.jpg   STU_232_REP_1779381941_85a8.jpg
+STU_232_REP_1779382184_b2d7.jpg         STU_232_REP_1779382308_ed7a.jpg
+STU_232_REP_1779395607_6010.jpg         
+               5 archivos        210.887 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\233
+
+[.]                                 [..]
+DOC_233_doc_cv_1778954896.pdf       DOC_233_doc_degree_1778954896.pdf
+DOC_233_doc_id_1778954896.pdf       [payment]
+               3 archivos      1.245.677 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\233\payment
+
+[.]                                     [..]
+DOC_233_pay_screenshot_1778954896.jpg   
+               1 archivos         64.334 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\234
+
+[.]                                 [..]
+DOC_234_doc_cv_1778972223.pdf       DOC_234_doc_degree_1778972223.pdf
+DOC_234_doc_id_1778972223.pdf       [payment]
+               3 archivos      1.134.012 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\234\payment
+
+[.]                                     [..]
+DOC_234_pay_screenshot_1778972223.jpg   
+               1 archivos        262.881 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\235
+
+[.]       [..]      [payment] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\235\payment
+
+[.]                                     [..]
+DOC_235_pay_screenshot_1779048211.jpg   STU_235_REP_1779464747_3a3f.jpg
+STU_235_REP_1779464883_fe26.jpg         STU_235_REP_1779465017_9537.jpg
+STU_235_REP_1779465137_5f00.jpg         
+               5 archivos      1.393.913 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\238
+
+[.]       [..]      [payment] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\238\payment
+
+[.]
+[..]
+DOC_238_pay_screenshot_1779481767.jpeg
+               1 archivos         26.503 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\24
+
+[.]                                [..]
+DOC_24_doc_degree_1775710038.pdf   DOC_24_doc_degree_1775857022.pdf
+DOC_24_doc_degree_1775858904.pdf   DOC_24_doc_degree_1775859237.pdf
+DOC_24_doc_id_1775710038.pdf       DOC_24_doc_id_1775857022.pdf
+DOC_24_doc_id_1775858904.pdf       DOC_24_doc_id_1775859237.pdf
+[payment]                          
+               8 archivos        318.496 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\24\payment
+
+[.]                                    [..]
+DOC_24_pay_1775710339_874c8e49.png     DOC_24_pay_screenshot_1775880873.png
+DOC_24_pay_screenshot_1775882674.png   DOC_24_pay_screenshot_1776040059.png
+               4 archivos         25.752 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\240
+
+[.]       [..]      [payment] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\240\payment
+
+[.]                                     [..]
+DOC_240_pay_screenshot_1779474514.jpg   
+               1 archivos         34.975 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\241
+
+[.]                                 [..]
+DOC_241_doc_cv_1779474875.pdf       DOC_241_doc_degree_1779474875.pdf
+DOC_241_doc_id_1779474875.pdf       [payment]
+               3 archivos      1.400.245 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\241\payment
+
+[.]
+[..]
+DOC_241_pay_screenshot_1779474875.jpeg
+               1 archivos         26.760 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\243
+
+[.]       [..]      [payment] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\243\payment
+
+[.]                                     [..]
+DOC_243_pay_screenshot_1779479835.jpg   
+               1 archivos         43.704 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\28
+
+[.]       [..]      [payment] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\28\payment
+
+[.]                                    [..]
+DOC_28_pay_screenshot_1776086187.png   
+               1 archivos          6.438 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\29
+
+[.]       [..]      [payment] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\29\payment
+
+[.]                                    [..]
+DOC_29_pay_screenshot_1776352661.png   
+               1 archivos      2.098.504 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\86
+
+[.]                                [..]
+DOC_86_doc_cv_1778267103.pdf       DOC_86_doc_degree_1778267103.pdf
+DOC_86_doc_id_1778267103.pdf       [payment]
+               3 archivos      1.698.368 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\86\payment
+
+[.]                                     [..]
+DOC_86_pay_screenshot_1778267103.jpeg   STU_86_REP_1779473928_ea39.jpeg
+STU_86_REP_1779474072_640b.jpeg         STU_86_REP_1779474128_a432.jpeg
+               4 archivos        192.701 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\87
+
+[.]                                [..]
+DOC_87_doc_cv_1778200966.pdf       DOC_87_doc_cv_1778604116.pdf
+DOC_87_doc_degree_1778200966.pdf   DOC_87_doc_degree_1778604116.pdf
+DOC_87_doc_id_1778200966.pdf       DOC_87_doc_id_1778604116.pdf
+[payment]                          
+               6 archivos      1.516.337 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\87\payment
+
+[.]                                    [..]
+DOC_87_pay_screenshot_1778200966.jpg   DOC_87_pay_screenshot_1778604116.jpg
+STU_87_REP_1778891363_0197.jpg         STU_87_REP_1778891605_df58.jpg
+STU_87_REP_1778892189_0159.jpg         STU_87_REP_1778893390_4280.jpg
+               6 archivos        380.476 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\88
+
+[.]                                [..]
+DOC_88_doc_cv_1778614542.pdf       DOC_88_doc_degree_1778614542.pdf
+DOC_88_doc_id_1778614542.pdf       [payment]
+               3 archivos        203.309 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\88\payment
+
+[.]                                     [..]
+DOC_88_pay_screenshot_1778614542.jpeg   STU_88_REP_1778755512_a036.jpg
+STU_88_REP_1778917134_0540.jpg          STU_88_REP_1778984066_9942.jpg
+STU_88_REP_1779195316_2a80.jpg          
+               5 archivos        613.832 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\90
+
+[.]                            [..]
+DOC_90_doc_cv_1778461790.pdf   DOC_90_doc_cv_1778638714.pdf
+DOC_90_doc_cv_1778694528.pdf   DOC_90_doc_cv_1779406712.pdf
+DOC_90_doc_id_1778461790.pdf   DOC_90_doc_id_1778638714.pdf
+DOC_90_doc_id_1778694528.pdf   DOC_90_doc_id_1779406712.pdf
+[payment]                      
+               8 archivos      1.159.188 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\90\payment
+
+[.]                                    [..]
+DOC_90_pay_screenshot_1778461790.jpg   DOC_90_pay_screenshot_1778638714.jpg
+DOC_90_pay_screenshot_1778694528.jpg   DOC_90_pay_screenshot_1779406712.jpg
+STU_90_REP_1779475585_b385.jpg         STU_90_REP_1779475760_ec72.jpg
+STU_90_REP_1779475885_fb85.jpg         STU_90_REP_1779476108_d64c.jpg
+STU_90_REP_1779476224_64ee.jpg         STU_90_REP_1779476322_727d.jpg
+STU_90_REP_1779476428_88f6.jpg         STU_90_REP_1779476597_ce2b.jpg
+              12 archivos        612.712 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\91
+
+[.]                                [..]
+DOC_91_doc_cv_1778285655.pdf       DOC_91_doc_cv_1778702465.pdf
+DOC_91_doc_degree_1778285655.pdf   DOC_91_doc_degree_1778702465.pdf
+DOC_91_doc_id_1778285655.pdf       DOC_91_doc_id_1778702465.pdf
+[payment]                          
+               6 archivos      3.063.243 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\91\payment
+
+[.]                                    [..]
+DOC_91_pay_screenshot_1778285655.jpg   DOC_91_pay_screenshot_1778702465.jpg
+               2 archivos         58.722 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\92
+
+[.]                                 [..]
+DOC_92_doc_degree_1778606788.pdf    DOC_92_doc_id_card_1778606537.pdf
+[payment]                           
+               2 archivos        206.893 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\92\payment
+
+[.]                                     [..]
+DOC_92_pay_screenshot_1778252334.jpg    DOC_92_pay_screenshot_1778604286.jpeg
+STU_92_REP_1778608027_48f9.jpeg         STU_92_REP_1778608168_1def.jpeg
+STU_92_REP_1778608258_9224.jpeg         STU_92_REP_1778608433_55a0.jpeg
+STU_92_REP_1778610567_ecce.jpeg         STU_92_REP_1778610659_8e29.jpeg
+STU_92_REP_1778610932_eb79.jpeg         
+               9 archivos        328.879 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\93
+
+[.]                                [..]
+DOC_93_doc_cv_1778204222.pdf       DOC_93_doc_degree_1778204222.pdf
+DOC_93_doc_id_1778204222.pdf       [payment]
+               3 archivos      2.336.670 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\93\payment
+
+[.]                                    [..]
+DOC_93_pay_screenshot_1778204222.jpg   STU_93_REP_1778858564_5641.jpg
+STU_93_REP_1778858829_a815.jpg         STU_93_REP_1778858998_c25d.jpg
+STU_93_REP_1778859224_d926.png         
+               5 archivos        297.434 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\94
+
+[.]                            [..]
+DOC_94_doc_cv_1778608391.pdf   DOC_94_doc_cv_1778610166.pdf
+DOC_94_doc_id_1778608391.pdf   DOC_94_doc_id_1778610166.pdf
+[payment]                      
+               4 archivos        884.354 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\94\payment
+
+[.]                                    [..]
+DOC_94_pay_screenshot_1778608391.jpg   DOC_94_pay_screenshot_1778610166.jpg
+STU_94_REP_1778619062_3adc.jpg         
+               3 archivos      1.423.028 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\96
+
+[.]                                [..]
+DOC_96_doc_cv_1778243655.pdf       DOC_96_doc_degree_1778243655.pdf
+DOC_96_doc_id_1778243655.pdf       [payment]
+               3 archivos      2.887.814 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\96\payment
+
+[.]                                     [..]
+DOC_96_pay_screenshot_1778243655.jpeg   STU_96_REP_1778606918_f37b.jpeg
+STU_96_REP_1778607067_9537.jpeg         STU_96_REP_1778607177_79b2.jpeg
+STU_96_REP_1778890408_3b81.jpg          
+               5 archivos        153.951 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\99
+
+[.]                            [..]
+DOC_99_doc_cv_1779330855.pdf   DOC_99_doc_id_1779330855.pdf
+[payment]                      
+               2 archivos        724.021 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\public\uploads\enrollments\99\payment
+
+[.]                                    [..]
+DOC_99_pay_screenshot_1779330855.jpg   
+               1 archivos         35.066 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools
+
+[.]                  [..]                 diplomatic-api.php
+[dompdf]             [exceljs]            generate_hash.php
+[phpmailer]          [phpqrcode]          [sheetjs]
+               2 archivos          7.309 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf
+
+[.]                [..]               AUTHORS.md         autoload.inc.php
+LICENSE.LGPL       README.md          [vendor]           VERSION
+               5 archivos         33.962 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor
+
+[.]            [..]           autoload.php   [composer]     [dompdf]
+[masterminds]  [sabberworm]   
+               1 archivos            185 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\composer
+
+[.]                       [..]                      autoload_classmap.php
+autoload_namespaces.php   autoload_psr4.php         autoload_real.php
+autoload_static.php       ClassLoader.php           installed.json
+installed.php             InstalledVersions.php     LICENSE
+platform_check.php        
+              11 archivos         53.343 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf
+
+[.]            [..]           [dompdf]       [php-font-lib] [php-svg-lib]
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf
+
+[.]             [..]            AUTHORS.md      composer.json   [lib]
+LICENSE.LGPL    phpunit.xml     README.md       [src]           VERSION
+               6 archivos         36.084 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\lib
+
+[.]        [..]       Cpdf.php   [fonts]    [res]      
+               1 archivos        243.516 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\lib\fonts
+
+[.]                              [..]
+Courier-Bold.afm                 Courier-BoldOblique.afm
+Courier-Oblique.afm              Courier.afm
+DejaVuSans-Bold.ttf              DejaVuSans-Bold.ufm
+DejaVuSans-BoldOblique.ttf       DejaVuSans-BoldOblique.ufm
+DejaVuSans-Oblique.ttf           DejaVuSans-Oblique.ufm
+DejaVuSans.ttf                   DejaVuSans.ufm
+DejaVuSansMono-Bold.ttf          DejaVuSansMono-Bold.ufm
+DejaVuSansMono-BoldOblique.ttf   DejaVuSansMono-BoldOblique.ufm
+DejaVuSansMono-Oblique.ttf       DejaVuSansMono-Oblique.ufm
+DejaVuSansMono.ttf               DejaVuSansMono.ufm
+DejaVuSerif-Bold.ttf             DejaVuSerif-Bold.ufm
+DejaVuSerif-BoldItalic.ttf       DejaVuSerif-BoldItalic.ufm
+DejaVuSerif-Italic.ttf           DejaVuSerif-Italic.ufm
+DejaVuSerif.ttf                  DejaVuSerif.ufm
+Helvetica-Bold.afm               Helvetica-Bold.afm.json
+Helvetica-BoldOblique.afm        Helvetica-BoldOblique.afm.json
+Helvetica-Oblique.afm            Helvetica-Oblique.afm.json
+Helvetica.afm                    Helvetica.afm.json
+installed-fonts.dist.json        mustRead.html
+Symbol.afm                       Times-Bold.afm
+Times-Bold.afm.json              Times-BoldItalic.afm
+Times-Italic.afm                 Times-Italic.afm.json
+Times-Roman.afm                  Times-Roman.afm.json
+ZapfDingbats.afm                 
+              47 archivos      7.939.695 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\lib\res
+
+[.]                    [..]                   broken_image.png
+broken_image.svg       html.css               sRGB2014.icc
+sRGB2014.icc.LICENSE   
+               5 archivos         12.838 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\src
+
+[.]                      [..]                     [Adapter]
+Canvas.php               CanvasFactory.php        Cellmap.php
+[Css]                    Dompdf.php               [Exception]
+Exception.php            FontMetrics.php          [Frame]
+Frame.php                [FrameDecorator]         [FrameReflower]
+Helpers.php              [Image]                  JavascriptEmbedder.php
+LineBox.php              Options.php              PhpEvaluator.php
+[Positioner]             [Renderer]               Renderer.php
+              13 archivos        247.764 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\src\Adapter
+
+[.]          [..]         CPDF.php     GD.php       PDFLib.php   
+               3 archivos        109.987 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\src\Css
+
+[.]                       [..]                      AttributeTranslator.php
+Color.php                 [Content]                 Style.php
+Stylesheet.php            
+               4 archivos        253.625 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\src\Css\Content
+
+[.]                [..]               Attr.php           CloseQuote.php
+ContentPart.php    Counter.php        Counters.php       NoCloseQuote.php
+NoOpenQuote.php    OpenQuote.php      StringPart.php     Url.php
+              10 archivos          3.929 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\src\Exception
+
+[.]                  [..]                 ImageException.php
+               1 archivos            601 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\src\Frame
+
+[.]                     [..]                    Factory.php
+FrameListIterator.php   FrameTree.php           FrameTreeIterator.php
+               4 archivos         21.524 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\src\FrameDecorator
+
+[.]                          [..]
+AbstractFrameDecorator.php   Block.php
+Image.php                    Inline.php
+ListBullet.php               ListBulletImage.php
+NullFrameDecorator.php       Page.php
+Table.php                    TableCell.php
+TableRow.php                 TableRowGroup.php
+Text.php                     
+              13 archivos         94.286 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\src\FrameReflower
+
+[.]                         [..]
+AbstractFrameReflower.php   Block.php
+Image.php                   Inline.php
+ListBullet.php              NullFrameReflower.php
+Page.php                    Table.php
+TableCell.php               TableRow.php
+TableRowGroup.php           Text.php
+              12 archivos        126.794 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\src\Image
+
+[.]         [..]        Cache.php   
+               1 archivos         11.826 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\src\Positioner
+
+[.]                      [..]                     Absolute.php
+AbstractPositioner.php   Block.php                Fixed.php
+Inline.php               ListBullet.php           NullPositioner.php
+TableCell.php            TableRow.php             
+               9 archivos         15.928 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\dompdf\src\Renderer
+
+[.]                    [..]                   AbstractRenderer.php
+Block.php              Image.php              Inline.php
+ListBullet.php         TableCell.php          TableRow.php
+TableRowGroup.php      Text.php               
+               9 archivos         74.630 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib
+
+[.]             [..]            AUTHORS.md      composer.json   LICENSE
+[maps]          README.md       [src]           
+               4 archivos         27.713 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib\maps
+
+[.]                           [..]
+adobe-standard-encoding.map   cp1250.map
+cp1251.map                    cp1252.map
+cp1253.map                    cp1254.map
+cp1255.map                    cp1257.map
+cp1258.map                    cp874.map
+iso-8859-1.map                iso-8859-11.map
+iso-8859-15.map               iso-8859-16.map
+iso-8859-2.map                iso-8859-4.map
+iso-8859-5.map                iso-8859-7.map
+iso-8859-9.map                koi8-r.map
+koi8-u.map                    
+              21 archivos        104.122 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib\src
+
+[.]       [..]      [FontLib] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib\src\FontLib
+
+[.]                    [..]                   AdobeFontMetrics.php
+BinaryStream.php       EncodingMap.php        [EOT]
+[Exception]            Font.php               [Glyph]
+Header.php             [OpenType]             [Table]
+[TrueType]             [WOFF]                 
+               5 archivos         21.098 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib\src\FontLib\EOT
+
+[.]          [..]         File.php     Header.php   
+               2 archivos          6.832 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib\src\FontLib\Exception
+
+[.]                         [..]
+FontNotFoundException.php   
+               1 archivos            212 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib\src\FontLib\Glyph
+
+[.]                    [..]                   Outline.php
+OutlineComponent.php   OutlineComposite.php   OutlineSimple.php
+               4 archivos         19.146 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib\src\FontLib\OpenType
+
+[.]                       [..]                      File.php
+TableDirectoryEntry.php   
+               2 archivos            757 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib\src\FontLib\Table
+
+[.]                  [..]                 DirectoryEntry.php
+Table.php            [Type]               
+               2 archivos          4.378 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib\src\FontLib\Table\Type
+
+[.]              [..]             cmap.php         cvt.php
+fpgm.php         glyf.php         head.php         hhea.php
+hmtx.php         kern.php         loca.php         maxp.php
+name.php         nameRecord.php   os2.php          post.php
+prep.php         
+              15 archivos         40.382 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib\src\FontLib\TrueType
+
+[.]                       [..]                      Collection.php
+File.php                  Header.php                TableDirectoryEntry.php
+               4 archivos         19.703 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-font-lib\src\FontLib\WOFF
+
+[.]                       [..]                      File.php
+Header.php                TableDirectoryEntry.php   
+               3 archivos          3.630 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-svg-lib
+
+[.]             [..]            AUTHORS.md      composer.json   LICENSE
+README.md       [src]           
+               4 archivos          9.914 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-svg-lib\src
+
+[.]   [..]  [Svg] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-svg-lib\src\Svg
+
+[.]                [..]               CssLength.php      DefaultStyle.php
+Document.php       [Gradient]         Style.php          [Surface]
+[Tag]              
+               4 archivos         34.849 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-svg-lib\src\Svg\Gradient
+
+[.]        [..]       Stop.php   
+               1 archivos            273 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-svg-lib\src\Svg\Surface
+
+[.]                    [..]                   CPdf.php
+SurfaceCpdf.php        SurfaceInterface.php   SurfacePDFLib.php
+               4 archivos        252.802 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\dompdf\php-svg-lib\src\Svg\Tag
+
+[.]                  [..]                 AbstractTag.php
+Anchor.php           Circle.php           ClipPath.php
+Ellipse.php          Group.php            Image.php
+Line.php             LinearGradient.php   Path.php
+Polygon.php          Polyline.php         RadialGradient.php
+Rect.php             Shape.php            Stop.php
+StyleTag.php         Symbol.php           Text.php
+UseTag.php           
+              20 archivos         52.287 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\masterminds
+
+[.]     [..]    [html5] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\masterminds\html5
+
+[.]             [..]            [bin]           composer.json   CREDITS
+LICENSE.txt     README.md       RELEASE.md      [src]           UPGRADING.md
+               6 archivos         20.676 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\masterminds\html5\bin
+
+[.]            [..]           entities.php   
+               1 archivos            664 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\masterminds\html5\src
+
+[.]         [..]        [HTML5]     HTML5.php   
+               1 archivos          8.761 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\masterminds\html5\src\HTML5
+
+[.]                        [..]
+Elements.php               Entities.php
+Exception.php              InstructionProcessor.php
+[Parser]                   [Serializer]
+               4 archivos         86.325 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\masterminds\html5\src\HTML5\Parser
+
+[.]                      [..]                     CharacterReference.php
+DOMTreeBuilder.php       EventHandler.php         FileInputStream.php
+InputStream.php          ParseError.php           README.md
+Scanner.php              StringInputStream.php    Tokenizer.php
+TreeBuildingRules.php    UTF8Utils.php            
+              12 archivos        105.634 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\masterminds\html5\src\HTML5\Serializer
+
+[.]                  [..]                 HTML5Entities.php
+OutputRules.php      README.md            RulesInterface.php
+Traverser.php        
+               5 archivos         71.396 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\sabberworm
+
+[.]              [..]             [php-css-parser] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\sabberworm\php-css-parser
+
+[.]             [..]            CHANGELOG.md    composer.json   LICENSE
+README.md       [src]           
+               4 archivos         38.676 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\sabberworm\php-css-parser\src
+
+[.]                   [..]                  [Comment]
+CSSElement.php        [CSSList]             OutputFormat.php
+OutputFormatter.php   Parser.php            [Parsing]
+[Position]            [Property]            Renderable.php
+[Rule]                [RuleSet]             Settings.php
+[Value]               
+               6 archivos         24.308 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\sabberworm\php-css-parser\src\Comment
+
+[.]               [..]              Comment.php       Commentable.php
+               2 archivos          1.821 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\sabberworm\php-css-parser\src\CSSList
+
+[.]                   [..]                  AtRuleBlockList.php
+CSSBlockList.php      CSSList.php           Document.php
+KeyFrame.php          
+               5 archivos         32.898 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\sabberworm\php-css-parser\src\Parsing
+
+[.]                            [..]
+Anchor.php                     OutputException.php
+ParserState.php                SourceException.php
+UnexpectedEOFException.php     UnexpectedTokenException.php
+               6 archivos         18.423 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\sabberworm\php-css-parser\src\Position
+
+[.]                [..]               Position.php       Positionable.php
+               2 archivos          2.742 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\sabberworm\php-css-parser\src\Property
+
+[.]                    [..]                   AtRule.php
+Charset.php            CSSNamespace.php       Import.php
+KeyframeSelector.php   Selector.php           
+               6 archivos         14.389 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\sabberworm\php-css-parser\src\Rule
+
+[.]        [..]       Rule.php   
+               1 archivos         10.988 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\sabberworm\php-css-parser\src\RuleSet
+
+[.]                    [..]                   AtRuleSet.php
+DeclarationBlock.php   RuleSet.php            
+               3 archivos         46.434 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\dompdf\vendor\sabberworm\php-css-parser\src\Value
+
+[.]                     [..]                    CalcFunction.php
+CalcRuleValueList.php   Color.php               CSSFunction.php
+CSSString.php           LineName.php            PrimitiveValue.php
+RuleValueList.php       Size.php                URL.php
+Value.php               ValueList.php           
+              12 archivos         40.953 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\exceljs
+
+[.]                [..]               exceljs.min.js     FileSaver.min.js
+               2 archivos      1.171.268 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\phpmailer
+
+[.]                      [..]                     COMMITMENT
+composer.json            DSNConfigurator.php      Exception.php
+get_oauth_token.php      [language]               LICENSE
+OAuth.php                OAuthTokenProvider.php   PHPMailer.php
+POP3.php                 README.md                SECURITY.md
+SMTP.php                 SMTPUTF8.md              VERSION
+              15 archivos        351.067 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\phpmailer\language
+
+[.]                          [..]
+phpmailer.lang-af.php        phpmailer.lang-ar.php
+phpmailer.lang-as.php        phpmailer.lang-az.php
+phpmailer.lang-ba.php        phpmailer.lang-be.php
+phpmailer.lang-bg.php        phpmailer.lang-bn.php
+phpmailer.lang-ca.php        phpmailer.lang-cs.php
+phpmailer.lang-da.php        phpmailer.lang-de.php
+phpmailer.lang-el.php        phpmailer.lang-eo.php
+phpmailer.lang-es.php        phpmailer.lang-et.php
+phpmailer.lang-fa.php        phpmailer.lang-fi.php
+phpmailer.lang-fo.php        phpmailer.lang-fr.php
+phpmailer.lang-gl.php        phpmailer.lang-he.php
+phpmailer.lang-hi.php        phpmailer.lang-hr.php
+phpmailer.lang-hu.php        phpmailer.lang-hy.php
+phpmailer.lang-id.php        phpmailer.lang-it.php
+phpmailer.lang-ja.php        phpmailer.lang-ka.php
+phpmailer.lang-ko.php        phpmailer.lang-ku.php
+phpmailer.lang-lt.php        phpmailer.lang-lv.php
+phpmailer.lang-mg.php        phpmailer.lang-mn.php
+phpmailer.lang-ms.php        phpmailer.lang-nb.php
+phpmailer.lang-nl.php        phpmailer.lang-pl.php
+phpmailer.lang-pt.php        phpmailer.lang-pt_br.php
+phpmailer.lang-ro.php        phpmailer.lang-ru.php
+phpmailer.lang-si.php        phpmailer.lang-sk.php
+phpmailer.lang-sl.php        phpmailer.lang-sr.php
+phpmailer.lang-sr_latn.php   phpmailer.lang-sv.php
+phpmailer.lang-tl.php        phpmailer.lang-tr.php
+phpmailer.lang-uk.php        phpmailer.lang-ur.php
+phpmailer.lang-vi.php        phpmailer.lang-zh.php
+phpmailer.lang-zh_cn.php     
+              57 archivos        130.772 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\phpqrcode
+
+[.]               [..]              [bindings]        [cache]
+CHANGELOG         index.php         INSTALL           LICENSE
+phpqrcode.php     qrbitstream.php   qrconfig.php      qrconst.php
+qrencode.php      qrimage.php       qrinput.php       qrlib.php
+qrmask.php        qrrscode.php      qrspec.php        qrsplit.php
+qrtools.php       README            [tools]           VERSION
+              19 archivos        259.729 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\phpqrcode\bindings
+
+[.]     [..]    [tcpdf] 
+               0 archivos              0 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\phpqrcode\bindings\tcpdf
+
+[.]          [..]         qrcode.php   
+               1 archivos         82.952 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\phpqrcode\cache
+
+[.]            [..]           frame_1.dat    frame_1.png    frame_10.dat
+frame_10.png   frame_11.dat   frame_11.png   frame_12.dat   frame_12.png
+frame_13.dat   frame_13.png   frame_14.dat   frame_14.png   frame_15.dat
+frame_15.png   frame_16.dat   frame_16.png   frame_17.dat   frame_17.png
+frame_18.dat   frame_18.png   frame_19.dat   frame_19.png   frame_2.dat
+frame_2.png    frame_20.dat   frame_20.png   frame_21.dat   frame_21.png
+frame_22.dat   frame_22.png   frame_23.dat   frame_23.png   frame_24.dat
+frame_24.png   frame_25.dat   frame_25.png   frame_26.dat   frame_26.png
+frame_27.dat   frame_27.png   frame_28.dat   frame_28.png   frame_29.dat
+frame_29.png   frame_3.dat    frame_3.png    frame_30.dat   frame_30.png
+frame_31.dat   frame_31.png   frame_32.dat   frame_32.png   frame_33.dat
+frame_33.png   frame_34.dat   frame_34.png   frame_35.dat   frame_35.png
+frame_36.dat   frame_36.png   frame_37.dat   frame_37.png   frame_38.dat
+frame_38.png   frame_39.dat   frame_39.png   frame_4.dat    frame_4.png
+frame_40.dat   frame_40.png   frame_5.dat    frame_5.png    frame_6.dat
+frame_6.png    frame_7.dat    frame_7.png    frame_8.dat    frame_8.png
+frame_9.dat    frame_9.png    [mask_0]       [mask_1]       [mask_2]
+[mask_3]       [mask_4]       [mask_5]       [mask_6]       [mask_7]
+              80 archivos         19.209 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\phpqrcode\cache\mask_0
+
+[.]              [..]             mask_101_0.dat   mask_105_0.dat
+mask_109_0.dat   mask_113_0.dat   mask_117_0.dat   mask_121_0.dat
+mask_125_0.dat   mask_129_0.dat   mask_133_0.dat   mask_137_0.dat
+mask_141_0.dat   mask_145_0.dat   mask_149_0.dat   mask_153_0.dat
+mask_157_0.dat   mask_161_0.dat   mask_165_0.dat   mask_169_0.dat
+mask_173_0.dat   mask_177_0.dat   mask_21_0.dat    mask_25_0.dat
+mask_29_0.dat    mask_33_0.dat    mask_37_0.dat    mask_41_0.dat
+mask_45_0.dat    mask_49_0.dat    mask_53_0.dat    mask_57_0.dat
+mask_61_0.dat    mask_65_0.dat    mask_69_0.dat    mask_73_0.dat
+mask_77_0.dat    mask_81_0.dat    mask_85_0.dat    mask_89_0.dat
+mask_93_0.dat    mask_97_0.dat    
+              40 archivos          6.303 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\phpqrcode\cache\mask_1
+
+[.]              [..]             mask_101_1.dat   mask_105_1.dat
+mask_109_1.dat   mask_113_1.dat   mask_117_1.dat   mask_121_1.dat
+mask_125_1.dat   mask_129_1.dat   mask_133_1.dat   mask_137_1.dat
+mask_141_1.dat   mask_145_1.dat   mask_149_1.dat   mask_153_1.dat
+mask_157_1.dat   mask_161_1.dat   mask_165_1.dat   mask_169_1.dat
+mask_173_1.dat   mask_177_1.dat   mask_21_1.dat    mask_25_1.dat
+mask_29_1.dat    mask_33_1.dat    mask_37_1.dat    mask_41_1.dat
+mask_45_1.dat    mask_49_1.dat    mask_53_1.dat    mask_57_1.dat
+mask_61_1.dat    mask_65_1.dat    mask_69_1.dat    mask_73_1.dat
+mask_77_1.dat    mask_81_1.dat    mask_85_1.dat    mask_89_1.dat
+mask_93_1.dat    mask_97_1.dat    
+              40 archivos          5.186 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\phpqrcode\cache\mask_2
+
+[.]              [..]             mask_101_2.dat   mask_105_2.dat
+mask_109_2.dat   mask_113_2.dat   mask_117_2.dat   mask_121_2.dat
+mask_125_2.dat   mask_129_2.dat   mask_133_2.dat   mask_137_2.dat
+mask_141_2.dat   mask_145_2.dat   mask_149_2.dat   mask_153_2.dat
+mask_157_2.dat   mask_161_2.dat   mask_165_2.dat   mask_169_2.dat
+mask_173_2.dat   mask_177_2.dat   mask_21_2.dat    mask_25_2.dat
+mask_29_2.dat    mask_33_2.dat    mask_37_2.dat    mask_41_2.dat
+mask_45_2.dat    mask_49_2.dat    mask_53_2.dat    mask_57_2.dat
+mask_61_2.dat    mask_65_2.dat    mask_69_2.dat    mask_73_2.dat
+mask_77_2.dat    mask_81_2.dat    mask_85_2.dat    mask_89_2.dat
+mask_93_2.dat    mask_97_2.dat    
+              40 archivos          4.681 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\phpqrcode\cache\mask_3
+
+[.]              [..]             mask_101_3.dat   mask_105_3.dat
+mask_109_3.dat   mask_113_3.dat   mask_117_3.dat   mask_121_3.dat
+mask_125_3.dat   mask_129_3.dat   mask_133_3.dat   mask_137_3.dat
+mask_141_3.dat   mask_145_3.dat   mask_149_3.dat   mask_153_3.dat
+mask_157_3.dat   mask_161_3.dat   mask_165_3.dat   mask_169_3.dat
+mask_173_3.dat   mask_177_3.dat   mask_21_3.dat    mask_25_3.dat
+mask_29_3.dat    mask_33_3.dat    mask_37_3.dat    mask_41_3.dat
+mask_45_3.dat    mask_49_3.dat    mask_53_3.dat    mask_57_3.dat
+mask_61_3.dat    mask_65_3.dat    mask_69_3.dat    mask_73_3.dat
+mask_77_3.dat    mask_81_3.dat    mask_85_3.dat    mask_89_3.dat
+mask_93_3.dat    mask_97_3.dat    
+              40 archivos          7.201 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\phpqrcode\cache\mask_4
+
+[.]              [..]             mask_101_4.dat   mask_105_4.dat
+mask_109_4.dat   mask_113_4.dat   mask_117_4.dat   mask_121_4.dat
+mask_125_4.dat   mask_129_4.dat   mask_133_4.dat   mask_137_4.dat
+mask_141_4.dat   mask_145_4.dat   mask_149_4.dat   mask_153_4.dat
+mask_157_4.dat   mask_161_4.dat   mask_165_4.dat   mask_169_4.dat
+mask_173_4.dat   mask_177_4.dat   mask_21_4.dat    mask_25_4.dat
+mask_29_4.dat    mask_33_4.dat    mask_37_4.dat    mask_41_4.dat
+mask_45_4.dat    mask_49_4.dat    mask_53_4.dat    mask_57_4.dat
+mask_61_4.dat    mask_65_4.dat    mask_69_4.dat    mask_73_4.dat
+mask_77_4.dat    mask_81_4.dat    mask_85_4.dat    mask_89_4.dat
+mask_93_4.dat    mask_97_4.dat    
+              40 archivos          7.356 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\phpqrcode\cache\mask_5
+
+[.]              [..]             mask_101_5.dat   mask_105_5.dat
+mask_109_5.dat   mask_113_5.dat   mask_117_5.dat   mask_121_5.dat
+mask_125_5.dat   mask_129_5.dat   mask_133_5.dat   mask_137_5.dat
+mask_141_5.dat   mask_145_5.dat   mask_149_5.dat   mask_153_5.dat
+mask_157_5.dat   mask_161_5.dat   mask_165_5.dat   mask_169_5.dat
+mask_173_5.dat   mask_177_5.dat   mask_21_5.dat    mask_25_5.dat
+mask_29_5.dat    mask_33_5.dat    mask_37_5.dat    mask_41_5.dat
+mask_45_5.dat    mask_49_5.dat    mask_53_5.dat    mask_57_5.dat
+mask_61_5.dat    mask_65_5.dat    mask_69_5.dat    mask_73_5.dat
+mask_77_5.dat    mask_81_5.dat    mask_85_5.dat    mask_89_5.dat
+mask_93_5.dat    mask_97_5.dat    
+              40 archivos          8.749 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\phpqrcode\cache\mask_6
+
+[.]              [..]             mask_101_6.dat   mask_105_6.dat
+mask_109_6.dat   mask_113_6.dat   mask_117_6.dat   mask_121_6.dat
+mask_125_6.dat   mask_129_6.dat   mask_133_6.dat   mask_137_6.dat
+mask_141_6.dat   mask_145_6.dat   mask_149_6.dat   mask_153_6.dat
+mask_157_6.dat   mask_161_6.dat   mask_165_6.dat   mask_169_6.dat
+mask_173_6.dat   mask_177_6.dat   mask_21_6.dat    mask_25_6.dat
+mask_29_6.dat    mask_33_6.dat    mask_37_6.dat    mask_41_6.dat
+mask_45_6.dat    mask_49_6.dat    mask_53_6.dat    mask_57_6.dat
+mask_61_6.dat    mask_65_6.dat    mask_69_6.dat    mask_73_6.dat
+mask_77_6.dat    mask_81_6.dat    mask_85_6.dat    mask_89_6.dat
+mask_93_6.dat    mask_97_6.dat    
+              40 archivos         10.663 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\phpqrcode\cache\mask_7
+
+[.]              [..]             mask_101_7.dat   mask_105_7.dat
+mask_109_7.dat   mask_113_7.dat   mask_117_7.dat   mask_121_7.dat
+mask_125_7.dat   mask_129_7.dat   mask_133_7.dat   mask_137_7.dat
+mask_141_7.dat   mask_145_7.dat   mask_149_7.dat   mask_153_7.dat
+mask_157_7.dat   mask_161_7.dat   mask_165_7.dat   mask_169_7.dat
+mask_173_7.dat   mask_177_7.dat   mask_21_7.dat    mask_25_7.dat
+mask_29_7.dat    mask_33_7.dat    mask_37_7.dat    mask_41_7.dat
+mask_45_7.dat    mask_49_7.dat    mask_53_7.dat    mask_57_7.dat
+mask_61_7.dat    mask_65_7.dat    mask_69_7.dat    mask_73_7.dat
+mask_77_7.dat    mask_81_7.dat    mask_85_7.dat    mask_89_7.dat
+mask_93_7.dat    mask_97_7.dat    
+              40 archivos         10.011 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\phpqrcode\tools
+
+[.]                 [..]                merge.bat           merge.php
+merge.sh            merged_config.php   merged_header.php   
+               5 archivos          5.337 bytes
+
+ Directorio de C:\xampp\htdocs\diplomatic\tools\sheetjs
+
+[.]                [..]               exceljs.min.js     FileSaver.min.js
+               2 archivos      1.171.268 bytes
+
+     Total de archivos en la lista:
+            5327 archivos    609.291.618 bytes
+            2085 dirs  155.191.451.648 bytes libres
