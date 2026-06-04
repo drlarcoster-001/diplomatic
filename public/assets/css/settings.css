@@ -1,0 +1,13 @@
+/**
+ * MODULE: SETTINGS & CONFIGURATION
+ * File: public/assets/css/settings.css
+ */
+.animation-fade-in { animation: fadeIn 0.4s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.row.d-flex.align-items-stretch { display: flex; flex-wrap: wrap; }
+.card { height: 100%; border: 1px solid #e2e8f0 !important; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1) !important; }
+.code-font { font-family: 'Consolas', monospace; font-size: 0.85rem; background-color: #f8fafc; resize: none; }
+.btn-white { background: #fff; transition: all 0.2s; }
+.btn-white:hover { border-color: #0d6efd !important; }
+.uppercase { text-transform: uppercase; }
+.x-small { font-size: 0.7rem; }

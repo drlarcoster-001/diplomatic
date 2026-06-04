@@ -1,0 +1,69 @@
+/**
+ * MÓDULO: ADMINISTRATIVO / MATRÍCULAS
+ * ARCHIVO: public/assets/css/administrative_matriculations_print.css
+ * PROPÓSITO: Estilos específicos para la vista de impresión del Acta de Asistencia.
+ */
+
+body {
+    background-color: #e9ecef; /* Fondo gris sutil para la pantalla */
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+}
+
+/* Contenedor que simula la hoja de papel en la pantalla */
+.hoja-impresion {
+    background-color: white;
+    max-width: 21cm; /* Tamaño Carta/A4 */
+    min-height: 29.7cm;
+    margin: 30px auto;
+    padding: 2cm;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.firma-box {
+    height: 40px; /* Alto ideal para que alguien firme a mano */
+}
+
+/* Fuerza a que el fondo gris de la cabecera de la tabla se imprima */
+.print-bg-light {
+    background-color: #f8f9fa !important; 
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+/* ESTILOS MÁGICOS SOLO PARA LA IMPRESORA */
+@media print {
+    body { 
+        background-color: white; 
+        margin: 0;
+    }
+    
+    .hoja-impresion {
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        max-width: 100%;
+        min-height: auto;
+    }
+    
+    .no-print { 
+        display: none !important; 
+    }
+    
+    /* Garantiza que los bordes de la tabla salgan en negro puro */
+    .table-bordered th, 
+    .table-bordered td {
+        border-color: #000 !important;
+        border-width: 1px !important;
+    }
+    
+    /* Evita que un estudiante quede cortado a la mitad entre dos páginas */
+    tr { 
+        page-break-inside: avoid; 
+        page-break-after: auto; 
+    }
+    
+    thead { 
+        display: table-header-group; 
+    }
+}

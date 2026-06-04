@@ -1,0 +1,229 @@
+/**
+ * MÓDULO: GESTIÓN ADMINISTRATIVA / CONSTANCIAS
+ * ARCHIVO: public/assets/css/administrative_certificates.css
+ * PROPÓSITO: Estilos maestros para buscador, tarjetas dinámicas y visor de documentos.
+ * VERSIÓN: 4.0.0 - UI/UX Premium: Homologación total con módulo de Estados de Cuenta.
+ */
+
+/* ==========================================================================
+   1. VARIABLES DE SISTEMA Y UTILIDADES
+   ========================================================================== */
+:root {
+    --platform-indigo: #6610f2;
+    --platform-indigo-rgb: 102, 16, 242;
+    --platform-amber: #ffc107;
+    --platform-success: #198754;
+    --platform-gray-bg: #f8f9fa;
+    --platform-border-color: #e0e0e0;
+    --platform-card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Transiciones globales suaves */
+.enrollment-card, 
+.action-card-btn, 
+.btn-light, 
+#autocomplete-results .list-group-item,
+.icon-box-diplomado {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* ==========================================================================
+   2. BUSCADOR PREMIUM (PILL STYLE)
+   ========================================================================== */
+.input-group.rounded-pill {
+    border: 1.5px solid var(--platform-border-color);
+    background-color: #fff;
+    transition: all 0.2s ease-in-out;
+}
+
+.input-group.rounded-pill:focus-within {
+    border-color: var(--platform-indigo);
+    box-shadow: 0 0 0 4px rgba(var(--platform-indigo-rgb), 0.15);
+}
+
+#search-input {
+    font-size: 1rem;
+}
+
+#search-input::placeholder {
+    color: #adb5bd;
+    font-weight: 400;
+}
+
+/* Botón de limpieza (X) dentro del input */
+#btn-clear-input {
+    padding-right: 1.25rem;
+    background: transparent;
+    z-index: 5;
+}
+
+#btn-clear-input:hover {
+    color: #dc3545 !important;
+    transform: scale(1.1);
+}
+
+/* Autocomplete / Dropdown de Resultados */
+#autocomplete-results {
+    border: 1px solid var(--platform-border-color);
+    border-radius: 15px;
+    overflow: hidden;
+    margin-top: 10px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12) !important;
+    background: #fff;
+}
+
+#autocomplete-results .list-group-item {
+    border: none;
+    border-bottom: 1px solid #f8f9fa;
+}
+
+#autocomplete-results .list-group-item:last-child {
+    border-bottom: none;
+}
+
+#autocomplete-results .list-group-item:hover {
+    background-color: #fdfcff;
+    padding-left: 1.75rem;
+    border-left: 4px solid var(--platform-indigo);
+}
+
+/* ==========================================================================
+   3. TARJETAS DE DIPLOMADOS (CLON MÓDULO FINANCIERO)
+   ========================================================================== */
+.enrollment-card {
+    border: 1px solid #eee;
+    background: #fff;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.enrollment-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--platform-card-shadow) !important;
+    border-color: var(--platform-indigo);
+}
+
+/* Caja de icono identificadora */
+.icon-box-diplomado {
+    width: 52px;
+    height: 52px;
+    background-color: rgba(var(--platform-indigo-rgb), 0.08);
+    color: var(--platform-indigo);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.enrollment-card:hover .icon-box-diplomado {
+    background-color: var(--platform-indigo);
+    color: #fff;
+}
+
+/* ==========================================================================
+   4. TARJETAS DE ACCIÓN FINAL (INSCRIPCIÓN / ESTUDIOS)
+   ========================================================================== */
+.action-card-btn {
+    background: #fff;
+    border: 2px solid #f3f3f3 !important;
+    border-radius: 20px !important;
+}
+
+.action-card-btn:hover {
+    transform: translateY(-4px);
+    border-color: var(--platform-amber) !important;
+    background-color: #fffdf7;
+    box-shadow: 0 12px 25px rgba(255, 193, 7, 0.15) !important;
+}
+
+/* Círculo de icono dinámico */
+.icon-circle {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+}
+
+/* Navegación interna */
+#btn-volver-diplomados {
+    background: #fff;
+    color: #6c757d;
+    border-color: #dee2e6;
+}
+
+#btn-volver-diplomados:hover {
+    background-color: #f8f9fa;
+    color: var(--platform-indigo);
+    border-color: var(--platform-indigo);
+    transform: translateX(-3px);
+}
+
+/* ==========================================================================
+   5. VISOR DE PDF (MODO PROFESIONAL)
+   ========================================================================== */
+.modal-body.bg-dark {
+    background-color: #323639 !important; /* Gris visor estándar (Adobe/Chrome) */
+}
+
+#pdf-preview-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: #fff;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Spinner de carga personalizado */
+#pdf-loader {
+    z-index: 10;
+    pointer-events: none;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* ==========================================================================
+   6. RESPONSIVE Y REGLAS DE IMPRESIÓN
+   ========================================================================== */
+@media (max-width: 768px) {
+    .enrollment-card {
+        margin-bottom: 8px;
+    }
+    
+    .action-card-btn:hover {
+        transform: none; /* Desactivar hover pesado en móviles */
+    }
+
+    #pdf-preview-frame {
+        height: 65vh !important;
+    }
+
+    .icon-circle {
+        width: 55px;
+        height: 55px;
+    }
+}
+
+/* Optimización para impresión (No se imprimen controles de UI) */
+@media print {
+    .btn, 
+    .modal-header, 
+    .modal-footer, 
+    nav, 
+    .card-body.p-3 /* Buscador */ {
+        display: none !important;
+    }
+    
+    .modal-content {
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    .modal-body {
+        padding: 0 !important;
+        background: #fff !important;
+    }
+}

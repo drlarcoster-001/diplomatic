@@ -1,0 +1,106 @@
+/**
+ * MÓDULO: GESTIÓN ADMINISTRATIVA / UI
+ * ARCHIVO: public/css/administrative_inscriptions_create.css
+ * PROPÓSITO: Implementación de estética "Google Clean" para el buscador y arquitectura de altura fija mediante scope protector.
+ * VERSIÓN: 2.5.1 - Refactorización de barra de búsqueda a diseño minimalista y blindaje de opacidad en overlays. Sincronizado 12-03-2026.
+ */
+
+/* --- 1. CONTENEDOR MAESTRO (ENCAPSULADO PARA PROTEGER EL SIDEBAR) --- */
+.inscription-manual-scope .wizard-card-container {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 700px !important; /* Altura bloqueada para garantizar estabilidad visual */
+    background: #ffffff !important;
+    border: none !important;
+    box-shadow: 0 1rem 3rem rgba(0,0,0,0.1) !important;
+    position: relative;
+    overflow: visible !important; 
+}
+
+/* --- 2. CUERPO CON SCROLL INTERNO --- */
+.inscription-manual-scope .wizard-body-content {
+    flex: 1 1 auto !important;
+    overflow-y: auto !important; 
+    padding: 2.5rem !important;
+    position: relative !important;
+    background: #ffffff !important;
+}
+
+/* --- 3. PIE DE PÁGINA (BOTONERA FIJA) --- */
+.inscription-manual-scope .wizard-footer-actions {
+    flex-shrink: 0 !important;
+    height: 90px !important;
+    background-color: #f8f9fa !important;
+    border-top: 1px solid #dee2e6 !important;
+    padding: 0 2.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    z-index: 5;
+}
+
+/* --- 4. BUSCADOR ESTILO "GOOGLE CLEAN" --- */
+.inscription-manual-scope .google-search-container {
+    height: 56px;
+    background: #ffffff !important;
+    border: 1px solid #dfe1e5 !important;
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+/* Efecto de elevación al enfocar (Search Focus) */
+.inscription-manual-scope .google-search-container:focus-within {
+    box-shadow: 0 4px 12px rgba(32,33,36,.17) !important;
+    border-color: rgba(223,225,229,0) !important;
+}
+
+/* Listado de Resultados (Overlay Sólido) */
+.inscription-manual-scope .google-results-overlay {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0;
+    right: 0;
+    z-index: 9999 !important; /* Prioridad máxima */
+    background-color: #ffffff !important; /* Opacidad total */
+    border: 1px solid #dfe1e5 !important;
+    border-top: none !important;
+    border-radius: 0 0 24px 24px !important;
+    box-shadow: 0 4px 12px rgba(32,33,36,.17) !important;
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.inscription-manual-scope .google-results-overlay .list-group-item {
+    background-color: #ffffff !important;
+    border: none !important;
+    padding: 12px 24px !important;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #202124 !important;
+    transition: background 0.1s;
+}
+
+.inscription-manual-scope .google-results-overlay .list-group-item:hover {
+    background-color: #f8f9fa !important;
+}
+
+/* --- 5. INDICADORES Y ESTADOS --- */
+.inscription-manual-scope #selectedIndicator {
+    animation: fadeInWizard 0.3s ease-out;
+}
+
+/* --- 6. ANIMACIONES --- */
+.inscription-manual-scope .wizard-step { 
+    animation: fadeInWizard 0.4s ease-out; 
+}
+
+@keyframes fadeInWizard { 
+    from { opacity: 0; transform: translateY(8px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+
+/* --- 7. UTILITARIOS --- */
+.inscription-manual-scope .smallest { 
+    font-size: 0.75rem; 
+    font-weight: 700; 
+    text-transform: uppercase; 
+    letter-spacing: 0.5px; 
+}

@@ -1,0 +1,115 @@
+/**
+ * MÓDULO: GESTIÓN ADMINISTRATIVA / EXCEPCIONES
+ * ARCHIVO: public/assets/css/administrative_reactivations.css
+ * PROPÓSITO: Estilos para el módulo de reactivación de matrículas, incluyendo efectos de grid y estados de alerta.
+ * VERSIÓN: 1.0.0 - Implementación inicial con soporte para filas interactivas y paleta de alerta.
+ */
+
+/* 1. Navegación y Breadcrumbs */
+.breadcrumb-item a:hover {
+    color: #dc3545 !important;
+    text-decoration: underline !important;
+}
+
+/* 2. Área de Búsqueda y Filtros */
+#search-reactivation {
+    transition: all 0.3s ease;
+    border-radius: 12px;
+}
+
+#search-reactivation:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.15);
+}
+
+/* 3. Estilos de la Grid (Tabla) */
+.table thead th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+    color: #6c757d;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+/* Filas Clickeables */
+.row-clickable {
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.row-clickable:hover {
+    background-color: rgba(220, 53, 69, 0.04) !important;
+}
+
+.row-clickable:active {
+    background-color: rgba(220, 53, 69, 0.08) !important;
+}
+
+/* 4. Badges y Estados Académicos */
+.badge.bg-danger.bg-opacity-10 {
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    border: 1px solid rgba(220, 53, 69, 0.1);
+}
+
+.badge.bg-light.text-dark.border {
+    background-color: #fdfdfd !important;
+    font-weight: 500;
+}
+
+/* 5. Modal de Auditoría */
+.modal-content {
+    border: none;
+}
+
+.modal-header {
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.modal-footer {
+    border-top: 1px solid #f1f1f1;
+}
+
+/* 6. Animaciones y Estados Vacíos */
+#results-area.animate__fadeIn {
+    --animate-duration: 0.5s;
+}
+
+#empty-state i {
+    color: #dee2e6;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+/* 7. Scrollbar Personalizado para Grid */
+.table-responsive::-webkit-scrollbar {
+    height: 6px;
+    width: 6px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: #e9ecef;
+    border-radius: 10px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: #dc3545;
+}
+
+/* 8. Ajustes para Dispositivos Móviles */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    #btn-clear-filter {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .row-clickable:hover {
+        transform: none;
+    }
+}

@@ -1,0 +1,165 @@
+/*
+ * MÓDULO: PANEL
+ * Archivo: public/assets/css/panel.css
+ * Propósito: Sidebar + Burger + Topnav + Usuario (avatar) responsive.
+ */
+
+:root{
+  --sidebar-width: 260px;
+}
+
+/* ======================
+   SIDEBAR
+====================== */
+.dp-sidebar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: #212529;
+  color: #fff;
+  z-index: 1050;
+  transition: transform .25s ease;
+}
+
+.dp-main{
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+}
+
+/* ======================
+   OVERLAY
+====================== */
+.dp-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  z-index: 1040;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+}
+
+.dp-overlay.is-open{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ======================
+   TOPNAV
+====================== */
+.dp-topnav{
+  z-index: 1035;
+}
+
+/* ======================
+   BURGER BUTTON
+====================== */
+.dp-burger{
+  width: 42px;
+  height: 38px;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: 10px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 10px;
+  cursor: pointer;
+  transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+}
+
+.dp-burger:focus{
+  outline: none;
+}
+
+.dp-burger:focus-visible{
+  box-shadow: 0 0 0 3px rgba(13,110,253,.20);
+  border-color: rgba(13,110,253,.35);
+}
+
+.dp-burger:hover{
+  border-color: rgba(13,110,253,.35);
+  background: rgba(13,110,253,.03);
+}
+
+/* barras */
+.dp-burger span{
+  height: 2px;
+  width: 100%;
+  background: #111;
+  border-radius: 2px;
+  transition: all .25s ease, background .15s ease;
+}
+
+/* Hover: barras un poco más “azules” (detalle pro) */
+.dp-burger:hover span{
+  background: #0d6efd;
+}
+
+/* ANIMACIÓN A X */
+.dp-burger.is-open span:nth-child(1){
+  transform: translateY(7px) rotate(45deg);
+}
+
+.dp-burger.is-open span:nth-child(2){
+  opacity: 0;
+}
+
+.dp-burger.is-open span:nth-child(3){
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Cuando está abierto, barras blancas si el fondo fuese oscuro (pero aquí es blanco):
+   igual lo dejamos azul para consistencia */
+.dp-burger.is-open span{
+  background: #0d6efd;
+}
+
+/* ======================
+   USUARIO + AVATAR
+====================== */
+.dp-userbtn{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dp-avatar{
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #0d6efd;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .5px;
+}
+
+.dp-avatar-lg{
+  width: 40px;
+  height: 40px;
+  font-size: 14px;
+}
+
+/* ======================
+   RESPONSIVE (TABLET + MÓVIL)
+====================== */
+@media (max-width: 991.98px){
+  .dp-main{
+    margin-left: 0;
+  }
+
+  .dp-sidebar{
+    transform: translateX(-100%);
+  }
+
+  .dp-sidebar.is-open{
+    transform: translateX(0);
+  }
+}

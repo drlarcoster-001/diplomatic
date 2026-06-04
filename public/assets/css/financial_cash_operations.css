@@ -1,0 +1,127 @@
+/**
+ * MÓDULO: GESTIÓN FINANCIERA / CAJA Y VALIDACIÓN
+ * ARCHIVO: public/assets/css/financial_cash_operations.css
+ * PROPÓSITO: Definición visual de tarjetas horizontales, efectos de hover, badges dinámicos y estados.
+ * VERSIÓN: 1.3.0 - Rediseño a Layout Horizontal Centrado con soporte para estados de alerta.
+ */
+
+/* 1. Utilidades de Contenedor */
+.rounded-4 { border-radius: 1rem !important; }
+.rounded-start-4 { border-top-left-radius: 1rem !important; border-bottom-left-radius: 1rem !important; }
+
+/* 2. Botón de Regreso Estilizado */
+.btn-back-financial {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dee2e6;
+    color: #6c757d;
+    background: #fff;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-back-financial:hover {
+    background: #f8f9fa;
+    color: #212529;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+/* 3. Tarjetas de Opción Financiera (Diseño Horizontal) */
+.card-financial-option {
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #fff;
+}
+
+/* Efecto de desplazamiento lateral al pasar el mouse */
+.card-financial-option:hover {
+    transform: translateX(8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
+    background-color: #fcfcfc;
+}
+
+/* 4. Contenedores de Iconos Circulares */
+.icon-container {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    flex-shrink: 0;
+}
+
+/* 5. Tipografía y Textos */
+.card-financial-option h5 {
+    font-weight: 700;
+    color: #343a40;
+}
+
+.card-financial-option p {
+    line-height: 1.4;
+}
+
+/* 6. Definición de Colores por Canal (Bordes e Iconos) */
+.border-primary { border-color: #0d6efd !important; }
+.bg-primary.bg-opacity-10 { background-color: rgba(13, 110, 253, 0.1) !important; }
+
+.border-info { border-color: #0dcaf0 !important; }
+.bg-info.bg-opacity-10 { background-color: rgba(13, 202, 240, 0.1) !important; }
+
+.border-warning { border-color: #ffc107 !important; }
+.bg-warning.bg-opacity-10 { background-color: rgba(255, 193, 7, 0.1) !important; }
+
+.border-success { border-color: #198754 !important; }
+.bg-success.bg-opacity-10 { background-color: rgba(25, 135, 84, 0.1) !important; }
+
+.border-dark { border-color: #212529 !important; }
+.bg-dark.bg-opacity-10 { background-color: rgba(33, 37, 41, 0.1) !important; }
+
+/* 7. Badges de Conteo y Alerta */
+.card-financial-option .badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+/* 8. Animación "HeadShake" para llamar la atención en pagos pendientes */
+@keyframes headShake {
+    0% { transform: translateX(0); }
+    6.5% { transform: translateX(-6px) rotateY(-9deg); }
+    18.5% { transform: translateX(5px) rotateY(7deg); }
+    31.5% { transform: translateX(-3px) rotateY(-5deg); }
+    43.5% { transform: translateX(2px) rotateY(3deg); }
+    50% { transform: translateX(0); }
+}
+
+.animate__headShake {
+    animation: headShake 2s infinite ease-in-out;
+}
+
+/* 9. Breadcrumb Estilo Premium */
+.breadcrumb {
+    background-color: #ffffff;
+}
+
+.breadcrumb-item.active {
+    letter-spacing: 0.2px;
+}
+
+/* 10. Ajustes de Responsividad */
+@media (max-width: 768px) {
+    .card-financial-option:hover {
+        transform: translateY(-5px); /* En móviles mejor hacia arriba */
+    }
+    
+    .icon-container {
+        width: 50px;
+        height: 50px;
+        font-size: 1.4rem;
+    }
+}

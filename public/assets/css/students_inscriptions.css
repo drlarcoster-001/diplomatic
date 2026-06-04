@@ -1,0 +1,111 @@
+/**
+ * MÓDULO: ESTUDIANTES / INSCRIPCIONES
+ * ARCHIVO: public/assets/css/students_inscriptions.css
+ * PROPÓSITO: Estética "Google Clean" para el listado de ofertas y estatus de inscripciones.
+ * VERSIÓN: 1.1.0 - Sincronización con el diseño del Wizard y optimización de tarjetas.
+ */
+
+/* --- 1. TARJETAS DE OFERTA ACADÉMICA --- */
+.offering-card {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border: 1px solid #e0e0e0 !important;
+    background: #ffffff;
+    cursor: default;
+}
+
+.offering-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08) !important;
+    border-color: #4285f4 !important;
+}
+
+.offering-card .card-title {
+    color: #202124;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+/* --- 2. ICONOS Y DETALLES --- */
+.offering-detail-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    color: #5f6368;
+    font-size: 0.85rem;
+}
+
+.offering-detail-item i {
+    width: 20px;
+    color: #4285f4;
+    margin-right: 8px;
+}
+
+/* --- 3. TABLA DE ESTATUS (HISTORIAL) --- */
+.table-enrollment-status {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table-enrollment-status thead th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #eef0f2;
+    color: #5f6368;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 15px 20px;
+}
+
+.table-enrollment-status tbody td {
+    padding: 18px 20px;
+    border-bottom: 1px solid #f1f3f4;
+    vertical-align: middle;
+}
+
+/* --- 4. BADGES DE ESTADO (PILLS) --- */
+.status-pill {
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-en-revision { background: #fff4e5; color: #b06000; border: 1px solid #ffe5c4; }
+.status-cursando { background: #e6f4ea; color: #1e8e3e; border: 1px solid #ceead6; }
+.status-finalizada { background: #f1f3f4; color: #5f6368; border: 1px solid #dadce0; }
+.status-anulada { background: #fce8e6; color: #d93025; border: 1px solid #fad2cf; }
+
+/* --- 5. SECCIÓN DE BIENVENIDA / PERFIL (INDEX) --- */
+.student-welcome-card {
+    background: linear-gradient(135deg, #4285f4 0%, #1a73e8 100%);
+    color: white;
+    border: none;
+    overflow: hidden;
+}
+
+.student-welcome-card .avatar-ring {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    padding: 3px;
+    display: inline-block;
+}
+
+/* --- 6. UTILITARIOS --- */
+.rounded-4 { border-radius: 1rem !important; }
+
+.btn-google-primary {
+    background-color: #4285f4;
+    color: white;
+    font-weight: 600;
+    border-radius: 50px;
+    padding: 8px 24px;
+    transition: background 0.2s;
+}
+
+.btn-google-primary:hover {
+    background-color: #1765e3;
+    color: white;
+    box-shadow: 0 1px 3px rgba(60,64,67,0.3), 0 4px 8px rgba(60,64,67,0.15);
+}

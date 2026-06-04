@@ -1,0 +1,148 @@
+/**
+ * MÓDULO: GESTIÓN FINANCIERA / VALIDACIÓN DE PAGOS (EFECTIVO)
+ * ARCHIVO: public/assets/css/financial_payment_validations_efectivo.css
+ * PROPÓSITO: Estilos para la interfaz de cobro en ventanilla, arqueo y cascada Ledger.
+ * VERSIÓN: 1.1.0 - FIX: Z-Index prioritario para SweetAlert2 y estilos de rechazo manual.
+ */
+
+:root {
+    --cash-green: #198754;
+    --cash-dark: #0f5132;
+    --cash-light: #eafaf1;
+    --cash-warning: #f3ba2f;
+    --cash-danger: #dc3545;
+}
+
+/* Animaciones */
+.animate__fadeIn { 
+    animation-duration: 0.6s; 
+}
+
+/* Estilo de la Calculadora de Billetes */
+.bill-table {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.bill-table th {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #495057;
+    letter-spacing: 0.5px;
+}
+
+.bill-input {
+    font-weight: 800;
+    text-align: center;
+    border: 2px solid #dee2e6;
+    transition: all 0.2s ease;
+}
+
+.bill-input:focus {
+    border-color: var(--cash-green);
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.15);
+    background-color: #fff;
+    outline: none;
+}
+
+/* Chrome, Safari, Edge, Opera: Quitar flechas del input number */
+.bill-input::-webkit-outer-spin-button,
+.bill-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.subtotal-display {
+    font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+    font-weight: 700;
+    color: #212529;
+    font-size: 0.95rem;
+}
+
+/* Gran Total en el Modal (Diseño Dark Premium para el total) */
+.total-cash-box {
+    background-color: #212529;
+    border-radius: 10px;
+    padding: 20px;
+    border-left: 6px solid var(--cash-green);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+#monto-contado {
+    transition: all 0.3s ease;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Tabla de Registros Principales */
+#table-efectivo-pending thead th {
+    background-color: #f8f9fa;
+    border-bottom: 3px solid var(--cash-green);
+    color: #495057;
+}
+
+#table-efectivo-pending tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+#table-efectivo-pending tbody tr:hover {
+    background-color: rgba(25, 135, 84, 0.05) !important;
+}
+
+/* Input de monto principal */
+#input-amount {
+    font-size: 1.8rem;
+    letter-spacing: -1px;
+    border: 2px solid #ced4da;
+}
+
+#input-amount:focus {
+    border-color: var(--cash-green);
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.1);
+}
+
+/* Badge de deuda */
+.text-danger.fw-bold {
+    font-size: 1rem;
+    letter-spacing: -0.5px;
+}
+
+/* * 🛠️ SECCIÓN DE CORRECCIÓN PARA MODALES (Z-INDEX)
+ * Estos estilos aseguran que SweetAlert2 se superponga al modal de Bootstrap.
+ */
+
+.swal2-container {
+    z-index: 10000 !important; /* Por encima de los 1055/1060 de Bootstrap */
+    pointer-events: all !important;
+}
+
+.swal2-popup {
+    z-index: 10001 !important;
+}
+
+/* Estilos para el Textarea de rechazo manual */
+#motivo-rechazo-manual {
+    font-size: 0.9rem;
+    border: 2px solid #dee2e6;
+    border-radius: 6px;
+    padding: 12px;
+    width: 100%;
+    transition: border-color 0.2s;
+    background-color: #ffffff !important;
+    color: #212529 !important;
+    /* Forzamos que acepte clics aunque esté dentro de capas de SweetAlert */
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 10002 !important;
+}
+
+#motivo-rechazo-manual:focus {
+    border-color: var(--cash-danger);
+    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.15);
+    outline: none;
+}
+
+/* Asegurar que el overlay de SweetAlert no bloquee la interacción */
+.swal2-html-container {
+    overflow: visible !important;
+    z-index: 10001 !important;
+}

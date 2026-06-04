@@ -1,0 +1,198 @@
+/**
+ * MÓDULO: GESTIÓN FINANCIERA / ESTADOS DE CUENTA
+ * ARCHIVO: public/assets/css/financial_student_statement.css
+ * PROPÓSITO: Estilos modernos para búsqueda UX, tarjetas de diplomados y reporte analítico.
+ * VERSIÓN: 3.2.0 - Actualización para el diseño horizontal, botón de retorno y cajas de totales.
+ */
+
+/* ==========================================================================
+   1. VARIABLES Y COLORES DE ACENTO
+   ========================================================================== */
+:root {
+    --indigo-platform: #6610f2;
+    --indigo-soft: rgba(102, 16, 242, 0.08);
+    --primary-gradient: linear-gradient(135deg, #6610f2 0%, #4b0db8 100%);
+}
+
+.text-indigo { color: var(--indigo-platform) !important; }
+.bg-soft-primary { background-color: var(--indigo-soft) !important; }
+.bg-light-table { background-color: #fcfcfd !important; }
+
+/* Nuevos estilos de apoyo para las cajas de totales (Rediseño Horizontal) */
+.bg-danger.bg-opacity-10 { background-color: rgba(220, 53, 69, 0.05) !important; }
+.border-success.border-3 { border-bottom-width: 3px !important; }
+.border-danger.border-3 { border-bottom-width: 3px !important; }
+.border-primary.border-3 { border-bottom-width: 3px !important; }
+
+/* Botón de retorno (Volver a Diplomados) */
+#btn-volver-diplomados {
+    transition: all 0.2s ease-in-out;
+}
+#btn-volver-diplomados:hover { 
+    background-color: #f8f9fa;
+    transform: translateX(-3px); /* Pequeño efecto de deslizamiento hacia la izquierda */
+}
+
+/* ==========================================================================
+   2. BUSCADOR MODERNO (SEARCH UX)
+   ========================================================================== */
+.search-group-modern {
+    background: #ffffff;
+    border-radius: 50px;
+    padding: 8px 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 2px solid #f0f0f0;
+    transition: all 0.3s ease;
+}
+
+.search-group-modern:focus-within {
+    border-color: var(--indigo-platform);
+    box-shadow: 0 10px 25px rgba(102, 16, 242, 0.12);
+}
+
+#autocomplete-results {
+    border-radius: 20px;
+    margin-top: 12px;
+    border: none;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15) !important;
+    overflow: hidden;
+}
+
+.student-select-btn {
+    transition: background 0.2s;
+    border-bottom: 1px solid #f8f9fa !important;
+}
+
+.student-select-btn:hover {
+    background-color: var(--indigo-soft) !important;
+}
+
+/* ==========================================================================
+   3. TARJETAS DE DIPLOMADOS (ENROLLMENT CARDS)
+   ========================================================================== */
+.section-indicator-bar {
+    width: 6px;
+    height: 30px;
+    background: var(--primary-gradient);
+    border-radius: 10px;
+}
+
+.enrollment-cards-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #ddd transparent;
+}
+
+.enrollment-card {
+    border: 2px solid #f0f0f0 !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+    background: #fff;
+}
+
+.enrollment-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--indigo-platform) !important;
+    box-shadow: 0 12px 20px rgba(102, 16, 242, 0.08) !important;
+}
+
+.enrollment-card.active {
+    border-color: var(--indigo-platform) !important;
+    background-color: #fdfcff !important;
+    box-shadow: inset 0 0 0 1px var(--indigo-platform);
+}
+
+.icon-box-diplomado {
+    width: 48px;
+    height: 48px;
+    background: var(--indigo-soft);
+    color: var(--indigo-platform);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   4. ESTADÍSTICAS Y KPIS
+   ========================================================================== */
+.stat-card {
+    transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: scale(1.02);
+}
+
+.student-info-card {
+    background: linear-gradient(to bottom right, #ffffff, #fcfbff);
+}
+
+/* ==========================================================================
+   5. TABLAS Y TIPOGRAFÍA CONTABLE
+   ========================================================================== */
+#table-ledger thead th {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.8px;
+    padding: 16px 12px;
+    border-bottom: 2px solid #eee;
+}
+
+#table-ledger tbody td {
+    padding: 15px 12px;
+    vertical-align: middle;
+}
+
+.font-monospace-money {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-weight: 600;
+}
+
+/* Badge de estatus personalizado */
+.badge-status-ledger {
+    font-size: 0.65rem;
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+/* Clases de utilidad para Bootstrap */
+.bg-soft-success { background-color: #e8f5e9 !important; color: #2e7d32 !important; }
+.bg-soft-warning { background-color: #fff8e1 !important; color: #f57f17 !important; }
+
+/* ==========================================================================
+   6. MODO DE IMPRESIÓN
+   ========================================================================== */
+@media print {
+    .btn, 
+    #form-search-statement, 
+    .search-group-modern,
+    #enrollments-section,
+    #empty-state,
+    #action-buttons,
+    #btn-volver-diplomados,
+    nav, 
+    .modal-footer {
+        display: none !important;
+    }
+    
+    .container-fluid { padding: 0 !important; }
+
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #eee !important;
+        page-break-inside: avoid;
+    }
+
+    #table-ledger { width: 100% !important; }
+    
+    body {
+        background-color: white !important;
+        font-size: 10pt;
+    }
+}

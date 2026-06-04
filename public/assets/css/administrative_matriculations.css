@@ -1,0 +1,74 @@
+/**
+ * MÓDULO: ADMINISTRATIVO / MATRÍCULAS
+ * ARCHIVO: public/assets/css/administrative_matriculations.css
+ * PROPÓSITO: Estilos para el panel de cohortes (Diseño Split-Card) y tabla de gestión.
+ */
+
+/* Contenedor principal para animaciones */
+.animate__animated {
+    animation-duration: 0.8s;
+}
+
+/* Ajustes de Breadcrumbs para coincidir con el estándar del proyecto */
+.breadcrumb {
+    border-color: #dee2e6 !important;
+}
+.breadcrumb-item a {
+    transition: color 0.2s ease;
+}
+.breadcrumb-item a:hover {
+    color: #0d6efd !important;
+}
+
+/* -----------------------------------------
+   DISEÑO DE TARJETA DIVIDIDA (ALTERNATIVA 2)
+   ----------------------------------------- */
+
+/* Efecto general de la tarjeta flotante */
+.diplomado-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid rgba(0,0,0,0.08) !important;
+    border-radius: 8px;
+    background-color: #fff;
+}
+.diplomado-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08) !important;
+    border-color: #0d6efd !important;
+}
+
+/* Zona Izquierda (Gestionar Notas) */
+.card-main-action {
+    transition: background-color 0.2s ease;
+    border-radius: 8px 0 0 8px;
+}
+.card-main-action:hover {
+    background-color: #f8f9fa;
+}
+
+/* Zona Derecha (Imprimir Asistencia) */
+.card-print-action {
+    background-color: #fff;
+    color: #dc3545;
+    transition: all 0.2s ease;
+    border-radius: 0 8px 8px 0;
+    min-width: 80px;
+}
+.card-print-action:hover {
+    background-color: #dc3545;
+    color: #fff !important;
+}
+
+/* -----------------------------------------
+   AJUSTES DE TABLA (VISTA MANAGE)
+   ----------------------------------------- */
+.table-responsive::-webkit-scrollbar {
+    width: 6px;
+}
+.table-responsive::-webkit-scrollbar-thumb {
+    background: #ced4da;
+    border-radius: 10px;
+}
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: #adb5bd;
+}

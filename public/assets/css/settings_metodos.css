@@ -1,0 +1,97 @@
+/**
+ * MÓDULO: CONFIGURACIÓN / MÉTODOS DE PAGO
+ * ARCHIVO: public/assets/css/settings_metodos.css
+ * PROPÓSITO: Estilos avanzados para la Grid de gestión financiera y modales de parámetros.
+ * VERSIÓN: 1.1.0 - Unificación de estilos con el estándar de Seguridad de Usuarios y optimización de tarjetas.
+ */
+
+/* Efecto de elevación y borde interactivo en las tarjetas */
+.method-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    overflow: hidden;
+}
+
+.method-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1) !important;
+    border-color: var(--bs-primary) !important;
+    background-color: #fcfdff;
+}
+
+/* Contenedor circular para los iconos financieros */
+.method-icon-circle {
+    width: 65px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.method-card:hover .method-icon-circle {
+    transform: scale(1.1);
+}
+
+/* Estandarización de Badges (igual que en Seguridad de Usuarios) */
+.badge {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 0.5em 0.8em;
+}
+
+/* Texto extra pequeño para etiquetas técnicas */
+.smallest {
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+/* Personalización del Switch de Activación */
+.custom-switch .form-check-input {
+    width: 2.8em;
+    height: 1.4em;
+    cursor: pointer;
+}
+
+.custom-switch .form-check-input:checked {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+/* Utilidad de cursor (Reutilizada del estándar) */
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* Ajustes para los inputs dentro del modal */
+.form-control-sm {
+    border-color: #dee2e6;
+    padding: 0.5rem 0.75rem;
+}
+
+.form-control-sm:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+}
+
+/* Separadores sutiles */
+hr.opacity-25 {
+    border-top-color: #ced4da;
+}
+
+/* Estilos de animación para el despliegue de campos dinámicos */
+#fieldsDigital, #fieldsCash {
+    animation: fadeInSlide 0.3s ease-out;
+}
+
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

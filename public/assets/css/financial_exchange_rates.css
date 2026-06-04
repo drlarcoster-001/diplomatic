@@ -1,0 +1,59 @@
+/**
+ * MÓDULO: FINANCIERO / TASA DE CAMBIO
+ * ARCHIVO: public/assets/css/financial_exchange_rates.css
+ * PROPÓSITO: Proporciones corregidas con fuentes grandes y simetría.
+ * VERSIÓN: 1.4.0 - Tipografía h3/h4 para valores y flex-fill para cards.
+ */
+
+.financial-exchange-rates-scope .btn-back-financial {
+    width: 48px;
+    height: 48px;
+    background-color: #fff;
+    border-radius: 14px;
+    color: #333;
+    transition: 0.2s;
+}
+
+.financial-exchange-rates-scope .info-card-pm {
+    border-radius: 12px !important;
+    min-height: 85px; /* Altura estandarizada */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Etiquetas superiores */
+.financial-exchange-rates-scope .label-pm {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+}
+
+/* VALORES GRANDES Y LEGIBLES */
+.financial-exchange-rates-scope .value-pm {
+    font-size: 1.4rem; /* Subida de tamaño significativa */
+    font-weight: 900;
+    color: #1a1d20;
+    line-height: 1;
+}
+
+/* Botón Consultar */
+#btnConsultarBCV {
+    min-width: 110px; /* Tamaño justo para la palabra CONSULTAR */
+    background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%);
+    transition: all 0.2s;
+}
+
+#btnConsultarBCV:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(13, 110, 253, 0.25) !important;
+}
+
+.financial-exchange-rates-scope .table-container-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+.financial-exchange-rates-scope .table-container-scroll::-webkit-scrollbar-thumb {
+    background: #e0e0e0;
+    border-radius: 10px;
+}

@@ -1,0 +1,143 @@
+/**
+ * MÓDULO: AUTOGESTIÓN ESTUDIANTIL
+ * ARCHIVO: public/assets/css/student_statement.css
+ * PROPÓSITO: Estilos centralizados. Selector, tarjetas financieras y tabla contable.
+ * VERSIÓN: 2.4.0 - Homologación Premium: Estilos adaptados al rediseño horizontal y utilidades de color.
+ */
+
+/* ==========================================================================
+   1. VARIABLES Y SELECTOR DE PROGRAMAS (TARJETAS)
+   ========================================================================== */
+:root {
+    --indigo-platform: #6610f2;
+    --indigo-soft: rgba(102, 16, 242, 0.08);
+}
+
+.program-card {
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border: 2px solid transparent !important;
+    background-color: #fff;
+}
+
+.program-card:hover {
+    transform: translateY(-5px);
+    background-color: #f8f9ff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+.program-card.active {
+    border-color: var(--indigo-platform) !important;
+    background-color: #f1ecfe;
+}
+
+.icon-box-prog {
+    width: 50px;
+    height: 50px;
+    background-color: var(--indigo-soft);
+    color: var(--indigo-platform);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Botón de Retorno (Cambiar de Programa) */
+#btn-show-selector {
+    transition: all 0.2s ease-in-out;
+}
+
+#btn-show-selector:hover {
+    background-color: var(--indigo-platform);
+    color: white !important;
+    border-color: var(--indigo-platform);
+}
+
+/* ==========================================================================
+   2. TARJETAS FINANCIERAS PREMIUM (TOTALES)
+   ========================================================================== */
+/* Apoyo para el diseño horizontal y resaltado de saldos */
+.bg-danger.bg-opacity-10 { background-color: rgba(220, 53, 69, 0.05) !important; }
+.border-success.border-3 { border-bottom-width: 3px !important; }
+.border-danger.border-3 { border-bottom-width: 3px !important; }
+.border-primary.border-3 { border-bottom-width: 3px !important; }
+
+/* Botón "Ver Mis Recibos" - Estilo integrado */
+.btn-view-payments {
+    transition: all 0.2s ease-in-out;
+}
+
+/* ==========================================================================
+   3. TABLA Y TIPOGRAFÍA CONTABLE
+   ========================================================================== */
+.font-monospace-money {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+#table-ledger {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+#table-ledger thead th {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.8px;
+    padding: 15px 12px;
+    border-top: none;
+    border-bottom: 2px solid #dee2e6;
+}
+
+#table-ledger tbody td {
+    padding: 14px 12px;
+    vertical-align: middle;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+/* Badges de Estado */
+.badge-status-ledger {
+    font-size: 0.68rem;
+    padding: 0.4em 0.8em;
+    border-radius: 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-block;
+    letter-spacing: 0.5px;
+}
+
+.status-pagado     { background-color: #d4edda; color: #155724; }
+.status-pendiente  { background-color: #fff3cd; color: #856404; }
+.status-vencido    { background-color: #f8d7da; color: #842029; }
+.status-parcial    { background-color: #cce5ff; color: #004085; }
+.status-anulado    { background-color: #e2e3e5; color: #41464b; opacity: 0.6; }
+
+/* ==========================================================================
+   4. AJUSTES RESPONSIVOS E IMPRESIÓN
+   ========================================================================== */
+@media (max-width: 768px) {
+    .h4 { font-size: 1.15rem; }
+    #table-ledger thead th { font-size: 0.62rem; padding: 10px 5px; }
+}
+
+@media print {
+    .btn, nav, .breadcrumb, #btn-show-selector, .modal, #program-selector-area, #action-buttons { 
+        display: none !important; 
+    }
+    
+    .card { 
+        box-shadow: none !important; 
+        border: 1px solid #eee !important; 
+        break-inside: avoid; 
+    }
+    
+    body { 
+        background-color: white !important; 
+        font-size: 10pt; 
+    }
+}

@@ -1,0 +1,27 @@
+/**
+ * MÓDULO: GESTIÓN FINANCIERA / VALIDACIÓN DE PAGOS
+ * ARCHIVO: public/assets/css/financial_payment_validations_pagomovil.css
+ * PROPÓSITO: Estilos idénticos a Cash Operations para el panel de conciliación.
+ * VERSIÓN: 1.0.0 - Soporte para tarjetas de info, visor y tipografía mono.
+ */
+
+.info-card-pm { transition: transform 0.2s ease; cursor: default; }
+.info-card-pm:hover { transform: translateY(-2px); }
+
+#table-pagomovil-pending thead th {
+    font-weight: 700;
+    border-bottom: 2px solid #f1f3f5;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.font-monospace {
+    font-family: 'SFMono-Regular', Menlo, Monaco, Consolas, "Liberation Mono", monospace !important;
+}
+
+#v-screenshot {
+    transform-origin: center center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.breadcrumb-item.active { letter-spacing: 0.3px; }

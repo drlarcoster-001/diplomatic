@@ -1,0 +1,178 @@
+/**
+
+MÓDULO: GESTIÓN OPERATIVA / PROFESSORS
+
+ARCHIVO: public/assets/css/operational_professors.css
+
+PROPÓSITO: Estilos específicos para la Grid de sincronización, semáforos de recursos y estados de WordPress.
+
+VERSIÓN: 1.0.2 - Soporte para indicadores visuales de completitud y efectos de interacción en la Grid.
+*/
+
+/* --- Contenedores y Tabla --- */
+#table-professors thead th {
+font-size: 0.75rem;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+font-weight: 700;
+color: #6c757d;
+border-bottom: 2px solid #f8f9fa;
+}
+
+#table-professors tbody tr {
+transition: background-color 0.2s ease;
+}
+
+#table-professors tbody tr:hover {
+background-color: rgba(220, 53, 69, 0.02); /* Sutil toque rojo institucional */
+}
+
+/* --- Avatares Administrativos --- */
+.avatar-admin {
+width: 38px;
+height: 38px;
+object-fit: cover;
+border-radius: 8px;
+border: 2px solid #fff;
+box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* --- Semáforo de Recursos (Foto Web / Bio) --- */
+.resource-indicator {
+display: flex;
+justify-content: center;
+gap: 15px;
+}
+
+.resource-item {
+display: flex;
+flex-direction: column;
+align-items: center;
+cursor: help;
+}
+
+.resource-icon {
+font-size: 1.25rem;
+line-height: 1;
+transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Estado: Faltante */
+.resource-icon.missing {
+color: #dee2e6;
+filter: grayscale(1);
+}
+
+/* Estado: Completado /
+.resource-icon.active-photo { color: #0d6efd; } / Azul para foto /
+.resource-icon.active-bio { color: #6610f2; }   / Morado para bio */
+
+.resource-label {
+font-size: 0.6rem;
+font-weight: 700;
+text-transform: uppercase;
+margin-top: 2px;
+}
+
+/* --- Estados de Sincronización (WP Status) --- */
+.wp-status-badge {
+padding: 0.4rem 0.8rem;
+border-radius: 50px;
+font-size: 0.7rem;
+font-weight: 600;
+display: inline-flex;
+align-items: center;
+gap: 5px;
+}
+
+.status-online {
+background-color: rgba(25, 135, 84, 0.1);
+color: #198754;
+border: 1px solid rgba(25, 135, 84, 0.2);
+}
+
+.status-offline {
+background-color: rgba(108, 117, 125, 0.1);
+color: #6c757d;
+border: 1px solid rgba(108, 117, 125, 0.2);
+}
+
+.status-pending {
+background-color: rgba(255, 193, 7, 0.1);
+color: #856404;
+border: 1px solid rgba(255, 193, 7, 0.2);
+}
+
+.wp-id-tag {
+font-family: monospace;
+font-size: 0.6rem;
+background: #fff;
+padding: 1px 4px;
+border-radius: 3px;
+margin-left: 4px;
+border: 1px solid currentColor;
+}
+
+/* --- Switch de Calidad (is_ready) --- */
+.form-check-input:checked {
+background-color: #198754;
+border-color: #198754;
+}
+
+.form-check-input:disabled {
+opacity: 0.3;
+cursor: not-allowed;
+}
+
+/* --- Botones de Acción en Grid --- */
+.btn-action {
+width: 32px;
+height: 32px;
+padding: 0;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+border-radius: 8px;
+transition: all 0.2s;
+}
+
+.btn-action:hover {
+transform: scale(1.1);
+}
+
+/* --- Estilos para el Modal de Enriquecimiento --- */
+.modal-preview-container {
+background: #f8f9fa;
+border: 2px dashed #dee2e6;
+border-radius: 12px;
+min-height: 250px;
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
+overflow: hidden;
+}
+
+.modal-preview-image {
+max-width: 100%;
+max-height: 300px;
+object-fit: contain;
+z-index: 1;
+}
+
+.preview-overlay {
+position: absolute;
+bottom: 0;
+width: 100%;
+background: rgba(0,0,0,0.6);
+color: #fff;
+font-size: 0.7rem;
+text-align: center;
+padding: 5px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 992px) {
+.resource-label { display: none; }
+.resource-indicator { gap: 10px; }
+}

@@ -1,0 +1,190 @@
+/**
+ * MÓDULO: GESTIÓN GERENCIAL / CONTROL ACADÉMICO
+ * ARCHIVO: public/assets/css/managerial_academic_control.css
+ * PROPÓSITO: Estilización premium, corrección de capas (z-index) y optimización de anchos de columna.
+ * VERSIÓN: 1.2.0 - FIX: Elevación definitiva de capas (z-index) para evitar solapamiento de dropdowns sobre sticky headers.
+ */
+
+:root {
+    --helium-blue-primary: #007bff;
+    --helium-blue-dark: #0056b3;
+    --helium-blue-light: #e7f1ff;
+    --helium-blue-soft: #f0f7ff;
+    --helium-gray-text: #6c757d;
+    --helium-border-color: #dee2e6;
+}
+
+/* --- CORRECCIÓN CRÍTICA DE CAPAS (Z-INDEX) --- */
+
+/* 1. Permitir que elementos salgan de la tarjeta sin cortarse */
+.card-helium {
+    background: #ffffff;
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+    overflow: visible !important; /* CRÍTICO: Permite que el dropdown se vea */
+    position: relative;
+}
+
+/* 2. Elevar el contenedor de los botones de exportación */
+.card-header .dropdown, 
+.card-header .btn-group {
+    position: relative;
+    z-index: 1050 !important; /* Mayor que el sticky header (10) y el scroll de tabla */
+}
+
+/* 3. El menú desplegable en la cima absoluta */
+.dropdown-menu {
+    z-index: 2000 !important;
+    border: none !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+    border-radius: 12px !important;
+}
+
+/* 4. Control del Sticky Header (Bajamos su prioridad) */
+.table thead th {
+    background: #f8f9fa;
+    color: var(--helium-blue-primary);
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 15px 10px;
+    position: sticky;
+    top: 0;
+    z-index: 10 !important; /* Lo mantenemos bajo para que el dropdown pase por encima */
+    border-bottom: 2px solid var(--helium-blue-light);
+    white-space: nowrap;
+}
+
+/* --- BOTONES PREMIUM HELIUM --- */
+
+.btn-helium-primary {
+    background: linear-gradient(135deg, var(--helium-blue-primary) 0%, var(--helium-blue-dark) 100%);
+    color: #ffffff !important;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 35px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.25);
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.btn-helium-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+    filter: brightness(1.1);
+}
+
+.btn-helium-secondary {
+    background: #ffffff;
+    color: var(--helium-gray-text);
+    border: 2px solid #dee2e6;
+    border-radius: 12px;
+    padding: 10px 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-helium-secondary:hover {
+    background: var(--helium-blue-soft);
+    color: var(--helium-blue-primary);
+    border-color: var(--helium-blue-primary);
+}
+
+/* --- OPTIMIZACIÓN DE COLUMNAS --- */
+
+.col-participant { min-width: 250px !important; }
+
+.col-code {
+    min-width: 190px !important;
+    width: 190px !important;
+    white-space: nowrap !important;
+    text-align: center;
+}
+
+.col-count {
+    width: 65px !important;
+    max-width: 65px !important;
+    text-align: center;
+}
+
+/* --- ESTILOS DE TABLA Y COMPONENTES --- */
+
+.helium-table-scroll {
+    max-height: 600px;
+    overflow-x: auto !important;
+    overflow-y: auto;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.table tbody td {
+    padding: 12px 10px;
+    font-size: 12.5px;
+    border-bottom: 1px solid #f1f1f1;
+    vertical-align: middle;
+}
+
+code {
+    font-family: 'Inter', monospace;
+    font-weight: 700;
+    color: var(--helium-blue-dark);
+    background: var(--helium-blue-soft);
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: 11.5px;
+    border: 1px solid #cbd5e1;
+}
+
+.badge-count {
+    font-size: 10px !important;
+    font-weight: 700;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    color: var(--helium-blue-dark);
+    border: 1px solid #dee2e6;
+    border-radius: 50%;
+}
+
+/* --- INPUTS Y FILTROS --- */
+
+.helium-label { 
+    font-size: 11px; 
+    font-weight: 800; 
+    color: var(--helium-blue-primary); 
+    text-transform: uppercase; 
+    margin-bottom: 8px; 
+    display: block; 
+}
+
+.helium-input-wrapper { 
+    background: var(--helium-blue-soft); 
+    border-radius: 12px; 
+    border: 1.5px solid transparent; 
+    transition: 0.3s; 
+}
+
+.helium-input-wrapper:focus-within { 
+    background: #fff; 
+    border-color: var(--helium-blue-primary); 
+}
+
+.helium-input, .helium-select { 
+    width: 100%; 
+    padding: 12px 15px; 
+    border: none; 
+    background: transparent; 
+    outline: none; 
+    font-size: 14px; 
+    font-weight: 500; 
+}

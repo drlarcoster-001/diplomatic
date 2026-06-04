@@ -1,0 +1,52 @@
+/**
+ * MÓDULO: USUARIOS
+ * Archivo: public/assets/css/users.css
+ * Propósito: Ajustes visuales de la tabla y botones de acción.
+ */
+
+/* Alineación vertical centrada para toda la tabla */
+#usersTable th,
+#usersTable td {
+  vertical-align: middle;
+  white-space: nowrap; /* Evita que los textos se rompan en líneas */
+}
+
+/* Ajuste de los botones de acción (Editar/Borrar) */
+#usersTable .btn-group .btn {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+/* Badge de roles con tamaño uniforme */
+.badge {
+  min-width: 80px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+/* Avatar circular */
+.user-avatar {
+  width: 40px; 
+  height: 40px;
+  font-size: 0.9rem;
+}
+
+/* public/assets/css/users.css */
+.avatar-circle {
+    width: 40px; height: 40px; background: #0d6efd; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; font-size: 14px; font-weight: bold; text-transform: uppercase;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.avatar-circle-lg { width: 110px; height: 110px; font-size: 32px; margin: 0 auto; }
+
+.avatar-img { object-fit: cover; }
+.avatar-img-lg { object-fit: cover; background: #eee; }
+
+.bg-light-custom { background-color: #f8f9fa; border: 1px solid #dee2e6; }
+.form-label { font-size: 0.85rem; margin-bottom: 0.3rem; }

@@ -1,0 +1,82 @@
+/**
+ * MÓDULO: GESTIÓN FINANCIERA / PAGO MÓVIL
+ * ARCHIVO: public/assets/css/financial_cash_operations_pagomovil.css
+ * PROPÓSITO: Estilos específicos para el motor de conciliación, dashboard de tasas, LED de estatus y Dropzone.
+ * VERSIÓN: 1.2.0 - Inclusión de zona de arrastre, animaciones y clases para estatus de conciliación bancaria.
+ */
+
+/* Indicador LED de Conciliación */
+.status-led {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+.status-led.success { background-color: #198754; box-shadow: 0 0 8px rgba(25, 135, 84, 0.4); }
+.status-led.danger { background-color: #dc3545; box-shadow: 0 0 8px rgba(220, 53, 69, 0.4); }
+.status-led.warning { background-color: #ffc107; }
+
+/* Botón Volver Circular */
+.btn-back-circle {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border: 1px solid #e9ecef;
+    color: #495057;
+    transition: all 0.3s ease;
+}
+
+.btn-back-circle:hover {
+    background: #f8f9fa;
+    color: #212529;
+    transform: translateX(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* Tarjetas de Información (Dashboard) */
+.info-card-pm {
+    transition: transform 0.2s ease;
+}
+
+.info-card-pm:hover { transform: translateY(-2px); }
+
+/* Zona de Carga (Dropzone) */
+.upload-zone-pm {
+    border: 2px dashed #dee2e6;
+    border-radius: 12px;
+    padding: 2.5rem 1rem;
+    text-align: center;
+    background: #fdfdfd;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-zone-pm:hover, .upload-zone-pm.dragover {
+    background: rgba(25, 135, 84, 0.05);
+    border-color: #198754;
+}
+
+.upload-zone-pm i { transition: transform 0.3s ease; }
+.upload-zone-pm:hover i { transform: translateY(-5px); }
+
+/* Estilo de Tabla Operativa */
+#table-pagomovil-pending thead th {
+    font-weight: 700;
+    border-bottom: 2px solid #f1f3f5;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+#table-pagomovil-pending tbody td {
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+.font-monospace {
+    font-family: 'SFMono-Regular', Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+}

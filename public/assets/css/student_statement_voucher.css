@@ -1,0 +1,297 @@
+/**
+ * MÓDULO: AUTOGESTIÓN ESTUDIANTIL
+ * ARCHIVO: public/assets/css/student_statement_voucher.css
+ * PROPÓSITO: Estilos del visor flotante draggable de comprobantes de pago.
+ * VERSIÓN: 1.0.0
+ */
+
+/* ----------------------------------------------------------
+   PANEL PRINCIPAL
+   ---------------------------------------------------------- */
+.voucher-panel {
+    position: fixed;
+    top: 100px;
+    right: 30px;
+    width: 420px;
+    min-width: 320px;
+    max-width: 90vw;
+    max-height: 82vh;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18), 0 4px 16px rgba(0, 0, 0, 0.08);
+    z-index: 1060;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+}
+
+.voucher-panel.is-dragging {
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25), 0 8px 24px rgba(0, 0, 0, 0.12);
+    cursor: grabbing !important;
+    user-select: none;
+}
+
+@keyframes voucherSlideIn {
+    from { opacity: 0; transform: translateY(-12px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+.voucher-panel.visible {
+    animation: voucherSlideIn 0.22s ease forwards;
+}
+
+/* ----------------------------------------------------------
+   HEADER / DRAG HANDLE
+   ---------------------------------------------------------- */
+.voucher-panel__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    cursor: grab;
+    flex-shrink: 0;
+    user-select: none;
+    border-radius: 16px 16px 0 0;
+}
+
+.voucher-panel__header:active {
+    cursor: grabbing;
+}
+
+.voucher-panel__icon {
+    width: 34px;
+    height: 34px;
+    background: linear-gradient(135deg, #198754, #20c997);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.voucher-panel__title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    line-height: 1.2;
+}
+
+.voucher-panel__subtitle {
+    font-size: 0.72rem;
+    color: #6c757d;
+    font-family: 'Courier New', monospace;
+}
+
+.voucher-panel__close {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: background 0.15s ease, color 0.15s ease;
+    flex-shrink: 0;
+}
+
+.voucher-panel__close:hover {
+    background: #dc3545;
+    color: white;
+}
+
+/* ----------------------------------------------------------
+   BADGE DE MÉTODO DE PAGO
+   ---------------------------------------------------------- */
+.voucher-method-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 3px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    background: #e9ecef;
+    color: #495057;
+}
+
+.voucher-method-badge.method-pagomovil { background: #cff4fc; color: #055160; }
+.voucher-method-badge.method-zelle     { background: #d1e7dd; color: #0a3622; }
+.voucher-method-badge.method-binance   { background: #fff3cd; color: #664d03; }
+.voucher-method-badge.method-cash      { background: #d1e7dd; color: #0a3622; }
+
+/* ----------------------------------------------------------
+   BODY
+   ---------------------------------------------------------- */
+.voucher-panel__body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    min-height: 0;
+}
+
+.voucher-panel__body::-webkit-scrollbar { width: 4px; }
+.voucher-panel__body::-webkit-scrollbar-track { background: transparent; }
+.voucher-panel__body::-webkit-scrollbar-thumb { background: #dee2e6; border-radius: 4px; }
+
+/* ----------------------------------------------------------
+   GRID DE INFORMACIÓN
+   ---------------------------------------------------------- */
+.voucher-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.voucher-info-item {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 8px 10px;
+    border: 1px solid #e9ecef;
+}
+
+.voucher-info-label {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #6c757d;
+    margin-bottom: 2px;
+}
+
+.voucher-info-value {
+    display: block;
+    font-size: 0.8rem;
+    color: #212529;
+    font-weight: 500;
+    word-break: break-all;
+}
+
+/* ----------------------------------------------------------
+   CONTENEDOR DE IMAGEN
+   ---------------------------------------------------------- */
+.voucher-image-container {
+    position: relative;
+    background: #f8f9fa;
+    border-radius: 10px;
+    overflow: hidden;
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #dee2e6;
+}
+
+.voucher-img {
+    max-width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.2s ease;
+    transform-origin: center center;
+    cursor: grab;
+}
+
+.voucher-img:active {
+    cursor: grabbing;
+}
+
+.voucher-no-image {
+    text-align: center;
+    padding: 24px;
+}
+
+/* ----------------------------------------------------------
+   CONTROLES DE ZOOM
+   ---------------------------------------------------------- */
+.voucher-zoom-controls {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    display: flex;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 8px;
+    padding: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.voucher-zoom-btn {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #495057;
+    cursor: pointer;
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: background 0.15s ease;
+}
+
+.voucher-zoom-btn:hover {
+    background: #e9ecef;
+    color: #0d6efd;
+}
+
+/* ----------------------------------------------------------
+   VISTA CASH / ARQUEO
+   ---------------------------------------------------------- */
+.voucher-cash-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    background: linear-gradient(135deg, #d1e7dd, #a3cfbb);
+    border-radius: 10px;
+    border: 1px solid #a3cfbb;
+    margin-bottom: 12px;
+}
+
+/* ----------------------------------------------------------
+   HANDLE DE RESIZE
+   ---------------------------------------------------------- */
+.voucher-resize-handle {
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    cursor: ns-resize;
+    color: #adb5bd;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    border-radius: 0 0 16px 16px;
+    transition: background 0.15s ease;
+}
+
+.voucher-resize-handle:hover {
+    background: #e9ecef;
+    color: #6c757d;
+}
+
+/* ----------------------------------------------------------
+   RESPONSIVE
+   ---------------------------------------------------------- */
+@media (max-width: 576px) {
+    .voucher-panel {
+        right: 10px;
+        left: 10px;
+        width: auto;
+        top: auto;
+        bottom: 10px;
+    }
+}

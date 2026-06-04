@@ -1,0 +1,112 @@
+/**
+ * MÓDULO: GESTIÓN ACADÉMICA
+ * Archivo: public/assets/css/academic_diplomados.css
+ * Propósito: Estilos para la gestión de diplomados y formato de impresión institucional.
+ * Version: 1.2.3 - Versión Maestra. Optimización de lectura para formularios largos y soporte para estados DRAFT.
+ */
+
+/* --- 1. ESTILOS DE LA INTERFAZ DE USUARIO (UI) --- */
+
+/* Suavizado de tarjetas para reducir la sensación de "formulario pesado" */
+.card {
+    transition: all 0.3s ease;
+    border-radius: 12px !important;
+}
+
+.form-label {
+    color: #495057;
+    margin-bottom: 0.3rem;
+}
+
+/* Badge especial para el estado de Borrador (Draft) */
+.badge-draft {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    border: 1px dashed #adb5bd;
+    font-weight: 500;
+}
+
+/* Estilo para inputs de carga horaria */
+input[type="number"] {
+    font-weight: bold;
+    color: #0d6efd;
+}
+
+/* --- 2. FORMATO DE IMPRESIÓN / VISTA TÉCNICA (DOC) --- */
+
+.doc-container {
+    font-family: "Times New Roman", Times, serif;
+    color: #000;
+    line-height: 1.5;
+    background: #fff;
+    padding: 30px;
+    border: 1px solid #eee; /* Solo visible en pantalla */
+}
+
+.doc-header-title { 
+    border-bottom: 2px solid #000; 
+    margin-bottom: 20px; 
+    padding-bottom: 10px; 
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.doc-label { 
+    font-weight: bold; 
+    text-decoration: underline; 
+    text-transform: uppercase; 
+    display: block; 
+    margin-top: 20px; 
+    font-size: 1.1rem; 
+}
+
+.doc-content { 
+    margin-top: 5px; 
+    text-align: justify; 
+    font-size: 1.05rem;
+}
+
+/* --- 3. TRUCO DE IMPRESIÓN LIMPIA (SCREEN TO PAPER) --- */
+
+@media print {
+    /* Ocultar absolutamente todo el sitio */
+    body * { 
+        visibility: hidden !important; 
+    }
+    
+    /* Mostrar solo el área designada */
+    #printArea, #printArea * { 
+        visibility: visible !important; 
+    }
+
+    #printArea {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+    }
+
+    /* Limpieza de contenedores de Bootstrap para impresión */
+    .modal-content, .modal-body, .modal-dialog {
+        border: none !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+    }
+
+    /* Ocultar elementos de control */
+    .modal-footer, .btn, .btn-close, .modal-header, .swal2-container, .alert { 
+        display: none !important; 
+    }
+
+    @page {
+        size: letter;
+        margin: 2.5cm; /* Margen oficial */
+    }
+}

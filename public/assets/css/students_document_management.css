@@ -1,0 +1,73 @@
+/**
+ * MÓDULO: AUTOGESTIÓN ESTUDIANTIL
+ * ARCHIVO: assets/css/students_document_management.css
+ * PROPÓSITO: Definición visual para la interfaz de carga de recaudos (Cédula, Título, CV).
+ * VERSIÓN: 1.0.0 - Diseño inicial con soporte para estados de carga y efectos hover.
+ */
+
+/* Contenedor de carga con borde punteado */
+.upload-area {
+    border: 2px dashed #dee2e6;
+    transition: all 0.3s ease;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-area:hover {
+    border-color: #0d6efd;
+    background-color: rgba(13, 110, 253, 0.05) !important;
+    transform: translateY(-2px);
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* Efecto de elevación para las tarjetas de documentos */
+.hover-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Ajustes para textos pequeños y etiquetas */
+.extra-small {
+    font-size: 0.75rem;
+}
+
+/* Animación para el icono de carga */
+.upload-area i {
+    transition: transform 0.3s ease;
+}
+
+.upload-area:hover i {
+    transform: scale(1.1);
+}
+
+/* Personalización de la sombra para coincidir con el dashboard */
+.shadow-sm {
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+
+/* Estilo para los badges de estado dentro de las tarjetas */
+.badge {
+    font-weight: 500;
+    padding: 0.5em 0.8em;
+}
+
+/* Responsive: Ajustes para móviles */
+@media (max-width: 768px) {
+    .upload-area {
+        min-height: 100px;
+    }
+    
+    .card-body.d-flex {
+        padding: 1.5rem !important;
+    }
+}
