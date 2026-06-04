@@ -503,11 +503,14 @@ function saveDigitalSelection() {
             document.getElementById('digitalSummary')?.classList.remove('d-none');
             highlightCard('btnOptDigital');
             
-            const modalEl = document.getElementById('modalDigital');
-            const modalInstance = bootstrap.Modal.getInstance(modalEl);
-            if (modalInstance) modalInstance.hide();
-            
-            Swal.fire({ icon: 'success', title: 'Pago Vinculado', timer: 1000, showConfirmButton: false });
+                const modalEl = document.getElementById('modalDigital');
+                const modalInstance = bootstrap.Modal.getInstance(modalEl);
+                if (modalInstance) modalInstance.hide();
+
+                setTimeout(() => {
+                    document.getElementById('btnNext')?.click();
+                }, 500);
+
         }
     });
 }

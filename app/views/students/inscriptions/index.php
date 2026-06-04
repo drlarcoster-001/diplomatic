@@ -3,7 +3,7 @@
  * MÓDULO: EVENTOS / ESTUDIANTES
  * ARCHIVO: app/views/students/inscriptions/index.php
  * PROPÓSITO: Panel principal de gestión de inscripciones con visualización de ofertas y seguimiento de estatus.
- * VERSIÓN: 1.1.9 - Fix de rutas para subcarpeta /diplomatic/public/ y pase de datos relacionales al JS.
+ * VERSIÓN: 1.2.3 - Tarjetas con contorno gris sutil y sombreado base mejorado.
  */
 
 $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
@@ -46,10 +46,11 @@ $identidadParaJS = !empty($nombreReal) ? $nombreReal : ($user['display_name'] ??
         </ol>
     </nav>
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
         <div>
             <h2 class="fw-bold text-dark mb-1">Mis Inscripciones Online</h2>
-            <p class="text-muted small mb-0"><i class="fas fa-info-circle me-1 text-primary"></i> Gestión de inscripciones online</p>
+            <p class="text-muted small mb-1"><i class="fas fa-info-circle me-1 text-primary"></i> Gestión de inscripciones online</p>
+            <p class="text-dark fw-medium mb-0">Seleccione el diplomado que va a inscribir:</p>
         </div>
         <a href="<?= $urlBase ?>/students" class="btn btn-white btn-sm rounded-pill px-3 shadow-sm border fw-bold text-secondary">
             <i class="fas fa-arrow-left me-1"></i> Volver al panel estudiantil
@@ -69,60 +70,51 @@ $identidadParaJS = !empty($nombreReal) ? $nombreReal : ($user['display_name'] ??
 
     <div class="tab-content">
         <div class="tab-pane fade show active" id="pane-inscribir" role="tabpanel">
-            <div class="table-responsive bg-white rounded-4 shadow-sm border">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="bg-light">
-                        <tr>
-                            <th class="px-4 py-3 border-0">Programa Académico</th>
-                            <th class="text-center py-3 border-0">Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if (!empty($openOfferings)): ?>
-                            <?php foreach ($openOfferings as $off): ?>
-                            <tr class="interactive-row" 
-                                style="cursor: pointer;"
-                                onclick="verDetallesOferta(<?= htmlspecialchars(json_encode($off), ENT_QUOTES, 'UTF-8') ?>)">
-
-                                <!--<td class="px-4 py-3">
-                                    <div class="fw-bold text-dark"><?= htmlspecialchars($off['diplomado_name']) ?></div>
-                                    <div class="small text-muted"><?= htmlspecialchars($off['cohort_name']) ?></div>
-                                </td>-->
-
-<td class="px-4 py-3">
-    <div class="fw-bold text-dark mb-1" style="font-size: 1.15rem; line-height: 1.3;">
-        <?= htmlspecialchars($off['diplomado_name']) ?>
-    </div>
-    
-    <div class="text-muted mb-2" style="font-size: 0.95rem;">
-        <i class="fas fa-calendar-alt me-1"></i><?= htmlspecialchars($off['cohort_name']) ?>
-    </div>
-    
-    <?php if (!empty($off['grupos_nombres'])): ?>
-        <div class="text-primary fw-bold mt-2" style="font-size: 0.95rem;">
-            <i class="fas fa-users me-1"></i><?= htmlspecialchars($off['grupos_nombres']) ?>
-        </div>
-        <?php if (!empty($off['grupos_descripciones'])): ?>
-            <div class="text-dark fw-medium mt-1" style="font-size: 0.95rem; line-height: 1.4;">
-                <i class="fas fa-clock me-1 text-secondary"></i> <strong>HORARIO:</strong> <?= htmlspecialchars($off['grupos_descripciones']) ?>
-            </div>
-        <?php endif; ?>
-    <?php endif; ?>
-    </td>
-
-                                <td class="text-center px-4" onclick="event.stopPropagation();">
-                                    <button class="btn btn-primary btn-sm rounded-pill px-4 fw-bold shadow-sm" 
-                                            onclick='iniciarInscripcion(<?= (int)$off["offering_id"] ?>, <?= htmlspecialchars(json_encode($off["diplomado_name"]), ENT_QUOTES, "UTF-8") ?>)'>
-                                        Inscribir
-                                    </button>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr><td colspan="2" class="text-center py-4 text-muted">No hay ofertas disponibles en este momento.</td></tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
+            <div class="bg-white rounded-4 shadow-sm border p-4">
+                <?php $ofertasInscritas = array_column($enrollmentStatus ?? [], 'offering_id'); ?>
+                <?php if (!empty($openOfferings)): ?>
+                    <div class="row g-3">
+                        <?php foreach ($openOfferings as $off): ?>
+                        <div class="col-12 col-md-6">
+                            <?php $yaInscrito = in_array($off['offering_id'], $ofertasInscritas); ?>
+                            <div class="card h-100 interactive-row selectable-card rounded-3" 
+                                style="cursor:<?= $yaInscrito ? 'not-allowed' : 'pointer' ?>;opacity:<?= $yaInscrito ? '0.6' : '1' ?>"
+                                <?= !$yaInscrito ? 'onclick="verDetallesOferta('.htmlspecialchars(json_encode($off), ENT_QUOTES, 'UTF-8').')"' : '' ?>>
+                                
+                                <div class="card-body d-flex flex-column">
+                                    <div class="fw-normal text-uppercase text-dark mb-4" style="font-size: 1.50rem; line-height: 1.3;">
+                                        <?= htmlspecialchars($off['diplomado_name']) ?>
+                                    </div>
+                                    
+                                    <div class="mt-auto">
+                                        <?php if (!empty($off['grupos_nombres'])): ?>
+                                            <div class="d-flex flex-wrap gap-2">
+                                                <?php 
+                                                $grupos = array_map('trim', explode(',', $off['grupos_nombres']));
+                                                foreach ($grupos as $grupo): 
+                                                ?>
+                                                    <span class="badge bg-primary bg-opacity-10 text-primary border border-primary rounded-pill px-3 py-2 shadow-sm" style="font-size: 0.85rem;">
+                                                        <i class="fas fa-users me-1"></i><?= htmlspecialchars($grupo) ?>
+                                                    </span>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    <?php if ($yaInscrito): ?>
+                                        <div class="mt-3">
+                                            <span class="badge bg-success rounded-pill px-3 py-2 w-100" style="font-size:0.85rem">
+                                                <i class="fas fa-check-circle me-1"></i> Ya inscrito
+                                            </span>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php else: ?>
+                    <div class="text-center py-4 text-muted">No hay ofertas disponibles en este momento.</div>
+                <?php endif; ?>
             </div>
         </div>
 

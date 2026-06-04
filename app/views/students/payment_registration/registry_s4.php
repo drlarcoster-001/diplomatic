@@ -95,8 +95,8 @@
                         <i class="bi bi-qr-code-scan fs-2"></i>
                     </div>
                 </div>
-                <h5 class="fw-bold text-dark mb-1">Pago Electrónico</h5>
-                <p class="smallest text-muted mb-0">Zelle, Binance Pay o Pago Móvil.</p>
+                <h5 class="fw-bold text-dark mb-1">Pago Movil</h5>
+                <p class="smallest text-muted mb-0">Pago Móvil en Cuenta Bancaria</p>
                 <div class="mt-3">
                     <span class="badge bg-primary bg-opacity-10 text-primary smallest rounded-pill px-3">VALIDACIÓN 24-48H</span>
                 </div>

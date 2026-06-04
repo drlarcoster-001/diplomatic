@@ -144,5 +144,7 @@ window.StudentsS2 = {
 
         const btnNext = document.getElementById('btnNext');
         if (btnNext) btnNext.disabled = false;
+
+        setTimeout(() => { btnNext?.click(); }, 300);
     }
 };

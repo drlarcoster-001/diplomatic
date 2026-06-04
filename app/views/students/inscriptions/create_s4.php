@@ -76,7 +76,7 @@ $configPM = [
                 <div class="mb-3">
                     <i class="bi bi-cash-stack display-5 text-success"></i>
                 </div>
-                <h6 class="fw-bold text-dark">Efectivo / Taquilla</h6>
+                <h6 class="fw-bold text-dark">Efectivo (CASH)</h6>
                 <p class="smallest text-muted mb-0 text-uppercase">CONCILIACIÓN FÍSICA EN RECEPCIÓN POSTERIOR AL REGISTRO.</p>
                 
                 <div id="displayAmountCash" class="mt-2 d-none">
@@ -99,8 +99,8 @@ $configPM = [
                 <div class="mb-3">
                     <i class="bi bi-phone-vibrate display-5 text-primary"></i>
                 </div>
-                <h6 class="fw-bold text-dark">Medios Digitales</h6>
-                <p class="smallest text-muted mb-0 text-uppercase">ZELLE, BINANCE PAY O PAGO MÓVIL INTERBANCARIO.</p>
+                <h6 class="fw-bold text-dark">PAGO MÓVIL</h6>
+                <p class="smallest text-muted mb-0 text-uppercase">Pago inmediato a cuenta bancaria</p>
                 
                 <div class="selection-check d-none mt-3">
                     <i class="bi bi-check-circle-fill text-primary fs-4"></i>
@@ -130,11 +130,11 @@ $configPM = [
             </div>
             <div class="modal-body p-4">
                 <div class="mb-3">
-                    <label class="form-label smallest fw-bold text-muted text-uppercase">Seleccione Canal de Pago</label>
+                    <label class="form-label smallest fw-bold text-muted text-uppercase">Seleccione Pago Movil</label>
                     <select class="form-select rounded-3" id="digitalMethod">
                         <option value="">-- Seleccionar --</option>
-                        <option value="ZELLE">Zelle (USD)</option>
-                        <option value="BINANCE">Binance Pay (USDT)</option>
+                        <!--<option value="ZELLE">Zelle (USD)</option>
+                        <option value="BINANCE">Binance Pay (USDT)</option>-->
                         <option value="PAGOMOVIL">Pago Móvil (Bs.)</option>
                     </select>
                 </div>
@@ -183,4 +183,19 @@ document.addEventListener('paste', function (e) {
         }
     }
 }, true);
+</script>
+
+<script>
+// Cuando el modal de pago digital se abra, seleccionamos Pago Móvil automáticamente
+const modalDigital = document.getElementById('modalDigital');
+if (modalDigital) {
+    modalDigital.addEventListener('shown.bs.modal', function () {
+        const select = document.getElementById('digitalMethod');
+        if (select.value === "") {
+            select.value = "PAGOMOVIL";
+            // Disparamos el evento 'change' para que tu sistema renderice los campos automáticamente
+            select.dispatchEvent(new Event('change'));
+        }
+    });
+}
 </script>

@@ -18,7 +18,7 @@ declare(strict_types=1);
                         <i class="bi bi-qr-code-scan fs-4"></i>
                     </div>
                     <div>
-                        <h5 class="modal-title fw-bold mb-0" id="modalDigitalLabel">Reportar Pago Digital</h5>
+                        <h5 class="modal-title fw-bold mb-0" id="modalDigitalLabel">Reportar Pago Móvil</h5>
                         <p class="smallest mb-0 text-white-50 text-uppercase tracking-wider">Carga de comprobante electrónico</p>
                     </div>
                 </div>
@@ -32,8 +32,8 @@ declare(strict_types=1);
                     <select class="form-select form-select-lg rounded-pill border-2 shadow-sm" id="digitalMethod">
                         <option value="">-- Seleccione el método --</option>
                         <option value="PAGOMOVIL">Pago Móvil (Bs.)</option>
-                        <option value="ZELLE">Zelle (USD)</option>
-                        <option value="BINANCE">Binance Pay (USDT)</option>
+                        <!--<option value="ZELLE">Zelle (USD)</option>
+                        <option value="BINANCE">Binance Pay (USDT)</option>-->
                     </select>
                 </div>
 
@@ -64,3 +64,13 @@ declare(strict_types=1);
         </div>
     </div>
 </div>
+
+<script>
+document.getElementById('modalDigital')?.addEventListener('shown.bs.modal', function () {
+    const select = document.getElementById('digitalMethod');
+    if (select && select.value === '') {
+        select.value = 'PAGOMOVIL';
+        select.dispatchEvent(new Event('change'));
+    }
+});
+</script>

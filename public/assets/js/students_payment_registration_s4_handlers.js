@@ -205,9 +205,14 @@ window.StudentsHandlers = {
         window.StudentsUI.actualizarMontoEnPantalla(finalUsd);
         window.StudentsUI.highlightCard('btnOptDigital');
         
+        
         const modal = document.getElementById('modalDigital');
         if (modal) bootstrap.Modal.getOrCreateInstance(modal).hide();
-    },
+
+        setTimeout(() => {
+            window.StudentsHandlers.mostrarResumenYConfirmar();
+        }, 400);
+            },
 
     loadAccountStatus: async function() {
         const offeringId = document.getElementById('offering_id_val')?.value;

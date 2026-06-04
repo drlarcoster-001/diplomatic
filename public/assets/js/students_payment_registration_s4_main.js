@@ -161,7 +161,9 @@
 
             if (window.StudentsUI) window.StudentsUI.highlightCard('btnOptDigital');
             bootstrap.Modal.getOrCreateInstance(document.getElementById('modalDigital')).hide();
-            Swal.fire({ icon: 'success', title: 'Pago Listo', timer: 1000, showConfirmButton: false });
+            setTimeout(() => {
+                window.StudentsHandlers?.mostrarResumenYConfirmar();
+            }, 400);
         });
 
 // --- ENVÍO FINAL (MODIFICADO) ---

@@ -67,6 +67,25 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
         </div>
 
         <div class="col-12">
+            <a href="<?= $basePath ?>/students/payment_history" class="text-decoration-none">
+                <div class="card border-0 shadow-sm rounded-4 hover-lift card-student-option">
+                    <div class="card-body p-4 d-flex align-items-center border-start border-4 border-info rounded-start-4 bg-white">
+                        <div class="bg-info bg-opacity-10 text-info rounded-circle d-flex justify-content-center align-items-center me-4 flex-shrink-0" style="width: 65px; height: 65px;">
+                            <i class="bi bi-clock-history fs-2"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h5 class="fw-bold text-dark mb-1">Consultar Pagos</h5>
+                            <p class="text-muted small mb-0">Revisa el historial y estatus de todos tus reportes de pago enviados.</p>
+                        </div>
+                        <div class="ms-3 text-info flex-shrink-0">
+                            <i class="bi bi-chevron-right fs-4"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-12">
             <a href="<?= $basePath ?>/students/student_statement" class="text-decoration-none">
                 <div class="card border-0 shadow-sm rounded-4 hover-lift card-student-option">
                     <div class="card-body p-4 d-flex align-items-center border-start border-4 border-secondary rounded-start-4 bg-white">

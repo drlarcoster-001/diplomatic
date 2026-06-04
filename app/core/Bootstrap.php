@@ -95,6 +95,8 @@ use App\Controllers\StudentsCertificatesController;
 // CONTROLADOR DE GESTION DE DOCUMENTOS ESTUDIANTILES
 use App\Controllers\StudentsDocumentManagementController;
 
+use App\Controllers\StudentsPaymentHistoryController;
+
 
 
 
@@ -591,7 +593,9 @@ final class Bootstrap
         // Endpoint para la carga de archivos (AJAX)
         $router->post('/students/documents/upload', [StudentsDocumentManagementController::class, 'upload']);
         // Endpoint para eliminar documentos (AJAX)
-        $router->post('/students/documents/deleteDocument', [StudentsDocumentManagementController::class, 'deleteDocument']);
+        
+        $router->get('/students/payment_history', [StudentsPaymentHistoryController::class, 'index']);
+
 
 
         // --- MÓDULO: SEGURIDAD (PRE-USERS Y TOKENS) ---

@@ -209,7 +209,7 @@ public function getEffectiveRate(string $date): array|false
      * Historial de inscripciones del estudiante.
      */
     public function getStudentEnrollmentsStatus(int $studentId): array {
-        $sql = "SELECT d.name as diplomado_name, c.name as cohort_name, e.status, e.created_at
+        $sql = "SELECT e.offering_id, d.name as diplomado_name, c.name as cohort_name, e.status, e.created_at
                 FROM tbl_enrollments e
                 JOIN tbl_academic_offerings o ON e.offering_id = o.id
                 JOIN tbl_diplomados d ON o.diploma_id = d.id

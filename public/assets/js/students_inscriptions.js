@@ -73,10 +73,8 @@ window.verDetallesOferta = function(o) {
                '<div class="small text-muted fs-6 fw-normal">' + o.cohort_name + '</div>',
         html: 
             '<div class="text-start px-2" style="max-height: 480px; overflow-y: auto; overflow-x: hidden;">' +
-                '<div class="row mb-3 border-bottom pb-2">' +
-                    '<div class="col-6"><small class="text-muted d-block fw-bold" style="font-size:0.7rem">INICIO INSCRIPCIÓN</small><strong>' + formatearFecha(o.registration_start) + '</strong></div>' +
-                    '<div class="col-6"><small class="text-muted d-block fw-bold" style="font-size:0.7rem">FIN INSCRIPCIÓN</small><strong>' + formatearFecha(o.registration_end) + '</strong></div>' +
-                '</div>' +
+
+            
                 '<div class="mb-2 small"><strong>Modalidad:</strong> ' + o.general_modality + '</div>' +
                 '<div class="mb-2 small"><strong>Sedes:</strong> ' + sedesStr + '</div>' +
                 '<div class="mb-2 small"><strong>Grupos:</strong> ' + gruposStr + '</div>' +
