@@ -120,12 +120,7 @@ public function rejectCashPayment(int $paymentId, string $reason, int $adminId):
                        WHERE id = ?";
         $this->db->prepare($sqlPayment)->execute([$reason, $adminId, $paymentId]);
 
-        // 3. ACTUALIZAMOS LA INSCRIPCIÓN
-        $sqlEnroll = "UPDATE tbl_enrollments 
-                      SET status = 'RECHAZADO', 
-                          updated_at = NOW() 
-                      WHERE id = ?";
-        $this->db->prepare($sqlEnroll)->execute([$enrollmentId]);
+
 
         $this->db->commit();
         return true;
