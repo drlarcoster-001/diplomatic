@@ -68,11 +68,22 @@ function confirmDelete(enrollmentId, docType, label) {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ enrollment_id: enrollmentId, column: docType })
                 });
-                const res = await response.json();
-                if (res.status === 'success') location.reload();
-            } catch (error) {
-                Swal.fire('Error', 'No se pudo realizar la operación.', 'error');
+            const raw = await response.text();
+            console.log('STATUS:', response.status);
+            console.log('RESPUESTA RAW:', raw);
+
+            const res = JSON.parse(raw);
+            if (res.status === 'success') {
+                location.reload();
+            } else {
+                Swal.fire('Error', res.message || 'Error desconocido.', 'error');
             }
+        } catch (error) {
+            console.error(error);
+            Swal.fire('Error', 'No se pudo realizar la operación.', 'error');
+        }
+
+
         }
     });
 }

@@ -262,6 +262,7 @@ public function validatePayment(): void
             $db = (new \App\Core\Database())->getConnection();
             $sqlInfo = "SELECT u.email, CONCAT(u.first_name, ' ', u.last_name) as full_name, 
                                d.name as diploma_name, ep.amount, ep.currency, ep.method, 
+                               ep.reference_id,
                                DATE_FORMAT(ep.created_at, '%d/%m/%Y %h:%i %p') as fecha_pago
                         FROM tbl_enrollments_payments ep
                         JOIN tbl_enrollments e ON ep.enrollment_id = e.id
@@ -283,7 +284,7 @@ public function validatePayment(): void
                         $userData['email'], 
                         $userData['full_name'], 
                         $userData['diploma_name'], 
-                        $reference,
+                        $userData['reference_id'] ?? $reference,
                         $userData['amount'],
                         $userData['currency'],
                         $userData['method'],

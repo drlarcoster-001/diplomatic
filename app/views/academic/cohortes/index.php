@@ -116,9 +116,29 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body p-4">
-                <input type="hidden" name="id" id="field_id">
+                    <input type="hidden" name="id" id="field_id">
                 <div class="row g-3">
+                    <div class="col-12">
+                        <label class="form-label fw-bold small">PERÍODO INSTITUCIONAL</label>
+                        <select name="periodo_id" id="field_periodo" class="form-select" required>
+                            <option value="">Seleccione un período...</option>
+                            <?php if(!empty($periodos)): ?>
+                                <?php foreach($periodos as $p): ?>
+                                    <option value="<?= $p['id'] ?>"
+                                        data-code="<?= htmlspecialchars($p['periodo_code']) ?>"
+                                        data-nombre="<?= htmlspecialchars($p['nombre']) ?>"
+                                        data-inicio="<?= $p['fecha_inicio'] ?>"
+                                        data-fin="<?= $p['fecha_fin'] ?>"
+                                        data-apertura="<?= $p['apertura_inscripcion'] ?>"
+                                        data-cierre="<?= $p['cierre_inscripcion'] ?>">
+                                        <?= htmlspecialchars($p['periodo_code']) ?> — <?= htmlspecialchars($p['nombre']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
+                    </div>
                     <div class="col-md-4">
+
                         <label class="form-label fw-bold small">CÓDIGO</label>
                         <input type="text" name="cohort_code" id="field_code" class="form-control" placeholder="Ej: 2026-I" required>
                     </div>

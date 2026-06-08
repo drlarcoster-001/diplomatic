@@ -51,6 +51,7 @@ final class CohortesController extends Controller
         $this->view('academic/cohortes/index', [
             'cohortes' => $this->model->getAll($search),
             'campuses' => $this->model->getActiveCampuses(),
+            'periodos' => $this->model->getPeriodosActivos(),
             'search'   => $search
         ]);
     }

@@ -2,10 +2,18 @@
 /**
  * MÓDULO: GESTIÓN ACADÉMICA
  * Archivo: app/views/academic/cohortes_config/index.php
- * Propósito: Interfaz para forzar estatus y realizar borrados físicos.
+ * Propósito: Interfaz para forzar estatus, borrados físicos y acciones masivas con paginación.
+ * Versión: 1.3.0
+ *
+ * @var array  $cohortes
+ * @var string $search
+ * @var int    $currentPage
+ * @var int    $totalPages
  */
 ?>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <link rel="stylesheet" href="/diplomatic/public/assets/css/academic_cohortes_config.css">
 
@@ -43,23 +51,33 @@
             <table class="table table-hover align-middle mb-0">
                 <thead class="bg-light small fw-bold text-secondary text-uppercase">
                     <tr>
-                        <th class="ps-4">Código</th>
+                        <th class="ps-4" style="width:40px;">
+                            <input type="checkbox" id="checkAll" title="Seleccionar todos">
+                        </th>
+                        <th style="width:60px;">#</th>
+                        <th>Código</th>
                         <th>Nombre</th>
                         <th>Estatus Actual</th>
-                        <th>Papelera</th>
+                        <th>Archivo</th>
                         <th class="text-end pe-4">Acciones Críticas</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (empty($cohortes)): ?>
-                        <tr><td colspan="5" class="text-center py-4">No hay registros.</td></tr>
+                        <tr><td colspan="7" class="text-center py-4">No hay registros.</td></tr>
                     <?php else: ?>
+                        <?php $loop = 0; ?>
                         <?php foreach ($cohortes as $c): ?>
+                            <?php $rowNum = ($currentPage - 1) * 25 + $loop++ + 1; ?>
                             <tr>
-                                <td class="ps-4 fw-bold text-primary"><?= $c['cohort_code'] ?></td>
-                                <td class="fw-bold"><?= $c['name'] ?></td>
+                                <td class="ps-4">
+                                    <input type="checkbox" class="check-item" value="<?= $c['id'] ?>">
+                                </td>
+                                <td class="text-muted small"><?= $rowNum ?></td>
+                                <td class="fw-bold text-primary"><?= htmlspecialchars($c['cohort_code']) ?></td>
+                                <td class="fw-bold"><?= htmlspecialchars($c['name']) ?></td>
                                 <td>
-                                    <?php 
+                                    <?php
                                         $bg = match(trim(strtolower($c['cohort_status']))) {
                                             'planificada' => 'bg-secondary',
                                             'en curso'    => 'bg-primary',
@@ -74,7 +92,7 @@
                                 </td>
                                 <td>
                                     <?php if ($c['is_active'] == 0): ?>
-                                        <span class="badge bg-danger rounded-pill">En Papelera</span>
+                                        <span class="badge bg-secondary rounded-pill">Archivada</span>
                                     <?php else: ?>
                                         <span class="badge bg-light border text-dark rounded-pill">Activo</span>
                                     <?php endif; ?>
@@ -84,7 +102,7 @@
                                         <button type="button" class="btn btn-sm btn-white border text-warning btn-status" data-id="<?= $c['id'] ?>" title="Forzar Estatus / Revivir">
                                             <i class="bi bi-arrow-repeat"></i>
                                         </button>
-                                        <button type="button" class="btn btn-sm btn-white border text-danger btn-hard-delete" data-id="<?= $c['id'] ?>" data-name="<?= $c['name'] ?>" title="Borrado Físico Definitivo">
+                                        <button type="button" class="btn btn-sm btn-white border text-danger btn-hard-delete" data-id="<?= $c['id'] ?>" data-name="<?= htmlspecialchars($c['name']) ?>" title="Borrado Físico Definitivo">
                                             <i class="bi bi-trash-fill"></i>
                                         </button>
                                     </div>
@@ -96,8 +114,45 @@
             </table>
         </div>
     </div>
+
+    <!-- Paginación -->
+    <?php if (($totalPages ?? 1) > 1): ?>
+    <div class="d-flex justify-content-center mt-4">
+        <nav>
+            <ul class="pagination pagination-sm">
+                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                    <li class="page-item <?= $i === $currentPage ? 'active' : '' ?>">
+                        <a class="page-link" href="?page=<?= $i ?>&search=<?= htmlspecialchars($search ?? '') ?>"><?= $i ?></a>
+                    </li>
+                <?php endfor; ?>
+            </ul>
+        </nav>
+    </div>
+    <?php endif; ?>
+
 </div>
 
+<!-- Panel masivo flotante -->
+<div class="position-fixed bottom-0 end-0 p-4" style="z-index:999;">
+    <div class="card border-0 shadow-lg p-3 d-none" id="panelMasivo">
+        <p class="small fw-bold mb-2"><span id="countSelected">0</span> cohorte(s) seleccionada(s)</p>
+        <div class="d-flex gap-2">
+            <button class="btn btn-success btn-sm rounded-pill px-3" id="btnReactivar">
+                <i class="bi bi-arrow-up-circle"></i> Reactivar
+            </button>
+            <button class="btn btn-secondary btn-sm rounded-pill px-3" id="btnArchivar">
+                <i class="bi bi-archive"></i> Archivar
+            </button>
+        </div>
+    </div>
+</div>
+
+<form id="formMasivo" action="/diplomatic/public/academic/cohortes-config/massiveAction" method="POST">
+    <input type="hidden" name="accion" id="accionMasiva">
+    <div id="hiddenIds"></div>
+</form>
+
+<!-- Modal: Forzar Estatus -->
 <div class="modal fade" id="modalForceStatus" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <form id="formStatus" action="/diplomatic/public/academic/cohortes-config/updateStatus" method="POST" class="modal-content border-0 shadow-lg">
@@ -107,16 +162,14 @@
             </div>
             <div class="modal-body p-4">
                 <p class="small text-muted mb-3">
-                    Modificar el estatus desde esta pantalla anulará las reglas de negocio regulares. 
-                    Si la cohorte estaba "En Papelera", se <strong>reactivará</strong> automáticamente al guardar.
+                    Modificar el estatus desde esta pantalla anulará las reglas de negocio regulares.
+                    Si la cohorte estaba "Archivada", se <strong>reactivará</strong> automáticamente al guardar.
                 </p>
                 <input type="hidden" name="id" id="status_id">
-                
                 <div class="mb-3">
                     <label class="form-label fw-bold small">Cohorte Seleccionada:</label>
                     <input type="text" class="form-control bg-light border-0" id="status_name" readonly>
                 </div>
-
                 <div class="mb-3">
                     <label class="form-label fw-bold small">Seleccione Nuevo Estatus:</label>
                     <select name="cohort_status" id="status_select" class="form-select form-select-lg" required>

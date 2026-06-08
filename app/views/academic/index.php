@@ -44,6 +44,19 @@ $userRole = $_SESSION['user']['role'] ?? '';
         </div>
 
         <div class="col-md-6 col-lg-3">
+            <a href="<?= htmlspecialchars($basePath) ?>/academic/periodos" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #20c997 !important;">
+                    <div class="p-3 rounded-circle mx-auto mb-3" style="width: fit-content; background-color: rgba(32, 201, 151, 0.1); color: #20c997;">
+                        <i class="bi bi-calendar2-range-fill fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold">Períodos</h5>
+                    <p class="text-muted small">Gestión de períodos institucionales y control de inscripciones.</p>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="col-md-6 col-lg-3">
             <a href="<?= htmlspecialchars($basePath) ?>/academic/cohortes" class="text-decoration-none text-dark">
                 <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #198754 !important;">
                     <div class="bg-success bg-opacity-10 text-success p-3 rounded-circle mx-auto mb-3" style="width: fit-content;">

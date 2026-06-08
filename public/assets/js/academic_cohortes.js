@@ -71,6 +71,9 @@ $(document).ready(function() {
             if (form) {
                 form.reset();
                 if(document.getElementById('field_id')) document.getElementById('field_id').value = '';
+                if(document.getElementById('field_periodo')) document.getElementById('field_periodo').value = '';
+                
+
                 $('#field_campuses').val(null).trigger('change'); 
                 form.action = `${basePath}/save`;
                 const title = document.querySelector('#modalCohortForm .modal-title');
@@ -104,6 +107,7 @@ $(document).ready(function() {
                         if(document.getElementById('field_enroll_start')) document.getElementById('field_enroll_start').value = c.enrollment_start || '';
                         if(document.getElementById('field_enroll_end')) document.getElementById('field_enroll_end').value = c.enrollment_end || '';
                         if(document.getElementById('field_desc')) document.getElementById('field_desc').value = c.description || '';
+                        if(document.getElementById('field_periodo')) document.getElementById('field_periodo').value = c.periodo_id || '';
 
                         if (c.campus_ids) {
                             $('#field_campuses').val(c.campus_ids).trigger('change');
@@ -241,4 +245,65 @@ $(document).ready(function() {
             }
         });
     }
+
+   // === 7. AUTOCOMPLETADO AL SELECCIONAR PERÍODO ===
+const fieldPeriodo = document.getElementById('field_periodo');
+if (fieldPeriodo) {
+    fieldPeriodo.addEventListener('change', function() {
+        const opt = this.options[this.selectedIndex];
+        if (!opt || !opt.value) return;
+
+        const code    = opt.dataset.code    || '';
+        const nombre  = opt.dataset.nombre  || '';
+        const inicio  = opt.dataset.inicio  || '';
+        const fin     = opt.dataset.fin     || '';
+        const apertura = opt.dataset.apertura || '';
+        const cierre  = opt.dataset.cierre  || '';
+
+        const fieldCode       = document.getElementById('field_code');
+        const fieldName       = document.getElementById('field_name');
+        const fieldStart      = document.getElementById('field_start');
+        const fieldEnd        = document.getElementById('field_end');
+        const fieldEnrollStart = document.getElementById('field_enroll_start');
+        const fieldEnrollEnd  = document.getElementById('field_enroll_end');
+
+        if (fieldCode) {
+            fieldCode.value = code + '-';
+            fieldCode.dataset.prefix = code + '-';
+        }
+        if (fieldName) {
+            fieldName.value = nombre + ' - ';
+            fieldName.dataset.prefix = nombre + ' - ';
+}
+        if (fieldStart)       fieldStart.value       = inicio;
+        if (fieldEnd)         fieldEnd.value         = fin;
+        if (fieldEnrollStart) fieldEnrollStart.value = apertura;
+        if (fieldEnrollEnd)   fieldEnrollEnd.value   = cierre;
+
+     // Poner foco al final del código para que el admin complete el sufijo
+        if (fieldCode) {
+            fieldCode.focus();
+            fieldCode.setSelectionRange(fieldCode.value.length, fieldCode.value.length);
+        }
+
+        // Blindar prefijos contra modificación
+        fieldCode.addEventListener('input', function() {
+            const prefix = this.dataset.prefix || '';
+            if (!this.value.startsWith(prefix)) {
+                this.value = prefix;
+            }
+        });
+
+        fieldName.addEventListener('input', function() {
+            const prefix = this.dataset.prefix || '';
+            if (!this.value.startsWith(prefix)) {
+                this.value = prefix;
+            }
+        });
+        
+    });
+} 
+
+
+
 });

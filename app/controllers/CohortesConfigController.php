@@ -46,10 +46,17 @@ final class CohortesConfigController extends Controller
             'description' => 'Ingreso al panel de configuración avanzada de cohortes.'
         ]);
 
-        $search = $_GET['search'] ?? '';
+        $search      = $_GET['search'] ?? '';
+        $currentPage = max(1, (int)($_GET['page'] ?? 1));
+        $perPage     = 25;
+        $total       = $this->model->countAll($search);
+        $totalPages  = (int)ceil($total / $perPage);
+
         $this->view('academic/cohortes_config/index', [
-            'cohortes' => $this->model->getAll($search),
-            'search'   => $search
+            'cohortes'    => $this->model->getAll($search, $currentPage, $perPage),
+            'search'      => $search,
+            'currentPage' => $currentPage,
+            'totalPages'  => $totalPages,
         ]);
     }
 
@@ -148,4 +155,37 @@ final class CohortesConfigController extends Controller
         }
         exit();
     }
+
+    /**
+ * Procesamiento masivo de reactivación o archivado de cohortes seleccionadas.
+ */
+public function massiveAction(): void
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') return;
+
+    $ids    = $_POST['ids'] ?? [];
+    $accion = $_POST['accion'] ?? '';
+
+    if (empty($ids) || !in_array($accion, ['reactivar', 'archivar'])) {
+        header('Location: /diplomatic/public/academic/cohortes-config?error=invalid');
+        exit();
+    }
+
+    $ids = array_map('intval', $ids);
+    $res = $this->model->massiveUpdateStatus($ids, $accion, $this->userId);
+
+    if ($res) {
+        $label = $accion === 'reactivar' ? 'reactivadas' : 'archivadas';
+        AuditService::log([
+            'module'      => 'COHORTES_CONFIG',
+            'action'      => 'MASSIVE_' . strtoupper($accion),
+            'description' => "Acción masiva: " . count($ids) . " cohortes $label.",
+            'event_type'  => 'WARNING'
+        ]);
+        header('Location: /diplomatic/public/academic/cohortes-config?success=massive');
+    } else {
+        header('Location: /diplomatic/public/academic/cohortes-config?error=db');
+    }
+    exit();
+}
 }

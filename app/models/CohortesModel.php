@@ -96,10 +96,11 @@ final class CohortesModel
     {
         try {
             $this->db->beginTransaction();
-            $sql = "INSERT INTO tbl_cohortes (cohort_code, name, start_date, end_date, enrollment_start, enrollment_end, description, base_campus, cohort_status, created_by, is_active) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Planificada', ?, 1)";
+            $sql = "INSERT INTO tbl_cohortes (periodo_id, cohort_code, name, start_date, end_date, enrollment_start, enrollment_end, description, base_campus, cohort_status, created_by, is_active) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'Planificada', ?, 1)";
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
+                !empty($data['periodo_id']) ? $data['periodo_id'] : null,
                 $data['cohort_code'], $data['name'], $data['start_date'], $data['end_date'],
                 !empty($data['enrollment_start']) ? $data['enrollment_start'] : null,
                 !empty($data['enrollment_end']) ? $data['enrollment_end'] : null,
@@ -122,12 +123,13 @@ final class CohortesModel
     public function update(int $id, array $data): bool
     {
         $sql = "UPDATE tbl_cohortes SET 
-                cohort_code = ?, name = ?, start_date = ?, end_date = ?, 
+                periodo_id = ?, cohort_code = ?, name = ?, start_date = ?, end_date = ?, 
                 enrollment_start = ?, enrollment_end = ?, description = ?, 
                 base_campus = ?, updated_by = ?, updated_at = NOW() 
                 WHERE id = ?";
         
         return $this->db->prepare($sql)->execute([
+            !empty($data['periodo_id']) ? $data['periodo_id'] : null,
             $data['cohort_code'], $data['name'], $data['start_date'], $data['end_date'],
             !empty($data['enrollment_start']) ? $data['enrollment_start'] : null,
             !empty($data['enrollment_end']) ? $data['enrollment_end'] : null,
@@ -135,7 +137,8 @@ final class CohortesModel
             !empty($data['base_campus']) ? $data['base_campus'] : null,
             $data['updated_by'], $id
         ]);
-    }
+
+        }
 
     /**
      * Sincroniza las sedes asociadas a una cohorte en la tabla relacional.
@@ -184,4 +187,16 @@ final class CohortesModel
 
         return $res ? 'inactivated' : 'error';
     }
+
+    /**
+ * Lista períodos activos y planificados para el selector del formulario de cohortes.
+ */
+public function getPeriodosActivos(): array
+{
+    $sql = "SELECT id, periodo_code, nombre, fecha_inicio, fecha_fin, apertura_inscripcion, cierre_inscripcion
+            FROM tbl_periodos_cohorte 
+            WHERE is_active = 1 AND estado IN ('Planificado', 'Activo')
+            ORDER BY id DESC";
+    return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+}
 }

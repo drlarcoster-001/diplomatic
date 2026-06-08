@@ -36,6 +36,7 @@ use App\Controllers\SettingsWordpressController;
 use App\Controllers\SettingsSecurityController;
 use App\Controllers\AdministrativeController;
 use App\Controllers\DocumentVerificationController;
+use App\Controllers\PeriodosController;
 
 
 
@@ -229,7 +230,8 @@ final class Bootstrap
         $router->get('/academic/cohortes-config/getDetails', [CohortesConfigController::class, 'getDetails']);
         $router->post('/academic/cohortes-config/updateStatus', [CohortesConfigController::class, 'updateStatus']);
         $router->post('/academic/cohortes-config/hardDelete', [CohortesConfigController::class, 'hardDelete']);
-
+        $router->post('/academic/cohortes-config/massiveAction', [CohortesConfigController::class, 'massiveAction']);
+        
         // --- GESTIÓN ACADÉMICA (GRUPOS) ---
         $router->get('/academic/grupos', [GruposController::class, 'index']);
         $router->post('/academic/grupos/save', [GruposController::class, 'save']);
@@ -279,6 +281,15 @@ final class Bootstrap
         $router->post('/academic/oferta/changeStatus', [OfertaAcademicaController::class, 'changeStatus']);
         $router->post('/academic/oferta/toggleActive', [OfertaAcademicaController::class, 'toggleActive']);
         $router->get('/academic/oferta/getCohortCampuses', [OfertaAcademicaController::class, 'getCohortCampuses']);
+
+        // --- GESTIÓN ACADÉMICA (PERÍODOS INSTITUCIONALES) ---
+        $router->get('/academic/periodos', [PeriodosController::class, 'index']);
+        $router->post('/academic/periodos/save', [PeriodosController::class, 'save']);
+        $router->post('/academic/periodos/update', [PeriodosController::class, 'update']);
+        $router->post('/academic/periodos/delete', [PeriodosController::class, 'delete']);
+        $router->get('/academic/periodos/getDetails', [PeriodosController::class, 'getDetails']);
+        $router->get('/academic/periodos/changeStatus', [PeriodosController::class, 'changeStatus']);
+        $router->get('/academic/periodos/logAccess', [PeriodosController::class, 'logAccess']);
 
         // --- PANEL ADMINISTRATIVO GENERAL ---
         $router->get('/administrative', [AdministrativeController::class, 'index']);
@@ -593,7 +604,7 @@ final class Bootstrap
         // Endpoint para la carga de archivos (AJAX)
         $router->post('/students/documents/upload', [StudentsDocumentManagementController::class, 'upload']);
         // Endpoint para eliminar documentos (AJAX)
-        
+        $router->post('/students/documents/deleteDocument', [StudentsDocumentManagementController::class, 'deleteDocument']);
         $router->get('/students/payment_history', [StudentsPaymentHistoryController::class, 'index']);
 
 

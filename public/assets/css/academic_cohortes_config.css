@@ -3,3 +3,63 @@
  * Archivo: public/assets/css/academic_cohortes_config.css
  * Propósito: Estilos para el panel de configuración avanzada de cohortes.
  */
+
+ // === SELECCIÓN MASIVA ===
+const checkAll   = document.getElementById('checkAll');
+const panelMasivo = document.getElementById('panelMasivo');
+const countSelected = document.getElementById('countSelected');
+
+function updatePanel() {
+    const checked = document.querySelectorAll('.check-item:checked');
+    if (checked.length > 0) {
+        panelMasivo.classList.remove('d-none');
+        countSelected.innerText = checked.length;
+    } else {
+        panelMasivo.classList.add('d-none');
+    }
+}
+
+if (checkAll) {
+    checkAll.addEventListener('change', function() {
+        document.querySelectorAll('.check-item').forEach(c => c.checked = this.checked);
+        updatePanel();
+    });
+}
+
+document.querySelectorAll('.check-item').forEach(c => {
+    c.addEventListener('change', updatePanel);
+});
+
+function ejecutarMasivo(accion) {
+    const checked = document.querySelectorAll('.check-item:checked');
+    if (checked.length === 0) return;
+
+    const label = accion === 'reactivar' ? 'reactivar' : 'archivar';
+    MySwal.fire({
+        title: `¿${label.charAt(0).toUpperCase() + label.slice(1)} ${checked.length} cohorte(s)?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: accion === 'reactivar' ? '#198754' : '#6c757d',
+        confirmButtonText: 'Sí, confirmar',
+        cancelButtonText: 'Cancelar'
+    }).then(result => {
+        if (result.isConfirmed) {
+            document.getElementById('accionMasiva').value = accion;
+            const hiddenIds = document.getElementById('hiddenIds');
+            hiddenIds.innerHTML = '';
+            checked.forEach(c => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'ids[]';
+                input.value = c.value;
+                hiddenIds.appendChild(input);
+            });
+            document.getElementById('formMasivo').submit();
+        }
+    });
+}
+
+const btnReactivar = document.getElementById('btnReactivar');
+const btnArchivar  = document.getElementById('btnArchivar');
+if (btnReactivar) btnReactivar.addEventListener('click', () => ejecutarMasivo('reactivar'));
+if (btnArchivar)  btnArchivar.addEventListener('click',  () => ejecutarMasivo('archivar'));

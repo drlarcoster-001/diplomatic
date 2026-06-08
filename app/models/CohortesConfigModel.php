@@ -26,16 +26,28 @@ final class CohortesConfigModel
     /**
      * Obtiene TODAS las cohortes registradas, permitiendo auditoría sobre registros activos e inactivos.
      */
-    public function getAll(string $search = ''): array
-    {
-        $sql = "SELECT c.* FROM tbl_cohortes c 
-                WHERE (c.name LIKE ? OR c.cohort_code LIKE ?)
-                ORDER BY c.id DESC";
-        $stmt = $this->db->prepare($sql);
-        $term = "%$search%";
-        $stmt->execute([$term, $term]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    public function getAll(string $search = '', int $page = 1, int $perPage = 25): array
+{
+    $offset = ($page - 1) * $perPage;
+    $sql = "SELECT c.* FROM tbl_cohortes c 
+            WHERE (c.name LIKE ? OR c.cohort_code LIKE ?)
+            ORDER BY c.id DESC
+            LIMIT ? OFFSET ?";
+    $stmt = $this->db->prepare($sql);
+    $term = "%$search%";
+    $stmt->execute([$term, $term, $perPage, $offset]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function countAll(string $search = ''): int
+{
+    $sql = "SELECT COUNT(*) FROM tbl_cohortes c 
+            WHERE (c.name LIKE ? OR c.cohort_code LIKE ?)";
+    $stmt = $this->db->prepare($sql);
+    $term = "%$search%";
+    $stmt->execute([$term, $term]);
+    return (int)$stmt->fetchColumn();
+}
 
     /**
      * Obtiene una cohorte específica por ID.
@@ -107,4 +119,18 @@ final class CohortesConfigModel
             return 'error';
         }
     }
+
+    /**
+ * Actualización masiva de is_active para múltiples cohortes.
+ * Acción: 'reactivar' = is_active 1 | 'archivar' = is_active 0
+ */
+public function massiveUpdateStatus(array $ids, string $accion, int $userId): bool
+{
+    if (empty($ids)) return false;
+    $placeholders = implode(',', array_fill(0, count($ids), '?'));
+    $isActive = ($accion === 'reactivar') ? 1 : 0;
+    $sql = "UPDATE tbl_cohortes SET is_active = ?, updated_by = ?, updated_at = NOW() WHERE id IN ($placeholders)";
+    $params = array_merge([$isActive, $userId], $ids);
+    return $this->db->prepare($sql)->execute($params);
+}
 }
