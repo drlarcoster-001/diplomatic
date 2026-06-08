@@ -1,0 +1,25 @@
+Panel Académico (ya existe)
+
+Gestión de Horarios ← NUEVO
+
+Panel Administrativo (ya existe)
+
+Cierre Académico ← NUEVO
+
+Panel de Recursos ← NUEVO
+
+Personal
+Contratos
+Nómina
+
+Panel Financiero (ya existe)
+
+Gestión de Egresos ← NUEVO
+Dashboard Financiero del Diplomado ← NUEVO
+
+Panel Operativo (ya existe)
+
+Sistema de Correspondencia ← NUEVO
+
+Portal de Profesores ← NUEVO (acceso separado, login propio)
+Histórico Académico ← NUEVO (panel aparte, solo lectura)

@@ -35,6 +35,8 @@ use App\Controllers\OfertaAcademicaController;
 use App\Controllers\SettingsWordpressController;
 use App\Controllers\SettingsSecurityController;
 use App\Controllers\AdministrativeController;
+use App\Controllers\ResourcesController;
+use App\Controllers\PersonalController;
 use App\Controllers\DocumentVerificationController;
 use App\Controllers\PeriodosController;
 
@@ -231,7 +233,7 @@ final class Bootstrap
         $router->post('/academic/cohortes-config/updateStatus', [CohortesConfigController::class, 'updateStatus']);
         $router->post('/academic/cohortes-config/hardDelete', [CohortesConfigController::class, 'hardDelete']);
         $router->post('/academic/cohortes-config/massiveAction', [CohortesConfigController::class, 'massiveAction']);
-        
+
         // --- GESTIÓN ACADÉMICA (GRUPOS) ---
         $router->get('/academic/grupos', [GruposController::class, 'index']);
         $router->post('/academic/grupos/save', [GruposController::class, 'save']);
@@ -389,6 +391,21 @@ final class Bootstrap
         $router->get('/administrative/suspensions/getStudentsJson', [AdministrativeSuspensionController::class, 'getStudentsJson']);
         $router->post('/administrative/suspensions/toggleStatus', [AdministrativeSuspensionController::class, 'toggleStatus']);
         $router->post('/administrative/suspensions/sendEmail', [AdministrativeSuspensionController::class, 'sendEmail']);
+
+
+        // --- PANEL DE RECURSOS ---
+        $router->get('/resources', [ResourcesController::class, 'index']);
+
+        // --- PANEL DE RECURSOS: PERSONAL ---
+        $router->get('/resources/personal', [PersonalController::class, 'index']);
+        $router->get('/resources/personal/create', [PersonalController::class, 'create']);
+        $router->post('/resources/personal/save', [PersonalController::class, 'save']);
+        $router->get('/resources/personal/edit', [PersonalController::class, 'edit']);
+        $router->post('/resources/personal/update', [PersonalController::class, 'update']);
+        $router->post('/resources/personal/delete', [PersonalController::class, 'delete']);
+        $router->get('/resources/personal/getDetails', [PersonalController::class, 'getDetails']);
+        $router->get('/resources/personal/carnet', [PersonalController::class, 'generarCarnet']);
+        $router->get('/resources/personal/logAccess', [PersonalController::class, 'logAccess']);
 
 
 

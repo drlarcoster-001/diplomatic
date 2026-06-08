@@ -48,6 +48,15 @@ $userRole = strtoupper(trim($_SESSION['user']['role'] ?? ''));
       </a>
     <?php endif; ?>
 
+<?php if ($userRole === 'ADMIN' || $userRole === 'OPERATOR'): ?>
+      <div class="px-4 mt-4 mb-2">
+        <span class="text-uppercase text-secondary fw-bold" style="font-size: 0.75rem; letter-spacing: 1px;">Gestión de Recursos</span>
+      </div>
+      <a href="<?= htmlspecialchars($basePath) ?>/resources" class="list-group-item list-group-item-action bg-dark text-white border-0 py-2 px-4">
+          <i class="bi bi-person-lines-fill me-2" style="color: #a855f7;"></i> Panel de Recursos
+      </a>
+    <?php endif; ?>
+
     <?php if ($userRole === 'ADMIN' || $userRole === 'OPERATOR'): ?>
       <div class="px-4 mt-4 mb-2">
         <span class="text-uppercase text-secondary fw-bold" style="font-size: 0.75rem; letter-spacing: 1px;">Gestión Financiera</span>
