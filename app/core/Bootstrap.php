@@ -36,9 +36,13 @@ use App\Controllers\SettingsWordpressController;
 use App\Controllers\SettingsSecurityController;
 use App\Controllers\AdministrativeController;
 use App\Controllers\ResourcesController;
-use App\Controllers\PersonalController;
+
+use App\Controllers\ResourcesPersonalController;
+use App\Controllers\ResourcesTiposPersonalController;
+use App\Controllers\AcademicPeriodosController;
+
 use App\Controllers\DocumentVerificationController;
-use App\Controllers\PeriodosController;
+
 
 
 
@@ -285,13 +289,13 @@ final class Bootstrap
         $router->get('/academic/oferta/getCohortCampuses', [OfertaAcademicaController::class, 'getCohortCampuses']);
 
         // --- GESTIÓN ACADÉMICA (PERÍODOS INSTITUCIONALES) ---
-        $router->get('/academic/periodos', [PeriodosController::class, 'index']);
-        $router->post('/academic/periodos/save', [PeriodosController::class, 'save']);
-        $router->post('/academic/periodos/update', [PeriodosController::class, 'update']);
-        $router->post('/academic/periodos/delete', [PeriodosController::class, 'delete']);
-        $router->get('/academic/periodos/getDetails', [PeriodosController::class, 'getDetails']);
-        $router->get('/academic/periodos/changeStatus', [PeriodosController::class, 'changeStatus']);
-        $router->get('/academic/periodos/logAccess', [PeriodosController::class, 'logAccess']);
+        $router->get('/academic/periodos', [AcademicPeriodosController::class, 'index']);
+        $router->post('/academic/periodos/save', [AcademicPeriodosController::class, 'save']);
+        $router->post('/academic/periodos/update', [AcademicPeriodosController::class, 'update']);
+        $router->post('/academic/periodos/delete', [AcademicPeriodosController::class, 'delete']);
+        $router->get('/academic/periodos/getDetails', [AcademicPeriodosController::class, 'getDetails']);
+        $router->get('/academic/periodos/changeStatus', [AcademicPeriodosController::class, 'changeStatus']);
+        $router->get('/academic/periodos/logAccess', [AcademicPeriodosController::class, 'logAccess']);
 
         // --- PANEL ADMINISTRATIVO GENERAL ---
         $router->get('/administrative', [AdministrativeController::class, 'index']);
@@ -397,15 +401,23 @@ final class Bootstrap
         $router->get('/resources', [ResourcesController::class, 'index']);
 
         // --- PANEL DE RECURSOS: PERSONAL ---
-        $router->get('/resources/personal', [PersonalController::class, 'index']);
-        $router->get('/resources/personal/create', [PersonalController::class, 'create']);
-        $router->post('/resources/personal/save', [PersonalController::class, 'save']);
-        $router->get('/resources/personal/edit', [PersonalController::class, 'edit']);
-        $router->post('/resources/personal/update', [PersonalController::class, 'update']);
-        $router->post('/resources/personal/delete', [PersonalController::class, 'delete']);
-        $router->get('/resources/personal/getDetails', [PersonalController::class, 'getDetails']);
-        $router->get('/resources/personal/carnet', [PersonalController::class, 'generarCarnet']);
-        $router->get('/resources/personal/logAccess', [PersonalController::class, 'logAccess']);
+        $router->get('/resources/personal', [ResourcesPersonalController::class, 'index']);
+        $router->get('/resources/personal/create', [ResourcesPersonalController::class, 'create']);
+        $router->post('/resources/personal/save', [ResourcesPersonalController::class, 'save']);
+        $router->get('/resources/personal/edit', [ResourcesPersonalController::class, 'edit']);
+        $router->post('/resources/personal/update', [ResourcesPersonalController::class, 'update']);
+        $router->post('/resources/personal/delete', [ResourcesPersonalController::class, 'delete']);
+        $router->get('/resources/personal/getDetails', [ResourcesPersonalController::class, 'getDetails']);
+        $router->get('/resources/personal/carnet', [ResourcesPersonalController::class, 'generarCarnet']);
+        $router->get('/resources/personal/logAccess', [ResourcesPersonalController::class, 'logAccess']);
+        $router->get('/resources/personal/expediente', [ResourcesPersonalController::class, 'generarExpediente']);
+
+        // --- PANEL DE RECURSOS: TIPOS DE PERSONAL ---
+        $router->get('/resources/tipos-personal', [ResourcesTiposPersonalController::class, 'index']);
+        $router->post('/resources/tipos-personal/save', [ResourcesTiposPersonalController::class, 'save']);
+        $router->post('/resources/tipos-personal/update', [ResourcesTiposPersonalController::class, 'update']);
+        $router->post('/resources/tipos-personal/delete', [ResourcesTiposPersonalController::class, 'delete']);
+        $router->get('/resources/tipos-personal/getDetails', [ResourcesTiposPersonalController::class, 'getDetails']);
 
 
 

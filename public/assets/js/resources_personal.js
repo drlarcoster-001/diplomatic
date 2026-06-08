@@ -2,7 +2,7 @@
  * MÓDULO: GESTIÓN DE RECURSOS
  * ARCHIVO: public/assets/js/resources_personal.js
  * PROPÓSITO: Gestionar la interactividad del directorio de personal operativo.
- * VERSIÓN: 1.3.0
+ * VERSIÓN: 1.4.0
  */
 
 $(document).ready(function () {
@@ -15,19 +15,22 @@ $(document).ready(function () {
     const errorType   = urlParams.get('error');
 
     if (successType === 'inactivated') {
-        MySwal.fire({ icon: 'success', title: '¡Operación Exitosa!', text: 'El registro ha sido inactivado correctamente.', timer: 2000, showConfirmButton: false });
+        MySwal.fire({ icon:'success', title:'¡Operación Exitosa!', text:'El registro ha sido inactivado correctamente.', timer:2000, showConfirmButton:false });
+    }
+    if (successType === 'deleted') {
+    MySwal.fire({ icon:'success', title:'Eliminado', text:'El registro fue eliminado permanentemente.', timer:2000, showConfirmButton:false });
     }
     if (errorType === 'duplicate') {
-        MySwal.fire({ icon: 'error', title: 'Cédula Duplicada', text: 'Ya existe un registro con esa cédula de identidad.', confirmButtonColor: '#a855f7' });
+        MySwal.fire({ icon:'error', title:'Cédula Duplicada', text:'Ya existe un registro con esa cédula de identidad.', confirmButtonColor:'#a855f7' });
     }
     if (errorType === 'db') {
-        MySwal.fire({ icon: 'error', title: 'Error de Sistema', text: 'No se pudo procesar la solicitud.', confirmButtonColor: '#e74a3b' });
+        MySwal.fire({ icon:'error', title:'Error de Sistema', text:'No se pudo procesar la solicitud.', confirmButtonColor:'#e74a3b' });
     }
     if (urlParams.get('updated')) {
-        MySwal.fire({ icon: 'success', title: '¡Guardado!', text: 'Expediente actualizado correctamente.', timer: 1500, showConfirmButton: false });
+        MySwal.fire({ icon:'success', title:'¡Guardado!', text:'Expediente actualizado correctamente.', timer:1500, showConfirmButton:false });
     }
     if (urlParams.get('created')) {
-        MySwal.fire({ icon: 'success', title: '¡Registro Creado!', text: 'Complete el expediente con los datos adicionales.', timer: 2000, showConfirmButton: false });
+        MySwal.fire({ icon:'success', title:'¡Registro Creado!', text:'Complete el expediente con los datos adicionales.', timer:2000, showConfirmButton:false });
     }
 
     // === 1. BOTÓN INACTIVAR ===
@@ -38,20 +41,20 @@ $(document).ready(function () {
             const id   = this.dataset.id;
             const name = this.dataset.name;
             MySwal.fire({
-                title: '¿Inactivar registro?',
-                html: `Se procederá a dar de baja a: <b>${name}</b>.<br><small class="text-muted">El registro se ocultará del directorio principal.</small>`,
+                title: '¿Eliminar registro?',
+                html: `Se eliminará permanentemente a: <b>${name}</b>.<br><small class="text-muted">Esta acción no se puede deshacer.</small>`,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#e74a3b',
                 cancelButtonColor:  '#858796',
-                confirmButtonText:  'Sí, inactivar',
+                confirmButtonText:  'Sí, eliminar',
                 cancelButtonText:   'Cancelar'
             }).then(result => {
                 if (result.isConfirmed) {
                     const f = document.createElement('form');
                     f.method = 'POST';
                     f.action = `${basePath}/delete`;
-                    const i  = document.createElement('input');
+                    const i = document.createElement('input');
                     i.type = 'hidden'; i.name = 'id'; i.value = id;
                     f.appendChild(i);
                     document.body.appendChild(f);
@@ -119,6 +122,7 @@ $(document).ready(function () {
 
                     set('carnet-nombre',      p.first_name + ' ' + p.last_name);
                     set('carnet-cedula',      p.document_id);
+                    set('carnet-exp',         p.expediente);
                     set('carnet-tipo',        p.tipo_nombre);
                     set('carnet-email',       p.email);
                     set('carnet-tel',         p.telefono_celular);
@@ -150,11 +154,11 @@ $(document).ready(function () {
         aplicarTransform();
     };
 
-window.imprimirCarnet = function() {
-    if (carnetIdActual) {
-        window.open(`${basePath}/carnet?id=${carnetIdActual}&print=1`, '_blank');
-    }
-};
+    window.imprimirCarnet = function() {
+        if (carnetIdActual) {
+            window.open(`${basePath}/carnet?id=${carnetIdActual}`, '_blank');
+        }
+    };
 
     function aplicarTransform() {
         const inner = document.getElementById('carnet-inner');
