@@ -24,10 +24,13 @@ final class ResourcesPersonalModel
 
     public function getAll(string $search = ''): array
     {
-        $sql = "SELECT p.*, t.nombre as tipo_nombre, t.siglas
+        $sql = "SELECT p.*, t.nombre as tipo_nombre, t.siglas,
+                pr.photo_path as profesor_foto
                 FROM tbl_personal p
                 JOIN tbl_personal_tipos t ON p.tipo_personal_id = t.id
+                LEFT JOIN tbl_professors pr ON p.profesor_id = pr.id
                 WHERE p.is_active = 1
+
                 AND (p.first_name LIKE ? OR p.last_name LIKE ? OR p.document_id LIKE ? OR p.expediente LIKE ? OR t.nombre LIKE ?)
                 ORDER BY p.last_name ASC, p.first_name ASC";
 
@@ -37,9 +40,15 @@ final class ResourcesPersonalModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getById(int $id): ?array
-    {
-        $stmt = $this->db->prepare("SELECT p.*, t.nombre as tipo_nombre, t.siglas FROM tbl_personal p JOIN tbl_personal_tipos t ON p.tipo_personal_id = t.id WHERE p.id = ? LIMIT 1");
+public function getById(int $id): ?array
+{
+    $stmt = $this->db->prepare("SELECT p.*, t.nombre as tipo_nombre, t.siglas,
+        pr.photo_path as profesor_foto, pr.biography as profesor_bio,
+        pr.professor_type as profesor_type
+        FROM tbl_personal p 
+        JOIN tbl_personal_tipos t ON p.tipo_personal_id = t.id 
+        LEFT JOIN tbl_professors pr ON p.profesor_id = pr.id
+        WHERE p.id = ? LIMIT 1");
         $stmt->execute([$id]);
         $persona = $stmt->fetch(PDO::FETCH_ASSOC);
         return $persona ?: null;
@@ -70,8 +79,8 @@ final class ResourcesPersonalModel
         $expediente = 'DIP-' . $siglas . '-' . trim($data['document_id']) . '-' . $correlativo;
 
         $sql = "INSERT INTO tbl_personal 
-                (expediente, first_name, last_name, document_id, tipo_personal_id, fecha_inicio, is_active, created_by)
-                VALUES (?, ?, ?, ?, ?, ?, 1, ?)";
+                (expediente, first_name, last_name, document_id, tipo_personal_id, fecha_inicio, profesor_id, is_active, created_by)
+                VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?)";
 
         $this->db->prepare($sql)->execute([
             $expediente,
@@ -80,6 +89,7 @@ final class ResourcesPersonalModel
             trim($data['document_id']),
             (int)$data['tipo_personal_id'],
             !empty($data['fecha_inicio']) ? $data['fecha_inicio'] : null,
+            !empty($data['profesor_id']) ? (int)$data['profesor_id'] : null,
             $userId
         ]);
 
@@ -106,6 +116,13 @@ final class ResourcesPersonalModel
                 tipo_personal_id     = ?,
                 fecha_inicio         = ?,
                 fecha_fin            = ?,
+                banco                = ?,
+                tipo_cuenta          = ?,
+                numero_cuenta        = ?,
+                titular_cuenta       = ?,
+                telefono_pago_movil  = ?,
+                banco_pago_movil     = ?,
+                cedula_pago_movil    = ?,
                 updated_by           = ?,
                 updated_at           = NOW()
                 $fotoSql
@@ -126,7 +143,14 @@ final class ResourcesPersonalModel
             !empty($data['estudios_adicionales']) ? $data['estudios_adicionales'] : null,
             (int)$data['tipo_personal_id'],
             !empty($data['fecha_inicio']) ? $data['fecha_inicio'] : null,
-            !empty($data['fecha_fin'])    ? $data['fecha_fin']    : null,
+            !empty($data['fecha_fin'])          ? $data['fecha_fin']          : null,
+            !empty($data['banco'])              ? $data['banco']              : null,
+            !empty($data['tipo_cuenta'])        ? $data['tipo_cuenta']        : null,
+            !empty($data['numero_cuenta'])      ? $data['numero_cuenta']      : null,
+            !empty($data['titular_cuenta'])     ? $data['titular_cuenta']     : null,
+            !empty($data['telefono_pago_movil'])? $data['telefono_pago_movil']: null,
+            !empty($data['banco_pago_movil'])    ? $data['banco_pago_movil']    : null,
+            !empty($data['cedula_pago_movil'])   ? $data['cedula_pago_movil']   : null,
             $userId
         ];
 
@@ -148,4 +172,12 @@ final class ResourcesPersonalModel
         return $this->db->prepare("UPDATE tbl_personal SET is_active = 0, updated_by = ?, updated_at = NOW() WHERE id = ?")
                         ->execute([$userId, $id]);
     }
+
+    public function buscarProfesorPorCedula(string $cedula): ?array
+{
+    $stmt = $this->db->prepare("SELECT id, first_name, last_name, photo_path, professor_type FROM tbl_professors WHERE identification = ? AND is_active = 1 LIMIT 1");
+    $stmt->execute([trim($cedula)]);
+    $profesor = $stmt->fetch(\PDO::FETCH_ASSOC);
+    return $profesor ?: null;
+}
 }

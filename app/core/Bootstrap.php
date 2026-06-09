@@ -415,6 +415,8 @@ final class Bootstrap
         $router->get('/resources/personal/carnet', [ResourcesPersonalController::class, 'generarCarnet']);
         $router->get('/resources/personal/logAccess', [ResourcesPersonalController::class, 'logAccess']);
         $router->get('/resources/personal/expediente', [ResourcesPersonalController::class, 'generarExpediente']);
+        $router->get('/resources/personal/buscarProfesor', [ResourcesPersonalController::class, 'buscarProfesor']);
+
 
         // --- PANEL DE RECURSOS: TIPOS DE PERSONAL ---
         $router->get('/resources/tipos-personal', [ResourcesTiposPersonalController::class, 'index']);
@@ -439,6 +441,8 @@ final class Bootstrap
         $router->post('/resources/contratos/plantillas/delete', [ResourcesContratosPlantillasController::class, 'delete']);
         $router->get('/resources/contratos/plantillas/getDetails', [ResourcesContratosPlantillasController::class, 'getDetails']);
         $router->get('/resources/contratos/plantillas/getCamposSistema', [ResourcesContratosPlantillasController::class, 'getCamposSistema']);
+
+
 
         // --- PANEL DE RECURSOS: CONTRATOS ---
         $router->get('/resources/contratos', [ResourcesContratosController::class, 'index']);

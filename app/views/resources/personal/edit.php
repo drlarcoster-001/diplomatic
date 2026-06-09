@@ -15,7 +15,9 @@ $tabActivo = $_GET['tab'] ?? 'datos';
 
 $avatar = !empty($p['foto'])
     ? '/diplomatic/public/' . ltrim($p['foto'], '/')
-    : 'https://ui-avatars.com/api/?name=' . urlencode($p['first_name'] . '+' . $p['last_name']) . '&background=a855f7&color=fff&size=150&bold=true';
+    : (!empty($p['profesor_foto'])
+        ? $p['profesor_foto']
+        : 'https://ui-avatars.com/api/?name=' . urlencode($p['first_name'] . '+' . $p['last_name']) . '&background=a855f7&color=fff&size=150&bold=true');
 ?>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
@@ -257,6 +259,109 @@ $avatar = !empty($p['foto'])
                                         <input type="text" class="form-control bg-light" value="<?= htmlspecialchars($p['expediente']) ?>" readonly>
                                     </div>
                                     <?php endif; ?>
+                                    <div class="col-12 mt-2">
+                                        <hr>
+                                        <label class="form-label small fw-bold" style="color:#a855f7;">DATOS BANCARIOS</label>
+                                    </div>
+                                    <div class="col-md-6">
+    <label class="form-label small fw-bold">BANCO</label>
+    <select name="banco" class="form-select">
+        <option value="">-- Seleccionar Banco --</option>
+        <option value="0102 - BANCO DE VENEZUELA" <?= ($p['banco'] ?? '') === '0102 - BANCO DE VENEZUELA' ? 'selected' : '' ?>>0102 - BANCO DE VENEZUELA</option>
+        <option value="0104 - VENEZOLANO DE CRÉDITO" <?= ($p['banco'] ?? '') === '0104 - VENEZOLANO DE CRÉDITO' ? 'selected' : '' ?>>0104 - VENEZOLANO DE CRÉDITO</option>
+        <option value="0105 - BANCO MERCANTIL" <?= ($p['banco'] ?? '') === '0105 - BANCO MERCANTIL' ? 'selected' : '' ?>>0105 - BANCO MERCANTIL</option>
+        <option value="0108 - BBVA PROVINCIAL" <?= ($p['banco'] ?? '') === '0108 - BBVA PROVINCIAL' ? 'selected' : '' ?>>0108 - BBVA PROVINCIAL</option>
+        <option value="0114 - BANCARIBE" <?= ($p['banco'] ?? '') === '0114 - BANCARIBE' ? 'selected' : '' ?>>0114 - BANCARIBE</option>
+        <option value="0115 - BANCO EXTERIOR" <?= ($p['banco'] ?? '') === '0115 - BANCO EXTERIOR' ? 'selected' : '' ?>>0115 - BANCO EXTERIOR</option>
+        <option value="0128 - BANCO CARONÍ" <?= ($p['banco'] ?? '') === '0128 - BANCO CARONÍ' ? 'selected' : '' ?>>0128 - BANCO CARONÍ</option>
+        <option value="0134 - BANCO BANESCO" <?= ($p['banco'] ?? '') === '0134 - BANCO BANESCO' ? 'selected' : '' ?>>0134 - BANCO BANESCO</option>
+        <option value="0137 - BANCO SOFITASA" <?= ($p['banco'] ?? '') === '0137 - BANCO SOFITASA' ? 'selected' : '' ?>>0137 - BANCO SOFITASA</option>
+        <option value="0138 - BANCO PLAZA" <?= ($p['banco'] ?? '') === '0138 - BANCO PLAZA' ? 'selected' : '' ?>>0138 - BANCO PLAZA</option>
+        <option value="0146 - BANGENTE" <?= ($p['banco'] ?? '') === '0146 - BANGENTE' ? 'selected' : '' ?>>0146 - BANGENTE</option>
+        <option value="0151 - BFC BANCO FONDO COMÚN" <?= ($p['banco'] ?? '') === '0151 - BFC BANCO FONDO COMÚN' ? 'selected' : '' ?>>0151 - BFC BANCO FONDO COMÚN</option>
+        <option value="0156 - 100% BANCO" <?= ($p['banco'] ?? '') === '0156 - 100% BANCO' ? 'selected' : '' ?>>0156 - 100% BANCO</option>
+        <option value="0157 - DELSUR BANCO UNIVERSAL" <?= ($p['banco'] ?? '') === '0157 - DELSUR BANCO UNIVERSAL' ? 'selected' : '' ?>>0157 - DELSUR BANCO UNIVERSAL</option>
+        <option value="0163 - BANCO DEL TESORO" <?= ($p['banco'] ?? '') === '0163 - BANCO DEL TESORO' ? 'selected' : '' ?>>0163 - BANCO DEL TESORO</option>
+        <option value="0166 - BANCO AGRÍCOLA DE VENEZUELA" <?= ($p['banco'] ?? '') === '0166 - BANCO AGRÍCOLA DE VENEZUELA' ? 'selected' : '' ?>>0166 - BANCO AGRÍCOLA DE VENEZUELA</option>
+        <option value="0168 - BANCRECER" <?= ($p['banco'] ?? '') === '0168 - BANCRECER' ? 'selected' : '' ?>>0168 - BANCRECER</option>
+        <option value="0169 - MI BANCO" <?= ($p['banco'] ?? '') === '0169 - MI BANCO' ? 'selected' : '' ?>>0169 - MI BANCO</option>
+        <option value="0171 - BANCO ACTIVO" <?= ($p['banco'] ?? '') === '0171 - BANCO ACTIVO' ? 'selected' : '' ?>>0171 - BANCO ACTIVO</option>
+        <option value="0172 - BANCAMIGA" <?= ($p['banco'] ?? '') === '0172 - BANCAMIGA' ? 'selected' : '' ?>>0172 - BANCAMIGA</option>
+        <option value="0173 - BANCO INTERNACIONAL DE DESARROLLO" <?= ($p['banco'] ?? '') === '0173 - BANCO INTERNACIONAL DE DESARROLLO' ? 'selected' : '' ?>>0173 - BANCO INTERNACIONAL DE DESARROLLO</option>
+        <option value="0174 - BANPLUS" <?= ($p['banco'] ?? '') === '0174 - BANPLUS' ? 'selected' : '' ?>>0174 - BANPLUS</option>
+        <option value="0175 - BANCO DIGITAL DE LOS TRABAJADORES" <?= ($p['banco'] ?? '') === '0175 - BANCO DIGITAL DE LOS TRABAJADORES' ? 'selected' : '' ?>>0175 - BANCO DIGITAL DE LOS TRABAJADORES</option>
+        <option value="0177 - BANFANB" <?= ($p['banco'] ?? '') === '0177 - BANFANB' ? 'selected' : '' ?>>0177 - BANFANB</option>
+        <option value="0178 - N58 BANCO DIGITAL" <?= ($p['banco'] ?? '') === '0178 - N58 BANCO DIGITAL' ? 'selected' : '' ?>>0178 - N58 BANCO DIGITAL</option>
+        <option value="0191 - BNC BANCO NACIONAL DE CRÉDITO" <?= ($p['banco'] ?? '') === '0191 - BNC BANCO NACIONAL DE CRÉDITO' ? 'selected' : '' ?>>0191 - BNC BANCO NACIONAL DE CRÉDITO</option>
+    </select>
+</div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-bold">TIPO DE CUENTA</label>
+                                        <select name="tipo_cuenta" class="form-select">
+                                            <option value="">Seleccione...</option>
+                                            <option value="Corriente" <?= ($p['tipo_cuenta'] ?? '') === 'Corriente' ? 'selected' : '' ?>>Corriente</option>
+                                            <option value="Ahorro"    <?= ($p['tipo_cuenta'] ?? '') === 'Ahorro'    ? 'selected' : '' ?>>Ahorro</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-bold">NÚMERO DE CUENTA</label>
+                                        <input type="text" name="numero_cuenta" class="form-control"
+                                            value="<?= htmlspecialchars($p['numero_cuenta'] ?? '') ?>"
+                                            placeholder="Ej: 0102-0000-00-0000000000">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-bold">TITULAR DE LA CUENTA</label>
+                                        <input type="text" name="titular_cuenta" class="form-control"
+                                            value="<?= htmlspecialchars($p['titular_cuenta'] ?? '') ?>"
+                                            placeholder="Nombre del titular">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-bold">TELÉFONO PAGO MÓVIL</label>
+                                        <input type="text" name="telefono_pago_movil" class="form-control"
+                                            value="<?= htmlspecialchars($p['telefono_pago_movil'] ?? '') ?>"
+                                            placeholder="Ej: 0414-1234567">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-bold">CÉDULA PAGO MÓVIL</label>
+                                        <input type="text" name="cedula_pago_movil" class="form-control"
+                                            value="<?= htmlspecialchars($p['cedula_pago_movil'] ?? '') ?>"
+                                            placeholder="Ej: V-12345678">
+                                    </div>
+
+                                    <div class="col-md-6">
+    <label class="form-label small fw-bold">BANCO</label>
+    <select name="banco" class="form-select">
+        <option value="">-- Seleccionar Banco --</option>
+        <option value="0102 - BANCO DE VENEZUELA" <?= ($p['banco'] ?? '') === '0102 - BANCO DE VENEZUELA' ? 'selected' : '' ?>>0102 - BANCO DE VENEZUELA</option>
+        <option value="0104 - VENEZOLANO DE CRÉDITO" <?= ($p['banco'] ?? '') === '0104 - VENEZOLANO DE CRÉDITO' ? 'selected' : '' ?>>0104 - VENEZOLANO DE CRÉDITO</option>
+        <option value="0105 - BANCO MERCANTIL" <?= ($p['banco'] ?? '') === '0105 - BANCO MERCANTIL' ? 'selected' : '' ?>>0105 - BANCO MERCANTIL</option>
+        <option value="0108 - BBVA PROVINCIAL" <?= ($p['banco'] ?? '') === '0108 - BBVA PROVINCIAL' ? 'selected' : '' ?>>0108 - BBVA PROVINCIAL</option>
+        <option value="0114 - BANCARIBE" <?= ($p['banco'] ?? '') === '0114 - BANCARIBE' ? 'selected' : '' ?>>0114 - BANCARIBE</option>
+        <option value="0115 - BANCO EXTERIOR" <?= ($p['banco'] ?? '') === '0115 - BANCO EXTERIOR' ? 'selected' : '' ?>>0115 - BANCO EXTERIOR</option>
+        <option value="0128 - BANCO CARONÍ" <?= ($p['banco'] ?? '') === '0128 - BANCO CARONÍ' ? 'selected' : '' ?>>0128 - BANCO CARONÍ</option>
+        <option value="0134 - BANCO BANESCO" <?= ($p['banco'] ?? '') === '0134 - BANCO BANESCO' ? 'selected' : '' ?>>0134 - BANCO BANESCO</option>
+        <option value="0137 - BANCO SOFITASA" <?= ($p['banco'] ?? '') === '0137 - BANCO SOFITASA' ? 'selected' : '' ?>>0137 - BANCO SOFITASA</option>
+        <option value="0138 - BANCO PLAZA" <?= ($p['banco'] ?? '') === '0138 - BANCO PLAZA' ? 'selected' : '' ?>>0138 - BANCO PLAZA</option>
+        <option value="0146 - BANGENTE" <?= ($p['banco'] ?? '') === '0146 - BANGENTE' ? 'selected' : '' ?>>0146 - BANGENTE</option>
+        <option value="0151 - BFC BANCO FONDO COMÚN" <?= ($p['banco'] ?? '') === '0151 - BFC BANCO FONDO COMÚN' ? 'selected' : '' ?>>0151 - BFC BANCO FONDO COMÚN</option>
+        <option value="0156 - 100% BANCO" <?= ($p['banco'] ?? '') === '0156 - 100% BANCO' ? 'selected' : '' ?>>0156 - 100% BANCO</option>
+        <option value="0157 - DELSUR BANCO UNIVERSAL" <?= ($p['banco'] ?? '') === '0157 - DELSUR BANCO UNIVERSAL' ? 'selected' : '' ?>>0157 - DELSUR BANCO UNIVERSAL</option>
+        <option value="0163 - BANCO DEL TESORO" <?= ($p['banco'] ?? '') === '0163 - BANCO DEL TESORO' ? 'selected' : '' ?>>0163 - BANCO DEL TESORO</option>
+        <option value="0166 - BANCO AGRÍCOLA DE VENEZUELA" <?= ($p['banco'] ?? '') === '0166 - BANCO AGRÍCOLA DE VENEZUELA' ? 'selected' : '' ?>>0166 - BANCO AGRÍCOLA DE VENEZUELA</option>
+        <option value="0168 - BANCRECER" <?= ($p['banco'] ?? '') === '0168 - BANCRECER' ? 'selected' : '' ?>>0168 - BANCRECER</option>
+        <option value="0169 - MI BANCO" <?= ($p['banco'] ?? '') === '0169 - MI BANCO' ? 'selected' : '' ?>>0169 - MI BANCO</option>
+        <option value="0171 - BANCO ACTIVO" <?= ($p['banco'] ?? '') === '0171 - BANCO ACTIVO' ? 'selected' : '' ?>>0171 - BANCO ACTIVO</option>
+        <option value="0172 - BANCAMIGA" <?= ($p['banco'] ?? '') === '0172 - BANCAMIGA' ? 'selected' : '' ?>>0172 - BANCAMIGA</option>
+        <option value="0173 - BANCO INTERNACIONAL DE DESARROLLO" <?= ($p['banco'] ?? '') === '0173 - BANCO INTERNACIONAL DE DESARROLLO' ? 'selected' : '' ?>>0173 - BANCO INTERNACIONAL DE DESARROLLO</option>
+        <option value="0174 - BANPLUS" <?= ($p['banco'] ?? '') === '0174 - BANPLUS' ? 'selected' : '' ?>>0174 - BANPLUS</option>
+        <option value="0175 - BANCO DIGITAL DE LOS TRABAJADORES" <?= ($p['banco'] ?? '') === '0175 - BANCO DIGITAL DE LOS TRABAJADORES' ? 'selected' : '' ?>>0175 - BANCO DIGITAL DE LOS TRABAJADORES</option>
+        <option value="0177 - BANFANB" <?= ($p['banco'] ?? '') === '0177 - BANFANB' ? 'selected' : '' ?>>0177 - BANFANB</option>
+        <option value="0178 - N58 BANCO DIGITAL" <?= ($p['banco'] ?? '') === '0178 - N58 BANCO DIGITAL' ? 'selected' : '' ?>>0178 - N58 BANCO DIGITAL</option>
+        <option value="0191 - BNC BANCO NACIONAL DE CRÉDITO" <?= ($p['banco'] ?? '') === '0191 - BNC BANCO NACIONAL DE CRÉDITO' ? 'selected' : '' ?>>0191 - BNC BANCO NACIONAL DE CRÉDITO</option>
+    </select>
+</div>
+
+
                                 </div>
                             </div>
 

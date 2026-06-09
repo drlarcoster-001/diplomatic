@@ -123,7 +123,11 @@ final class ResourcesPersonalController extends Controller
             'entity_id'   => $id
         ]);
 
-        header("Location: /diplomatic/public/resources/personal/edit?id={$id}&updated=1&tab={$tab}");
+        if (($_POST['redirect'] ?? '') === 'index') {
+    header("Location: /diplomatic/public/resources/personal?updated=1");
+} else {
+    header("Location: /diplomatic/public/resources/personal/edit?id={$id}&updated=1&tab={$tab}");
+}
         exit();
     }
 
@@ -165,6 +169,8 @@ final class ResourcesPersonalController extends Controller
      */
     public function generarCarnet(): void
     {
+
+    
         while (ob_get_level() > 0) ob_end_clean();
 
         $id      = (int)($_GET['id'] ?? 0);
@@ -183,7 +189,7 @@ final class ResourcesPersonalController extends Controller
         ]);
 
         $p      = $persona;
-        $avatar = $this->fotoBase64($p['foto'] ?? '');
+        $avatar = $this->fotoBase64($p['foto'] ?? '', $p['profesor_foto'] ?? '');
 
         $emailRow = !empty($p['email'])
             ? '<tr><td class="lbl">Email</td><td class="val">' . htmlspecialchars($p['email']) . '</td></tr>' : '';
@@ -264,7 +270,7 @@ table { border-collapse: collapse; }
         ]);
 
         $p      = $persona;
-        $avatar = $this->fotoBase64($p['foto'] ?? '');
+        $avatar = $this->fotoBase64($p['foto'] ?? '', $p['profesor_foto'] ?? '');
 
         // CV adjunto en base64
         $cvHtml = '';
@@ -526,19 +532,28 @@ body { font-family: Arial, sans-serif; font-size:10pt; color:#333; margin:0; pad
     /**
      * Convierte foto a base64 para embeber en PDF.
      */
-    private function fotoBase64(string $fotoPath): string
-    {
-        if (!empty($fotoPath)) {
-            $fullPath = $_SERVER['DOCUMENT_ROOT'] . '/diplomatic/public/' . ltrim($fotoPath, '/');
-            if (file_exists($fullPath)) {
-                $ext  = strtolower(pathinfo($fullPath, PATHINFO_EXTENSION));
-                $mime = ($ext === 'png') ? 'image/png' : 'image/jpeg';
-                return 'data:' . $mime . ';base64,' . base64_encode(file_get_contents($fullPath));
-            }
+    private function fotoBase64(string $fotoPath, string $profesorFoto = ''): string
+{
+    if (!empty($fotoPath)) {
+        $fullPath = $_SERVER['DOCUMENT_ROOT'] . '/diplomatic/public/' . ltrim($fotoPath, '/');
+        if (file_exists($fullPath)) {
+            $ext  = strtolower(pathinfo($fullPath, PATHINFO_EXTENSION));
+            $mime = ($ext === 'png') ? 'image/png' : 'image/jpeg';
+            return 'data:' . $mime . ';base64,' . base64_encode(file_get_contents($fullPath));
         }
-        // Avatar generado si no hay foto
-        return 'https://ui-avatars.com/api/?name=P&background=a855f7&color=fff&size=200&bold=true';
     }
+
+    // Si no tiene foto local pero tiene foto de WordPress
+    if (!empty($profesorFoto)) {
+        $imgData = @file_get_contents($profesorFoto);
+        if ($imgData !== false) {
+            $mime = 'image/jpeg';
+            return 'data:' . $mime . ';base64,' . base64_encode($imgData);
+        }
+    }
+
+    return 'https://ui-avatars.com/api/?name=P&background=a855f7&color=fff&size=200&bold=true';
+}
 
     /**
      * Stream del PDF via DomPDF.
@@ -595,4 +610,14 @@ body { font-family: Arial, sans-serif; font-size:10pt; color:#333; margin:0; pad
         }
         return null;
     }
+
+    public function buscarProfesor(): void
+{
+    if (ob_get_length()) ob_clean();
+    header('Content-Type: application/json');
+    $cedula   = $_GET['cedula'] ?? '';
+    $profesor = $this->model->buscarProfesorPorCedula($cedula);
+    echo json_encode(['ok' => (bool)$profesor, 'profesor' => $profesor]);
+    exit();
+}
 }

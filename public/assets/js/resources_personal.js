@@ -79,20 +79,45 @@ $(document).ready(function () {
 
     // === 3. GUARDAR RECORDANDO TAB ===
     window.guardarConTab = function() {
-        const tabActivo = document.querySelector('#expedienteTabs .nav-link.active');
-        const tabId     = tabActivo ? tabActivo.getAttribute('data-bs-target').replace('#tab-', '') : 'datos';
-        const form      = document.getElementById('formPersonal');
-        if (!form) return;
-        let input = form.querySelector('input[name="tab"]');
-        if (!input) {
-            input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'tab';
-            form.appendChild(input);
+    const tabActivo = document.querySelector('#expedienteTabs .nav-link.active');
+    const tabId     = tabActivo ? tabActivo.getAttribute('data-bs-target').replace('#tab-', '') : 'datos';
+    const form      = document.getElementById('formPersonal');
+    if (!form) return;
+
+    MySwal.fire({
+        title: '¿A dónde desea ir?',
+        icon: 'question',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Guardar y quedarme',
+        denyButtonText: 'Guardar e ir al directorio',
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#a855f7',
+        denyButtonColor: '#6c757d',
+    }).then(result => {
+        if (result.isConfirmed) {
+            let input = form.querySelector('input[name="tab"]');
+            if (!input) {
+                input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'tab';
+                form.appendChild(input);
+            }
+            input.value = tabId;
+            form.submit();
+        } else if (result.isDenied) {
+            let input = form.querySelector('input[name="redirect"]');
+            if (!input) {
+                input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'redirect';
+                form.appendChild(input);
+            }
+            input.value = 'index';
+            form.submit();
         }
-        input.value = tabId;
-        form.submit();
-    };
+    });
+};
 
     // === 4. MODAL CARNET ===
     let carnetIdActual = null;
@@ -109,8 +134,10 @@ $(document).ready(function () {
                     const p = data.persona;
 
                     const avatar = p.foto
-                        ? '/diplomatic/public/' + p.foto
-                        : 'https://ui-avatars.com/api/?name=' + encodeURIComponent(p.first_name + ' ' + p.last_name) + '&background=a855f7&color=fff&size=200&bold=true';
+                    ? '/diplomatic/public/' + p.foto
+                    : (p.profesor_foto
+                        ? p.profesor_foto
+                        : 'https://ui-avatars.com/api/?name=' + encodeURIComponent(p.first_name + ' ' + p.last_name) + '&background=a855f7&color=fff&size=200&bold=true');
 
                     const set = (id, val) => {
                         const el = document.getElementById(id);

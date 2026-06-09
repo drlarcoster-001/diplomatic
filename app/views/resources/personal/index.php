@@ -66,8 +66,10 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
             <?php foreach ($personal as $p): ?>
                 <?php
                     $avatar = !empty($p['foto'])
-                        ? '/diplomatic/public/' . ltrim($p['foto'], '/')
-                        : 'https://ui-avatars.com/api/?name=' . urlencode($p['first_name'] . '+' . $p['last_name']) . '&background=a855f7&color=fff&size=150&bold=true';
+                    ? '/diplomatic/public/' . ltrim($p['foto'], '/')
+                    : (!empty($p['profesor_foto'])
+                        ? $p['profesor_foto']
+                        : 'https://ui-avatars.com/api/?name=' . urlencode($p['first_name'] . '+' . $p['last_name']) . '&background=a855f7&color=fff&size=150&bold=true');
 
                     $badgeColor = match($p['tipo_nombre']) {
                         'Profesor teórico'        => '#0d6efd',
