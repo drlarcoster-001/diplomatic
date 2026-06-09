@@ -39,6 +39,10 @@ use App\Controllers\ResourcesController;
 
 use App\Controllers\ResourcesPersonalController;
 use App\Controllers\ResourcesTiposPersonalController;
+use App\Controllers\ResourcesTiposContratoController;
+use App\Controllers\ResourcesContratosPlantillasController;
+use App\Controllers\ResourcesContratosController;
+
 use App\Controllers\AcademicPeriodosController;
 
 use App\Controllers\DocumentVerificationController;
@@ -418,6 +422,34 @@ final class Bootstrap
         $router->post('/resources/tipos-personal/update', [ResourcesTiposPersonalController::class, 'update']);
         $router->post('/resources/tipos-personal/delete', [ResourcesTiposPersonalController::class, 'delete']);
         $router->get('/resources/tipos-personal/getDetails', [ResourcesTiposPersonalController::class, 'getDetails']);
+
+        // --- PANEL DE RECURSOS: TIPOS DE CONTRATO ---
+            $router->get('/resources/tipos-contrato', [ResourcesTiposContratoController::class, 'index']);
+            $router->post('/resources/tipos-contrato/save', [ResourcesTiposContratoController::class, 'save']);
+            $router->post('/resources/tipos-contrato/update', [ResourcesTiposContratoController::class, 'update']);
+            $router->post('/resources/tipos-contrato/delete', [ResourcesTiposContratoController::class, 'delete']);
+            $router->get('/resources/tipos-contrato/getDetails', [ResourcesTiposContratoController::class, 'getDetails']);
+
+                // --- PANEL DE RECURSOS: PLANTILLAS DE CONTRATOS ---
+        $router->get('/resources/contratos/plantillas', [ResourcesContratosPlantillasController::class, 'index']);
+        $router->get('/resources/contratos/plantillas/create', [ResourcesContratosPlantillasController::class, 'create']);
+        $router->post('/resources/contratos/plantillas/save', [ResourcesContratosPlantillasController::class, 'save']);
+        $router->get('/resources/contratos/plantillas/edit', [ResourcesContratosPlantillasController::class, 'edit']);
+        $router->post('/resources/contratos/plantillas/update', [ResourcesContratosPlantillasController::class, 'update']);
+        $router->post('/resources/contratos/plantillas/delete', [ResourcesContratosPlantillasController::class, 'delete']);
+        $router->get('/resources/contratos/plantillas/getDetails', [ResourcesContratosPlantillasController::class, 'getDetails']);
+        $router->get('/resources/contratos/plantillas/getCamposSistema', [ResourcesContratosPlantillasController::class, 'getCamposSistema']);
+
+        // --- PANEL DE RECURSOS: CONTRATOS ---
+        $router->get('/resources/contratos', [ResourcesContratosController::class, 'index']);
+        $router->get('/resources/contratos/create', [ResourcesContratosController::class, 'create']);
+        $router->post('/resources/contratos/generate', [ResourcesContratosController::class, 'generate']);
+        $router->get('/resources/contratos/pdf', [ResourcesContratosController::class, 'descargarPdf']);
+        $router->post('/resources/contratos/changeStatus', [ResourcesContratosController::class, 'changeStatus']);
+        $router->get('/resources/contratos/getDetails', [ResourcesContratosController::class, 'getDetails']);
+        $router->get('/resources/contratos/buscarPersonal', [ResourcesContratosController::class, 'buscarPersonal']);
+        $router->get('/resources/contratos/getPlantilla', [ResourcesContratosController::class, 'getPlantilla']);
+        $router->get('/resources/contratos/getPersonal', [ResourcesContratosController::class, 'getPersonal']);
 
 
 

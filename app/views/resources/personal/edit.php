@@ -3,10 +3,11 @@
  * MÓDULO: GESTIÓN DE RECURSOS
  * Archivo: app/views/resources/personal/edit.php
  * Propósito: Expediente completo del personal operativo con navegación por tabs.
- * Versión: 1.4.0
+ * Versión: 1.5.0 - Tab de Contratos agregado.
  *
  * @var array  $persona
  * @var array  $tipos
+ * @var array  $contratos
  */
 $p         = $persona;
 $basePath  = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
@@ -19,6 +20,7 @@ $avatar = !empty($p['foto'])
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <link rel="stylesheet" href="<?= $basePath ?>/assets/css/resources_personal.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.snow.min.css">
 
 <div class="container-fluid py-4">
 
@@ -64,6 +66,7 @@ $avatar = !empty($p['foto'])
 
     <div class="row g-4">
 
+        <!-- Sidebar -->
         <div class="col-lg-3">
             <div class="card border-0 shadow-sm text-center p-4" style="border-top: 3px solid #a855f7 !important;">
                 <div class="position-relative mx-auto mb-3" style="width:130px; height:130px;">
@@ -91,9 +94,20 @@ $avatar = !empty($p['foto'])
                 <?php if (!empty($p['fecha_fin'])): ?>
                     <div class="small text-muted"><i class="bi bi-calendar-x me-1"></i> Hasta <?= date('d/m/Y', strtotime($p['fecha_fin'])) ?></div>
                 <?php endif; ?>
+
+                <!-- Resumen contratos -->
+                <?php if (!empty($contratos)): ?>
+                    <div class="mt-3 pt-3 border-top">
+                        <div class="small text-muted mb-1">Contratos</div>
+                        <span class="badge rounded-pill px-3 py-1 text-white" style="background:#198754;">
+                            <?= count($contratos) ?> generado(s)
+                        </span>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
 
+        <!-- Tabs -->
         <div class="col-lg-9">
             <div class="card border-0 shadow-sm">
                 <div class="card-header bg-white border-bottom-0 pt-3 px-4">
@@ -114,6 +128,17 @@ $avatar = !empty($p['foto'])
                             <button class="nav-link <?= $tabActivo === 'operativo' ? 'active' : '' ?>"
                                     data-bs-toggle="tab" data-bs-target="#tab-operativo" type="button">
                                 <i class="bi bi-briefcase me-2"></i> Operativo
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link <?= $tabActivo === 'contratos' ? 'active' : '' ?>"
+                                    data-bs-toggle="tab" data-bs-target="#tab-contratos" type="button">
+                                <i class="bi bi-file-earmark-check me-2"></i> Contratos
+                                <?php if (!empty($contratos)): ?>
+                                    <span class="badge rounded-pill ms-1 text-white" style="background:#198754; font-size:0.7rem;">
+                                        <?= count($contratos) ?>
+                                    </span>
+                                <?php endif; ?>
                             </button>
                         </li>
                     </ul>
@@ -235,9 +260,97 @@ $avatar = !empty($p['foto'])
                                 </div>
                             </div>
 
+                            <!-- TAB: Contratos -->
+                            <div class="tab-pane fade <?= $tabActivo === 'contratos' ? 'show active' : '' ?>" id="tab-contratos">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="small text-muted">Historial de contratos generados para este personal.</span>
+                                    <a href="<?= $basePath ?>/resources/contratos/create"
+                                       class="btn btn-sm rounded-pill px-3 text-white" style="background:#198754;">
+                                        <i class="bi bi-plus-lg me-1"></i> Nuevo Contrato
+                                    </a>
+                                </div>
+                                <?php if (empty($contratos)): ?>
+                                    <div class="text-center py-4 text-muted">
+                                        <i class="bi bi-file-earmark-x fs-2 d-block mb-2 opacity-25"></i>
+                                        No hay contratos generados para este personal.
+                                    </div>
+                                <?php else: ?>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover align-middle small mb-0">
+                                            <thead class="bg-light text-secondary text-uppercase" style="font-size:0.75rem;">
+                                                <tr>
+                                                    <th>N° Contrato</th>
+                                                    <th>Plantilla</th>
+                                                    <th>Fecha</th>
+                                                    <th class="text-center">Estado</th>
+                                                    <th class="text-end">PDF</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach ($contratos as $c):
+                                                    $estadoColor = match($c['estado']) {
+                                                        'Activo'     => 'success',
+                                                        'Borrador'   => 'secondary',
+                                                        'Finalizado' => 'primary',
+                                                        'Rescindido' => 'danger',
+                                                        default      => 'secondary'
+                                                    };
+                                                ?>
+                                                <tr>
+                                                    <td class="fw-bold" style="color:#198754;"><?= htmlspecialchars($c['numero_contrato']) ?></td>
+                                                    <td class="text-muted"><?= htmlspecialchars($c['plantilla_nombre']) ?></td>
+                                                    <td class="text-muted"><?= date('d/m/Y', strtotime($c['created_at'])) ?></td>
+                                                    <td class="text-center">
+                                                        <span class="badge bg-<?= $estadoColor ?> rounded-pill px-3"><?= $c['estado'] ?></span>
+                                                    </td>
+                                                    <td class="text-end">
+                                                        <button type="button"
+                                                                class="btn btn-sm btn-outline-success rounded-pill px-3 btn-ver-contrato"
+                                                                data-id="<?= $c['id'] ?>"
+                                                                data-numero="<?= htmlspecialchars($c['numero_contrato']) ?>"
+                                                                data-persona="<?= htmlspecialchars($p['first_name'] . ' ' . $p['last_name']) ?>">
+                                                            <i class="bi bi-eye me-1"></i> Ver
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Ver Contrato -->
+<div class="modal fade" id="modalVerContrato" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header border-0 py-3 px-4" style="background:#198754;">
+                <div>
+                    <h5 class="modal-title fw-bold text-white mb-0" id="modalContratoNumero"></h5>
+                    <small class="text-white opacity-75" id="modalContratoPersona"></small>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div style="background:#e9ecef; padding:32px; min-height:500px;">
+                    <div id="modal-contrato-contenido"
+                         style="background:white; max-width:800px; margin:0 auto; padding:60px 70px; box-shadow:0 4px 24px rgba(0,0,0,0.10); min-height:400px; font-family:'Segoe UI', serif; font-size:14px; line-height:1.8; color:#222;">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer bg-light border-0 px-4">
+                <a id="btn-modal-pdf" href="#" target="_blank" class="btn btn-success rounded-pill px-4">
+                    <i class="bi bi-file-pdf me-1"></i> Descargar PDF
+                </a>
+                <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -297,3 +410,4 @@ $avatar = !empty($p['foto'])
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="<?= $basePath ?>/assets/js/resources_personal.js?v=<?= time() ?>"></script>
+<script src="<?= $basePath ?>/assets/js/resources_contratos.js?v=<?= time() ?>"></script>

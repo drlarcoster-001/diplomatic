@@ -87,9 +87,11 @@ final class ResourcesPersonalController extends Controller
             exit();
         }
 
+        $contratosModel = new \App\Models\ResourcesContratosModel();
         $this->view('resources/personal/edit', [
-            'persona' => $persona,
-            'tipos'   => $this->model->getTipos()
+            'persona'   => $persona,
+            'tipos'     => $this->model->getTipos(),
+            'contratos' => $contratosModel->getByPersonal($id)
         ]);
     }
 

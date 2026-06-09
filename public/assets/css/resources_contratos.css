@@ -1,0 +1,59 @@
+/**
+ * MÓDULO: GESTIÓN DE RECURSOS / CONTRATOS
+ * Archivo: public/assets/css/resources_contratos.css
+ * Propósito: Estilos del módulo de generación y gestión de contratos.
+ * Versión: 1.0.0
+ */
+
+/* --- FORMULARIO --- */
+.form-control:focus,
+.form-select:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.15);
+}
+
+/* --- BUSCADOR DE PERSONAL --- */
+#personal-dropdown {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#personal-dropdown .dropdown-item:hover {
+    background-color: #f0fdf4;
+}
+
+/* --- FICHA DEL PERSONAL SELECCIONADO --- */
+#personal-ficha {
+    animation: fadeIn 0.2s ease;
+}
+
+/* --- VISTA PREVIA --- */
+#preview-contenido {
+    border-radius: 4px;
+}
+
+#preview-contenido h1 { font-size: 18pt; margin-bottom: 6mm; }
+#preview-contenido h2 { font-size: 14pt; margin-bottom: 4mm; }
+#preview-contenido h3 { font-size: 12pt; margin-bottom: 3mm; }
+#preview-contenido h4 { font-size: 11pt; margin-bottom: 3mm; }
+#preview-contenido p  { margin-bottom: 3mm; }
+#preview-contenido ul,
+#preview-contenido ol { margin: 2mm 0 3mm 8mm; }
+#preview-contenido li { margin-bottom: 1mm; }
+
+/* --- TABLA INDEX --- */
+.table tbody tr:hover {
+    background-color: rgba(25, 135, 84, 0.04);
+}
+
+/* --- ANIMACIONES --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+#seccion-campos,
+#seccion-preview {
+    animation: fadeIn 0.25s ease;
+}

@@ -1,0 +1,18 @@
+/**
+ * MÓDULO: GESTIÓN DE RECURSOS / CONTRATOS
+ * Archivo: public/assets/css/resources_tipos_contrato.css
+ * Propósito: Estilos del catálogo de tipos de contrato.
+ * Versión: 1.0.0
+ */
+
+/* --- FORMULARIO --- */
+.form-control:focus,
+.form-select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+
+/* --- FILAS DE TABLA --- */
+.table tbody tr:hover {
+    background-color: rgba(13, 110, 253, 0.04);
+}
