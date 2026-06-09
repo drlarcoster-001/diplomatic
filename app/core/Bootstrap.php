@@ -89,6 +89,9 @@ use App\Controllers\FinancialStudentStatementController;
 use App\Controllers\FinancialReverseOperationsController;
 use App\Controllers\FinancialPaymentRejectionController;
 use App\Controllers\FinancialBankStatementsController;
+use App\Controllers\FinancialGastoCategoriasController;
+use App\Controllers\FinancialGastoConceptosController;
+use App\Controllers\FinancialProveedoresController;
 
 
 
@@ -620,6 +623,30 @@ final class Bootstrap
         $router->post('/financial/payment_rejections/incorporar_regular', [FinancialPaymentRejectionController::class, 'incorporar_regular']);
         $router->post('/financial/payment_rejections/eliminar_regular', [FinancialPaymentRejectionController::class, 'eliminar_regular']);
 
+
+        // --- PANEL FINANCIERO: CATEGORÍAS DE GASTO ---
+        $router->get('/financial/gasto-categorias', [FinancialGastoCategoriasController::class, 'index']);
+        $router->post('/financial/gasto-categorias/save', [FinancialGastoCategoriasController::class, 'save']);
+        $router->post('/financial/gasto-categorias/update', [FinancialGastoCategoriasController::class, 'update']);
+        $router->post('/financial/gasto-categorias/delete', [FinancialGastoCategoriasController::class, 'delete']);
+        $router->get('/financial/gasto-categorias/getDetails', [FinancialGastoCategoriasController::class, 'getDetails']);
+
+        // --- PANEL FINANCIERO: CONCEPTOS DE GASTO ---
+        $router->get('/financial/gasto-conceptos', [FinancialGastoConceptosController::class, 'index']);
+        $router->post('/financial/gasto-conceptos/save', [FinancialGastoConceptosController::class, 'save']);
+        $router->post('/financial/gasto-conceptos/update', [FinancialGastoConceptosController::class, 'update']);
+        $router->post('/financial/gasto-conceptos/delete', [FinancialGastoConceptosController::class, 'delete']);
+        $router->get('/financial/gasto-conceptos/getDetails', [FinancialGastoConceptosController::class, 'getDetails']);
+
+        // --- PANEL FINANCIERO: PROVEEDORES ---
+        $router->get('/financial/proveedores', [FinancialProveedoresController::class, 'index']);
+        $router->get('/financial/proveedores/create', [FinancialProveedoresController::class, 'create']);
+        $router->post('/financial/proveedores/save', [FinancialProveedoresController::class, 'save']);
+        $router->get('/financial/proveedores/edit', [FinancialProveedoresController::class, 'edit']);
+        $router->post('/financial/proveedores/update', [FinancialProveedoresController::class, 'update']);
+        $router->post('/financial/proveedores/delete', [FinancialProveedoresController::class, 'delete']);
+        $router->get('/financial/proveedores/getDetails', [FinancialProveedoresController::class, 'getDetails']);
+
         // --- PANEL ESTUDIANTIL ---
         $router->get('/students', [StudentsController::class, 'index']);
         $router->get('/students/inscriptions', [StudentsInscriptionsController::class, 'index']);
@@ -629,6 +656,8 @@ final class Bootstrap
         $router->get('/students/inscriptions/getRateByDate', [StudentsInscriptionsController::class, 'getRateByDate']);
         $router->post('/students/inscriptions/store', [StudentsInscriptionsController::class, 'store']);
         $router->post('/students/inscriptions/send-email', [StudentsInscriptionsController_s6::class, 'sendEmail']);
+
+        
 
         // --- AUTOGESTIÓN ESTUDIANTIL: REGISTRO DE PAGOS ---
         $router->get('/students/payment_registration', [StudentsPaymentRegistrationController::class, 'index']);

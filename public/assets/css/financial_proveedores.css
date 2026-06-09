@@ -1,0 +1,16 @@
+/**
+ * MÓDULO: GESTIÓN FINANCIERA / PROVEEDORES
+ * Archivo: public/assets/css/financial_proveedores.css
+ * Propósito: Estilos del módulo de proveedores.
+ * Versión: 1.0.0
+ */
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #fd7e14;
+    box-shadow: 0 0 0 0.2rem rgba(253, 126, 20, 0.15);
+}
+
+.table tbody tr:hover {
+    background-color: rgba(253, 126, 20, 0.04);
+}

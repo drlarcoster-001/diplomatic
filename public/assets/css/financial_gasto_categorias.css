@@ -1,0 +1,16 @@
+/**
+ * MÓDULO: GESTIÓN FINANCIERA / EGRESOS
+ * Archivo: public/assets/css/financial_gasto_categorias.css
+ * Propósito: Estilos del catálogo de categorías de gasto.
+ * Versión: 1.0.0
+ */
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.15);
+}
+
+.table tbody tr:hover {
+    background-color: rgba(25, 135, 84, 0.04);
+}
