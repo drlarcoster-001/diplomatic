@@ -1,0 +1,15 @@
+/**
+ * MÓDULO: GESTIÓN ACADÉMICA
+ * ARCHIVO: public/assets/css/academic_centros_medicos.css
+ * PROPÓSITO: Estilos del catálogo de Centros Médicos (listado y modal de creación/edición).
+ * VERSIÓN: 1.0.0 - Creación inicial.
+ */
+
+#modalCentroForm .form-label {
+    font-weight: 600;
+    letter-spacing: .02em;
+}
+
+.table .btn-group .btn + .btn {
+    margin-left: 4px;
+}

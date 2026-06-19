@@ -1,0 +1,123 @@
+/**
+ * MÓDULO: GESTIÓN ACADÉMICA
+ * ARCHIVO: public/assets/css/academic_horarios_practicas.css
+ * PROPÓSITO: Estilos del módulo de Horarios de Práctica v2. Incluye layout, tarjetas
+ *            de grupos, modal de estudiantes, tarjetas de asignaciones y calendario mensual.
+ * VERSIÓN: 2.0.0 - Agrega estilos de calendario mensual y UX mejorada.
+ */
+
+/* === LAYOUT === */
+.ht-layout { display: flex; gap: 14px; align-items: flex-start; }
+.ht-panel-form { width: 280px; flex-shrink: 0; }
+.ht-panel-grilla { flex: 1; min-width: 0; }
+
+@media (max-width: 991px) {
+    .ht-layout { flex-direction: column; }
+    .ht-panel-form { width: 100%; }
+    .ht-panel-grilla { width: 100%; overflow-x: auto; }
+}
+
+/* === FORM TITLE === */
+.hp-form-title {
+    display: flex; align-items: center; gap: 7px;
+    padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 600;
+    background: #EEEDFE; color: #3C3489; border: 1px solid #AFA9EC;
+}
+
+/* === ESTADO VACÍO === */
+.ht-empty {
+    text-align: center; padding: 2.5rem 1rem;
+    color: #adb5bd; font-size: 14px; line-height: 1.8;
+}
+
+/* === CONFIRM ICON === */
+.ht-confirm-icon {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: #FCEBEB; display: flex; align-items: center;
+    justify-content: center; margin-bottom: .5rem;
+}
+
+/* === TARJETAS DE GRUPOS === */
+.hp-grupos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+    gap: 12px;
+}
+.hp-grupo-card {
+    background: #fff; border: 0.5px solid #dee2e6;
+    border-radius: 10px; padding: 12px; position: relative;
+}
+.hp-grupo-head { display: flex; justify-content: space-between; align-items: flex-start; }
+.hp-grupo-nombre { font-size: 16px; font-weight: 700; }
+.hp-grupo-count { font-size: 12px; color: #6c757d; margin-top: 2px; }
+
+/* === BOTÓN X EN TARJETAS === */
+.hp-card-x {
+    width: 18px; height: 18px; border-radius: 50%; border: none;
+    cursor: pointer; font-size: 9px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; background: #f1f0fb; color: #3C3489;
+    opacity: .6; transition: all .15s; padding: 0; line-height: 1;
+}
+.hp-card-x:hover { opacity: 1; background: #FCEBEB; color: #A32D2D; }
+
+/* === BOTÓN EDITAR EN LISTA === */
+.hp-btn-edit {
+    width: 22px; height: 22px; border-radius: 50%; border: 1px solid #dee2e6;
+    cursor: pointer; font-size: 10px; display: flex; align-items: center;
+    justify-content: center; background: #f8f9fa; color: #533AB7;
+    transition: all .15s; padding: 0;
+}
+.hp-btn-edit:hover { background: #EEEDFE; border-color: #AFA9EC; }
+
+/* === LISTA DE HORARIOS === */
+.hp-horarios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 10px;
+}
+.hp-horario-grupo-card {
+    background: #fff; border: 0.5px solid #dee2e6;
+    border-radius: 10px; padding: 10px;
+}
+.hp-horario-grupo-nombre {
+    font-size: 13px; font-weight: 700; margin-bottom: 6px;
+    padding-bottom: 6px; border-bottom: 0.5px solid #dee2e6;
+}
+.hp-centro-item {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; color: #495057; padding: 5px 0;
+    border-bottom: 0.5px solid #f0f0f0;
+}
+.hp-centro-item:last-child { border-bottom: none; }
+
+/* === MODAL ESTUDIANTES === */
+.hp-est-row:hover { background: #f8f9fa; }
+
+/* === CALENDARIO MENSUAL === */
+.hp-cal-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+.hp-cal-th {
+    text-align: center; font-size: 11px; font-weight: 600;
+    color: #6c757d; text-transform: uppercase; padding: 4px 2px;
+    border-bottom: 1px solid #dee2e6;
+}
+.hp-cal-td {
+    vertical-align: top; padding: 3px;
+    border: 0.5px solid #f0f0f0;
+    min-width: 40px; min-height: 48px;
+}
+.hp-cal-vacio { background: #fafafa; }
+.hp-cal-hoy { background: #f0edff; }
+.hp-cal-hoy .hp-cal-dia { color: #533AB7; font-weight: 700; }
+.hp-cal-dia {
+    font-size: 12px; font-weight: 500; color: #495057;
+    text-align: right; padding: 1px 3px;
+}
+.hp-cal-evento {
+    font-size: 10px; font-weight: 500; border-radius: 3px;
+    padding: 2px 4px; margin-top: 2px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}

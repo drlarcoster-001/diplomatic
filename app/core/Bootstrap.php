@@ -42,8 +42,12 @@ use App\Controllers\ResourcesTiposPersonalController;
 use App\Controllers\ResourcesTiposContratoController;
 use App\Controllers\ResourcesContratosPlantillasController;
 use App\Controllers\ResourcesContratosController;
+use App\Controllers\ResourcesSesionesController;
 
 use App\Controllers\AcademicPeriodosController;
+use App\Controllers\AcademicCentrosMedicosController;
+use App\Controllers\AcademicHorariosTeoricosController;
+use App\Controllers\AcademicHorariosPracticasController;
 
 use App\Controllers\DocumentVerificationController;
 
@@ -304,6 +308,36 @@ final class Bootstrap
         $router->get('/academic/periodos/changeStatus', [AcademicPeriodosController::class, 'changeStatus']);
         $router->get('/academic/periodos/logAccess', [AcademicPeriodosController::class, 'logAccess']);
 
+        // --- GESTIÓN ACADÉMICA (CENTROS MÉDICOS) ---
+        $router->get('/academic/centros-medicos', [AcademicCentrosMedicosController::class, 'index']);
+        $router->get('/academic/centros-medicos/create', [AcademicCentrosMedicosController::class, 'create']);
+        $router->post('/academic/centros-medicos/save', [AcademicCentrosMedicosController::class, 'save']);
+        $router->get('/academic/centros-medicos/edit', [AcademicCentrosMedicosController::class, 'edit']);
+        $router->post('/academic/centros-medicos/update', [AcademicCentrosMedicosController::class, 'update']);
+        $router->post('/academic/centros-medicos/delete', [AcademicCentrosMedicosController::class, 'delete']);
+
+        // --- GESTIÓN ACADÉMICA (HORARIOS TEÓRICOS) ---
+        $router->get('/academic/horarios-teoricos',          [AcademicHorariosTeoricosController::class, 'index']);
+        $router->get('/academic/horarios-teoricos/manage',   [AcademicHorariosTeoricosController::class, 'manage']);
+        $router->post('/academic/horarios-teoricos/save',    [AcademicHorariosTeoricosController::class, 'save']);
+        $router->post('/academic/horarios-teoricos/update',  [AcademicHorariosTeoricosController::class, 'update']);
+        $router->post('/academic/horarios-teoricos/delete',  [AcademicHorariosTeoricosController::class, 'delete']);
+
+
+        // --- GESTIÓN ACADÉMICA (HORARIOS DE PRÁCTICA) ---
+        $router->get('/academic/horarios-practicas',                   [AcademicHorariosPracticasController::class, 'index']);
+        $router->get('/academic/horarios-practicas/manage',            [AcademicHorariosPracticasController::class, 'manage']);
+        $router->post('/academic/horarios-practicas/saveGrupo',        [AcademicHorariosPracticasController::class, 'saveGrupo']);
+        $router->post('/academic/horarios-practicas/deleteGrupo',      [AcademicHorariosPracticasController::class, 'deleteGrupo']);
+        $router->post('/academic/horarios-practicas/saveHorario',      [AcademicHorariosPracticasController::class, 'saveHorario']);
+        $router->post('/academic/horarios-practicas/deleteHorario',    [AcademicHorariosPracticasController::class, 'deleteHorario']);
+        $router->post('/academic/horarios-practicas/saveFechas',       [AcademicHorariosPracticasController::class, 'saveFechas']);
+        $router->get('/academic/horarios-practicas/getFechas',         [AcademicHorariosPracticasController::class, 'getFechas']);
+        $router->post('/academic/horarios-practicas/saveEstudiante',   [AcademicHorariosPracticasController::class, 'saveEstudiante']);
+        $router->post('/academic/horarios-practicas/deleteEstudiante', [AcademicHorariosPracticasController::class, 'deleteEstudiante']);
+        $router->get('/academic/horarios-practicas/getEstudiantes',    [AcademicHorariosPracticasController::class, 'getEstudiantes']);
+ 
+
         // --- PANEL ADMINISTRATIVO GENERAL ---
         $router->get('/administrative', [AdministrativeController::class, 'index']);
         $router->get('/administrative/enrollment', [AdministrativeController::class, 'enrollment']);
@@ -457,7 +491,14 @@ final class Bootstrap
         $router->get('/resources/contratos/buscarPersonal', [ResourcesContratosController::class, 'buscarPersonal']);
         $router->get('/resources/contratos/getPlantilla', [ResourcesContratosController::class, 'getPlantilla']);
         $router->get('/resources/contratos/getPersonal', [ResourcesContratosController::class, 'getPersonal']);
-
+        
+        // ---- MÓDULO: RECURSOS HUMANOS / SESIONES
+        $router->get('/resources/sesiones',             [ResourcesSesionesController::class, 'index']);
+        $router->get('/resources/sesiones/manage',      [ResourcesSesionesController::class, 'manage']);
+        $router->get('/resources/sesiones/getPersonal', [ResourcesSesionesController::class, 'getPersonal']);
+        $router->get('/resources/sesiones/getSesiones', [ResourcesSesionesController::class, 'getSesiones']);
+        $router->post('/resources/sesiones/save',       [ResourcesSesionesController::class, 'save']);
+        $router->post('/resources/sesiones/delete',     [ResourcesSesionesController::class, 'delete']);
 
 
 

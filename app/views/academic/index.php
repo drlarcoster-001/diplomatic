@@ -118,5 +118,41 @@ $userRole = $_SESSION['user']['role'] ?? '';
         </div>
         <?php endif; ?>
 
+        <div class="col-md-6 col-lg-3">
+            <a href="<?= htmlspecialchars($basePath) ?>/academic/centros-medicos" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #0aa1dd !important;">
+                    <div class="p-3 rounded-circle mx-auto mb-3" style="width: fit-content; background-color: rgba(10, 161, 221, 0.1); color: #0aa1dd;">
+                        <i class="bi bi-hospital-fill fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold" style="color: #0aa1dd;">Centros Médicos</h5>
+                    <p class="text-muted small">Catálogo de centros médicos para Horarios de Práctica.</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <a href="<?= htmlspecialchars($basePath) ?>/academic/horarios-teoricos" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #6f42c1 !important;">
+                    <div class="p-3 rounded-circle mx-auto mb-3" style="width: fit-content; background-color: rgba(111, 66, 193, 0.1); color: #6f42c1;">
+                        <i class="bi bi-clock-fill fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold" style="color: #6f42c1;">Horarios Teóricos</h5>
+                    <p class="text-muted small">Configuración de días y horarios de clase por oferta académica.</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <a href="<?= htmlspecialchars($basePath) ?>/academic/horarios-practicas" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #0f6e56 !important;">
+                    <div class="p-3 rounded-circle mx-auto mb-3" style="width: fit-content; background-color: rgba(15, 110, 86, 0.1); color: #0f6e56;">
+                        <i class="bi bi-hospital-fill fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold" style="color: #0f6e56;">Horarios de Práctica</h5>
+                    <p class="text-muted small">Configuración de grupos y centros médicos por oferta académica.</p>
+                </div>
+            </a>
+        </div>
+
     </div>
 </div>

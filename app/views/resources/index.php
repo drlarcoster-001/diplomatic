@@ -85,6 +85,19 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
             </a>
         </div>
 
+        <!-- Programar Sesiones -->
+        <div class="col-md-6 col-lg-3">
+            <a href="<?= htmlspecialchars($basePath) ?>/resources/sesiones" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #0f6e56 !important;">
+                    <div class="p-3 rounded-circle mx-auto mb-3" style="width: fit-content; background-color: rgba(15, 110, 86, 0.1); color: #0f6e56;">
+                        <i class="bi bi-calendar-check-fill fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold" style="color: #0f6e56;">Programar Sesiones</h5>
+                    <p class="text-muted small">Asignación de personal docente a horarios teóricos y prácticos por oferta.</p>
+                </div>
+            </a>
+        </div>
+
         <!-- Nómina -->
         <div class="col-md-6 col-lg-3">
             <a href="<?= htmlspecialchars($basePath) ?>/resources/nomina" class="text-decoration-none text-dark">

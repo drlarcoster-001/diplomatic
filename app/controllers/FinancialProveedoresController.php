@@ -67,7 +67,11 @@ final class FinancialProveedoresController extends Controller
                 'entity_id'   => $id
             ]);
 
-            header("Location: /diplomatic/public/financial/proveedores/edit?id={$id}&created=1");
+            if (($_POST['redirect'] ?? '') === 'index') {
+                header('Location: /diplomatic/public/financial/proveedores?created=1');
+            } else {
+                header("Location: /diplomatic/public/financial/proveedores/edit?id={$id}&created=1");
+            }
         } catch (\Exception $e) {
             header('Location: /diplomatic/public/financial/proveedores/create?error=duplicate');
         }

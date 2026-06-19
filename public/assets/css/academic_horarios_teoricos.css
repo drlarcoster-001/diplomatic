@@ -1,0 +1,183 @@
+/**
+ * MÓDULO: GESTIÓN ACADÉMICA
+ * ARCHIVO: public/assets/css/academic_horarios_teoricos.css
+ * PROPÓSITO: Estilos del módulo single-page de Horarios Teóricos (grilla, bloques,
+ *            barra de modo, badge de duración, estado vacío).
+ * VERSIÓN: 2.0.0 - Rediseño completo alineado a la paleta del sistema.
+ */
+
+/* === LAYOUT PRINCIPAL === */
+.ht-layout {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+}
+.ht-panel-form {
+    width: 280px;
+    flex-shrink: 0;
+}
+.ht-panel-grilla {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Tablet y móvil: formulario arriba, grilla abajo con scroll horizontal */
+@media (max-width: 991px) {
+    .ht-layout {
+        flex-direction: column;
+    }
+    .ht-panel-form {
+        width: 100%;
+    }
+    .ht-panel-grilla {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .ht-grilla {
+        min-width: 540px; /* fuerza scroll horizontal si no cabe */
+    }
+}
+
+/* === BARRA DE MODO === */
+.ht-mode-bar {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+}
+.ht-mode-new  { background: #EEEDFE; color: #3C3489; border: 1px solid #AFA9EC; }
+.ht-mode-edit { background: #FAEEDA; color: #633806; border: 1px solid #EF9F27; }
+
+/* === BADGE DURACIÓN === */
+.ht-dur-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 5px 14px;
+    background: #f1f0fb;
+    border: 1px solid #d0cef7;
+    color: #3C3489;
+    transition: all .2s;
+}
+.ht-dur-ok    { background: #EEEDFE; border-color: #AFA9EC; color: #3C3489; }
+.ht-dur-error { background: #FCEBEB; border-color: #E24B4A; color: #A32D2D; }
+
+/* === BOTÓN ELIMINAR (FORMULARIO) === */
+.ht-btn-danger {
+    background: #FCEBEB;
+    color: #A32D2D;
+    border: 1px solid #F09595;
+}
+.ht-btn-danger:hover { background: #F7C1C1; }
+
+/* === GRILLA SEMANAL === */
+.ht-grilla {
+    display: grid;
+    border: 0.5px solid var(--bs-border-color, #dee2e6);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.ht-ghead {
+    font-size: 11px;
+    font-weight: 600;
+    color: #6c757d;
+    text-align: center;
+    padding: 8px 4px;
+    background: #f8f9fa;
+    border-bottom: 0.5px solid #dee2e6;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+}
+.ht-gtime {
+    font-size: 10px;
+    color: #adb5bd;
+    text-align: right;
+    padding-right: 6px;
+    padding-top: 3px;
+    border-top: 0.5px solid #dee2e6;
+    height: 32px;
+    background: #f8f9fa;
+}
+.ht-gcell {
+    border-left: 0.5px solid #dee2e6;
+    border-top: 0.5px solid #dee2e6;
+    height: 32px;
+    position: relative;
+    background: #fff;
+}
+
+/* === BLOQUES DE HORARIO === */
+.ht-bloque {
+    position: absolute;
+    left: 2px;
+    right: 2px;
+    border-radius: 5px;
+    padding: 3px 5px;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 2;
+    transition: filter .15s, box-shadow .15s;
+}
+.ht-bloque:hover          { filter: brightness(.92); box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+.ht-bloque:hover .ht-bx  { opacity: 1; }
+.ht-bloque-sel            { box-shadow: 0 0 0 2px #533AB7, 0 2px 8px rgba(83,58,183,.25) !important; }
+
+.ht-btitle {
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 14px;
+}
+.ht-bhora { font-size: 9px; opacity: .8; }
+
+/* === BOTÓN X EN BLOQUE === */
+.ht-bx {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-size: 9px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity .15s;
+    line-height: 1;
+    padding: 0;
+}
+.ht-bx:hover { filter: brightness(.85); }
+
+/* === ESTADO VACÍO === */
+.ht-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #adb5bd;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* === MODAL CONFIRMAR ELIMINAR === */
+.ht-confirm-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #FCEBEB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: .5rem;
+}
