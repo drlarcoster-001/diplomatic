@@ -1,0 +1,133 @@
+/**
+ * MÓDULO: RECURSOS HUMANOS / NÓMINA
+ * ARCHIVO: public/assets/css/resources_nomina.css
+ * PROPÓSITO: Estilos del módulo de Nómina (create, manage, grid, modales).
+ * VERSIÓN: 1.0.0 - Creación inicial.
+ */
+
+/* === TÍTULOS DE SECCIÓN === */
+.n-section-title {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 13px; font-weight: 600; color: #495057;
+}
+
+/* === ESTADO VACÍO === */
+.n-empty {
+    text-align: center; padding: 2.5rem 1rem;
+    color: #adb5bd; font-size: 13px; line-height: 1.8;
+}
+
+/* === AVISO === */
+.n-aviso {
+    font-size: 13px; color: #495057;
+    background: #f8f9fa; border-radius: 6px;
+    padding: 10px 12px; border-left: 3px solid #dee2e6;
+}
+
+/* === TIPO DE NÓMINA (create.php) === */
+.n-tipo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+.n-tipo-card {
+    position: relative;
+    border: 1.5px solid #dee2e6;
+    border-radius: 12px;
+    padding: 16px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all .15s;
+}
+.n-tipo-card:hover { border-color: #dc3545; background: #fff5f5; }
+.n-tipo-selected   { border-color: #dc3545; background: #fff5f5; box-shadow: 0 0 0 2px rgba(220,53,69,.15); }
+.n-tipo-radio { position: absolute; opacity: 0; pointer-events: none; }
+.n-tipo-content i { color: #dc3545; }
+
+/* === BADGE NOTIFICACIÓN ESTILO MÓVIL === */
+.n-notif-badge {
+    position: absolute;
+    top: -6px;
+    right: -10px;
+    background: #dc3545;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,.2);
+}
+
+@media (max-width: 576px) {
+    .n-tipo-grid { grid-template-columns: 1fr; }
+}
+
+/* === DROPDOWN BUSCADOR === */
+.n-dropdown {
+    position: absolute; top: 100%; left: 0; right: 0; z-index: 1000;
+    background: #fff; border: 1px solid #dee2e6; border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.1); max-height: 280px; overflow-y: auto;
+    margin-top: 4px;
+}
+.n-dropdown-item {
+    display: block; width: 100%; text-align: left; border: none;
+    background: none; padding: 8px 14px; cursor: pointer;
+    border-bottom: 0.5px solid #f0f0f0;
+}
+.n-dropdown-item:hover { background: #f8f9fa; }
+.n-dropdown-item:last-child { border-bottom: none; }
+
+/* === TABLA DE PERSONAL === */
+.n-table thead th {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    color: #6c757d; border-bottom: 2px solid #dee2e6;
+}
+.n-table td { font-size: 13px; vertical-align: middle; }
+
+/* === BARRA DE TOTALES === */
+.n-totales-bar {
+    padding: 14px; border-top: 1px solid #dee2e6;
+}
+
+/* === COLA DE SESIONES PENDIENTES === */
+.n-cola-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 12px; border: 0.5px solid #dee2e6; border-radius: 8px;
+    background: #fff; margin-bottom: 6px;
+}
+.n-cola-item:hover { border-color: #f8c33c; background: #FFFBF0; }
+.n-cola-nombre  { font-size: 13px; font-weight: 700; color: #212529; }
+.n-cola-detalle { font-size: 11px; color: #6c757d; margin-top: 2px; }
+.n-cola-monto   { font-size: 13px; font-weight: 700; color: #633806; }
+
+.n-cola-wrap { margin-bottom: 6px; }
+.n-cola-wrap .n-cola-item { margin-bottom: 0; border-radius: 8px 8px 0 0; }
+.n-cola-fechas {
+    border: 0.5px solid #dee2e6; border-top: none; border-radius: 0 0 8px 8px;
+    padding: 8px 14px; background: #FFFBF0;
+}
+.n-cola-fecha-item {
+    font-size: 12px; padding: 4px 0; border-bottom: 0.5px solid #f0e6cc;
+}
+.n-cola-fecha-item:last-child { border-bottom: none; }
+
+/* === MODAL CONCEPTOS === */
+.n-concepto-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 8px; border-bottom: 0.5px solid #f0f0f0; font-size: 12px;
+}
+.n-concepto-item:last-child { border-bottom: none; }
+
+.n-btn-x {
+    width: 18px; height: 18px; border-radius: 50%; border: none;
+    cursor: pointer; font-size: 9px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    background: #f1f0f0; color: #6c757d; opacity: .6; transition: all .15s;
+}
+.n-btn-x:hover { opacity: 1; background: #FCEBEB; color: #A32D2D; }

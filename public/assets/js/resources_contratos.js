@@ -104,6 +104,7 @@ $(document).ready(function () {
         document.getElementById('personal-ficha').style.display = 'block';
         ocultarDropdown();
         actualizarPreview();
+        checkAndShowPreview();
     }
 
     const btnLimpiar = document.getElementById('btn-limpiar-personal');
@@ -136,6 +137,7 @@ $(document).ready(function () {
                     plantillaSeleccionada = data.plantilla;
                     renderCampos(data.plantilla.campos || []);
                     actualizarPreview();
+                    checkAndShowPreview();
                 });
         });
     }
@@ -174,6 +176,16 @@ $(document).ready(function () {
         container.querySelectorAll('.campo-personalizado').forEach(inp => {
             inp.addEventListener('input', actualizarPreview);
         });
+    }
+
+
+
+    function checkAndShowPreview() {
+        const pid = document.getElementById('personal_id').value;
+        const tid = document.getElementById('select-plantilla').value;
+        if (pid && tid) {
+            document.getElementById('seccion-preview').style.display = 'block';
+        }
     }
 
     // === 4. VISTA PREVIA EN TIEMPO REAL ===

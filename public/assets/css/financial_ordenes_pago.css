@@ -1,0 +1,56 @@
+/**
+ * MÓDULO: FINANCIERO / ÓRDENES DE PAGO
+ * ARCHIVO: public/assets/css/financial_ordenes_pago.css
+ * VERSIÓN: 1.0.0 - Creación inicial.
+ */
+
+.op-detalle {
+    background: #fff; border: 0.5px solid #dee2e6; border-radius: 14px;
+    overflow: hidden; max-width: 900px; margin: 0 auto;
+}
+
+.op-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 24px 28px; border-bottom: 2px solid #212529;
+}
+.op-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .5px; color: #6c757d;
+}
+.op-numero { font-size: 20px; font-weight: 700; font-family: monospace; color: #533AB7; }
+.op-tipo-valor { font-size: 15px; font-weight: 700; color: #212529; }
+.op-valor { font-size: 15px; font-weight: 600; color: #212529; }
+
+.op-alerta-rechazo {
+    background: #FCEBEB; border-bottom: 1px solid #E24B4A; color: #A32D2D;
+    padding: 12px 28px; font-size: 13px;
+}
+
+.op-bancario {
+    background: #f8f9fa; border: 0.5px solid #dee2e6; border-radius: 8px;
+    padding: 8px 12px; font-size: 12px; color: #495057;
+}
+
+.op-body { padding: 24px 28px; }
+
+.op-totales {
+    margin-top: 24px; padding-top: 16px; border-top: 0.5px dashed #ced4da;
+    max-width: 320px; margin-left: auto;
+}
+.op-total-linea {
+    display: flex; justify-content: space-between; padding: 5px 0; font-size: 13px; color: #6c757d;
+}
+.op-total-final {
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 2px solid #212529; margin-top: 8px; padding-top: 10px;
+    font-size: 18px; font-weight: 700; color: #085041;
+}
+.op-total-secundario {
+    display: flex; justify-content: space-between; font-size: 12px;
+    color: #6c757d; margin-top: 6px; font-family: monospace;
+}
+
+@media (max-width: 768px) {
+    .op-header { flex-direction: column; gap: 12px; }
+    .op-header .text-end { text-align: left !important; }
+}

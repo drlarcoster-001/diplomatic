@@ -93,6 +93,15 @@ $userRole = strtoupper(trim($_SESSION['user']['role'] ?? ''));
       </a>
     <?php endif; ?>
 
+    <?php if ($userRole === 'PROFESOR'): ?>
+      <div class="px-4 mt-4 mb-2">
+        <span class="text-uppercase text-secondary fw-bold" style="font-size: 0.75rem; letter-spacing: 1px;">Docencia</span>
+      </div>
+      <a href="<?= htmlspecialchars($basePath) ?>/professors-portal" class="list-group-item list-group-item-action bg-dark text-white border-0 py-2 px-4">
+          <i class="bi bi-person-video2 me-2 text-warning"></i> Panel Docente
+      </a>
+    <?php endif; ?>
+
   </nav>
 
   <div class="mt-auto border-top border-secondary pb-2">

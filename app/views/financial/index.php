@@ -153,5 +153,57 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
             </a>
         </div>
 
+        <!-- Pagos a Proveedores-->
+        <div class="col-md-6 col-lg-3">
+            <a href="<?= htmlspecialchars($basePath) ?>/financial/pagos-proveedores" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #533AB7 !important;">
+                    <div class="bg-purple bg-opacity-10 text-purple p-3 rounded-circle mx-auto mb-3" style="width: fit-content; background-color: rgba(83,58,183,0.1) !important; color: #533AB7 !important;">
+                        <i class="bi bi-receipt-cutoff fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold" style="color: #533AB7;">Pagos a Proveedores</h5>
+                    <p class="text-muted small">Facturación y pagos a proveedores registrados.</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Aprobación de Pagos a Proveedores-->
+        <div class="col-md-6 col-lg-3">
+            <a href="<?= htmlspecialchars($basePath) ?>/financial/aprobar-pagos" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #198754 !important;">
+                    <div class="bg-success bg-opacity-10 text-success p-3 rounded-circle mx-auto mb-3" style="width: fit-content;">
+                        <i class="bi bi-clipboard2-check-fill fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold" style="color: #198754;">Aprobar Pagos a Proveedores</h5>
+                    <p class="text-muted small">Revisión y aprobación de pagos procesados a proveedores.</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Órdenes de Pago -->
+        <div class="col-md-6 col-lg-3">
+            <a href="<?= htmlspecialchars($basePath) ?>/financial/ordenes-pago" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #0C447C !important;">
+                    <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-circle mx-auto mb-3" style="width: fit-content;">
+                        <i class="bi bi-journal-check fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold" style="color: #0C447C;">Órdenes de Pago</h5>
+                    <p class="text-muted small">Revisión y aprobación de todas las órdenes generadas.</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Tesorería -->
+        <div class="col-md-6 col-lg-3">
+            <a href="<?= htmlspecialchars($basePath) ?>/financial/tesoreria" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #198754 !important;">
+                    <div class="bg-success bg-opacity-10 text-success p-3 rounded-circle mx-auto mb-3" style="width: fit-content;">
+                        <i class="bi bi-cash-stack fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold" style="color: #198754;">Tesorería</h5>
+                    <p class="text-muted small">Ejecución de pagos sobre órdenes aprobadas.</p>
+                </div>
+            </a>
+        </div>
+
     </div>
 </div>

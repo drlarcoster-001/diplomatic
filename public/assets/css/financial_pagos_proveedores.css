@@ -1,0 +1,128 @@
+/**
+ * MÓDULO: FINANCIERO / PAGOS A PROVEEDORES
+ * ARCHIVO: public/assets/css/financial_pagos_proveedores.css
+ * VERSIÓN: 2.0.0 - Rediseño completo tipo factura.
+ */
+
+.pp-factura {
+    background: #fff; border: 0.5px solid #dee2e6; border-radius: 14px;
+    overflow: hidden; max-width: 980px; margin: 0 auto;
+}
+
+/* === ZONA 1: ENCABEZADO === */
+.pp-factura-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 24px 28px; border-bottom: 2px solid #212529; gap: 24px;
+}
+.pp-factura-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .5px; color: #6c757d;
+}
+.pp-factura-nombre { font-size: 20px; font-weight: 700; color: #212529; margin: 2px 0; }
+.pp-factura-sub { font-size: 13px; color: #495057; }
+.pp-factura-bancario { font-size: 12px; color: #495057; margin-top: 10px; line-height: 1.6; }
+.pp-factura-doc { text-align: right; flex-shrink: 0; }
+.pp-factura-numero { font-size: 18px; font-weight: 700; font-family: monospace; color: #533AB7; }
+
+/* === ZONA 2: CUERPO === */
+.pp-factura-body { padding: 20px 28px; }
+
+.pp-tabla-items { width: 100%; border-collapse: collapse; }
+.pp-tabla-items thead th {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; color: #6c757d;
+    padding: 6px 8px; border-bottom: 2px solid #dee2e6; text-align: left;
+}
+.pp-tabla-items tbody td {
+    padding: 9px 8px; font-size: 13px; border-bottom: 0.5px solid #f0f0f0; vertical-align: middle;
+}
+.pp-fila-item:hover { background: #fafafa; }
+.pp-fila-nueva { background: #FFFBF0; }
+.pp-fila-nueva td { padding: 6px 8px; }
+
+.pp-input {
+    width: 100%; border: 0.5px solid #dee2e6; border-radius: 6px;
+    padding: 6px 8px; font-size: 13px; background: #fff;
+}
+.pp-input:focus { outline: none; border-color: #533AB7; box-shadow: 0 0 0 2px rgba(83,58,183,.12); }
+
+.pp-fila-add, .pp-fila-del {
+    width: 26px; height: 26px; border-radius: 50%; border: none;
+    display: flex; align-items: center; justify-content: center; font-size: 12px;
+}
+.pp-fila-add { background: #533AB7; color: #fff; }
+.pp-fila-add:hover { background: #432F94; }
+.pp-fila-del { background: transparent; color: #adb5bd; }
+.pp-fila-del:hover { background: #FCEBEB; color: #A32D2D; }
+
+.pp-hint {
+    font-size: 12px; color: #6c757d; margin-top: 8px;
+    display: flex; align-items: center; gap: 6px;
+}
+.pp-hint kbd {
+    background: #f1f3f5; border: 0.5px solid #dee2e6; border-radius: 4px;
+    padding: 1px 6px; font-size: 11px; font-family: monospace;
+}
+
+/* === AJUSTES === */
+.pp-ajustes-zona { margin-top: 24px; padding-top: 16px; border-top: 0.5px dashed #ced4da; }
+
+.pp-ajuste-chip {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #f8f9fa; border: 0.5px solid #dee2e6; border-radius: 999px;
+    padding: 6px 12px; font-size: 12px; margin: 0 6px 6px 0;
+}
+.pp-chip-del {
+    border: none; background: transparent; color: #adb5bd;
+    width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;
+}
+.pp-chip-del:hover { color: #A32D2D; }
+
+.pp-ajuste-presets { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.pp-preset-btn {
+    border: 0.5px solid #dee2e6; background: #fff; border-radius: 999px;
+    padding: 6px 14px; font-size: 12px; font-weight: 600; color: #495057;
+    cursor: pointer; transition: all .15s;
+}
+.pp-preset-btn:hover { border-color: #533AB7; color: #533AB7; background: #F4F2FC; }
+.pp-preset-custom { border-style: dashed; }
+
+.pp-ajuste-form {
+    display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; align-items: center;
+}
+.pp-input-sm {
+    border: 0.5px solid #dee2e6; border-radius: 6px; padding: 6px 10px; font-size: 12px;
+}
+
+/* === ZONA 3: PIE === */
+.pp-factura-footer {
+    padding: 20px 28px 28px; display: flex; justify-content: flex-end;
+}
+.pp-totales-box { width: 320px; }
+.pp-total-linea {
+    display: flex; justify-content: space-between; padding: 5px 0; font-size: 13px;
+}
+.pp-total-final {
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 2px solid #212529; margin-top: 10px; padding-top: 10px;
+    font-size: 16px; font-weight: 700; color: #085041;
+}
+.pp-total-secundario {
+    display: flex; justify-content: space-between; font-size: 12px;
+    color: #6c757d; margin-top: 8px; font-family: monospace;
+}
+
+.pp-datos-bancarios { display: none; }
+
+@media (max-width: 768px) {
+    .pp-factura-header { flex-direction: column; }
+    .pp-factura-doc { text-align: left; }
+    .pp-factura-footer { justify-content: stretch; }
+    .pp-totales-box { width: 100%; }
+}
+
+.pp-cambiar-proveedor-btn {
+    border: none; background: transparent; color: #533AB7;
+    font-size: 11px; font-weight: 700; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 3px;
+}
+.pp-cambiar-proveedor-btn:hover { text-decoration: underline; }

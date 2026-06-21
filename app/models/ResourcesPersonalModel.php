@@ -180,4 +180,14 @@ public function getById(int $id): ?array
     $profesor = $stmt->fetch(\PDO::FETCH_ASSOC);
     return $profesor ?: null;
 }
+
+public function countSesionesProgramadas(int $personalId): int
+{
+    $stmt = $this->db->prepare(
+        "SELECT COUNT(*) FROM tbl_sesiones
+         WHERE personal_id = ? AND estado = 'PROGRAMADA' AND is_active = 1"
+    );
+    $stmt->execute([$personalId]);
+    return (int) $stmt->fetchColumn();
+}
 }

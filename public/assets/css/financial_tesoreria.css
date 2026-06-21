@@ -1,0 +1,62 @@
+/**
+ * MÓDULO: FINANCIERO / TESORERÍA
+ * ARCHIVO: public/assets/css/financial_tesoreria.css
+ * VERSIÓN: 1.0.0 - Creación inicial.
+ */
+
+.tes-detalle {
+    background: #fff; border: 0.5px solid #dee2e6; border-radius: 14px;
+    overflow: hidden; max-width: 900px; margin: 0 auto;
+}
+
+.tes-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 24px 28px; border-bottom: 2px solid #212529;
+}
+.tes-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .5px; color: #6c757d;
+}
+.tes-numero { font-size: 20px; font-weight: 700; font-family: monospace; color: #0C447C; }
+.tes-valor { font-size: 15px; font-weight: 700; color: #212529; }
+
+.tes-body { padding: 24px 28px; }
+
+.tes-totales { border-bottom: 0.5px dashed #ced4da; padding-bottom: 16px; }
+.tes-total-linea { display: flex; justify-content: space-between; padding: 5px 0; font-size: 13px; color: #6c757d; }
+.tes-total-final {
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 2px solid #212529; margin-top: 8px; padding-top: 10px;
+    font-size: 18px; font-weight: 700; color: #085041;
+}
+.tes-total-secundario {
+    display: flex; justify-content: space-between; font-size: 12px;
+    color: #6c757d; margin-top: 6px; font-family: monospace;
+}
+
+.tes-form-pago { background: #f8f9fa; border-radius: 10px; padding: 20px; }
+
+.tes-arqueo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.tes-arqueo-item {
+    display: flex; flex-direction: column; gap: 4px; background: #fff;
+    border: 0.5px solid #dee2e6; border-radius: 8px; padding: 8px;
+}
+.tes-arqueo-den { font-size: 13px; font-weight: 700; color: #198754; }
+.tes-arqueo-sub { font-size: 11px; color: #6c757d; }
+
+.tes-arqueo-total {
+    display: flex; gap: 12px; align-items: center; margin-top: 14px;
+    font-size: 15px; font-weight: 700; color: #212529;
+}
+
+.tes-pagado-detalle { background: #f8f9fa; border-radius: 10px; padding: 20px; }
+.tes-arqueo-resultado {
+    background: #fff; border: 0.5px solid #dee2e6; border-radius: 8px;
+    padding: 10px 14px; font-size: 13px; color: #212529;
+}
+
+@media (max-width: 768px) {
+    .tes-header { flex-direction: column; gap: 12px; }
+    .tes-header .text-end { text-align: left !important; }
+    .tes-arqueo-grid { grid-template-columns: repeat(2, 1fr); }
+}

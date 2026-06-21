@@ -1,0 +1,12 @@
+/**
+ * MÓDULO: CORRESPONDENCIA / GENERADOR DE DOCUMENTOS
+ * ARCHIVO: public/assets/css/operational_correspondencia_documentos.css
+ * VERSIÓN: 1.0.0 - Creación inicial.
+ */
+
+#registrosContainer .form-check { padding-left: 2rem; }
+#registrosContainer .form-check:last-child { border-bottom: none !important; }
+
+.campo-personalizado-input { background: #f8f9fa; }
+
+#contadorSeleccionados { font-weight: 700; color: #0d6efd; }

@@ -1,0 +1,73 @@
+/**
+ * MÓDULO: RECURSOS HUMANOS / PROCESAR SESIONES
+ * ARCHIVO: public/assets/css/resources_procesar_sesiones.css
+ * PROPÓSITO: Estilos del módulo de Procesar Sesiones.
+ * VERSIÓN: 1.0.0 - Creación inicial.
+ */
+
+/* === LAYOUT === */
+.ps-layout {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+}
+.ps-panel-left  { width: 320px; flex-shrink: 0; }
+.ps-panel-right { flex: 1; min-width: 0; }
+
+@media (max-width: 991px) {
+    .ps-layout { flex-direction: column; }
+    .ps-panel-left  { width: 100%; }
+    .ps-panel-right { width: 100%; }
+}
+
+/* === TÍTULOS === */
+.ps-section-title {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 13px; font-weight: 600;
+    padding: 8px 12px; border-radius: 8px;
+    background: #FAEEDA; color: #633806; border: 1px solid #BA7517;
+}
+
+/* === ESTADO VACÍO === */
+.ps-empty {
+    text-align: center; padding: 2.5rem 1rem;
+    color: #adb5bd; font-size: 13px; line-height: 1.8;
+}
+
+/* === LISTA DE SESIONES === */
+.ps-sesion-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 12px; border-radius: 8px; cursor: pointer;
+    margin-bottom: 6px; border: 0.5px solid #dee2e6;
+    background: #fff; transition: all .15s;
+}
+.ps-sesion-item:hover { background: #f8f9fa; border-color: #AFA9EC; }
+.ps-sesion-activa {
+    background: #EEEDFE !important;
+    border-color: #7F77DD !important;
+}
+.ps-sesion-profesor { font-size: 13px; font-weight: 600; color: #212529; }
+.ps-sesion-horario  { font-size: 11px; color: #6c757d; margin-top: 1px; }
+.ps-sesion-fecha    { font-size: 11px; color: #533AB7; margin-top: 2px; }
+
+/* === PANEL DE ASISTENCIA === */
+.ps-asistencia-header {
+    padding-bottom: 12px;
+    border-bottom: 0.5px solid #dee2e6;
+}
+
+/* === AVISO === */
+.ps-aviso {
+    font-size: 12px; color: #6c757d;
+    background: #f8f9fa; border-radius: 6px;
+    padding: 8px 12px; border-left: 3px solid #dee2e6;
+}
+
+/* === LISTA DE ESTUDIANTES === */
+.ps-estudiante-item {
+    display: flex; align-items: center;
+    padding: 8px 4px; border-bottom: 0.5px solid #f0f0f0;
+    transition: background .1s;
+}
+.ps-estudiante-item:hover { background: #f8f9fa; }
+.ps-estudiante-item:last-child { border-bottom: none; }

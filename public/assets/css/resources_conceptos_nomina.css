@@ -1,0 +1,61 @@
+/**
+ * MÓDULO: RECURSOS HUMANOS / CONCEPTOS DE NÓMINA
+ * ARCHIVO: public/assets/css/resources_conceptos_nomina.css
+ * PROPÓSITO: Estilos del módulo de Conceptos de Nómina.
+ * VERSIÓN: 1.0.0 - Creación inicial.
+ */
+
+/* === LAYOUT === */
+.cn-layout { display: flex; gap: 14px; align-items: flex-start; }
+.cn-panel-form  { width: 300px; flex-shrink: 0; }
+.cn-panel-lista { flex: 1; min-width: 0; }
+
+@media (max-width: 991px) {
+    .cn-layout { flex-direction: column; }
+    .cn-panel-form  { width: 100%; }
+    .cn-panel-lista { width: 100%; }
+}
+
+/* === TÍTULOS === */
+.cn-form-title {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 13px; font-weight: 600;
+    padding: 8px 12px; border-radius: 8px;
+}
+.cn-asig { background: #E1F5EE; color: #085041; border: 1px solid #1D9E75; }
+.cn-ded  { background: #FCEBEB; color: #A32D2D; border: 1px solid #E24B4A; }
+
+/* === ESTADO VACÍO === */
+.cn-empty {
+    text-align: center; padding: 2.5rem 1rem;
+    color: #adb5bd; font-size: 13px; line-height: 1.8;
+}
+
+/* === ÍTEMS DE LA LISTA === */
+.cn-item {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 12px; border: 0.5px solid #dee2e6; border-radius: 10px;
+    background: #fff; margin-bottom: 8px;
+}
+.cn-item-left  { flex: 1; min-width: 0; }
+.cn-item-right { flex-shrink: 0; text-align: right; margin-left: 10px; }
+.cn-item-nombre { font-size: 13px; font-weight: 700; color: #212529; }
+.cn-item-desc   { font-size: 11px; color: #6c757d; margin-top: 3px; }
+.cn-valor       { font-size: 12px; font-weight: 600; color: #085041; }
+.cn-formula     { font-size: 11px; background: #f8f9fa; padding: 2px 6px; border-radius: 4px; color: #633806; }
+
+/* === BOTONES DE ACCIÓN === */
+.cn-btn-edit, .cn-btn-del {
+    width: 26px; height: 26px; border-radius: 6px; border: 0.5px solid #dee2e6;
+    cursor: pointer; font-size: 11px; display: inline-flex; align-items: center;
+    justify-content: center; background: #f8f9fa; transition: all .15s;
+}
+.cn-btn-edit:hover { background: #EEEDFE; border-color: #AFA9EC; color: #3C3489; }
+.cn-btn-del:hover  { background: #FCEBEB; border-color: #E24B4A; color: #A32D2D; }
+
+/* === CONFIRM ICON === */
+.cn-confirm-icon {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: #FCEBEB; display: flex; align-items: center;
+    justify-content: center; margin-bottom: .5rem;
+}

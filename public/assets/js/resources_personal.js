@@ -26,6 +26,15 @@ $(document).ready(function () {
     if (errorType === 'db') {
         MySwal.fire({ icon:'error', title:'Error de Sistema', text:'No se pudo procesar la solicitud.', confirmButtonColor:'#e74a3b' });
     }
+    if (errorType === 'tiene_sesiones') {
+    const count = urlParams.get('count') || '';
+    MySwal.fire({
+        icon: 'warning',
+        title: 'No se puede eliminar',
+        text: `Este personal tiene ${count} sesión(es) programada(s). Debes reasignarlas o eliminarlas primero desde Programar Sesiones.`,
+        confirmButtonColor: '#a855f7'
+    });
+    }
     if (urlParams.get('updated')) {
         MySwal.fire({ icon:'success', title:'¡Guardado!', text:'Expediente actualizado correctamente.', timer:1500, showConfirmButton:false });
     }

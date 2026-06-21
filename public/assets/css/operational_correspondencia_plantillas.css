@@ -1,0 +1,11 @@
+/**
+ * MÓDULO: CORRESPONDENCIA / PLANTILLAS
+ * ARCHIVO: public/assets/css/operational_correspondencia_plantillas.css
+ * VERSIÓN: 1.0.0 - Creación inicial.
+ */
+
+#quill-editor .ql-editor { min-height: 580px; }
+
+.btn-insertar { white-space: normal; word-break: break-word; }
+
+.campo-row { border: 0.5px solid #e9ecef; border-radius: 8px; padding: 8px; background: #f8f9fa; }

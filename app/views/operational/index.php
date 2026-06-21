@@ -45,6 +45,32 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
             </a>
         </div>
 
+        <!--Modulo de Correspondencia-->
+        <div class="col-md-6 col-lg-4">
+            <a href="<?= htmlspecialchars($basePath) ?>/operational/correspondencia/plantillas" class="card-operational-link d-block h-100 text-decoration-none">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center" style="border-top: 4px solid #6f42c1 !important;">
+                    <div class="bg-purple bg-opacity-10 p-3 rounded-circle mx-auto mb-3" style="width: fit-content; background-color: rgba(111,66,193,0.1) !important;">
+                        <i class="bi bi-file-earmark-text fs-2" style="color: #6f42c1;"></i>
+                    </div>
+                    <h5 class="fw-bold" style="color: #6f42c1;">Correspondencia</h5>
+                    <p class="text-muted small mb-0">Plantillas para cartas, memos, oficios, actas, reconocimientos y constancias.</p>
+                </div>
+            </a>
+        </div>
+
+        <!--Modulo de Documentos Generados (Correspondencia)-->
+        <div class="col-md-6 col-lg-4">
+            <a href="<?= htmlspecialchars($basePath) ?>/operational/correspondencia/documentos" class="card-operational-link d-block h-100 text-decoration-none">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center" style="border-top: 4px solid #198754 !important;">
+                    <div class="bg-success bg-opacity-10 text-success p-3 rounded-circle mx-auto mb-3" style="width: fit-content;">
+                        <i class="bi bi-file-earmark-arrow-down fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold text-success">Documentos Generados</h5>
+                    <p class="text-muted small mb-0">Genera cartas, memos, oficios y demás documentos a partir de las plantillas, e imprime o reimprime lo ya emitido.</p>
+                </div>
+            </a>
+        </div>
+
         
 
     </div>

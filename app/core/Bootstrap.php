@@ -43,6 +43,12 @@ use App\Controllers\ResourcesTiposContratoController;
 use App\Controllers\ResourcesContratosPlantillasController;
 use App\Controllers\ResourcesContratosController;
 use App\Controllers\ResourcesSesionesController;
+use App\Controllers\ResourcesProcesarSesionesController;
+use App\Controllers\ResourcesConceptosNominaController;
+use App\Controllers\ResourcesNominaController;
+use App\Controllers\ResourcesAprobarNominaController;
+
+
 
 use App\Controllers\AcademicPeriodosController;
 use App\Controllers\AcademicCentrosMedicosController;
@@ -96,6 +102,10 @@ use App\Controllers\FinancialBankStatementsController;
 use App\Controllers\FinancialGastoCategoriasController;
 use App\Controllers\FinancialGastoConceptosController;
 use App\Controllers\FinancialProveedoresController;
+use App\Controllers\FinancialPagosProveedoresController;
+use App\Controllers\FinancialAprobarPagosController;
+use App\Controllers\FinancialOrdenesPagoController;
+use App\Controllers\FinancialTesoreriaController;
 
 
 
@@ -126,6 +136,11 @@ use App\Controllers\FinancialCashZelleController;
 use App\Controllers\OperationalController;
 use App\Controllers\OperationalProfessorsController;
 use App\Controllers\OperationalNewsController; 
+// MODULO DE CREACION DE CORRESPONDENCIA
+use App\Controllers\OperationalCorrespondenciaPlantillasController;
+use App\Controllers\OperationalCorrespondenciaDocumentosController;
+
+
 
 // CONTROLADORES DE MODULO GERENCIAL
 use App\Controllers\ManagerialController;
@@ -500,6 +515,51 @@ final class Bootstrap
         $router->post('/resources/sesiones/save',       [ResourcesSesionesController::class, 'save']);
         $router->post('/resources/sesiones/delete',     [ResourcesSesionesController::class, 'delete']);
 
+        // ---- MÓDULO: RECURSOS / PROCESAR SESIONES
+        $router->get('/resources/procesar-sesiones',            [ResourcesProcesarSesionesController::class, 'index']);
+        $router->get('/resources/procesar-sesiones/manage',     [ResourcesProcesarSesionesController::class, 'manage']);
+        $router->get('/resources/procesar-sesiones/asistencia', [ResourcesProcesarSesionesController::class, 'asistencia']);
+        $router->post('/resources/procesar-sesiones/procesar',  [ResourcesProcesarSesionesController::class, 'procesar']);
+        $router->get('/resources/procesar-sesiones/pdf',        [ResourcesProcesarSesionesController::class, 'pdf']);
+        $router->get('/resources/procesar-sesiones/dictadas',  [ResourcesProcesarSesionesController::class, 'dictadas']);
+        $router->post('/resources/procesar-sesiones/reversar', [ResourcesProcesarSesionesController::class, 'reversar']);
+
+
+
+        // ---- MÓDULO: RECURSOS / CONCEPTOS DE NOMINA
+        $router->get('/resources/conceptos-nomina',                   [ResourcesConceptosNominaController::class, 'index']);
+        $router->post('/resources/conceptos-nomina/saveAsignacion',   [ResourcesConceptosNominaController::class, 'saveAsignacion']);
+        $router->post('/resources/conceptos-nomina/updateAsignacion', [ResourcesConceptosNominaController::class, 'updateAsignacion']);
+        $router->post('/resources/conceptos-nomina/deleteAsignacion', [ResourcesConceptosNominaController::class, 'deleteAsignacion']);
+        $router->post('/resources/conceptos-nomina/saveDeduccion',    [ResourcesConceptosNominaController::class, 'saveDeduccion']);
+        $router->post('/resources/conceptos-nomina/updateDeduccion',  [ResourcesConceptosNominaController::class, 'updateDeduccion']);
+        $router->post('/resources/conceptos-nomina/deleteDeduccion',  [ResourcesConceptosNominaController::class, 'deleteDeduccion']);
+
+        // ---- MÓDULO: RECURSOS / NOMINA
+        $router->get('/resources/nomina',                      [ResourcesNominaController::class, 'index']);
+        $router->get('/resources/nomina/create',               [ResourcesNominaController::class, 'create']);
+        $router->post('/resources/nomina/store',               [ResourcesNominaController::class, 'store']);
+        $router->get('/resources/nomina/manage',               [ResourcesNominaController::class, 'manage']);
+        $router->get('/resources/nomina/buscarPersonal',        [ResourcesNominaController::class, 'buscarPersonal']);
+        $router->get('/resources/nomina/getMontoContrato',      [ResourcesNominaController::class, 'getMontoContrato']);
+        $router->post('/resources/nomina/addPersonal',          [ResourcesNominaController::class, 'addPersonal']);
+        $router->post('/resources/nomina/removePersonal',       [ResourcesNominaController::class, 'removePersonal']);
+        $router->get('/resources/nomina/getCatalogos',          [ResourcesNominaController::class, 'getCatalogos']);
+        $router->post('/resources/nomina/addAsignacion',        [ResourcesNominaController::class, 'addAsignacion']);
+        $router->post('/resources/nomina/addDeduccion',         [ResourcesNominaController::class, 'addDeduccion']);
+        $router->post('/resources/nomina/deleteAsignacionItem', [ResourcesNominaController::class, 'deleteAsignacionItem']);
+        $router->post('/resources/nomina/deleteDeduccionItem',  [ResourcesNominaController::class, 'deleteDeduccionItem']);
+        $router->post('/resources/nomina/procesar',             [ResourcesNominaController::class, 'procesar']);
+        $router->post('/resources/nomina/descartar', [ResourcesNominaController::class, 'descartar']);
+        $router->post('/resources/nomina/reversar',  [ResourcesNominaController::class, 'reversar']);
+        $router->post('/resources/nomina/updateSalario', [ResourcesNominaController::class, 'updateSalario']);
+        $router->get('/resources/nomina/getColaSesiones', [ResourcesNominaController::class, 'getColaSesiones']);
+        
+        //---- APROBAR NOMINAS ---
+        $router->get('/resources/aprobar-nomina',          [ResourcesAprobarNominaController::class, 'index']);
+        $router->get('/resources/aprobar-nomina/manage',   [ResourcesAprobarNominaController::class, 'manage']);
+        $router->post('/resources/aprobar-nomina/aprobar', [ResourcesAprobarNominaController::class, 'aprobar']);
+        $router->post('/resources/aprobar-nomina/reversar', [ResourcesAprobarNominaController::class, 'reversar']);
 
 
 
@@ -688,6 +748,45 @@ final class Bootstrap
         $router->post('/financial/proveedores/delete', [FinancialProveedoresController::class, 'delete']);
         $router->get('/financial/proveedores/getDetails', [FinancialProveedoresController::class, 'getDetails']);
 
+        // --- PANEL FINANCIERO: PAGO DE PROVEEDORES ---
+        $router->get('/financial/pagos-proveedores',              [FinancialPagosProveedoresController::class, 'index']);
+        $router->get('/financial/pagos-proveedores/create',       [FinancialPagosProveedoresController::class, 'create']);
+        $router->post('/financial/pagos-proveedores/save',        [FinancialPagosProveedoresController::class, 'save']);
+        $router->get('/financial/pagos-proveedores/manage',       [FinancialPagosProveedoresController::class, 'manage']);
+        $router->post('/financial/pagos-proveedores/addItem',     [FinancialPagosProveedoresController::class, 'addItem']);
+        $router->post('/financial/pagos-proveedores/removeItem',  [FinancialPagosProveedoresController::class, 'removeItem']);
+        $router->post('/financial/pagos-proveedores/addAjuste',   [FinancialPagosProveedoresController::class, 'addAjuste']);
+        $router->post('/financial/pagos-proveedores/removeAjuste',[FinancialPagosProveedoresController::class, 'removeAjuste']);
+        $router->post('/financial/pagos-proveedores/procesar',    [FinancialPagosProveedoresController::class, 'procesar']);
+        $router->post('/financial/pagos-proveedores/descartar',   [FinancialPagosProveedoresController::class, 'descartar']);
+        $router->post('/financial/pagos-proveedores/reversar',    [FinancialPagosProveedoresController::class, 'reversar']);
+        $router->post('/financial/pagos-proveedores/cambiarProveedor', [FinancialPagosProveedoresController::class, 'cambiarProveedor']);
+
+
+        // --- PANEL FINANCIERO: APROBACION Y REVERSO DE PAGO DE PROVEEDORES ---
+        $router->get('/financial/aprobar-pagos',           [FinancialAprobarPagosController::class, 'index']);
+        $router->get('/financial/aprobar-pagos/manage',    [FinancialAprobarPagosController::class, 'manage']);
+        $router->post('/financial/aprobar-pagos/aprobar',  [FinancialAprobarPagosController::class, 'aprobar']);
+        $router->post('/financial/aprobar-pagos/reversar', [FinancialAprobarPagosController::class, 'reversar']);
+
+        // --- PANEL FINANCIERO: ORDENES DE PAGO ---
+        $router->get('/financial/ordenes-pago',           [FinancialOrdenesPagoController::class, 'index']);
+        $router->get('/financial/ordenes-pago/manage',    [FinancialOrdenesPagoController::class, 'manage']);
+        $router->post('/financial/ordenes-pago/aprobar',  [FinancialOrdenesPagoController::class, 'aprobar']);
+        $router->post('/financial/ordenes-pago/rechazar', [FinancialOrdenesPagoController::class, 'rechazar']);
+        $router->post('/financial/ordenes-pago/anular',   [FinancialOrdenesPagoController::class, 'anular']);
+        $router->post('/financial/ordenes-pago/reversar', [FinancialOrdenesPagoController::class, 'reversar']);
+        $router->get('/financial/ordenes-pago/create', [FinancialOrdenesPagoController::class, 'create']);
+        $router->post('/financial/ordenes-pago/save',  [FinancialOrdenesPagoController::class, 'save']);
+
+
+
+        // --- PANEL FINANCIERO: TESORERIA ---
+        $router->get('/financial/tesoreria',           [FinancialTesoreriaController::class, 'index']);
+        $router->get('/financial/tesoreria/manage',    [FinancialTesoreriaController::class, 'manage']);
+        $router->post('/financial/tesoreria/pagar',    [FinancialTesoreriaController::class, 'pagar']);
+        $router->post('/financial/tesoreria/reversar', [FinancialTesoreriaController::class, 'reversar']);
+
         // --- PANEL ESTUDIANTIL ---
         $router->get('/students', [StudentsController::class, 'index']);
         $router->get('/students/inscriptions', [StudentsInscriptionsController::class, 'index']);
@@ -794,6 +893,26 @@ final class Bootstrap
         // NOTICIAS / CARTELERA
         $router->post('/operational/news/unpublish', [OperationalNewsController::class, 'unpublish']);
 
+
+        // PLANTILLAS DE CORRESPONDENCIA
+        $router->get('/operational/correspondencia/plantillas',                  [OperationalCorrespondenciaPlantillasController::class, 'index']);
+        $router->get('/operational/correspondencia/plantillas/create',           [OperationalCorrespondenciaPlantillasController::class, 'create']);
+        $router->post('/operational/correspondencia/plantillas/save',            [OperationalCorrespondenciaPlantillasController::class, 'save']);
+        $router->get('/operational/correspondencia/plantillas/edit',              [OperationalCorrespondenciaPlantillasController::class, 'edit']);
+        $router->post('/operational/correspondencia/plantillas/update',           [OperationalCorrespondenciaPlantillasController::class, 'update']);
+        $router->post('/operational/correspondencia/plantillas/delete',           [OperationalCorrespondenciaPlantillasController::class, 'delete']);
+        $router->get('/operational/correspondencia/plantillas/getCamposSistema', [OperationalCorrespondenciaPlantillasController::class, 'getCamposSistema']);
+        $router->get('/operational/correspondencia/plantillas/getDetails',        [OperationalCorrespondenciaPlantillasController::class, 'getDetails']);
+
+        // GENERACION DE CORRESPONDENCIA
+        $router->get('/operational/correspondencia/documentos',                  [OperationalCorrespondenciaDocumentosController::class, 'index']);
+        $router->get('/operational/correspondencia/documentos/create',           [OperationalCorrespondenciaDocumentosController::class, 'create']);
+        $router->get('/operational/correspondencia/documentos/getRegistros',     [OperationalCorrespondenciaDocumentosController::class, 'getRegistros']);
+        $router->get('/operational/correspondencia/documentos/getPlantillaInfo', [OperationalCorrespondenciaDocumentosController::class, 'getPlantillaInfo']);
+        $router->post('/operational/correspondencia/documentos/generar',         [OperationalCorrespondenciaDocumentosController::class, 'generar']);
+        $router->get('/operational/correspondencia/documentos/descargar',        [OperationalCorrespondenciaDocumentosController::class, 'descargar']);
+        $router->get('/operational/correspondencia/documentos/lote',             [OperationalCorrespondenciaDocumentosController::class, 'lote']);
+        $router->post('/operational/correspondencia/documentos/delete', [OperationalCorrespondenciaDocumentosController::class, 'delete']);
 
         // PANEL GERENCIAL - OPCIONES GERENCIALES
         // PANEL GERENCIAL - OPCIONES GERENCIALES

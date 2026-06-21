@@ -111,5 +111,44 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
             </a>
         </div>
 
+        <!--Procesar Sesiones-->
+        <div class="col-md-6 col-lg-3">
+            <a href="<?= htmlspecialchars($basePath) ?>/resources/procesar-sesiones" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #BA7517 !important;">
+                    <div class="p-3 rounded-circle mx-auto mb-3" style="width:fit-content;background-color:rgba(186,117,23,0.1);color:#BA7517">
+                        <i class="bi bi-check2-square fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold" style="color:#BA7517">Procesar Sesiones</h5>
+                    <p class="text-muted small">Registro de asistencia y confirmación de sesiones dictadas.</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Conceptos de Nómina -->
+        <div class="col-md-6 col-lg-3">
+            <a href="<?= htmlspecialchars($basePath) ?>/resources/conceptos-nomina" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #533AB7 !important;">
+                    <div class="p-3 rounded-circle mx-auto mb-3" style="width:fit-content;background-color:rgba(83,58,183,0.1);color:#533AB7">
+                        <i class="bi bi-calculator-fill fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold" style="color:#533AB7">Conceptos de Nómina</h5>
+                    <p class="text-muted small">Catálogo de asignaciones y deducciones aplicables al personal.</p>
+                </div>
+            </a>
+        </div>
+        <!-- Aprobar Nóminas -->
+        <div class="col-md-6 col-lg-3">
+            <a href="<?= htmlspecialchars($basePath) ?>/resources/aprobar-nomina" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #198754 !important;">
+                    <div class="bg-success bg-opacity-10 text-success p-3 rounded-circle mx-auto mb-3" style="width: fit-content;">
+                        <i class="bi bi-clipboard2-check-fill fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold" style="color: #198754;">Aprobar Nóminas</h5>
+                    <p class="text-muted small">Revisión y aprobación de nóminas procesadas para generar órdenes de pago.</p>
+                </div>
+            </a>
+        </div>
+
+
     </div>
 </div>

@@ -131,7 +131,8 @@ final class ResourcesPersonalController extends Controller
         exit();
     }
 
-    public function delete(): void
+
+public function delete(): void
 {
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') return;
 
@@ -139,15 +140,41 @@ final class ResourcesPersonalController extends Controller
     $persona = $this->model->getById($id);
 
     if ($persona) {
-        $this->model->deletePhysical($id);
+        $sesionesPendientes = $this->model->countSesionesProgramadas($id);
 
-        AuditService::log([
-            'module'      => 'RESOURCES_PERSONAL',
-            'action'      => 'DELETE_PHYSICAL',
-            'description' => "Eliminó físicamente al personal: {$persona['first_name']} {$persona['last_name']}",
-            'entity_id'   => $id,
-            'event_type'  => 'WARNING'
-        ]);
+        if ($sesionesPendientes > 0) {
+            header("Location: /diplomatic/public/resources/personal?error=tiene_sesiones&count={$sesionesPendientes}");
+            exit();
+        }
+
+        try {
+            $this->model->deletePhysical($id);
+
+            AuditService::log([
+                'module'      => 'RESOURCES_PERSONAL',
+                'action'      => 'DELETE_PHYSICAL',
+                'description' => "Eliminó físicamente al personal: {$persona['first_name']} {$persona['last_name']}",
+                'entity_id'   => $id,
+                'event_type'  => 'WARNING'
+            ]);
+
+            header('Location: /diplomatic/public/resources/personal?success=deleted');
+            exit();
+
+        } catch (\PDOException $e) {
+            $this->model->smartDelete($id, $_SESSION['user']['id']);
+
+            AuditService::log([
+                'module'      => 'RESOURCES_PERSONAL',
+                'action'      => 'DELETE_SOFT',
+                'description' => "Inactivó al personal (tiene registros asociados): {$persona['first_name']} {$persona['last_name']}",
+                'entity_id'   => $id,
+                'event_type'  => 'WARNING'
+            ]);
+
+            header('Location: /diplomatic/public/resources/personal?success=inactivated');
+            exit();
+        }
     }
 
     header('Location: /diplomatic/public/resources/personal?success=deleted');
