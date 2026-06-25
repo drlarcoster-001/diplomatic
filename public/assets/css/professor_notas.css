@@ -1,0 +1,38 @@
+/**
+ * MÓDULO: PORTAL DOCENTE / CARGAR NOTAS
+ * ARCHIVO: public/assets/css/professor_notas.css
+ * PROPÓSITO: Estilos para la tabla de notas, badges de estado y
+ *            campos de entrada de nota por estudiante.
+ * VERSIÓN: 1.0.0 - Creación inicial.
+ */
+
+/* Input de nota — centrado y compacto */
+.input-nota {
+    width: 90px;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.input-nota:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 3px rgba(13,110,253,0.15);
+}
+
+/* Fila aprobado */
+.fila-aprobado td {
+    background: #f0fff4 !important;
+}
+
+/* Fila reprobado */
+.fila-reprobado td {
+    background: #fff5f5 !important;
+}
+
+/* Contador de notas cargadas */
+#contNotas {
+    font-weight: 700;
+    color: #0d6efd;
+}

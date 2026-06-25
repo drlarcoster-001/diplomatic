@@ -4,15 +4,18 @@
  * ARCHIVO: app/controllers/FinancialTesoreriaController.php
  * PROPÓSITO: index() lista todos los pagos por procesar. manage() detalle +
  *            formulario de pago (campos condicionados por medio de pago) +
- *            botón Reversar. pagar() procesa el pago y sube el comprobante.
- * VERSIÓN: 1.0.0 - Creación inicial.
+ *            botón Reversar. pagar() procesa el pago, sube el comprobante y
+ *            registra el egreso en tbl_libro_egresos. reversarPago() anula
+ *            un pago ya PAGADO registrando la reversa en el libro.
+ * VERSIÓN: 1.1.0 - pagar() llama registrarEgreso(). Nuevo método reversarPago().
  *
  * RUTAS Bootstrap.php:
  *   use App\Controllers\FinancialTesoreriaController;
- *   $router->get('/financial/tesoreria',           [FinancialTesoreriaController::class, 'index']);
- *   $router->get('/financial/tesoreria/manage',    [FinancialTesoreriaController::class, 'manage']);
- *   $router->post('/financial/tesoreria/pagar',    [FinancialTesoreriaController::class, 'pagar']);
- *   $router->post('/financial/tesoreria/reversar', [FinancialTesoreriaController::class, 'reversar']);
+ *   $router->get('/financial/tesoreria',                [FinancialTesoreriaController::class, 'index']);
+ *   $router->get('/financial/tesoreria/manage',         [FinancialTesoreriaController::class, 'manage']);
+ *   $router->post('/financial/tesoreria/pagar',         [FinancialTesoreriaController::class, 'pagar']);
+ *   $router->post('/financial/tesoreria/reversar',      [FinancialTesoreriaController::class, 'reversar']);
+ *   $router->post('/financial/tesoreria/reversar-pago', [FinancialTesoreriaController::class, 'reversarPago']);
  */
 
 declare(strict_types=1);
@@ -40,6 +43,10 @@ class FinancialTesoreriaController extends Controller
         $this->model = new FinancialTesoreriaModel();
     }
 
+    // =========================================================================
+    // INDEX
+    // =========================================================================
+
     public function index(): void
     {
         $search  = trim($_GET['search'] ?? '');
@@ -59,6 +66,10 @@ class FinancialTesoreriaController extends Controller
         ]);
     }
 
+    // =========================================================================
+    // MANAGE
+    // =========================================================================
+
     public function manage(): void
     {
         $id   = (int) ($_GET['id'] ?? 0);
@@ -71,6 +82,10 @@ class FinancialTesoreriaController extends Controller
 
         $this->view('financial/tesoreria/manage', ['pago' => $pago]);
     }
+
+    // =========================================================================
+    // PAGAR — registra el pago y genera el egreso en el libro
+    // =========================================================================
 
     public function pagar(): void
     {
@@ -114,9 +129,9 @@ class FinancialTesoreriaController extends Controller
                 $datos['moneda_efectivo'] = $moneda;
                 $datos['arqueo_detalle']  = $arqueo;
             } else {
-                $banco       = trim($_POST['banco'] ?? '');
+                $banco        = trim($_POST['banco'] ?? '');
                 $destinatario = trim($_POST['nombre_destinatario'] ?? '');
-                $referencia  = trim($_POST['referencia'] ?? '');
+                $referencia   = trim($_POST['referencia'] ?? '');
 
                 if ($banco === '' || $destinatario === '' || $referencia === '') {
                     $this->jsonFinal(['success' => false, 'message' => 'Completa banco, destinatario y referencia.'], 422);
@@ -129,21 +144,14 @@ class FinancialTesoreriaController extends Controller
 
                 if ($medioPago === 'TRANSFERENCIA') {
                     $cuenta = trim($_POST['cuenta'] ?? '');
-                    if ($cuenta === '') {
-                        $this->jsonFinal(['success' => false, 'message' => 'Indica el número de cuenta.'], 422);
-                        return;
-                    }
+                    if ($cuenta === '') { $this->jsonFinal(['success' => false, 'message' => 'Indica el número de cuenta.'], 422); return; }
                     $datos['cuenta'] = $cuenta;
                 } else {
                     $telefono = trim($_POST['telefono'] ?? '');
-                    if ($telefono === '') {
-                        $this->jsonFinal(['success' => false, 'message' => 'Indica el teléfono.'], 422);
-                        return;
-                    }
+                    if ($telefono === '') { $this->jsonFinal(['success' => false, 'message' => 'Indica el teléfono.'], 422); return; }
                     $datos['telefono'] = $telefono;
                 }
 
-                // Comprobante obligatorio para transferencia y pago móvil
                 if (empty($_FILES['comprobante']['name'])) {
                     $this->jsonFinal(['success' => false, 'message' => 'Debes adjuntar la captura del comprobante.'], 422);
                     return;
@@ -159,13 +167,22 @@ class FinancialTesoreriaController extends Controller
             $userId = $_SESSION['user']['id'];
             $this->model->marcarComoPagado($id, $ordenPagoId, $datos, $userId);
 
-            AuditService::log($userId, 'Tesoreria', 'PAGAR', "Marcó como pagada la orden {$pago['numero_orden']} vía {$medioPago}", $id);
+            // Registrar egreso en el libro
+            $this->model->registrarEgreso($ordenPagoId, $userId);
+
+            AuditService::log($userId, 'Tesoreria', 'PAGAR',
+                "Marcó como pagada la orden {$pago['numero_orden']} vía {$medioPago}", $id);
 
             $this->jsonFinal(['success' => true, 'message' => 'Pago registrado correctamente.']);
+
         } catch (Throwable $e) {
             $this->jsonFinal(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
+
+    // =========================================================================
+    // REVERSAR A ÓRDENES DE PAGO (desde PENDIENTE — antes de pagar)
+    // =========================================================================
 
     public function reversar(): void
     {
@@ -186,13 +203,52 @@ class FinancialTesoreriaController extends Controller
             $userId = $_SESSION['user']['id'];
             $this->model->reversarAOrdenPago($id, $ordenPagoId);
 
-            AuditService::log($userId, 'Tesoreria', 'REVERSAR', "Reversó a Órdenes de Pago la orden {$pago['numero_orden']}", $id);
+            AuditService::log($userId, 'Tesoreria', 'REVERSAR',
+                "Reversó a Órdenes de Pago la orden {$pago['numero_orden']}", $id);
 
             $this->jsonFinal(['success' => true, 'message' => 'Se devolvió a Órdenes de Pago para corrección.']);
+
         } catch (Throwable $e) {
             $this->jsonFinal(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
+
+    // =========================================================================
+    // REVERSAR PAGO REALIZADO (desde PAGADO — anula el pago ya ejecutado)
+    // =========================================================================
+
+    public function reversarPago(): void
+    {
+        try {
+            $id          = (int) ($_POST['id'] ?? 0);
+            $ordenPagoId = (int) ($_POST['orden_pago_id'] ?? 0);
+            $pago        = $id ? $this->model->getPagoById($id) : null;
+
+            if (!$pago) {
+                $this->jsonFinal(['success' => false, 'message' => 'Registro no encontrado.'], 404);
+                return;
+            }
+            if ($pago['estado'] !== 'PAGADO') {
+                $this->jsonFinal(['success' => false, 'message' => 'Solo se puede reversar un pago en estado PAGADO.'], 422);
+                return;
+            }
+
+            $userId = $_SESSION['user']['id'];
+            $this->model->reversarPagoRealizado($id, $ordenPagoId, $userId);
+
+            AuditService::log($userId, 'Tesoreria', 'REVERSAR_PAGO',
+                "Reversó pago PAGADO de la orden {$pago['numero_orden']}", $id);
+
+            $this->jsonFinal(['success' => true, 'message' => 'Pago reversado. La orden quedó disponible para volver a pagarse.']);
+
+        } catch (Throwable $e) {
+            $this->jsonFinal(['success' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    // =========================================================================
+    // HELPERS
+    // =========================================================================
 
     private function subirComprobante(array $file, string $numeroOrden): ?string
     {

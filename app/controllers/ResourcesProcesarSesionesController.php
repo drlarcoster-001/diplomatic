@@ -3,16 +3,20 @@
  * MÓDULO: RECURSOS HUMANOS / PROCESAR SESIONES
  * ARCHIVO: app/controllers/ResourcesProcesarSesionesController.php
  * PROPÓSITO: Procesamiento de sesiones programadas → DICTADAS con registro de
- *            asistencia. PDF generado con DomPDF igual que constancias.
- * VERSIÓN: 2.0.0 - DomPDF integrado, HTML del PDF construido en el controlador.
+ *            asistencia. PDF generado con DomPDF. Nuevo método reiniciar() permite
+ *            al admin limpiar la asistencia cargada por el profesor sin cambiar estado.
+ * VERSIÓN: 2.1.0 - Agrega método reiniciar() y ruta correspondiente.
  *
  * RUTAS Bootstrap.php:
  *   use App\Controllers\ResourcesProcesarSesionesController;
- *   $router->get('/resources/procesar-sesiones',            [ResourcesProcesarSesionesController::class, 'index']);
- *   $router->get('/resources/procesar-sesiones/manage',     [ResourcesProcesarSesionesController::class, 'manage']);
- *   $router->get('/resources/procesar-sesiones/asistencia', [ResourcesProcesarSesionesController::class, 'asistencia']);
- *   $router->post('/resources/procesar-sesiones/procesar',  [ResourcesProcesarSesionesController::class, 'procesar']);
- *   $router->get('/resources/procesar-sesiones/pdf',        [ResourcesProcesarSesionesController::class, 'pdf']);
+ *   $router->get('/resources/procesar-sesiones',              [ResourcesProcesarSesionesController::class, 'index']);
+ *   $router->get('/resources/procesar-sesiones/manage',       [ResourcesProcesarSesionesController::class, 'manage']);
+ *   $router->get('/resources/procesar-sesiones/asistencia',   [ResourcesProcesarSesionesController::class, 'asistencia']);
+ *   $router->post('/resources/procesar-sesiones/procesar',    [ResourcesProcesarSesionesController::class, 'procesar']);
+ *   $router->get('/resources/procesar-sesiones/pdf',          [ResourcesProcesarSesionesController::class, 'pdf']);
+ *   $router->get('/resources/procesar-sesiones/dictadas',     [ResourcesProcesarSesionesController::class, 'dictadas']);
+ *   $router->post('/resources/procesar-sesiones/reversar',    [ResourcesProcesarSesionesController::class, 'reversar']);
+ *   $router->post('/resources/procesar-sesiones/reiniciar',   [ResourcesProcesarSesionesController::class, 'reiniciar']);
  */
 
 declare(strict_types=1);
@@ -151,7 +155,7 @@ class ResourcesProcesarSesionesController extends Controller
     }
 
     // =========================================================================
-    // PDF CON DOMPDF
+    // DICTADAS (AJAX)
     // =========================================================================
 
     public function dictadas(): void
@@ -164,6 +168,10 @@ class ResourcesProcesarSesionesController extends Controller
             $this->jsonFinal(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
+
+    // =========================================================================
+    // REVERSAR (AJAX)
+    // =========================================================================
 
     public function reversar(): void
     {
@@ -198,6 +206,44 @@ class ResourcesProcesarSesionesController extends Controller
             $this->jsonFinal(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
+
+    // =========================================================================
+    // REINICIAR ASISTENCIA (AJAX) — borra asistencia del profesor, sesión sigue PROGRAMADA
+    // =========================================================================
+
+    public function reiniciar(): void
+    {
+        try {
+            $sesionId   = (int) ($_POST['sesion_id']   ?? 0);
+            $offeringId = (int) ($_POST['offering_id'] ?? 0);
+            $sesion     = $sesionId ? $this->model->getSesionById($sesionId) : null;
+
+            if (!$sesion) {
+                $this->jsonFinal(['success' => false, 'message' => 'Sesión no encontrada.'], 404);
+                return;
+            }
+            if ($sesion['estado'] === 'DICTADA') {
+                $this->jsonFinal(['success' => false, 'message' => 'No se puede reiniciar una sesión ya dictada. Use Reversar primero.'], 422);
+                return;
+            }
+
+            $userId = $_SESSION['user']['id'];
+            $this->model->reiniciarAsistencia($sesionId, $userId);
+
+            AuditService::log($userId, 'Sesiones', 'REINICIAR_ASISTENCIA',
+                "Admin reinició asistencia de sesión {$sesionId}", $sesionId);
+
+            $sesiones = $this->model->getSesionesByOffering($offeringId);
+            $this->jsonFinal(['success' => true, 'message' => 'Asistencia reiniciada. El profesor puede volver a cargarla.', 'sesiones' => $sesiones]);
+
+        } catch (Throwable $e) {
+            $this->jsonFinal(['success' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    // =========================================================================
+    // PDF CON DOMPDF
+    // =========================================================================
 
     public function pdf(): void
     {
@@ -235,7 +281,7 @@ class ResourcesProcesarSesionesController extends Controller
     }
 
     // =========================================================================
-    // CONSTRUCCIÓN DEL HTML DEL PDF
+    // HTML DEL PDF
     // =========================================================================
 
     private function buildPdfHtml(array $s, array $estudiantes): string
@@ -250,7 +296,7 @@ class ResourcesProcesarSesionesController extends Controller
         $cohorte     = htmlspecialchars($s['cohorte_nombre']  ?? '—');
         $horario     = htmlspecialchars($s['horario_desc']    ?? '—');
         $fecha       = isset($s['fecha']) ? date('d/m/Y', strtotime($s['fecha'])) : '—';
-        $tipo        = $s['tipo_horario'] === 'TEORICO' ? 'Teórica' : 'Práctica';
+        $tipo        = $s['tipo_horario'] === 'TEORICO' ? 'Teorica' : 'Practica';
         $totalEst    = count($estudiantes);
         $presentes   = count(array_filter($estudiantes, fn($e) => (int)$e['asistio'] === 1));
         $ausentes    = $totalEst - $presentes;
@@ -261,8 +307,8 @@ class ResourcesProcesarSesionesController extends Controller
             $nombre   = htmlspecialchars($e['last_name'] . ', ' . $e['first_name']);
             $cedula   = htmlspecialchars($e['document_id']);
             $asistio  = (int)$e['asistio'];
-            $estadoTxt = $asistio ? '<span style="color:#085041;font-weight:bold">✓ Asistió</span>'
-                                  : '<span style="color:#A32D2D;font-weight:bold">✗ Faltó</span>';
+            $estadoTxt = $asistio ? '<span style="color:#085041;font-weight:bold">P</span>'
+                                  : '<span style="color:#A32D2D;font-weight:bold">A</span>';
             $bg = $idx % 2 === 0 ? '#ffffff' : '#f8f9fa';
             $filas .= "<tr style='background:{$bg}'>
                 <td style='padding:5px 8px;border:0.5px solid #dee2e6;text-align:center'>" . ($idx + 1) . "</td>
@@ -275,106 +321,71 @@ class ResourcesProcesarSesionesController extends Controller
 
         return "<!DOCTYPE html>
 <html lang='es'>
-<head>
-<meta charset='UTF-8'>
+<head><meta charset='UTF-8'>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: Times-Roman; font-size: 11pt; color: #212529; padding: 1.5cm; }
-  table { width: 100%; border-collapse: collapse; }
-  th { background: #533AB7; color: #fff; padding: 7px 8px; font-size: 10pt; text-align: left; }
-  .info-label { font-size: 8pt; font-weight: bold; text-transform: uppercase; color: #6c757d; }
-  .info-val   { font-size: 11pt; font-weight: bold; margin-top: 2px; }
-  .info-cell  { background: #f8f9fa; padding: 7px 10px; border: 0.5px solid #dee2e6; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:Times-Roman; font-size:11pt; color:#212529; padding:1.5cm; }
+  table { width:100%; border-collapse:collapse; }
+  th { background:#533AB7; color:#fff; padding:7px 8px; font-size:10pt; text-align:left; }
+  .info-label { font-size:8pt; font-weight:bold; text-transform:uppercase; color:#6c757d; }
+  .info-val   { font-size:11pt; font-weight:bold; margin-top:2px; }
+  .info-cell  { background:#f8f9fa; padding:7px 10px; border:0.5px solid #dee2e6; }
 </style>
 </head>
 <body>
-
-<!-- ENCABEZADO -->
 <table style='margin-bottom:16px'>
   <tr>
-    <td style='width:15%;text-align:left'>
-      " . ($imgUcla ? "<img src='{$imgUcla}' style='width:65px'>" : '') . "
-    </td>
-    <td style='width:70%;text-align:center;font-weight:bold;font-size:10.5pt;line-height:1.3'>
+    <td style='width:15%;text-align:left'>" . ($imgUcla ? "<img src='{$imgUcla}' style='width:65px'>" : '') . "</td>
+    <td style='width:70%;text-align:center;font-weight:bold;font-size:10.5pt;line-height:1.5'>
       UNIVERSIDAD CENTROCCIDENTAL &ldquo;LISANDRO ALVARADO&rdquo;<br>
       DECANATO DE CIENCIAS DE LA SALUD<br>
       &ldquo;Dr. PABLO ACOSTA ORTIZ&rdquo;<br>
-      COORDINACIÓN DE EXTENSIÓN
+      COORDINACION DE EXTENSION
     </td>
-    <td style='width:15%;text-align:right'>
-      " . ($imgMedicina ? "<img src='{$imgMedicina}' style='width:65px'>" : '') . "
-    </td>
+    <td style='width:15%;text-align:right'>" . ($imgMedicina ? "<img src='{$imgMedicina}' style='width:65px'>" : '') . "</td>
   </tr>
 </table>
-
-<!-- TÍTULO -->
 <div style='text-align:center;font-weight:bold;font-size:13pt;text-decoration:underline;margin:14px 0 12px'>
-  FORMATO DE ASISTENCIA
+  REGISTRO DE ASISTENCIA
 </div>
-
-<!-- DATOS DE LA SESIÓN -->
 <table style='margin-bottom:12px'>
   <tr>
     <td style='width:50%;padding-right:6px'>
-      <div class='info-cell'>
-        <div class='info-label'>Diplomado</div>
-        <div class='info-val'>{$diplomado}</div>
-      </div>
+      <div class='info-cell'><div class='info-label'>Diplomado</div><div class='info-val'>{$diplomado}</div></div>
     </td>
     <td style='width:50%;padding-left:6px'>
-      <div class='info-cell'>
-        <div class='info-label'>Cohorte</div>
-        <div class='info-val'>{$cohorte}</div>
-      </div>
+      <div class='info-cell'><div class='info-label'>Cohorte</div><div class='info-val'>{$cohorte}</div></div>
     </td>
   </tr>
   <tr>
     <td style='padding-right:6px;padding-top:6px'>
-      <div class='info-cell'>
-        <div class='info-label'>Profesor / Personal</div>
-        <div class='info-val'>{$profesor}</div>
-      </div>
+      <div class='info-cell'><div class='info-label'>Profesor / Personal</div><div class='info-val'>{$profesor}</div></div>
     </td>
     <td style='padding-left:6px;padding-top:6px'>
-      <div class='info-cell'>
-        <div class='info-label'>Fecha de Sesión</div>
-        <div class='info-val'>{$fecha}</div>
-      </div>
+      <div class='info-cell'><div class='info-label'>Fecha de Sesion</div><div class='info-val'>{$fecha}</div></div>
     </td>
   </tr>
   <tr>
     <td style='padding-right:6px;padding-top:6px'>
-      <div class='info-cell'>
-        <div class='info-label'>Horario / Grupo</div>
-        <div class='info-val'>{$horario}</div>
-      </div>
+      <div class='info-cell'><div class='info-label'>Horario / Grupo</div><div class='info-val'>{$horario}</div></div>
     </td>
     <td style='padding-left:6px;padding-top:6px'>
-      <div class='info-cell'>
-        <div class='info-label'>Tipo de Sesión</div>
-        <div class='info-val'>{$tipo} &nbsp;·&nbsp; {$totalEst} estudiantes &nbsp;·&nbsp; {$presentes} presentes &nbsp;·&nbsp; {$ausentes} ausentes</div>
-      </div>
+      <div class='info-cell'><div class='info-label'>Tipo · Resumen</div><div class='info-val'>{$tipo} &nbsp;·&nbsp; {$presentes}P / {$ausentes}A / {$totalEst} total</div></div>
     </td>
   </tr>
 </table>
-
-<!-- TABLA DE ESTUDIANTES -->
 <table>
   <thead>
     <tr>
       <th style='width:6%;text-align:center'>#</th>
-      <th style='width:38%'>Apellidos y Nombres</th>
-      <th style='width:16%;text-align:center'>Cédula</th>
-      <th style='width:16%;text-align:center'>Asistencia</th>
+      <th style='width:42%'>Apellidos y Nombres</th>
+      <th style='width:18%;text-align:center'>Cedula</th>
+      <th style='width:10%;text-align:center'>P/A</th>
       <th style='width:24%'>Firma</th>
     </tr>
   </thead>
-  <tbody>
-    {$filas}
-  </tbody>
+  <tbody>{$filas}</tbody>
 </table>
-
-<!-- FIRMAS -->
 <table style='margin-top:50px'>
   <tr>
     <td style='width:40%;text-align:center;border-top:1px solid #333;padding-top:8px'>
@@ -388,13 +399,10 @@ class ResourcesProcesarSesionesController extends Controller
     </td>
   </tr>
 </table>
-
 <div style='text-align:center;font-size:8pt;color:#888;margin-top:24px'>
   Generado en Barquisimeto, el {$fechaHoy} &nbsp;·&nbsp; Sistema DIPLOMATIC &copy; UCLA
 </div>
-
-</body>
-</html>";
+</body></html>";
     }
 
     private function getMes(int $m): string
@@ -402,10 +410,6 @@ class ResourcesProcesarSesionesController extends Controller
         return ['','enero','febrero','marzo','abril','mayo','junio',
                 'julio','agosto','septiembre','octubre','noviembre','diciembre'][$m] ?? '';
     }
-
-    // =========================================================================
-    // JSON
-    // =========================================================================
 
     private function jsonFinal(array $payload, int $code = 200): void
     {

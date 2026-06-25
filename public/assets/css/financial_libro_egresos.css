@@ -1,0 +1,101 @@
+/**
+ * MÓDULO: FINANCIERO / LIBRO DE EGRESOS
+ * ARCHIVO: public/assets/css/financial_libro_egresos.css
+ * PROPÓSITO: Estilos para tarjetas de totales, tabla de egresos,
+ *            cards móviles y badges de tipo.
+ * VERSIÓN: 1.0.0 - Creación inicial.
+ */
+
+/* ── TARJETAS TOTALES ─────────────────────────────────────────────── */
+.le-total-card {
+    border-radius: 12px;
+    padding: 16px;
+    height: 100%;
+}
+.le-total-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 6px;
+}
+.le-total-valor {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+.le-total-sub {
+    font-size: 11px;
+    margin-top: 4px;
+    opacity: 0.8;
+}
+
+.le-total-pago {
+    background: #fff0f0;
+    border: 1px solid #f1aeb5;
+    color: #842029;
+}
+.le-total-reversa {
+    background: #f0fff4;
+    border: 1px solid #a3cfbb;
+    color: #085041;
+}
+.le-total-neto {
+    background: #EEEDFE;
+    border: 1px solid #AFA9EC;
+    color: #3C3489;
+}
+.le-total-bs {
+    background: #fff8e8;
+    border: 1px solid #ffd670;
+    color: #7a5200;
+}
+
+/* ── FILAS TABLA ──────────────────────────────────────────────────── */
+.le-fila-pago td {
+    background: #fff8f8 !important;
+}
+.le-fila-reversa td {
+    background: #f0fff8 !important;
+}
+
+/* ── BADGES DE TIPO ───────────────────────────────────────────────── */
+.le-badge-tipo {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+}
+.le-tipo-nomina {
+    background: #EEEDFE;
+    color: #3C3489;
+    border: 1px solid #AFA9EC;
+}
+.le-tipo-proveedor {
+    background: #fff3cd;
+    color: #7a5200;
+    border: 1px solid #ffd670;
+}
+.le-tipo-directa {
+    background: #e2e3e5;
+    color: #383d41;
+    border: 1px solid #c6c8ca;
+}
+
+/* ── CARDS MÓVIL ──────────────────────────────────────────────────── */
+.le-mobile-card {
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+}
+.le-mobile-pago {
+    background: #fff8f8;
+    border-color: #f1aeb5;
+}
+.le-mobile-reversa {
+    background: #f0fff8;
+    border-color: #a3cfbb;
+}

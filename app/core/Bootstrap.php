@@ -54,8 +54,14 @@ use App\Controllers\AcademicPeriodosController;
 use App\Controllers\AcademicCentrosMedicosController;
 use App\Controllers\AcademicHorariosTeoricosController;
 use App\Controllers\AcademicHorariosPracticasController;
+use App\Controllers\AcademicProfesorModalidadController;
+use App\Controllers\AcademicAprobarActasController;
+use App\Controllers\AcademicCierreController;
+use App\Controllers\AcademicHistoricoController;
+
 
 use App\Controllers\DocumentVerificationController;
+
 
 
 
@@ -106,6 +112,8 @@ use App\Controllers\FinancialPagosProveedoresController;
 use App\Controllers\FinancialAprobarPagosController;
 use App\Controllers\FinancialOrdenesPagoController;
 use App\Controllers\FinancialTesoreriaController;
+use App\Controllers\FinancialDashboardController;
+use App\Controllers\FinancialLibroEgresosController;
 
 
 
@@ -125,6 +133,15 @@ use App\Controllers\StudentsDocumentManagementController;
 
 use App\Controllers\StudentsPaymentHistoryController;
 
+
+// CONTROLADORES DE PROFESORES
+use App\Controllers\ProfessorMainController;
+use App\Controllers\ProfessorClasesController;
+use App\Controllers\ProfessorMatriculaController;
+use App\Controllers\ProfessorControlAsistenciaController;
+use App\Controllers\ProfessorRegistrarAsistenciaController;
+use App\Controllers\ProfessorNotasController;
+use App\Controllers\ProfessorHorarioController;
 
 
 
@@ -149,6 +166,10 @@ use App\Controllers\ManagerialPendingPaymentsController;
 use App\Controllers\ManagerialAcademicControlController;
 use App\Controllers\ManagerialBankReconciliationController;
 use App\Controllers\ManagerialMovementsReportController;
+use App\Controllers\ManagerialEstadoResultadosController;
+use App\Controllers\ManagerialPagosReporteController;
+use App\Controllers\ManagerialLineaTiempoController;
+
 
 
 use PDO;
@@ -290,6 +311,14 @@ final class Bootstrap
         $router->post('/academic/profesores/uploadDocument', [ProfesoresController::class, 'uploadDocument']);
         $router->post('/academic/profesores/deleteDocument', [ProfesoresController::class, 'deleteDocument']);
         $router->post('/academic/profesores/uploadPhoto', [ProfesoresController::class, 'uploadPhoto']);
+        $router->post('/academic/profesores/createAccess', [ProfesoresController::class, 'createAccess']);
+        $router->get('/academic/profesores/searchUsuarios', [ProfesoresController::class, 'searchUsuarios']);
+        $router->post('/academic/profesores/vincular',      [ProfesoresController::class, 'vincular']);
+        $router->post('/academic/profesores/desvincular', [ProfesoresController::class, 'desvincular']);
+
+
+
+
 
         $router->get('/academic/campuses', [CampusesController::class, 'index']);
         $router->post('/academic/campuses/save', [CampusesController::class, 'save']);
@@ -351,7 +380,35 @@ final class Bootstrap
         $router->post('/academic/horarios-practicas/saveEstudiante',   [AcademicHorariosPracticasController::class, 'saveEstudiante']);
         $router->post('/academic/horarios-practicas/deleteEstudiante', [AcademicHorariosPracticasController::class, 'deleteEstudiante']);
         $router->get('/academic/horarios-practicas/getEstudiantes',    [AcademicHorariosPracticasController::class, 'getEstudiantes']);
+
+
+        // --- PANEL ACADEMICO: Modulo de Asignacion de Modalidad de Profesores
+        $router->get('/academic/profesor-modalidad',         [AcademicProfesorModalidadController::class, 'index']);
+        $router->post('/academic/profesor-modalidad/save',   [AcademicProfesorModalidadController::class, 'save']);
+        $router->post('/academic/profesor-modalidad/delete', [AcademicProfesorModalidadController::class, 'delete']);
+        $router->post('/academic/profesor-modalidad/update', [AcademicProfesorModalidadController::class, 'update']);
  
+
+        // --- PANEL ACADEMICO: Modulo de Aprobacion de Actas
+        $router->get('/academic/aprobar-actas',           [AcademicAprobarActasController::class, 'index']);
+        $router->get('/academic/aprobar-actas/manage',    [AcademicAprobarActasController::class, 'manage']);
+        $router->post('/academic/aprobar-actas/aprobar',  [AcademicAprobarActasController::class, 'aprobar']);
+        $router->post('/academic/aprobar-actas/reversar', [AcademicAprobarActasController::class, 'reversar']);
+        $router->get('/academic/aprobar-actas/pdf',       [AcademicAprobarActasController::class, 'pdf']);
+        $router->get('/academic/aprobar-actas/reporte', [AcademicAprobarActasController::class, 'reporte']);
+
+        // --- PANEL ACADEMICO: Modulo de Cierre de Expedientes
+        $router->get('/academic/cierre',         [AcademicCierreController::class, 'index']);
+        $router->get('/academic/cierre/manage',  [AcademicCierreController::class, 'manage']);
+        $router->post('/academic/cierre/cerrar', [AcademicCierreController::class, 'cerrar']);
+        $router->post('/academic/cierre/reversar', [AcademicCierreController::class, 'reversar']);
+
+
+        // --- PANEL ACADEMICO: Historico de Cierre
+        $router->get('/academic/historico',        [AcademicHistoricoController::class, 'index']);
+        $router->get('/academic/historico/manage', [AcademicHistoricoController::class, 'manage']);
+        $router->get('/academic/historico/pdf',    [AcademicHistoricoController::class, 'pdf']);
+
 
         // --- PANEL ADMINISTRATIVO GENERAL ---
         $router->get('/administrative', [AdministrativeController::class, 'index']);
@@ -786,6 +843,20 @@ final class Bootstrap
         $router->get('/financial/tesoreria/manage',    [FinancialTesoreriaController::class, 'manage']);
         $router->post('/financial/tesoreria/pagar',    [FinancialTesoreriaController::class, 'pagar']);
         $router->post('/financial/tesoreria/reversar', [FinancialTesoreriaController::class, 'reversar']);
+        $router->post('/financial/tesoreria/reversar-pago', [FinancialTesoreriaController::class, 'reversarPago']);
+
+
+
+        // --- PANEL FINANCIERO: DASHBOARD ---
+        $router->get('/financial/dashboard', [FinancialDashboardController::class, 'index']);
+        $router->get('/financial/egresos', [FinancialController::class, 'egresos']);
+
+        // --- PANEL FINANCIERO: LIBRO DE EGRESOS
+        $router->get('/financial/libro-egresos',     [FinancialLibroEgresosController::class, 'index']);
+        $router->get('/financial/libro-egresos/pdf', [FinancialLibroEgresosController::class, 'pdf']);
+
+
+
 
         // --- PANEL ESTUDIANTIL ---
         $router->get('/students', [StudentsController::class, 'index']);
@@ -840,6 +911,39 @@ final class Bootstrap
         // Endpoint para eliminar documentos (AJAX)
         $router->post('/students/documents/deleteDocument', [StudentsDocumentManagementController::class, 'deleteDocument']);
         $router->get('/students/payment_history', [StudentsPaymentHistoryController::class, 'index']);
+
+
+        // Modulos de profesores
+        $router->get('/professor', [ProfessorMainController::class, 'index']);
+        
+        $router->get('/professor/clases', [ProfessorClasesController::class, 'index']);
+        
+        $router->get('/professor/matricula', [ProfessorMatriculaController::class, 'index']);
+        $router->get('/professor/matricula/pdf', [ProfessorMatriculaController::class, 'imprimir']);
+
+        // Modulo de profesores - Control de Asistencia
+        $router->get('/professor/control-asistencia',     [ProfessorControlAsistenciaController::class, 'index']);
+        $router->get('/professor/control-asistencia/pdf', [ProfessorControlAsistenciaController::class, 'pdf']);
+
+        // Modulo de profesores - Registro de Asistencia
+        $router->get('/professor/registrar-asistencia',          [ProfessorRegistrarAsistenciaController::class, 'index']);
+        $router->get('/professor/registrar-asistencia/sesion',   [ProfessorRegistrarAsistenciaController::class, 'sesion']);
+        $router->post('/professor/registrar-asistencia/guardar', [ProfessorRegistrarAsistenciaController::class, 'guardar']);
+        $router->get('/professor/registrar-asistencia/pdf', [ProfessorRegistrarAsistenciaController::class, 'pdf']);
+        $router->post('/resources/procesar-sesiones/reiniciar', [ResourcesProcesarSesionesController::class, 'reiniciar']);
+
+        // Modulo de profesores - Registro de Notas
+        $router->get('/professor/notas',               [ProfessorNotasController::class, 'index']);
+        $router->post('/professor/notas/guardar',      [ProfessorNotasController::class, 'guardar']);
+        $router->post('/professor/notas/generar-acta', [ProfessorNotasController::class, 'generarActa']);
+        $router->get('/professor/notas/pdf', [ProfessorNotasController::class, 'pdf']);
+
+        
+        // Modulo de profesores - Horarios
+        $router->get('/professor/horario',     [ProfessorHorarioController::class, 'index']);
+        $router->get('/professor/horario/pdf', [ProfessorHorarioController::class, 'pdf']);
+
+
 
 
 
@@ -949,7 +1053,7 @@ final class Bootstrap
         // --- MÓDULO GERENCIAL: REPORTE GENERAL DE MOVIMIENTOS (TRAZABILIDAD 360°) ---
         // 1. Carga de la interfaz principal (Vista)
         $router->get('/managerial/movements-report', [ManagerialMovementsReportController::class, 'index']);
-
+        
         // 2. Endpoint para obtener la matriz de datos detallada (AJAX)
         // CAMBIO: Se cambió getReportData por loadData para coincidir con el controlador
         $router->get('/ManagerialMovementsReport/loadData', [ManagerialMovementsReportController::class, 'loadData']);
@@ -957,6 +1061,21 @@ final class Bootstrap
         // 3. Endpoint para el filtro dinámico de grupos asociados a la oferta
         $router->get('/ManagerialMovementsReport/getGroupsByOffering', [ManagerialMovementsReportController::class, 'getGroupsByOffering']);
 
+        // Modulo Gerencial - Estado de resultados
+        $router->get('/managerial/estado-resultados',     [ManagerialEstadoResultadosController::class, 'index']);
+        $router->get('/managerial/estado-resultados/pdf', [ManagerialEstadoResultadosController::class, 'pdf']);
+
+        // Modulo Gerencial - Reporte de Pagos 
+        $router->get('/managerial/pagos-reporte',            [ManagerialPagosReporteController::class, 'index']);
+        $router->get('/managerial/pagos-reporte/diplomados', [ManagerialPagosReporteController::class, 'getDiplomados']);
+        $router->get('/managerial/pagos-reporte/usuarios',   [ManagerialPagosReporteController::class, 'getUsuarios']);
+        $router->get('/managerial/pagos-reporte/pdf',        [ManagerialPagosReporteController::class, 'pdf']);
+
+        
+        // Modulo Gerencial - Linea de Tiempo
+        $router->get('/managerial/linea-tiempo',             [ManagerialLineaTiempoController::class, 'index']);
+        $router->get('/managerial/linea-tiempo/ofertas',     [ManagerialLineaTiempoController::class, 'getOfertas']);
+        $router->get('/managerial/linea-tiempo/estudiantes', [ManagerialLineaTiempoController::class, 'getEstudiantes']);
 
         // --- MÓDULO: ESTADOS DE CUENTA BANCARIOS ---
         $router->get('/financial/bank_statements', [FinancialBankStatementsController::class, 'index']);

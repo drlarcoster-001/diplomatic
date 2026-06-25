@@ -5,7 +5,8 @@
  * PROPÓSITO: Muestra los datos de la orden de pago + formulario de "Pagar"
  *            con campos que cambian según el medio de pago elegido, o el
  *            detalle ya pagado si estado=PAGADO. Botón Reversar si PENDIENTE.
- * VERSIÓN: 1.0.0 - Creación inicial.
+ *            Visor de comprobante flotante, draggable, con zoom y descarga.
+ * VERSIÓN: 1.1.0 - Visor de comprobante flotante draggable con zoom +-
  */
 $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
 $p = $pago;
@@ -24,6 +25,106 @@ $denominacionesUsd = [100, 50, 20, 10, 5, 1];
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <link rel="stylesheet" href="<?= $basePath ?>/assets/css/financial_tesoreria.css">
+<style>
+/* ── VISOR FLOTANTE ─────────────────────────────── */
+#visorComprobante {
+    display: none;
+    position: fixed;
+    top: 80px;
+    right: 24px;
+    width: 420px;
+    min-width: 280px;
+    max-width: 90vw;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    z-index: 9999;
+    user-select: none;
+}
+#visorComprobante.visible { display: flex; flex-direction: column; }
+#visorHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: #533AB7;
+    color: #fff;
+    border-radius: 12px 12px 0 0;
+    cursor: move;
+    font-size: 13px;
+    font-weight: 600;
+    gap: 8px;
+}
+#visorHeader .visor-titulo { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#visorControls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-bottom: 1px solid #f0f0f0;
+    background: #fafafa;
+}
+#visorControls button {
+    border: 1px solid #dee2e6;
+    background: #fff;
+    border-radius: 6px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background 0.15s;
+}
+#visorControls button:hover { background: #f0f0f0; }
+#visorZoomLabel {
+    font-size: 12px;
+    color: #555;
+    min-width: 40px;
+    text-align: center;
+}
+#visorControls a.btn-descargar {
+    margin-left: auto;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid #533AB7;
+    color: #533AB7;
+    text-decoration: none;
+    white-space: nowrap;
+}
+#visorControls a.btn-descargar:hover { background: #533AB7; color: #fff; }
+#visorImgWrap {
+    overflow: auto;
+    max-height: 60vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 10px;
+    background: #f8f8f8;
+    border-radius: 0 0 12px 12px;
+}
+#visorImg {
+    transform-origin: top center;
+    transition: transform 0.2s;
+    max-width: 100%;
+    border-radius: 4px;
+    cursor: grab;
+}
+#visorImg:active { cursor: grabbing; }
+#visorResizer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    cursor: se-resize;
+    background: linear-gradient(135deg, transparent 50%, #aaa 50%);
+    border-radius: 0 0 12px 0;
+}
+</style>
 
 <div class="container-fluid py-4">
     <nav aria-label="breadcrumb">
@@ -50,6 +151,10 @@ $denominacionesUsd = [100, 50, 20, 10, 5, 1];
         <?php if ($p['estado'] === 'PENDIENTE'): ?>
             <button class="btn btn-outline-warning rounded-pill px-4 shadow-sm" id="btnReversar">
                 <i class="bi bi-arrow-counterclockwise me-1"></i> Reversar a Orden de Pago
+            </button>
+        <?php elseif ($p['estado'] === 'PAGADO'): ?>
+            <button class="btn btn-outline-danger rounded-pill px-4 shadow-sm" id="btnReversarPago">
+                <i class="bi bi-arrow-counterclockwise me-1"></i> Reversar Pago
             </button>
         <?php endif; ?>
     </div>
@@ -89,7 +194,6 @@ $denominacionesUsd = [100, 50, 20, 10, 5, 1];
             </div>
 
             <?php if ($p['estado'] === 'PENDIENTE'): ?>
-                <!-- ===================== FORMULARIO DE PAGO ===================== -->
                 <div class="tes-form-pago">
                     <div class="tes-label mb-3">Registrar Pago</div>
 
@@ -103,7 +207,6 @@ $denominacionesUsd = [100, 50, 20, 10, 5, 1];
                         </select>
                     </div>
 
-                    <!-- EFECTIVO -->
                     <div id="bloqueEfectivo" style="display:none">
                         <div class="mb-3">
                             <label class="form-label fw-bold small">Moneda</label>
@@ -113,7 +216,6 @@ $denominacionesUsd = [100, 50, 20, 10, 5, 1];
                                 <option value="BS">Bolívares (Bs)</option>
                             </select>
                         </div>
-
                         <div id="arqueoUsd" style="display:none">
                             <label class="form-label fw-bold small mb-2">Arqueo de Billetes (USD)</label>
                             <div class="tes-arqueo-grid">
@@ -132,7 +234,6 @@ $denominacionesUsd = [100, 50, 20, 10, 5, 1];
                                 <span class="small text-muted" id="diffArqueoUsd"></span>
                             </div>
                         </div>
-
                         <div id="arqueoBs" style="display:none">
                             <label class="form-label fw-bold small">Descripción del Arqueo (Bs)</label>
                             <textarea id="arqueoTextoBs" class="form-control" rows="3"
@@ -140,7 +241,6 @@ $denominacionesUsd = [100, 50, 20, 10, 5, 1];
                         </div>
                     </div>
 
-                    <!-- TRANSFERENCIA / PAGO MÓVIL (campos comunes) -->
                     <div id="bloqueBancario" style="display:none">
                         <div class="row g-2">
                             <div class="col-md-6">
@@ -174,8 +274,8 @@ $denominacionesUsd = [100, 50, 20, 10, 5, 1];
                         <i class="bi bi-check2-circle me-1"></i> Confirmar Pago
                     </button>
                 </div>
+
             <?php elseif ($p['estado'] === 'PAGADO'): ?>
-                <!-- ===================== DETALLE YA PAGADO ===================== -->
                 <div class="tes-pagado-detalle">
                     <div class="tes-label mb-2">Datos del Pago</div>
                     <div class="row g-3">
@@ -223,9 +323,12 @@ $denominacionesUsd = [100, 50, 20, 10, 5, 1];
                             </div>
                             <?php if ($p['comprobante_path']): ?>
                                 <div class="col-12">
-                                    <a href="<?= htmlspecialchars($p['comprobante_path']) ?>" target="_blank" class="btn btn-sm btn-outline-dark rounded-pill">
-                                        <i class="bi bi-paperclip me-1"></i> Ver Comprobante
-                                    </a>
+                                    <button type="button"
+                                            class="btn btn-sm btn-outline-primary rounded-pill"
+                                            id="btnVerComprobante"
+                                            data-path="<?= htmlspecialchars($basePath . $p['comprobante_path']) ?>">
+                                        <i class="bi bi-eye me-1"></i> Ver Comprobante
+                                    </button>
                                 </div>
                             <?php endif; ?>
                         <?php endif; ?>
@@ -234,6 +337,31 @@ $denominacionesUsd = [100, 50, 20, 10, 5, 1];
             <?php endif; ?>
         </div>
     </div>
+</div>
+
+<!-- VISOR FLOTANTE DRAGGABLE -->
+<div id="visorComprobante">
+    <div id="visorHeader">
+        <i class="bi bi-arrows-move me-1"></i>
+        <span class="visor-titulo">Comprobante de Pago</span>
+        <button type="button" id="btnCerrarVisor"
+                style="background:rgba(255,255,255,0.2);border:none;color:#fff;border-radius:6px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;padding:0">
+            <i class="bi bi-x-lg"></i>
+        </button>
+    </div>
+    <div id="visorControls">
+        <button type="button" id="btnZoomOut" title="Alejar"><i class="bi bi-dash-lg"></i></button>
+        <span id="visorZoomLabel">100%</span>
+        <button type="button" id="btnZoomIn" title="Acercar"><i class="bi bi-plus-lg"></i></button>
+        <button type="button" id="btnZoomReset" title="Restablecer" style="font-size:12px">1:1</button>
+        <a id="linkDescargar" href="#" download target="_blank" class="btn-descargar">
+            <i class="bi bi-download me-1"></i>Descargar
+        </a>
+    </div>
+    <div id="visorImgWrap">
+        <img id="visorImg" src="" alt="Comprobante">
+    </div>
+    <div id="visorResizer"></div>
 </div>
 
 <script>

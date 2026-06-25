@@ -212,4 +212,8 @@ final class FinancialController extends Controller
         ]);
         exit;
     }
+
+    public function egresos(): void {
+    $this->view('financial/egresos/index');
+}
 }

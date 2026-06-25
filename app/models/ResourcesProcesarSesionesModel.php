@@ -6,7 +6,8 @@
  *            sesiones pendientes, sesiones por oferta, estudiantes matriculados con
  *            su asistencia, y procesa el marcado de asistencia generando el cambio
  *            de estado PROGRAMADA → DICTADA en tbl_sesiones.
- * VERSIÓN: 2.0.0 - Código limpio, sin dependencias de vistas.
+ * VERSIÓN: 2.1.0 - getSesionesByOffering agrega tiene_asistencia. Nuevos métodos:
+ *          reiniciarAsistencia() para limpiar tbl_sesion_asistencia desde el admin.
  */
 
 declare(strict_types=1);
@@ -116,7 +117,7 @@ class ResourcesProcesarSesionesModel
     }
 
     // =========================================================================
-    // SESIONES DE LA OFERTA
+    // SESIONES DE LA OFERTA — incluye tiene_asistencia para el indicador visual
     // =========================================================================
 
     public function getSesionesByOffering(int $offeringId): array
@@ -131,7 +132,9 @@ class ResourcesProcesarSesionesModel
                                    TIME_FORMAT(ht.hora_fin,   '%h:%i %p'))
                         WHEN s.tipo_horario = 'PRACTICA' THEN
                             CONCAT(gp.nombre, ' / ', cm.nombre)
-                    END AS horario_desc
+                    END AS horario_desc,
+                    (SELECT COUNT(*) FROM tbl_sesion_asistencia
+                     WHERE sesion_id = s.id) AS tiene_asistencia
              FROM tbl_sesiones s
              INNER JOIN tbl_personal p ON s.personal_id = p.id
              LEFT JOIN tbl_horarios_teoricos ht
@@ -184,7 +187,7 @@ class ResourcesProcesarSesionesModel
     }
 
     // =========================================================================
-    // SESIONES DICTADAS (para poder reversarlas)
+    // SESIONES DICTADAS
     // =========================================================================
 
     public function getSesionesDictadasByOffering(int $offeringId): array
@@ -237,6 +240,21 @@ class ResourcesProcesarSesionesModel
         $this->db->prepare(
             "DELETE FROM tbl_sesion_asistencia WHERE sesion_id = :id"
         )->execute([':id' => $sesionId]);
+    }
+
+    // =========================================================================
+    // REINICIAR ASISTENCIA — borra tbl_sesion_asistencia sin cambiar estado
+    // =========================================================================
+
+    public function reiniciarAsistencia(int $sesionId, int $userId): void
+    {
+        $this->db->prepare(
+            "DELETE FROM tbl_sesion_asistencia WHERE sesion_id = :id"
+        )->execute([':id' => $sesionId]);
+
+        $this->db->prepare(
+            "UPDATE tbl_sesiones SET updated_by = :uid WHERE id = :id"
+        )->execute([':uid' => $userId, ':id' => $sesionId]);
     }
 
     // =========================================================================

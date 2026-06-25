@@ -261,4 +261,117 @@ class ProfesoresController extends Controller
         }
         exit();
     }
+
+    // === ACCESO DE USUARIO (Portal de Profesores) ===
+    // Agregar este método a ProfesoresController.php, junto a los demás métodos.
+
+    public function createAccess(): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') return;
+        try {
+            $profesorId = (int) ($_POST['profesor_id'] ?? 0);
+            $email      = trim($_POST['email'] ?? '');
+            $password   = $_POST['password'] ?? '';
+
+            $profesor = $profesorId ? $this->model->getById($profesorId) : null;
+            if (!$profesor) {
+                header('Location: /diplomatic/public/academic/profesores?error=notfound');
+                exit;
+            }
+            if (!empty($profesor['user_id'])) {
+                header('Location: /diplomatic/public/academic/profesores?error=ya_tiene_acceso');
+                exit;
+            }
+            if ($email === '' || strlen($password) < 6) {
+                header('Location: /diplomatic/public/academic/profesores?error=incompleto');
+                exit;
+            }
+            if ($this->model->emailExists($email)) {
+                header('Location: /diplomatic/public/academic/profesores?error=email_duplicado');
+                exit;
+            }
+
+            $this->model->createAccessForProfessor($profesorId, $email, $password, $profesor['first_name'], $profesor['last_name']);
+
+            AuditService::log([
+                'module' => 'ACADEMIC_PROFESORES',
+                'action' => 'CREAR_ACCESO',
+                'description' => "Creó acceso de usuario para el profesor \"{$profesor['full_name']}\""
+            ]);
+
+            header('Location: /diplomatic/public/academic/profesores?acceso_creado=1');
+            exit;
+        } catch (\Throwable $e) {
+            header('Location: /diplomatic/public/academic/profesores?error=db');
+            exit;
+        }
+    }
+
+ public function searchUsuarios(): void
+{
+    while (ob_get_level() > 0) ob_end_clean();
+    header('Content-Type: application/json; charset=utf-8');
+    try {
+        $term    = trim($_GET['term'] ?? '');
+        $results = $this->model->searchUsuariosProfesores($term);
+        echo json_encode(['success' => true, 'data' => $results], JSON_UNESCAPED_UNICODE);
+    } catch (Throwable $e) {
+        http_response_code(500);
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    }
+    exit;
+}
+
+public function vincular(): void
+{
+    while (ob_get_level() > 0) ob_end_clean();
+    header('Content-Type: application/json; charset=utf-8');
+    try {
+        $profesorId = (int) ($_POST['profesor_id'] ?? 0);
+        $userId     = (int) ($_POST['user_id']     ?? 0);
+
+        if (!$profesorId || !$userId) {
+            http_response_code(422);
+            echo json_encode(['success' => false, 'message' => 'Faltan datos requeridos.']);
+            exit;
+        }
+
+        $this->model->vincularUsuario($profesorId, $userId);
+
+        AuditService::log($_SESSION['user']['id'], 'ACADEMIC_PROFESORES', 'VINCULAR',
+            "Vinculó usuario {$userId} al profesor {$profesorId}", $profesorId);
+
+        echo json_encode(['success' => true, 'message' => 'Usuario vinculado correctamente.'], JSON_UNESCAPED_UNICODE);
+    } catch (Throwable $e) {
+        http_response_code(500);
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    }
+    exit;
+}
+
+public function desvincular(): void
+{
+    while (ob_get_level() > 0) ob_end_clean();
+    header('Content-Type: application/json; charset=utf-8');
+    try {
+        $profesorId = (int) ($_POST['profesor_id'] ?? 0);
+
+        if (!$profesorId) {
+            http_response_code(422);
+            echo json_encode(['success' => false, 'message' => 'Faltan datos requeridos.']);
+            exit;
+        }
+
+        $this->model->desvincularUsuario($profesorId);
+
+        AuditService::log($_SESSION['user']['id'], 'ACADEMIC_PROFESORES', 'DESVINCULAR',
+            "Desvinculó usuario del profesor {$profesorId}", $profesorId);
+
+        echo json_encode(['success' => true, 'message' => 'Usuario desvinculado correctamente.'], JSON_UNESCAPED_UNICODE);
+    } catch (Throwable $e) {
+        http_response_code(500);
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    }
+    exit;
+}
 }

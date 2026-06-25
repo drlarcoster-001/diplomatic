@@ -2,10 +2,10 @@
 /**
  * MÓDULO: RECURSOS HUMANOS / PROCESAR SESIONES
  * ARCHIVO: app/views/resources/procesar_sesiones/manage.php
- * PROPÓSITO: Lista de sesiones PROGRAMADAS de una oferta. Al hacer clic en una sesión
- *            se abre el panel de asistencia: lista de estudiantes con check por defecto,
- *            se desmarcan los ausentes y se procesa. Botón imprimir genera el PDF.
- * VERSIÓN: 1.0.0 - Creación inicial.
+ * PROPÓSITO: Lista de sesiones PROGRAMADAS de una oferta con indicador visual
+ *            de si el profesor ya cargó la asistencia. Al hacer clic en una sesión
+ *            se abre el panel de asistencia. Botón Reiniciar si fue cargada por profesor.
+ * VERSIÓN: 1.1.0 - Agrega indicador tiene_asistencia en items de sesión.
  */
 $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
 ?>
@@ -76,6 +76,20 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
                             </span>
                         </div>
 
+                        <!-- LEYENDA -->
+                        <?php if (!empty($sesiones)): ?>
+                        <div class="d-flex gap-3 mb-3" style="font-size:11px">
+                            <span class="d-flex align-items-center gap-1">
+                                <i class="bi bi-circle-fill" style="color:#1D9E75;font-size:8px"></i>
+                                Asistencia cargada
+                            </span>
+                            <span class="d-flex align-items-center gap-1">
+                                <i class="bi bi-circle-fill" style="color:#BA7517;font-size:8px"></i>
+                                Pendiente
+                            </span>
+                        </div>
+                        <?php endif; ?>
+
                         <?php if (empty($sesiones)): ?>
                             <div class="ps-empty">
                                 <i class="bi bi-check2-all fs-2 d-block mb-2 opacity-25"></i>
@@ -84,8 +98,10 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
                         <?php else: ?>
                             <div id="listaSesiones">
                                 <?php foreach ($sesiones as $s): ?>
-                                    <div class="ps-sesion-item" data-sid="<?= $s['id'] ?>">
-                                        <div>
+                                    <div class="ps-sesion-item"
+                                         data-sid="<?= $s['id'] ?>"
+                                         data-tiene-asistencia="<?= (int)$s['tiene_asistencia'] ?>">
+                                        <div class="flex-grow-1">
                                             <div class="ps-sesion-profesor">
                                                 <i class="bi bi-person me-1"></i>
                                                 <?= htmlspecialchars($s['last_name'] . ', ' . $s['first_name']) ?>
@@ -98,7 +114,20 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
                                                 <?= date('d/m/Y', strtotime($s['fecha'])) ?>
                                             </div>
                                         </div>
-                                        <i class="bi bi-chevron-right text-muted"></i>
+                                        <div class="d-flex flex-column align-items-end gap-1">
+                                            <?php if ((int)$s['tiene_asistencia'] > 0): ?>
+                                                <span class="badge rounded-pill"
+                                                      style="background:#E1F5EE;border:1px solid #1D9E75;color:#085041;font-size:10px">
+                                                    <i class="bi bi-check-circle me-1"></i>Cargada
+                                                </span>
+                                            <?php else: ?>
+                                                <span class="badge rounded-pill"
+                                                      style="background:#FAEEDA;border:1px solid #BA7517;color:#633806;font-size:10px">
+                                                    <i class="bi bi-clock me-1"></i>Pendiente
+                                                </span>
+                                            <?php endif; ?>
+                                            <i class="bi bi-chevron-right text-muted"></i>
+                                        </div>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
@@ -125,7 +154,7 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
             </div>
         </div>
 
-        <!-- PANEL DERECHO: FORMATO DE ASISTENCIA (compartido, editable o solo lectura) -->
+        <!-- PANEL DERECHO: FORMATO DE ASISTENCIA -->
         <div class="ps-panel-right">
             <div class="card border-0 shadow-sm">
                 <div class="card-body p-3" id="panelAsistencia">

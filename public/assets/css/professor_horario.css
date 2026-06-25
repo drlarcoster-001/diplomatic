@@ -1,0 +1,132 @@
+/**
+ * MÓDULO: PORTAL DOCENTE / MI HORARIO
+ * ARCHIVO: public/assets/css/professor_horario.css
+ * PROPÓSITO: Estilos para la grilla semanal de horarios teóricos y
+ *            los calendarios mensuales de prácticas.
+ * VERSIÓN: 1.0.0 - Creación inicial.
+ */
+
+/* ── ENCABEZADOS DE SECCIÓN ─────────────────────────────────────────── */
+.horario-header-teorico {
+    background: #EEEDFE;
+    border-left: 4px solid #533AB7 !important;
+    color: #533AB7;
+}
+.horario-header-practica {
+    background: #E1F5EE;
+    border-left: 4px solid #1D9E75 !important;
+    color: #085041;
+}
+
+/* ── GRILLA SEMANAL ──────────────────────────────────────────────────── */
+.horario-grid {
+    min-width: 500px;
+}
+.horario-th-hora {
+    width: 140px;
+    background: #f8f9fa;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #6c757d;
+    vertical-align: middle;
+    padding: 10px 14px;
+}
+.horario-th-dia {
+    background: #533AB7;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px;
+    min-width: 130px;
+}
+.horario-td-hora {
+    background: #f8f9fa;
+    font-size: 13px;
+    color: #444;
+    padding: 14px;
+    white-space: nowrap;
+    border-right: 2px solid #dee2e6 !important;
+}
+.horario-celda-activa {
+    background: #EEEDFE;
+    padding: 12px 8px;
+    vertical-align: middle;
+}
+.horario-celda-vacia {
+    background: #fff;
+    padding: 12px 8px;
+    vertical-align: middle;
+}
+.horario-clase-badge {
+    display: inline-block;
+    background: #533AB7;
+    color: #fff;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* ── CALENDARIOS MENSUALES ───────────────────────────────────────────── */
+.calendario-mes {
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    overflow: hidden;
+}
+.calendario-titulo {
+    background: #198754;
+    color: #fff;
+    text-align: center;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 10px;
+}
+.calendario-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+.calendario-tabla thead th {
+    background: #f0fff4;
+    color: #085041;
+    text-align: center;
+    padding: 6px 2px;
+    font-weight: 700;
+    border-bottom: 1px solid #dee2e6;
+}
+.calendario-tabla tbody td {
+    text-align: center;
+    vertical-align: top;
+    padding: 4px 2px;
+    border: 1px solid #f0f0f0;
+    min-height: 44px;
+    height: 44px;
+}
+.calendario-vacio {
+    background: #fafafa;
+}
+.calendario-practica {
+    background: #d1e7dd;
+    border: 1px solid #a3cfbb !important;
+}
+.calendario-numero {
+    display: block;
+    font-weight: 600;
+    font-size: 13px;
+    color: #212529;
+    margin-bottom: 2px;
+}
+.calendario-practica .calendario-numero {
+    color: #085041;
+}
+.calendario-info {
+    font-size: 9px;
+    color: #085041;
+    font-weight: 600;
+    line-height: 1.2;
+    word-break: break-word;
+}
+.calendario-info i {
+    font-size: 9px;
+}

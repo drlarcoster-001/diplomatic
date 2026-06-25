@@ -2,10 +2,11 @@
 /**
  * MÓDULO: RECURSOS HUMANOS / SESIONES
  * ARCHIVO: app/models/ResourcesSesionesModel.php
- * PROPÓSITO: Gestión de sesiones programadas. Obtiene ofertas activas, personal docente,
- *            horarios teóricos y prácticos por oferta, sesiones ya programadas por personal,
+ * PROPÓSITO: Gestión de sesiones programadas. Obtiene ofertas activas con
+ *            sus grupos habilitados, personal docente, horarios teóricos y
+ *            prácticos por oferta, sesiones ya programadas por personal,
  *            y crea/elimina sesiones en tbl_sesiones.
- * VERSIÓN: 1.0.0 - Creación inicial.
+ * VERSIÓN: 1.1.0 - Agrega grupos a getOfertasActivas y filtro por grupo en buscador.
  */
 
 declare(strict_types=1);
@@ -35,7 +36,7 @@ class ResourcesSesionesModel
         $params = [];
 
         if ($search !== '') {
-            $where .= " AND (d.name LIKE :search OR c.name LIKE :search)";
+            $where .= " AND (d.name LIKE :search OR c.name LIKE :search OR g.name LIKE :search)";
             $params[':search'] = "%{$search}%";
         }
 
@@ -44,16 +45,21 @@ class ResourcesSesionesModel
                        c.name AS cohorte_nombre,
                        ao.general_modality,
                        ao.status,
+                       (SELECT GROUP_CONCAT(g2.name ORDER BY g2.name SEPARATOR ', ')
+                        FROM tbl_academic_offering_groups og2
+                        INNER JOIN tbl_grupos g2 ON g2.id = og2.group_id
+                        WHERE og2.offering_id = ao.id AND og2.is_enabled = 1) AS grupos_nombre,
                        COUNT(DISTINCT s.id) AS total_sesiones,
                        SUM(CASE WHEN s.estado = 'PROGRAMADA' THEN 1 ELSE 0 END) AS sesiones_programadas,
                        SUM(CASE WHEN s.estado = 'DICTADA' THEN 1 ELSE 0 END) AS sesiones_dictadas
                 FROM tbl_academic_offerings ao
                 INNER JOIN tbl_diplomados d ON ao.diploma_id = d.id
                 INNER JOIN tbl_cohortes   c ON ao.cohort_id  = c.id
+                LEFT JOIN tbl_academic_offering_groups og ON og.offering_id = ao.id AND og.is_enabled = 1
+                LEFT JOIN tbl_grupos g ON g.id = og.group_id
                 LEFT JOIN tbl_horarios_teoricos ht ON ht.offering_id = ao.id AND ht.is_active = 1
-                LEFT JOIN tbl_sesiones s ON (
-                    (s.tipo_horario = 'TEORICO' AND s.horario_id = ht.id)
-                ) AND s.is_active = 1
+                LEFT JOIN tbl_sesiones s ON s.tipo_horario = 'TEORICO'
+                    AND s.horario_id = ht.id AND s.is_active = 1
                 {$where}
                 GROUP BY ao.id, d.name, c.name, ao.general_modality, ao.status
                 ORDER BY d.name ASC, c.name ASC
@@ -72,7 +78,7 @@ class ResourcesSesionesModel
         $where  = "WHERE ao.is_active = 1 AND ao.status IN ('ABIERTA', 'EN CURSO')";
         $params = [];
         if ($search !== '') {
-            $where .= " AND (d.name LIKE :search OR c.name LIKE :search)";
+            $where .= " AND (d.name LIKE :search OR c.name LIKE :search OR g.name LIKE :search)";
             $params[':search'] = "%{$search}%";
         }
         $stmt = $this->db->prepare(
@@ -80,6 +86,8 @@ class ResourcesSesionesModel
              FROM tbl_academic_offerings ao
              INNER JOIN tbl_diplomados d ON ao.diploma_id = d.id
              INNER JOIN tbl_cohortes   c ON ao.cohort_id  = c.id
+             LEFT JOIN tbl_academic_offering_groups og ON og.offering_id = ao.id AND og.is_enabled = 1
+             LEFT JOIN tbl_grupos g ON g.id = og.group_id
              {$where}"
         );
         $stmt->execute($params);
@@ -120,7 +128,7 @@ class ResourcesSesionesModel
     }
 
     // =========================================================================
-    // SESIONES DEL PERSONAL EN ESTA OFERTA (para el visualizador)
+    // SESIONES DEL PERSONAL EN ESTA OFERTA
     // =========================================================================
 
     public function getSesionesByPersonal(int $personalId, int $offeringId): array
@@ -172,7 +180,7 @@ class ResourcesSesionesModel
     }
 
     // =========================================================================
-    // HORARIOS PRÁCTICOS DE LA OFERTA (con fechas)
+    // HORARIOS PRÁCTICOS DE LA OFERTA
     // =========================================================================
 
     public function getHorariosPracticos(int $offeringId): array

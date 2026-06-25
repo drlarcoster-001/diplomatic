@@ -1,0 +1,23 @@
+/**
+ * MÓDULO: ACADÉMICO / APROBAR ACTAS
+ * ARCHIVO: public/assets/css/academic_aprobar_actas.css
+ * PROPÓSITO: Estilos para el listado y detalle de actas de notas.
+ * VERSIÓN: 1.0.0 - Creación inicial.
+ */
+
+/* Fila aprobada en la tabla */
+.fila-aprobado td {
+    background: #f0fff4 !important;
+}
+
+/* Fila reprobada en la tabla */
+.fila-reprobado td {
+    background: #fff5f5 !important;
+}
+
+/* Badge de nota */
+.nota-valor {
+    font-size: 15px;
+    font-weight: 700;
+    color: #212529;
+}

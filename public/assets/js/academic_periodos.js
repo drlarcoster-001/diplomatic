@@ -232,20 +232,12 @@ $(document).ready(function() {
 
                         const estado = (p.estado || '').trim().toLowerCase();
 
-                        if (estado === 'planificado') {
+                        if (estado === 'planificado' && btnActivar) {
                             btnActivar.style.display = 'inline-block';
-                            btnActivar.innerText = 'Activar Período';
                             btnActivar.onclick = () => changeStatus(p.id, 'Activo');
-                        } else if (estado === 'activo') {
-                            btnActivar.style.display = 'inline-block';
-                            btnActivar.innerText = 'Volver a Planificado';
-                            btnActivar.onclick = () => changeStatus(p.id, 'Planificado');
+                        } else if (estado === 'activo' && btnFinalizar) {
                             btnFinalizar.style.display = 'inline-block';
                             btnFinalizar.onclick = () => changeStatus(p.id, 'Finalizado');
-                        } else if (estado === 'finalizado') {
-                            btnFinalizar.style.display = 'inline-block';
-                            btnFinalizar.innerText = 'Reabrir Período';
-                            btnFinalizar.onclick = () => changeStatus(p.id, 'Activo');
                         }
 
                         bootstrap.Modal.getOrCreateInstance(document.getElementById('modalPeriodoPreview')).show();

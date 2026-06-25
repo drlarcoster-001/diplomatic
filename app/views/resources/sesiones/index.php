@@ -3,8 +3,9 @@
  * MÓDULO: RECURSOS HUMANOS / SESIONES
  * ARCHIVO: app/views/resources/sesiones/index.php
  * PROPÓSITO: Listado paginado de ofertas activas para programar sesiones.
- *            Muestra conteo de sesiones programadas vs dictadas por oferta.
- * VERSIÓN: 1.0.0 - Creación inicial.
+ *            Muestra grupos habilitados, conteo de sesiones programadas vs dictadas.
+ *            Buscador filtra por diplomado, cohorte y grupo.
+ * VERSIÓN: 1.1.0 - Agrega columna Grupos y filtro por grupo en buscador.
  */
 $basePath   = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
 $page       = $page       ?? 1;
@@ -60,7 +61,7 @@ function buildUrlS(array $params): string {
                             <i class="bi bi-search text-muted"></i>
                         </span>
                         <input type="text" name="search" class="form-control border-start-0"
-                               placeholder="Buscar por diplomado o cohorte..."
+                               placeholder="Buscar por diplomado, cohorte o grupo..."
                                value="<?= htmlspecialchars($search ?? '') ?>">
                         <?php if (!empty($search)): ?>
                             <a href="<?= $basePath ?>/resources/sesiones" class="btn btn-outline-secondary">
@@ -82,6 +83,7 @@ function buildUrlS(array $params): string {
                             <th class="ps-3" style="width:46px">#</th>
                             <th>Diplomado</th>
                             <th style="width:140px">Cohorte</th>
+                            <th style="width:160px">Grupos</th>
                             <th style="width:110px">Modalidad</th>
                             <th style="width:120px" class="text-center">Programadas</th>
                             <th style="width:110px" class="text-center">Dictadas</th>
@@ -91,14 +93,14 @@ function buildUrlS(array $params): string {
                     <tbody>
                         <?php if (empty($ofertas)): ?>
                             <tr>
-                                <td colspan="7" class="text-center py-5 text-muted">
+                                <td colspan="8" class="text-center py-5 text-muted">
                                     <i class="bi bi-calendar-x fs-2 d-block mb-2 opacity-25"></i>
                                     No hay ofertas académicas activas.
                                 </td>
                             </tr>
                         <?php else: ?>
                             <?php foreach ($ofertas as $idx => $o):
-                                $num      = $offset + $idx + 1;
+                                $num       = $offset + $idx + 1;
                                 $manageUrl = "{$basePath}/resources/sesiones/manage?offering_id={$o['offering_id']}";
                                 $modBadge  = match($o['general_modality']) {
                                     'Presencial' => 'bg-info bg-opacity-10 text-info',
@@ -119,6 +121,17 @@ function buildUrlS(array $params): string {
                                     </span>
                                 </td>
                                 <td class="small text-muted"><?= htmlspecialchars($o['cohorte_nombre']) ?></td>
+                                <td>
+                                    <?php if (!empty($o['grupos_nombre'])): ?>
+                                        <?php foreach (explode(', ', $o['grupos_nombre']) as $g): ?>
+                                            <span class="badge rounded-pill bg-light text-dark border me-1 mb-1">
+                                                <?= htmlspecialchars(trim($g)) ?>
+                                            </span>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <span class="text-muted small">—</span>
+                                    <?php endif; ?>
+                                </td>
                                 <td>
                                     <span class="badge rounded-pill <?= $modBadge ?>">
                                         <?= htmlspecialchars($o['general_modality']) ?>

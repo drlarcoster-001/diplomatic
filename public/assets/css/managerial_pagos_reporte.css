@@ -1,0 +1,12 @@
+/**
+ * MÓDULO: GESTIÓN GERENCIAL / REPORTE DE PAGOS
+ * ARCHIVO: public/assets/css/managerial_pagos_reporte.css
+ * PROPÓSITO: Estilos para los filtros en cascada y tabla de pagos.
+ * VERSIÓN: 1.0.0 - Creación inicial.
+ */
+
+/* Selectores en cascada deshabilitados */
+select:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

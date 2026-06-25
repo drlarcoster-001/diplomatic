@@ -1,0 +1,69 @@
+/**
+ * MÓDULO: ACADÉMICO / ASIGNACIÓN DE MODALIDAD A PROFESORES
+ * ARCHIVO: public/assets/css/academic_profesor_modalidad.css
+ * PROPÓSITO: Estilos de los buscadores inteligentes (dropdown), selector de
+ *            modalidad y botones de limpiar (X) de cada campo.
+ * VERSIÓN: 2.2.0 - Botones de limpiar + encabezado corregido.
+ */
+
+.buscador-inteligente { position: relative; }
+
+.buscador-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1080;
+    max-height: 220px;
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    margin-top: 4px;
+}
+
+.buscador-item {
+    padding: 8px 14px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.buscador-item:hover { background-color: #f1f3f9; }
+
+.btn-modalidad.active {
+    color: #fff !important;
+}
+.btn-modalidad[data-value="TEORICA"].active { background-color: #0d6efd; border-color: #0d6efd; }
+.btn-modalidad[data-value="PRACTICA"].active { background-color: #198754; border-color: #198754; }
+.btn-modalidad[data-value="VIRTUAL"].active { background-color: #0dcaf0; border-color: #0dcaf0; }
+
+.fila-asignacion:hover { background-color: #f8f9fa; }
+
+/* Botón de limpiar (X) */
+.btn-limpiar {
+    border-left: 0;
+    border-color: #dee2e6;
+    color: #6c757d;
+    transition: all 0.2s;
+}
+
+.btn-limpiar:hover {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+.buscador-inteligente.seleccion-activa .btn-limpiar {
+    display: block !important;
+}
+
+.buscador-inteligente .input-group .buscador-input {
+    border-right: 0;
+}
+
+.buscador-inteligente .input-group .buscador-input:focus {
+    box-shadow: none;
+    border-color: #dee2e6;
+}

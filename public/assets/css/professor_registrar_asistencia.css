@@ -1,0 +1,50 @@
+/* ============================================================
+   MÓDULO: PORTAL DOCENTE / REGISTRAR ASISTENCIA
+   ARCHIVO: public/assets/css/professor_registrar_asistencia.css
+   PROPÓSITO: Estilos para el listado de sesiones y el formulario
+              de marcado de asistencia por estudiante.
+   VERSIÓN: 1.0.0 - Creación inicial.
+   ============================================================ */
+
+/* Filas de la tabla de sesiones */
+.tabla-sesiones tbody tr {
+    transition: background 0.15s ease;
+}
+
+/* Fila de estudiante — resalta al marcar ausente */
+.fila-ausente td {
+    background: #fff5f5 !important;
+}
+.fila-presente td {
+    background: #f0fff4 !important;
+}
+
+/* Botones P / A más cómodos */
+#tablaAsistencia .btn-group .btn {
+    min-width: 44px;
+    font-weight: 600;
+}
+
+/* Contador de presentes/ausentes */
+#contPresentes {
+    color: #198754;
+    font-weight: 700;
+}
+#contAusentes {
+    color: #dc3545;
+    font-weight: 700;
+}
+
+/* Badge asistencia cargada */
+.badge-cargada {
+    background: #d1e7dd;
+    color: #0a3622;
+    border: 1px solid #a3cfbb;
+}
+
+/* Badge pendiente */
+.badge-pendiente {
+    background: #fff3cd;
+    color: #664d03;
+    border: 1px solid #ffe69c;
+}

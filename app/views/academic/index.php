@@ -154,5 +154,58 @@ $userRole = $_SESSION['user']['role'] ?? '';
             </a>
         </div>
 
+        <!-- Asignación de Modalidad-->
+        <div class="col-md-6 col-lg-3">
+            <a href="<?= htmlspecialchars($basePath) ?>/academic/profesor-modalidad" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #d63384 !important;">
+                    <div class="p-3 rounded-circle mx-auto mb-3" style="width: fit-content; background-color: rgba(214, 51, 132, 0.1); color: #d63384;">
+                        <i class="bi bi-person-video2 fs-2"></i>
+                    </div>
+                            <h5 class="fw-bold" style="color: #d63384;">Modalidad Virtual</h5>
+                            <p class="text-muted small">Asigna el profesor que dicta la parte virtual de cada oferta.</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Aprobar Actas -->
+        <div class="col-md-6 col-lg-3">
+            <a href="<?= htmlspecialchars($basePath) ?>/academic/aprobar-actas" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #198754 !important;">
+                    <div class="p-3 rounded-circle mx-auto mb-3" style="width: fit-content; background-color: rgba(25, 135, 84, 0.1); color: #198754;">
+                        <i class="bi bi-file-earmark-check-fill fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold" style="color: #198754;">Aprobar Actas</h5>
+                    <p class="text-muted small">Revisa y aprueba las actas de notas enviadas por los profesores.</p>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Cierre Académico -->
+        <div class="col-md-6 col-lg-3">
+            <a href="<?= htmlspecialchars($basePath) ?>/academic/cierre" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #dc3545 !important;">
+                    <div class="p-3 rounded-circle mx-auto mb-3" style="width:fit-content;background:rgba(220,53,69,0.1);color:#dc3545">
+                        <i class="bi bi-lock-fill fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold" style="color:#dc3545">Cierre Académico</h5>
+                    <p class="text-muted small">Proceso de cierre formal de ofertas académicas.</p>
+                </div>
+            </a>
+        </div>
+
+        <!--Histórico-->
+        <div class="col-md-6 col-lg-3">
+            <a href="<?= htmlspecialchars($basePath) ?>/academic/historico" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #6c757d !important;">
+                    <div class="p-3 rounded-circle mx-auto mb-3" style="width:fit-content;background:rgba(108,117,125,0.1);color:#6c757d">
+                        <i class="bi bi-archive-fill fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold" style="color:#6c757d">Histórico</h5>
+                    <p class="text-muted small">Consulta de diplomados cerrados con notas y resultados finales.</p>
+                </div>
+            </a>
+        </div>
+
+
     </div>
 </div>

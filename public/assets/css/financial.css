@@ -2,7 +2,7 @@
  * MÓDULO: GESTIÓN FINANCIERA
  * ARCHIVO: public/assets/css/financial.css
  * PROPÓSITO: Estilos específicos para el dashboard financiero y animaciones de tarjetas.
- * VERSIÓN: 1.1.0 - Inclusión de clases para estandarización de tarjetas y soporte a nuevos módulos.
+ * VERSIÓN: 1.3.0 - Carpeta visual alineada visualmente con tarjetas normales.
  */
 
 /* Clase maestra para los enlaces de tarjetas */
@@ -25,5 +25,115 @@
 
 /* Utilidades de bordes temáticos */
 .border-top-success { border-top: 4px solid #198754 !important; }
-.border-top-indigo { border-top: 4px solid #6610f2 !important; }
+.border-top-indigo  { border-top: 4px solid #6610f2 !important; }
 .border-top-primary { border-top: 4px solid #0d6efd !important; }
+
+/* ── CARPETA VISUAL ─────────────────────────────────────────────── */
+.carpeta-link {
+    text-decoration: none !important;
+    display: block;
+    height: 100%;
+}
+
+.carpeta-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 200px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 0.375rem;
+}
+
+.carpeta-wrap:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+.carpeta-pestaña {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45%;
+    height: 20px;
+    background: #d4a017;
+    border-radius: 8px 8px 0 0;
+    z-index: 1;
+}
+
+.carpeta-docs {
+    position: absolute;
+    top: 14px;
+    left: 12px;
+    right: 12px;
+    z-index: 2;
+}
+
+.carpeta-doc-1 {
+    background: #e8f4f8;
+    border-radius: 4px 4px 0 0;
+    height: 28px;
+    margin: 0 18px;
+}
+
+.carpeta-doc-2 {
+    background: #fff8e8;
+    border-radius: 4px 4px 0 0;
+    height: 28px;
+    margin: 0 10px;
+    margin-top: -22px;
+}
+
+.carpeta-doc-3 {
+    background: #f0f8e8;
+    border-radius: 4px 4px 0 0;
+    height: 28px;
+    margin: 0 2px;
+    margin-top: -22px;
+}
+
+.carpeta-cuerpo {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #e8b84b;
+    border-radius: 0 0.375rem 0.375rem 0.375rem;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    text-align: center;
+}
+
+/* Ícono igual que las tarjetas normales */
+.carpeta-icono-wrap {
+    width: fit-content;
+    background: rgba(122, 82, 0, 0.15);
+    padding: 12px;
+    border-radius: 50%;
+    margin-bottom: 12px;
+    font-size: 2rem;
+    color: #7a5200;
+    line-height: 1;
+}
+
+/* Título igual que h5 fw-bold de las tarjetas */
+.carpeta-titulo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #7a5200;
+    margin: 0 0 4px;
+    line-height: 1.2;
+}
+
+/* Descripción igual que .text-muted.small de las tarjetas */
+.carpeta-desc {
+    font-size: 0.875rem;
+    color: #9b6a00;
+    margin: 0;
+    line-height: 1.4;
+}

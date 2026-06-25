@@ -1,0 +1,89 @@
+/**
+ * MÓDULO: GESTIÓN GERENCIAL / ESTADO DE RESULTADOS
+ * ARCHIVO: public/assets/css/managerial_estado_resultados.css
+ * PROPÓSITO: Estilos para el reporte contable de estado de resultados.
+ * VERSIÓN: 1.0.0 - Creación inicial.
+ */
+
+/* ── SECCIÓN ──────────────────────────────────────────────────────── */
+.er-seccion {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.er-seccion-titulo {
+    padding: 12px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.er-ingreso {
+    background: #d1e7dd;
+    color: #085041;
+    border-left: 4px solid #198754;
+}
+
+.er-egreso {
+    background: #f8d7da;
+    color: #842029;
+    border-left: 4px solid #dc3545;
+}
+
+/* ── TABLA ────────────────────────────────────────────────────────── */
+.er-tabla {
+    background: #fff;
+}
+
+.er-fila {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+}
+
+.er-fila-small {
+    font-size: 12px;
+    padding: 6px 20px;
+}
+
+.er-total {
+    background: #f8f9fa;
+    font-weight: 700;
+    font-size: 14px;
+    border-top: 2px solid #dee2e6;
+    border-bottom: none;
+}
+
+/* ── SALDO ────────────────────────────────────────────────────────── */
+.er-saldo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.er-saldo-positivo {
+    background: #EEEDFE;
+    color: #3C3489;
+    border-left: 4px solid #533AB7;
+}
+
+.er-saldo-negativo {
+    background: #f8d7da;
+    color: #842029;
+    border-left: 4px solid #dc3545;
+}
+
+.er-saldo-valor {
+    font-size: 22px;
+    font-weight: 800;
+}

@@ -186,4 +186,80 @@ class ProfesoresModel
 
     public function insertDocument($d) { return $this->db->prepare("INSERT INTO tbl_professor_documents (professor_id, document_type, document_name, file_path) VALUES (?,?,?,?)")->execute([$d['professor_id'], $d['document_type'], $d['document_name'], $d['file_path']]); }
     public function deleteDocument($id) { return $this->db->prepare("DELETE FROM tbl_professor_documents WHERE id=?")->execute([$id]); }
+
+    // === ACCESO DE USUARIO (Portal de Profesores) ===
+    // Agregar estos 2 métodos a ProfesoresModel.php, junto a los demás métodos.
+
+    public function emailExists(string $email): bool {
+        $stmt = $this->db->prepare("SELECT id FROM tbl_users WHERE email = ?");
+        $stmt->execute([$email]);
+        return (bool) $stmt->fetch();
+    }
+
+    public function createAccessForProfessor(int $profesorId, string $email, string $password, string $firstName, string $lastName): int {
+        // Verificar si ya existe un usuario con ese email
+        $stmtCheck = $this->db->prepare("SELECT id FROM tbl_users WHERE email = ? LIMIT 1");
+        $stmtCheck->execute([$email]);
+        $existingUser = $stmtCheck->fetchColumn();
+
+        if ($existingUser) {
+            // Ya existe — actualizar rol y vincular
+            $this->db->prepare("UPDATE tbl_users SET role = 'PROFESOR', status = 'ACTIVE' WHERE id = ?")
+                    ->execute([$existingUser]);
+            $this->db->prepare("UPDATE tbl_professors SET user_id = ? WHERE id = ?")
+                    ->execute([$existingUser, $profesorId]);
+            return (int) $existingUser;
+        }
+
+        // No existe — crear usuario nuevo
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $this->db->prepare(
+            "INSERT INTO tbl_users (user_type, status, first_name, last_name, email, role, password_hash)
+            VALUES ('INTERNAL', 'ACTIVE', ?, ?, ?, 'PROFESOR', ?)"
+        );
+        $stmt->execute([$firstName, $lastName, $email, $hash]);
+        $userId = (int) $this->db->lastInsertId();
+        $this->db->prepare("UPDATE tbl_professors SET user_id = ? WHERE id = ?")
+                ->execute([$userId, $profesorId]);
+        return $userId;
+    }
+
+    public function searchUsuariosProfesores(string $term): array
+    {
+        $stmt = $this->db->prepare(
+            "SELECT u.id, u.first_name, u.last_name, u.email
+            FROM tbl_users u
+            LEFT JOIN tbl_professors p ON p.user_id = u.id
+            WHERE u.role = 'PROFESOR'
+            AND p.id IS NULL
+            AND (u.first_name LIKE :term1 OR u.last_name LIKE :term2 OR u.email LIKE :term3)
+            ORDER BY u.last_name ASC, u.first_name ASC
+            LIMIT 10"
+        );
+        $stmt->execute([':term1' => "%{$term}%", ':term2' => "%{$term}%", ':term3' => "%{$term}%"]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function vincularUsuario(int $profesorId, int $userId): void
+    {
+        $this->db->prepare("UPDATE tbl_professors SET user_id = ? WHERE id = ?")
+                ->execute([$userId, $profesorId]);
+        $this->db->prepare("UPDATE tbl_users SET role = 'PROFESOR' WHERE id = ?")
+                ->execute([$userId]);
+    }
+
+    public function desvincularUsuario(int $profesorId): void
+{
+    $stmt = $this->db->prepare("SELECT user_id FROM tbl_professors WHERE id = ?");
+    $stmt->execute([$profesorId]);
+    $userId = $stmt->fetchColumn();
+
+    $this->db->prepare("UPDATE tbl_professors SET user_id = NULL WHERE id = ?")
+             ->execute([$profesorId]);
+
+    if ($userId) {
+        $this->db->prepare("UPDATE tbl_users SET role = 'PARTICIPANT' WHERE id = ?")
+                 ->execute([$userId]);
+    }
+}
 }

@@ -7,8 +7,10 @@
  *            arqueo, transferencia o pago móvil con comprobante), y
  *            sincroniza el estado con tbl_ordenes_pago. También permite
  *            reversar de vuelta a Órdenes de Pago si algo está mal antes
- *            de pagar.
- * VERSIÓN: 1.0.0 - Creación inicial.
+ *            de pagar, y reversar un pago ya PAGADO registrando la reversa
+ *            en tbl_libro_egresos.
+ * VERSIÓN: 1.2.0 - registrarEgreso() agrega numero_orden y concepto automático.
+ *          reversarPagoRealizado() agrega numero_orden en la reversa.
  */
 
 declare(strict_types=1);
@@ -117,7 +119,7 @@ class FinancialTesoreriaModel
     }
 
     // =========================================================================
-    // ACCIONES
+    // MARCAR COMO PAGADO
     // =========================================================================
 
     public function marcarComoPagado(int $id, int $ordenPagoId, array $datos, int $userId): void
@@ -131,25 +133,146 @@ class FinancialTesoreriaModel
                  paid_at = NOW(), paid_by = :uid
              WHERE id = :id"
         )->execute([
-            ':medio_pago' => $datos['medio_pago'], ':moneda_efectivo' => $datos['moneda_efectivo'],
-            ':arqueo_detalle' => $datos['arqueo_detalle'], ':banco' => $datos['banco'],
-            ':cuenta' => $datos['cuenta'], ':telefono' => $datos['telefono'],
-            ':nombre_destinatario' => $datos['nombre_destinatario'], ':referencia' => $datos['referencia'],
-            ':comprobante_path' => $datos['comprobante_path'], ':uid' => $userId, ':id' => $id,
+            ':medio_pago'          => $datos['medio_pago'],
+            ':moneda_efectivo'     => $datos['moneda_efectivo'],
+            ':arqueo_detalle'      => $datos['arqueo_detalle'],
+            ':banco'               => $datos['banco'],
+            ':cuenta'              => $datos['cuenta'],
+            ':telefono'            => $datos['telefono'],
+            ':nombre_destinatario' => $datos['nombre_destinatario'],
+            ':referencia'          => $datos['referencia'],
+            ':comprobante_path'    => $datos['comprobante_path'],
+            ':uid'                 => $userId,
+            ':id'                  => $id,
         ]);
 
         $this->db->prepare("UPDATE tbl_ordenes_pago SET estado = 'PAGADA' WHERE id = :id")
                  ->execute([':id' => $ordenPagoId]);
     }
 
+    // =========================================================================
+    // REVERSAR A ÓRDENES DE PAGO (desde PENDIENTE — antes de pagar)
+    // =========================================================================
+
     public function reversarAOrdenPago(int $id, int $ordenPagoId): void
     {
-        $this->db->prepare("DELETE FROM tbl_tesoreria_pagos WHERE id = :id")->execute([':id' => $id]);
+        $this->db->prepare("DELETE FROM tbl_tesoreria_pagos WHERE id = :id")
+                 ->execute([':id' => $id]);
 
         $this->db->prepare(
             "UPDATE tbl_ordenes_pago
              SET estado = 'PENDIENTE', aprobado_by = NULL, aprobado_at = NULL
              WHERE id = :id"
         )->execute([':id' => $ordenPagoId]);
+    }
+
+    // =========================================================================
+    // REVERSAR PAGO REALIZADO (desde PAGADO — anula el pago ya ejecutado)
+    // =========================================================================
+
+    public function reversarPagoRealizado(int $id, int $ordenPagoId, int $userId): void
+    {
+        $stmt = $this->db->prepare(
+            "SELECT tp.comprobante_path,
+                    op.tipo, op.numero_orden, op.concepto, op.monto_usd, op.tasa_bcv, op.monto_bs, op.fecha_pago,
+                    CASE WHEN op.tipo = 'NOMINA' THEN CONCAT(p.last_name, ', ', p.first_name)
+                         ELSE pr.nombre END AS destinatario
+             FROM tbl_tesoreria_pagos tp
+             INNER JOIN tbl_ordenes_pago op ON op.id = :oid
+             LEFT JOIN tbl_personal p     ON op.personal_id  = p.id
+             LEFT JOIN tbl_proveedores pr ON op.proveedor_id = pr.id
+             WHERE tp.id = :id"
+        );
+        $stmt->execute([':id' => $id, ':oid' => $ordenPagoId]);
+        $datos = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $stmtEg = $this->db->prepare(
+            "SELECT id FROM tbl_libro_egresos
+             WHERE orden_pago_id = :oid AND tipo_movimiento = 'PAGO'
+             ORDER BY id DESC LIMIT 1"
+        );
+        $stmtEg->execute([':oid' => $ordenPagoId]);
+        $egreso = $stmtEg->fetch(PDO::FETCH_ASSOC);
+
+        if ($datos) {
+            $this->db->prepare(
+                "INSERT INTO tbl_libro_egresos
+                 (fecha, fecha_tasa, tipo, orden_pago_id, numero_orden, concepto, destinatario,
+                  monto_usd, tasa_bcv, monto_bs, tipo_movimiento, referencia_reversa_id, created_by)
+                 VALUES (:fecha, :fecha_tasa, :tipo, :oid, :numero_orden, :concepto, :destinatario,
+                         :monto_usd, :tasa_bcv, :monto_bs, 'REVERSA', :ref_id, :uid)"
+            )->execute([
+                ':fecha'        => date('Y-m-d'),
+                ':fecha_tasa'   => $datos['fecha_pago'],
+                ':tipo'         => $datos['tipo'],
+                ':oid'          => $ordenPagoId,
+                ':numero_orden' => $datos['numero_orden'],
+                ':concepto'     => $datos['concepto'] ?? 'Reversa ' . $datos['tipo'] . ' — ' . $datos['destinatario'],
+                ':destinatario' => $datos['destinatario'],
+                ':monto_usd'    => abs((float) $datos['monto_usd']),
+                ':tasa_bcv'     => $datos['tasa_bcv'],
+                ':monto_bs'     => abs((float) $datos['monto_bs']),
+                ':ref_id'       => $egreso ? $egreso['id'] : null,
+                ':uid'          => $userId,
+            ]);
+
+            if (!empty($datos['comprobante_path'])) {
+                $fullPath = '/var/www/diplomatic/public' . $datos['comprobante_path'];
+                if (file_exists($fullPath)) @unlink($fullPath);
+            }
+        }
+
+        $this->db->prepare(
+            "UPDATE tbl_tesoreria_pagos
+             SET estado = 'PENDIENTE', medio_pago = NULL, moneda_efectivo = NULL,
+                 arqueo_detalle = NULL, banco = NULL, cuenta = NULL, telefono = NULL,
+                 nombre_destinatario = NULL, referencia = NULL, comprobante_path = NULL,
+                 paid_at = NULL, paid_by = NULL
+             WHERE id = :id"
+        )->execute([':id' => $id]);
+
+        $this->db->prepare(
+            "UPDATE tbl_ordenes_pago SET estado = 'APROBADA' WHERE id = :id"
+        )->execute([':id' => $ordenPagoId]);
+    }
+
+    // =========================================================================
+    // LIBRO DE EGRESOS — registrar pago
+    // =========================================================================
+
+    public function registrarEgreso(int $ordenPagoId, int $userId): void
+    {
+        $stmt = $this->db->prepare(
+            "SELECT op.tipo, op.numero_orden, op.concepto, op.monto_usd, op.tasa_bcv, op.monto_bs, op.fecha_pago,
+                    CASE WHEN op.tipo = 'NOMINA' THEN CONCAT(p.last_name, ', ', p.first_name)
+                         ELSE pr.nombre END AS destinatario
+             FROM tbl_ordenes_pago op
+             LEFT JOIN tbl_personal p     ON op.personal_id  = p.id
+             LEFT JOIN tbl_proveedores pr ON op.proveedor_id = pr.id
+             WHERE op.id = :id"
+        );
+        $stmt->execute([':id' => $ordenPagoId]);
+        $op = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$op) return;
+
+        $this->db->prepare(
+            "INSERT INTO tbl_libro_egresos
+             (fecha, fecha_tasa, tipo, orden_pago_id, numero_orden, concepto, destinatario,
+              monto_usd, tasa_bcv, monto_bs, tipo_movimiento, created_by)
+             VALUES (:fecha, :fecha_tasa, :tipo, :oid, :numero_orden, :concepto, :destinatario,
+                     :monto_usd, :tasa_bcv, :monto_bs, 'PAGO', :uid)"
+        )->execute([
+            ':fecha'        => date('Y-m-d'),
+            ':fecha_tasa'   => $op['fecha_pago'],
+            ':tipo'         => $op['tipo'],
+            ':oid'          => $ordenPagoId,
+            ':numero_orden' => $op['numero_orden'],
+            ':concepto'     => $op['concepto'] ?? 'Pago ' . $op['tipo'] . ' — ' . $op['destinatario'],
+            ':destinatario' => $op['destinatario'],
+            ':monto_usd'    => -abs((float) $op['monto_usd']),
+            ':tasa_bcv'     => $op['tasa_bcv'],
+            ':monto_bs'     => -abs((float) $op['monto_bs']),
+            ':uid'          => $userId,
+        ]);
     }
 }

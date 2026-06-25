@@ -1,0 +1,53 @@
+/**
+ * MÓDULO: FINANCIERO / DASHBOARD
+ * ARCHIVO: public/assets/css/financial_dashboard.css
+ * PROPÓSITO: Estilos para las tarjetas de indicadores, gráfica mensual
+ *            y lista de últimos egresos.
+ * VERSIÓN: 1.0.0 - Creación inicial.
+ */
+
+/* ── TARJETAS INDICADORES ─────────────────────────────────────────── */
+.dash-card {
+    border-radius: 12px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.dash-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08) !important;
+}
+.dash-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #6c757d;
+    margin-bottom: 6px;
+    letter-spacing: 0.4px;
+}
+.dash-valor {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+.dash-icono {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+/* ── LISTA ÚLTIMOS EGRESOS ────────────────────────────────────────── */
+.dash-egreso-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.1s;
+}
+.dash-egreso-item:last-child {
+    border-bottom: none;
+}
+.dash-egreso-item:hover {
+    background: #f8f9fa;
+}
