@@ -42,8 +42,19 @@ class ManagerialEstadoResultadosController extends Controller
 
     public function index(): void
     {
-        $desde = $_GET['desde'] ?? date('Y-m-01');
-        $hasta = $_GET['hasta'] ?? date('Y-m-d');
+        $periodoId = (int) ($_GET['periodo_id'] ?? 0);
+        $periodos  = $this->model->getPeriodos();
+
+        // Si seleccionó período, usar sus fechas
+        if ($periodoId) {
+            $periodo = array_filter($periodos, fn($p) => (int)$p['id'] === $periodoId);
+            $periodo = array_values($periodo)[0] ?? null;
+            $desde   = $periodo['fecha_inicio'] ?? date('Y-m-01');
+            $hasta   = $periodo['fecha_fin']    ?? date('Y-m-d');
+        } else {
+            $desde = $_GET['desde'] ?? date('Y-m-01');
+            $hasta = $_GET['hasta'] ?? date('Y-m-d');
+        }
 
         $ingresos       = $this->model->getIngresos($desde, $hasta);
         $egresos        = $this->model->getEgresos($desde, $hasta);
@@ -65,6 +76,8 @@ class ManagerialEstadoResultadosController extends Controller
             'totalDirecta'   => $totalDirecta,
             'totalEgreso'    => $totalEgreso,
             'saldo'          => $saldo,
+            'periodos'       => $periodos,
+            'periodoId'      => $periodoId,
         ]);
     }
 
@@ -77,8 +90,21 @@ class ManagerialEstadoResultadosController extends Controller
         while (ob_get_level() > 0) ob_end_clean();
 
         try {
-            $desde          = $_GET['desde'] ?? date('Y-m-01');
-            $hasta          = $_GET['hasta'] ?? date('Y-m-d');
+            $periodoId = (int) ($_GET['periodo_id'] ?? 0);
+            $desde     = $_GET['desde'] ?? date('Y-m-01');
+            $hasta     = $_GET['hasta'] ?? date('Y-m-d');
+            $nombrePeriodo = '';
+
+            if ($periodoId) {
+                $periodos = $this->model->getPeriodos();
+                $periodo  = array_values(array_filter($periodos, fn($p) => (int)$p['id'] === $periodoId))[0] ?? null;
+                if ($periodo) {
+                    $desde         = $periodo['fecha_inicio'];
+                    $hasta         = $periodo['fecha_fin'];
+                    $nombrePeriodo = $periodo['nombre'];
+                }
+            }
+
             $ingresos       = $this->model->getIngresos($desde, $hasta);
             $egresos        = $this->model->getEgresos($desde, $hasta);
             $totalIngreso   = (float) ($ingresos['total']    ?? 0);
@@ -93,8 +119,9 @@ class ManagerialEstadoResultadosController extends Controller
             $imgUcla      = file_exists($pathUcla)     ? 'data:image/png;base64,'  . base64_encode(file_get_contents($pathUcla))     : '';
             $imgMedicina  = file_exists($pathMedicina) ? 'data:image/jpeg;base64,' . base64_encode(file_get_contents($pathMedicina)) : '';
             $fechaHoy     = date('d') . ' de ' . $this->getMes((int)date('m')) . ' de ' . date('Y');
-            $fDesde       = date('d/m/Y', strtotime($desde));
-            $fHasta       = date('d/m/Y', strtotime($hasta));
+            $fDesde        = date('d/m/Y', strtotime($desde));
+            $fHasta        = date('d/m/Y', strtotime($hasta));
+            $labelPeriodo  = $nombrePeriodo ?: "Del {$fDesde} al {$fHasta}";
             $colorSaldo   = $saldo >= 0 ? '#085041' : '#A32D2D';
             $signoSaldo   = $saldo >= 0 ? '+' : '-';
             $reversas     = (float) ($egresos['reversas'] ?? 0);
@@ -137,7 +164,7 @@ class ManagerialEstadoResultadosController extends Controller
               ESTADO DE RESULTADOS
             </div>
             <div style='text-align:center;font-size:10pt;color:#666;margin-bottom:20px'>
-              Período: {$fDesde} al {$fHasta}
+              {$labelPeriodo}
             </div>
             <div class='sec-titulo sec-ingreso'>INGRESOS</div>
             <table>

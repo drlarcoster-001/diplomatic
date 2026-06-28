@@ -27,6 +27,7 @@
         
         btnCertInscripcion: document.getElementById('btn-cert-inscripcion'),
         btnCertEstudios: document.getElementById('btn-cert-estudios'),
+        btnCertEstudiosHorario: document.getElementById('btn-cert-estudios-horario'),
         
         modalEl: document.getElementById('modalPreview'),
         modalTitle: document.getElementById('modalPreviewTitle'),
@@ -76,6 +77,7 @@
         // 3. Disparadores de vista previa
         DOM.btnCertInscripcion?.addEventListener('click', () => app.openPreview('INSCRIPCION', 'Planilla de Inscripción'));
         DOM.btnCertEstudios?.addEventListener('click', () => app.openPreview('ESTUDIOS', 'Constancia de Estudios'));
+        DOM.btnCertEstudiosHorario?.addEventListener('click', () => app.openPreview('ESTUDIOS_HORARIO', 'Constancia de Estudios con Horario'));
 
         // 4. Acciones de persistencia
         DOM.btnDownload?.addEventListener('click', () => app.executeFinalizeDownload());

@@ -62,7 +62,14 @@ $basePath = '/diplomatic/public';
                             <div class="input-group">
                                 <span class="input-group-text bg-white text-muted"><i class="bi bi-funnel"></i></span>
                                 <input type="text" class="form-control border-start-0" id="search-inscripcion" placeholder="Buscar por Cédula, Nombre o Diplomado..." autocomplete="off">
+                                <button type="button" class="btn btn-danger px-3" id="btn-search-inscripcion">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                                <button type="button" class="btn btn-light border" id="btn-clear-inscripcion" title="Limpiar">
+                                    <i class="bi bi-eraser"></i>
+                                </button>
                             </div>
+
                         </div>
                     </form>
 

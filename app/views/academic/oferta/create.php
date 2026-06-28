@@ -37,9 +37,21 @@
                     <div class="card-header bg-white fw-bold text-primary">A. Parámetros Base</div>
                     <div class="card-body">
                         <div class="row g-3 mb-3">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label fw-bold small">Período *</label>
+                                <select id="sel_periodo" class="form-select">
+                                    <option value="">— Selecciona período —</option>
+                                    <?php foreach($periodos ?? [] as $p): ?>
+                                        <option value="<?= $p['id'] ?>">
+                                            <?= htmlspecialchars($p['nombre']) ?> (<?= $p['estado'] ?>)
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
                             <div class="col-md-6">
                                 <label class="form-label fw-bold small">Diplomado *</label>
                                 <select name="diploma_id" class="form-select" required>
+
                                     <option value="">Seleccione...</option>
                                     <?php foreach($diplomados ?? [] as $d): ?>
                                         <option value="<?= (int)$d['id'] ?>"><?= htmlspecialchars($d['name']) ?></option>
@@ -48,7 +60,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label fw-bold small">Cohorte *</label>
-                                <select name="cohort_id" id="cohort_id" class="form-select" required>
+                                <select name="cohort_id" id="cohort_id" class="form-select" required disabled>
                                     <option value="">Seleccione...</option>
                                     <?php foreach($cohortes ?? [] as $c): ?>
                                         <option value="<?= (int)$c['id'] ?>" 

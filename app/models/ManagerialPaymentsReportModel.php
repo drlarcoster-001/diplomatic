@@ -36,6 +36,31 @@ class ManagerialPaymentsReportModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
     }
 
+    public function getPeriodos(): array {
+    $stmt = $this->db->query(
+        "SELECT id, nombre, estado FROM tbl_periodos_cohorte
+        WHERE is_active = 1 ORDER BY id DESC"
+    );
+    return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+}
+
+    public function getOfferingsByPeriodo(int $periodoId): array {
+        $sql = "SELECT ao.id, CONCAT(d.name, COALESCE(
+                    (SELECT CONCAT(' — ', GROUP_CONCAT(g.name ORDER BY g.name SEPARATOR ', '))
+                    FROM tbl_academic_offering_groups og
+                    INNER JOIN tbl_grupos g ON g.id = og.group_id
+                    WHERE og.offering_id = ao.id AND og.is_enabled = 1), ''
+                )) AS diploma_name
+                FROM tbl_academic_offerings ao
+                INNER JOIN tbl_diplomados d ON d.id = ao.diploma_id
+                INNER JOIN tbl_cohortes c ON c.id = ao.cohort_id
+                WHERE c.periodo_id = :pid AND ao.is_active = 1
+                ORDER BY d.name ASC";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([':pid' => $periodoId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+    }
+
     /**
      * Obtiene la lista de grupos vinculados a una oferta académica específica.
      */

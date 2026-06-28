@@ -56,7 +56,17 @@ function buildUrl(array $params): string {
         <div class="card-body p-3">
 
             <form method="GET" action="<?= $basePath ?>/academic/horarios-teoricos" class="row g-2 mb-3">
-                <div class="col-md-10">
+                <div class="col-md-4">
+                    <select name="periodo_id" class="form-select">
+                        <option value="">— Todos los períodos —</option>
+                        <?php foreach ($periodos ?? [] as $p): ?>
+                            <option value="<?= $p['id'] ?>" <?= $periodoId === (int)$p['id'] ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($p['nombre']) ?><?= $p['estado'] === 'Finalizado' ? ' (Finalizado)' : '' ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="col-md-6">
                     <div class="input-group">
                         <span class="input-group-text bg-white border-end-0">
                             <i class="bi bi-search text-muted"></i>

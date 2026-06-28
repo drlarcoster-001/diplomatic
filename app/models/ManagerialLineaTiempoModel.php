@@ -31,8 +31,8 @@ class ManagerialLineaTiempoModel
     public function getPeriodos(): array
     {
         $stmt = $this->db->query(
-            "SELECT id, periodo_code, nombre FROM tbl_periodos_cohorte
-             WHERE is_active = 1 ORDER BY id DESC"
+            "SELECT id, periodo_code, nombre, estado FROM tbl_periodos_cohorte
+            WHERE is_active = 1 ORDER BY id DESC"
         );
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

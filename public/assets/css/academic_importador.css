@@ -1,0 +1,45 @@
+/**
+ * MÓDULO: ACADÉMICO / IMPORTADOR
+ * ARCHIVO: public/assets/css/academic_importador.css
+ * PROPÓSITO: Estilos para el formulario de importación de período.
+ * VERSIÓN: 1.0.0 - Creación inicial.
+ */
+
+/* ── LOG DE IMPORTACIÓN ───────────────────────────────────────────── */
+.imp-log {
+    background: #1e1e1e;
+    border-radius: 8px;
+    padding: 16px;
+    max-height: 300px;
+    overflow-y: auto;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+.imp-log-line {
+    color: #a8ff78;
+    padding: 2px 0;
+    line-height: 1.6;
+}
+
+/* ── ITEMS INFO LATERAL ───────────────────────────────────────────── */
+.imp-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.imp-item:last-child {
+    border-bottom: none;
+}
+
+.imp-item i {
+    font-size: 16px;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.imp-ok i  { color: #198754; }
+.imp-no i  { color: #dc3545; }

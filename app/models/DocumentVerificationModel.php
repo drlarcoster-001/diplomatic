@@ -91,7 +91,11 @@ public function getPendingList(array $filters = []): array
                         JOIN tbl_academic_offerings o ON e.offering_id = o.id
                         JOIN tbl_diplomados d ON o.diploma_id = d.id
                         JOIN tbl_cohortes c ON o.cohort_id = c.id
-                        WHERE e.id = ? AND e.status IN ('REVISION', 'COMPROMISO') FOR UPDATE";
+                        WHERE e.id = ? 
+                            AND e.status IN ('REVISION', 'COMPROMISO')
+                            AND o.status = 'ABIERTA'
+                            AND c.cohort_status = 'Planificada'
+                            FOR UPDATE";
             
             $stmt = $this->db->prepare($sqlData);
             $stmt->execute([$enrollmentId]);

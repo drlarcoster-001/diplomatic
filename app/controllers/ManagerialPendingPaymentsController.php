@@ -46,8 +46,13 @@ final class ManagerialPendingPaymentsController extends Controller
     public function index(): void {
         if (ob_get_level() > 0) ob_clean(); 
         
+        $periodoId = (int) ($_GET['periodo_id'] ?? 0);
         $this->view('managerial/pending_payments/index', [
-            'offerings' => $this->pendingModel->getOfferingsList()
+            'offerings'  => $periodoId
+                ? $this->pendingModel->getOfferingsByPeriodo($periodoId)
+                : $this->pendingModel->getOfferingsList(),
+            'periodos'   => $this->pendingModel->getPeriodos(),
+            'periodoId'  => $periodoId,
         ]);
     }
 
@@ -60,10 +65,24 @@ final class ManagerialPendingPaymentsController extends Controller
         header('Content-Type: application/json; charset=utf-8');
         
         try {
+            $periodoId     = (int) ($_GET['periodo_id'] ?? 0);
+            $nombrePeriodo = '';
+            if ($periodoId) {
+                $periodos = $this->pendingModel->getPeriodos();
+                $periodo  = array_values(array_filter($periodos, fn($p) => (int)$p['id'] === $periodoId))[0] ?? null;
+                if ($periodo) $nombrePeriodo = $periodo['nombre'];
+            }
+            $periodoId     = (int) ($_GET['periodo_id'] ?? 0);
+            $nombrePeriodo = '';
+            if ($periodoId) {
+                $periodos = $this->pendingModel->getPeriodos();
+                $periodo  = array_values(array_filter($periodos, fn($p) => (int)$p['id'] === $periodoId))[0] ?? null;
+                if ($periodo) $nombrePeriodo = $periodo['nombre'];
+            }
             $filters = [
                 'student'     => trim($_GET['student'] ?? ''),
                 'offering_id' => trim($_GET['offering_id'] ?? 'ALL'),
-                'origin'      => trim($_GET['origin'] ?? 'ALL') // ALL, INSCRIPTION, INSTALLMENT
+                'origin'      => trim($_GET['origin'] ?? 'ALL')
             ];
 
             $page   = (int)($_GET['page'] ?? 1);
@@ -144,7 +163,8 @@ final class ManagerialPendingPaymentsController extends Controller
             extract([
                 'fullData'        => $fullData,
                 'groupedData'     => $groupedData,
-                'totalPendingUsd' => $totalPendingUsd
+                'totalPendingUsd' => $totalPendingUsd,
+                'nombrePeriodo'   => $nombrePeriodo,
             ]);
 
             require $viewPath; 

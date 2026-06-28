@@ -33,7 +33,18 @@
     <div class="card border-0 shadow-sm mb-4">
         <div class="card-body">
             <form id="filterForm" method="GET" action="/diplomatic/public/academic/oferta" class="row g-3 align-items-end">
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    <label class="form-label fw-bold small text-secondary">Período</label>
+                    <select name="periodo_id" class="form-select form-select-sm auto-filter">
+                        <option value="">-- Todos --</option>
+                        <?php foreach($periodos as $p): ?>
+                            <option value="<?= $p['id'] ?>" <?= ($filters['periodo_id'] == $p['id']) ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($p['nombre']) ?><?= $p['estado'] === 'Finalizado' ? ' (Finalizado)' : '' ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="col-md-3">
                     <label for="f_diploma" class="form-label fw-bold small text-secondary">Diplomado</label>
                     <select name="diploma_id" id="f_diploma" class="form-select form-select-sm auto-filter">
                         <option value="">-- Todos --</option>
@@ -62,7 +73,15 @@
                         <option value="FINALIZADA" <?= ($filters['status'] == 'FINALIZADA') ? 'selected' : '' ?>>FINALIZADA</option>
                     </select>
                 </div>
-                <div class="col-md-1"><a href="/diplomatic/public/academic/oferta" class="btn btn-light border btn-sm w-100" title="Limpiar"><i class="bi bi-eraser text-secondary"></i></a></div>
+                <div class="col-md-1 d-flex gap-1">
+    <a href="/diplomatic/public/academic/oferta/pdf?<?= http_build_query($filters) ?>"
+       target="_blank" class="btn btn-dark border btn-sm flex-grow-1" title="Exportar PDF">
+        <i class="bi bi-file-earmark-pdf"></i>
+    </a>
+    <a href="/diplomatic/public/academic/oferta" class="btn btn-light border btn-sm flex-grow-1" title="Limpiar">
+        <i class="bi bi-eraser text-secondary"></i>
+    </a>
+</div>
             </form>
         </div>
     </div>
@@ -140,6 +159,27 @@
                 </tbody>
             </table>
         </div>
+        <?php if ($pages > 1): ?>
+        <div class="d-flex justify-content-between align-items-center px-3 py-2 border-top">
+            <small class="text-muted">Mostrando <?= count($ofertas) ?> de <?= $total ?> ofertas</small>
+            <div class="d-flex gap-1">
+                <?php if ($page > 1): ?>
+                    <a href="?<?= http_build_query(array_merge($filters, ['page' => $page - 1])) ?>"
+                       class="btn btn-sm btn-light border rounded-pill px-3">‹</a>
+                <?php endif; ?>
+                <?php for ($i = 1; $i <= $pages; $i++): ?>
+                    <a href="?<?= http_build_query(array_merge($filters, ['page' => $i])) ?>"
+                       class="btn btn-sm <?= $i === $page ? 'btn-dark' : 'btn-light border' ?> rounded-pill px-3">
+                        <?= $i ?>
+                    </a>
+                <?php endfor; ?>
+                <?php if ($page < $pages): ?>
+                    <a href="?<?= http_build_query(array_merge($filters, ['page' => $page + 1])) ?>"
+                       class="btn btn-sm btn-light border rounded-pill px-3">›</a>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php endif; ?>
     </div>
 </div>
 <script src="/diplomatic/public/assets/js/academic_oferta.js"></script>

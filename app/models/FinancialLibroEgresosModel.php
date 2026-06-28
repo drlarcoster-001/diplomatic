@@ -137,4 +137,14 @@ class FinancialLibroEgresosModel
         $stmt->execute($params);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getPeriodos(): array
+    {
+        $stmt = $this->db->query(
+            "SELECT id, nombre, fecha_inicio, fecha_fin, estado
+                FROM tbl_periodos_cohorte
+                WHERE is_active = 1 ORDER BY id DESC"
+        );
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

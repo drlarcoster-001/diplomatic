@@ -26,27 +26,40 @@ final class CohortesConfigModel
     /**
      * Obtiene TODAS las cohortes registradas, permitiendo auditoría sobre registros activos e inactivos.
      */
-    public function getAll(string $search = '', int $page = 1, int $perPage = 25): array
+public function getAll(string $search = '', int $page = 1, int $perPage = 25, int $periodoId = 0): array
 {
     $offset = ($page - 1) * $perPage;
-    $sql = "SELECT c.* FROM tbl_cohortes c 
-            WHERE (c.name LIKE ? OR c.cohort_code LIKE ?)
-            ORDER BY c.id DESC
-            LIMIT ? OFFSET ?";
+    $where  = "(c.name LIKE ? OR c.cohort_code LIKE ?)";
+    $params = ["%$search%", "%$search%"];
+    if ($periodoId) { $where .= " AND c.periodo_id = ?"; $params[] = $periodoId; }
+    $params[] = $perPage;
+    $params[] = $offset;
+    $sql = "SELECT c.*, p.nombre as periodo_nombre FROM tbl_cohortes c
+            LEFT JOIN tbl_periodos_cohorte p ON p.id = c.periodo_id
+            WHERE {$where} ORDER BY c.id DESC LIMIT ? OFFSET ?";
     $stmt = $this->db->prepare($sql);
-    $term = "%$search%";
-    $stmt->execute([$term, $term, $perPage, $offset]);
+    $stmt->execute($params);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-public function countAll(string $search = ''): int
+public function countAll(string $search = '', int $periodoId = 0): int
 {
-    $sql = "SELECT COUNT(*) FROM tbl_cohortes c 
-            WHERE (c.name LIKE ? OR c.cohort_code LIKE ?)";
+    $where  = "(c.name LIKE ? OR c.cohort_code LIKE ?)";
+    $params = ["%$search%", "%$search%"];
+    if ($periodoId) { $where .= " AND c.periodo_id = ?"; $params[] = $periodoId; }
+    $sql = "SELECT COUNT(*) FROM tbl_cohortes c WHERE {$where}";
     $stmt = $this->db->prepare($sql);
-    $term = "%$search%";
-    $stmt->execute([$term, $term]);
+    $stmt->execute($params);
     return (int)$stmt->fetchColumn();
+}
+
+public function getPeriodos(): array
+{
+    $stmt = $this->db->query(
+        "SELECT id, nombre, estado FROM tbl_periodos_cohorte
+         WHERE is_active = 1 ORDER BY id DESC"
+    );
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 }
 
     /**

@@ -238,7 +238,8 @@ if (btnExportExcel) {
             rF1.height = 28;
 
             // Generado
-            wsResumen.addRow([`Generado: ${dd}/${mm}/${yy} ${hh}:${min}:${ss}`]);
+            const periodoLabelPend = document.getElementById('filter_periodo')?.options[document.getElementById('filter_periodo')?.selectedIndex]?.text || 'Todos los períodos';
+            wsResumen.addRow([`Período: ${periodoLabelPend} — Generado: ${dd}/${mm}/${yy} ${hh}:${min}:${ss}`]);
             wsResumen.getRow(2).getCell(1).font = { italic: true, size: 9, color: { argb: 'FF888888' } };
 
             // Total General
@@ -447,7 +448,18 @@ if (btnExportExcel) {
         }
     };
 }
-    // --- 9. EXPORTACIÓN PDF ---
+    
+// --- FILTRO DE PERÍODO ---
+    const periodoSelect = document.getElementById('filter_periodo');
+    if (periodoSelect) {
+        periodoSelect.addEventListener('change', () => {
+            const url = new URL(window.location.href);
+            url.searchParams.set('periodo_id', periodoSelect.value);
+            window.location.href = url.toString();
+        });
+    }
+    
+// --- 9. EXPORTACIÓN PDF ---
     if (btnExportPdf) {
         btnExportPdf.onclick = (e) => {
             e.preventDefault();

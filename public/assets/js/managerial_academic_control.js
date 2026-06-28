@@ -217,7 +217,8 @@ document.addEventListener('DOMContentLoaded', () => {
             rF1.getCell(1).alignment = { horizontal: 'center', vertical: 'middle' };
             rF1.height = 70;
 
-            wsResumen.addRow([`Generado: ${dd}/${mm}/${yy} ${hh}:${min}:${ss}`]);
+            const periodoLabelAc = document.getElementById('filter_periodo')?.options[document.getElementById('filter_periodo')?.selectedIndex]?.text || 'Todos los períodos';
+            wsResumen.addRow([`Período: ${periodoLabelAc} — Generado: ${dd}/${mm}/${yy} ${hh}:${min}:${ss}`]);
             wsResumen.getRow(2).getCell(1).font = { italic: true, size: 9, color: { argb: 'FF888888' } };
             wsResumen.addRow([]);
 

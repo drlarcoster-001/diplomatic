@@ -88,6 +88,7 @@
         // 4. Disparadores de Modal
         document.getElementById('btn-generate-inscripcion')?.addEventListener('click', () => app.openPreview('INSCRIPCION'));
         document.getElementById('btn-generate-estudios')?.addEventListener('click', () => app.openPreview('ESTUDIOS'));
+        document.getElementById('btn-generate-estudios-horario')?.addEventListener('click', () => app.openPreview('ESTUDIOS_HORARIO'));
         
         // 5. Acciones de persistencia (Descarga / Email)
         DOM.btnDownload?.addEventListener('click', () => app.executeFinalizeDownload());

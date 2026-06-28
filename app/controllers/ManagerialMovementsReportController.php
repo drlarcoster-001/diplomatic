@@ -29,9 +29,14 @@ class ManagerialMovementsReportController extends Controller
      * Inyecta la lista de diplomados únicos para el selector de filtros globales.
      */
     public function index() {
+        $periodoId = (int) ($_GET['periodo_id'] ?? 0);
         $data = [
-            'title' => 'Reporte Maestro de Movimientos',
-            'offerings' => $this->model->getOfferings()
+            'title'      => 'Reporte Maestro de Movimientos',
+            'offerings'  => $periodoId
+                ? $this->model->getOfferingsByPeriodo($periodoId)
+                : $this->model->getOfferings(),
+            'periodos'   => $this->model->getPeriodos(),
+            'periodoId'  => $periodoId,
         ];
         
         // Renderizado de la vista principal del módulo

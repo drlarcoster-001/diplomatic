@@ -300,4 +300,25 @@ $(document).ready(function() {
         });
     }
 
+    // === CAMBIO DE STATUS ===
+document.querySelectorAll('.btn-change-status').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const url    = btn.getAttribute('href');
+        const label  = btn.dataset.label;
+        const color  = btn.dataset.color || '#198754';
+
+        MySwal.fire({
+            icon: 'question',
+            title: '¿Confirmar cambio?',
+            text: `¿Deseas cambiar el estado a "${label}"?`,
+            showCancelButton: true,
+            confirmButtonColor: color,
+            confirmButtonText: 'Sí, cambiar',
+            cancelButtonText: 'Cancelar'
+        }).then(result => {
+            if (result.isConfirmed) window.location.href = url;
+        });
+    });
+});
 });

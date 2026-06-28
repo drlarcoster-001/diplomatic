@@ -29,15 +29,18 @@ class AcademicHorariosTeoricosModel
      * Lista ofertas ABIERTA/EN CURSO con grupos colapsados y conteo de horarios.
      * GROUP_CONCAT evita duplicados cuando una oferta tiene múltiples grupos.
      */
-    public function getOfertasConHorarios(string $search = '', int $page = 1, int $perPage = 25): array
+    public function getOfertasConHorarios(string $search = '', int $page = 1, int $perPage = 25, int $periodoId = 0): array
     {
         $offset = ($page - 1) * $perPage;
-        $where  = "WHERE ao.is_active = 1 AND ao.status IN ('ABIERTA', 'EN CURSO')";
+        $where  = "WHERE ao.is_active = 1 AND ao.status IN ('ABIERTA', 'EN CURSO', 'BORRADOR')";
         $params = [];
-
         if ($search !== '') {
             $where .= " AND (d.name LIKE :search OR c.name LIKE :search OR g.name LIKE :search)";
             $params[':search'] = "%{$search}%";
+        }
+        if ($periodoId) {
+            $where .= " AND c.periodo_id = :periodo_id";
+            $params[':periodo_id'] = $periodoId;
         }
 
         $sql = "SELECT ao.id AS offering_id,
@@ -211,4 +214,13 @@ class AcademicHorariosTeoricosModel
                  ->execute([':id' => $id]);
         return 'deleted';
     }
+
+    public function getPeriodos(): array
+{
+    $stmt = $this->db->query(
+        "SELECT id, nombre, estado FROM tbl_periodos_cohorte
+         WHERE is_active = 1 ORDER BY id DESC"
+    );
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+}
 }

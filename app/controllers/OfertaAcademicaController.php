@@ -48,17 +48,29 @@ final class OfertaAcademicaController extends Controller
         ]);
 
         $filters = [
-            'diploma_id' => $_GET['diploma_id'] ?? null, 
-            'cohort_id'  => $_GET['cohort_id'] ?? null, 
-            'status'     => $_GET['status'] ?? null
+            'diploma_id' => $_GET['diploma_id'] ?? null,
+            'cohort_id'  => $_GET['cohort_id']  ?? null,
+            'status'     => $_GET['status']     ?? null,
+            'periodo_id' => $_GET['periodo_id'] ?? null,
         ];
+        $page    = max(1, (int)($_GET['page'] ?? 1));
+        $perPage = 25;
+        $total   = $this->model->countAll($filters);
+        $pages   = (int)ceil($total / $perPage);
+        $offset  = ($page - 1) * $perPage;
 
         $this->view('academic/oferta/index', [
-            'ofertas'    => $this->model->getAll($filters), 
-            'diplomados' => $this->model->getActiveDiplomas(), 
-            'cohortes'   => $this->model->getOperableCohorts(), 
-            'filters'    => $filters
+            'ofertas'    => $this->model->getAll($filters, $perPage, $offset),
+            'diplomados' => $this->model->getActiveDiplomas(),
+            'cohortes'   => $this->model->getOperableCohorts(),
+            'periodos'   => $this->model->getPeriodos(),
+            'filters'    => $filters,
+            'page'       => $page,
+            'pages'      => $pages,
+            'total'      => $total,
         ]);
+
+        
     }
 
     public function create(): void {
@@ -67,6 +79,7 @@ final class OfertaAcademicaController extends Controller
             'cohortes'   => $this->model->getOperableCohorts(), 
             'grupos'     => $this->model->getActiveGroups(), 
             'professors' => $this->model->getActiveProfessors(),
+            'periodos'   => $this->model->getPeriodos(),
             'oferta'     => ['description' => '']
         ]);
     }
@@ -279,4 +292,90 @@ final class OfertaAcademicaController extends Controller
             'payment_description' => $p['payment_description'] ?? []
         ];
     }
+
+    public function pdf(): void
+{
+    while (ob_get_level() > 0) ob_end_clean();
+    try {
+        $filters = [
+            'diploma_id' => $_GET['diploma_id'] ?? null,
+            'cohort_id'  => $_GET['cohort_id']  ?? null,
+            'status'     => $_GET['status']      ?? null,
+            'periodo_id' => $_GET['periodo_id']  ?? null,
+        ];
+        $ofertas       = $this->model->getAll($filters, 1000, 0);
+        $periodos      = $this->model->getPeriodos();
+        $nombrePeriodo = '';
+        if (!empty($filters['periodo_id'])) {
+            $p = array_values(array_filter($periodos, fn($p) => (int)$p['id'] === (int)$filters['periodo_id']))[0] ?? null;
+            if ($p) $nombrePeriodo = $p['nombre'];
+        }
+        require_once dirname(__DIR__, 2) . '/tools/dompdf/autoload.inc.php';
+        $dompdf = new \Dompdf\Dompdf(['isRemoteEnabled' => true, 'defaultFont' => 'Helvetica']);
+        $dompdf->setPaper('letter', 'landscape');
+        $pathUcla     = $_SERVER['DOCUMENT_ROOT'] . '/diplomatic/public/assets/uploads/logos/logo-ucla.png';
+        $pathMedicina = $_SERVER['DOCUMENT_ROOT'] . '/diplomatic/public/assets/uploads/logos/logo-medicina.jpg';
+        $imgUcla      = file_exists($pathUcla)     ? 'data:image/png;base64,'  . base64_encode(file_get_contents($pathUcla))     : '';
+        $imgMedicina  = file_exists($pathMedicina) ? 'data:image/jpeg;base64,' . base64_encode(file_get_contents($pathMedicina)) : '';
+        $fechaHoy     = date('d/m/Y H:i');
+        $labelPeriodo = $nombrePeriodo ?: 'Todos los períodos';
+        $filas = '';
+        foreach ($ofertas as $i => $o) {
+            $bg = $i % 2 === 0 ? '#ffffff' : '#f8f9fa';
+            $filas .= "<tr style='background:{$bg}'>
+                <td style='padding:6px 8px;border-bottom:0.5px solid #dee2e6'>{$o['diplomado_name']}</td>
+                <td style='padding:6px 8px;border-bottom:0.5px solid #dee2e6;font-size:9pt'>{$o['cohort_name']}</td>
+                <td style='padding:6px 8px;border-bottom:0.5px solid #dee2e6;text-align:center'>{$o['general_modality']}</td>
+                <td style='padding:6px 8px;border-bottom:0.5px solid #dee2e6;text-align:center'>{$o['status']}</td>
+                <td style='padding:6px 8px;border-bottom:0.5px solid #dee2e6;text-align:center'>{$o['cupos_totales']}</td>
+                <td style='padding:6px 8px;border-bottom:0.5px solid #dee2e6;text-align:center'>{$o['enrolled_count']}</td>
+                <td style='padding:6px 8px;border-bottom:0.5px solid #dee2e6;text-align:center'>\${$o['total_cost']}</td>
+            </tr>";
+        }
+        $html = "<!DOCTYPE html><html><head><meta charset='UTF-8'>
+        <style>body{font-family:Helvetica;font-size:10pt;color:#212529;padding:1cm}
+        table{width:100%;border-collapse:collapse}
+        th{background:#212529;color:#fff;padding:8px;text-align:left;font-size:9pt}
+        </style></head><body>
+        <table style='width:100%;border-collapse:collapse;margin-bottom:16px;table-layout:fixed'>
+            <tr>
+                <td style='width:15%;text-align:left'><img src='{$imgUcla}' style='width:70px'></td>
+                <td style='width:70%;text-align:center;font-weight:bold;font-size:11pt;line-height:1.4'>
+                    UNIVERSIDAD CENTROCCIDENTAL &ldquo;LISANDRO ALVARADO&rdquo;<br>
+                    DECANATO DE CIENCIAS DE LA SALUD<br>
+                    &ldquo;Dr. PABLO ACOSTA ORTIZ&rdquo;<br>
+                    COORDINACIÓN DE EXTENSIÓN
+                </td>
+                <td style='width:15%;text-align:right'><img src='{$imgMedicina}' style='width:70px'></td>
+            </tr>
+        </table>
+        <div style='text-align:center;margin-bottom:16px'>
+            <div style='font-weight:bold;font-size:14pt'>Reporte de Oferta Académica</div>
+            <div style='font-size:9pt;color:#555'>{$labelPeriodo} — Generado: {$fechaHoy}</div>
+        </div>
+
+        <table>
+            <thead><tr>
+                <th>Diplomado</th><th>Cohorte</th><th>Modalidad</th>
+                <th>Estatus</th><th>Cupos</th><th>Inscritos</th><th>Costo</th>
+            </tr></thead>
+            <tbody>{$filas}</tbody>
+        </table></body></html>";
+        $dompdf->loadHtml($html, 'UTF-8');
+        $dompdf->render();
+        $dompdf->stream("Oferta_Academica_" . date('Ymd') . ".pdf", ["Attachment" => false]);
+        exit;
+    } catch (\Throwable $e) {
+        die("Error PDF: " . $e->getMessage());
+    }
+}
+
+public function getCohortesByPeriodo(): void
+{
+    if (ob_get_level()) ob_end_clean();
+    header('Content-Type: application/json');
+    $periodoId = (int)($_GET['periodo_id'] ?? 0);
+    echo json_encode($this->model->getCohortesByPeriodoForOferta($periodoId));
+    exit;
+}
 }

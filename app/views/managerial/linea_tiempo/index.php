@@ -55,7 +55,7 @@ $colorStatus = ['APPROVED' => 'success',  'PENDING' => 'warning',   'REJECTED' =
             <option value="">— Selecciona —</option>
             <?php foreach ($periodos as $p): ?>
               <option value="<?= $p['id'] ?>" <?= $periodoId === (int)$p['id'] ? 'selected' : '' ?>>
-                <?= htmlspecialchars($p['nombre']) ?>
+                <?= htmlspecialchars($p['nombre']) ?><?= $p['estado'] === 'Finalizado' ? ' (Finalizado)' : '' ?>
               </option>
             <?php endforeach; ?>
           </select>

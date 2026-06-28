@@ -366,7 +366,8 @@ if (btnExportExcel) {
                 f2.getCell(2).numFmt = '"$"#,##0.00';
 
                 // --- FILA 3: Generado ---
-                ws.addRow([`Generado: ${dd}/${mm}/${yy} ${hh}:${min}:${ss}`]);
+                const periodoLabelMov = document.getElementById('filter_periodo')?.options[document.getElementById('filter_periodo')?.selectedIndex]?.text || 'Todos los períodos';
+                ws.addRow([`Período: ${periodoLabelMov} — Generado: ${dd}/${mm}/${yy} ${hh}:${min}:${ss}`]);
                 ws.getRow(3).getCell(1).font = { italic: true, size: 9, color: { argb: 'FF888888' } };
 
                 // --- FILA 4: Totales por concepto ---
@@ -602,4 +603,14 @@ if (btnExportExcel) {
 
     document.addEventListener('DOMContentLoaded', () => { loadReport(1); });
 
+    // --- FILTRO DE PERÍODO ---
+    const periodoSelect = document.getElementById('filter_periodo');
+    if (periodoSelect) {
+        periodoSelect.addEventListener('change', () => {
+            const url = new URL(window.location.href);
+            url.searchParams.set('periodo_id', periodoSelect.value);
+            window.location.href = url.toString();
+        });
+    }
 })();
+

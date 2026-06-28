@@ -43,7 +43,7 @@ final class OfertaAcademicaModel
 /**
      * Obtiene todas las ofertas con cálculo de disponibilidad y proyección de grupos.
      */
-    public function getAll(array $filters = []): array
+    public function getAll(array $filters = [], int $limit = 25, int $offset = 0): array
     {
         $params = [];
         $sql = "SELECT o.*, d.name as diplomado_name, c.cohort_code, c.name as cohort_name,
@@ -69,13 +69,20 @@ final class OfertaAcademicaModel
             $params[] = (int)$filters['cohort_id'];
         }
 
+        if (!empty($filters['periodo_id'])) {
+            $sql .= " AND c.periodo_id = ?";
+            $params[] = (int)$filters['periodo_id'];
+        }
+
         if (!empty($filters['status']) && in_array($filters['status'], self::ALLOWED_STATUSES, true)) {
             $sql .= " AND o.status = ?";
             $params[] = $filters['status'];
         }
 
-        $sql .= " ORDER BY o.id DESC";
+        $sql .= " ORDER BY o.id DESC LIMIT ? OFFSET ?";
         
+        $params[] = $limit;
+        $params[] = $offset;
         $stmt = $this->db->prepare($sql);
         $stmt->execute($params);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -85,10 +92,12 @@ final class OfertaAcademicaModel
     public function getById(int $id): ?array
     {
         $sql = "SELECT o.*, d.name as diplomado_name, c.cohort_code, c.name as cohort_name,
-                       (o.total_capacity - o.enrolled_count) as cupos_disponibles
+                       (o.total_capacity - o.enrolled_count) as cupos_disponibles,
+                       p.nombre as periodo_nombre
                 FROM tbl_academic_offerings o
                 JOIN tbl_diplomados d ON o.diploma_id = d.id
                 JOIN tbl_cohortes c ON o.cohort_id = c.id
+                LEFT JOIN tbl_periodos_cohorte p ON p.id = c.periodo_id
                 WHERE o.id = ? AND o.is_active = 1 LIMIT 1";
         
         $stmt = $this->db->prepare($sql);
@@ -266,7 +275,15 @@ final class OfertaAcademicaModel
 
     public function getOperableCohorts(): array 
     { 
-        return $this->db->query("SELECT id, cohort_code, name, enrollment_start, enrollment_end, start_date, end_date FROM tbl_cohortes WHERE is_active = 1 ORDER BY id DESC")->fetchAll(PDO::FETCH_ASSOC); 
+        return $this->db->query(
+                "SELECT c.id, c.cohort_code, c.name, c.enrollment_start, c.enrollment_end, c.start_date, c.end_date
+                FROM tbl_cohortes c
+                INNER JOIN tbl_periodos_cohorte p ON p.id = c.periodo_id
+                WHERE c.is_active = 1
+                AND c.cohort_status = 'Planificada'
+                AND p.estado IN ('Activo', 'Planificado')
+                ORDER BY c.id DESC"
+            )->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getActiveGroups(): array 
@@ -278,4 +295,44 @@ final class OfertaAcademicaModel
     { 
         return $this->db->query("SELECT id, full_name FROM tbl_professors WHERE is_active = 1 ORDER BY full_name ASC")->fetchAll(PDO::FETCH_ASSOC); 
     }
+
+    public function getPeriodos(): array
+{
+    $stmt = $this->db->query(
+        "SELECT id, nombre, estado FROM tbl_periodos_cohorte
+         WHERE is_active = 1 ORDER BY id DESC"
+    );
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function countAll(array $filters = []): int
+{
+    $params = [];
+    $sql = "SELECT COUNT(*) FROM tbl_academic_offerings o
+            JOIN tbl_diplomados d ON o.diploma_id = d.id
+            JOIN tbl_cohortes c ON o.cohort_id = c.id
+            WHERE o.is_active = 1";
+
+    if (!empty($filters['diploma_id'])) { $sql .= " AND o.diploma_id = ?"; $params[] = (int)$filters['diploma_id']; }
+    if (!empty($filters['cohort_id']))  { $sql .= " AND o.cohort_id = ?";  $params[] = (int)$filters['cohort_id']; }
+    if (!empty($filters['periodo_id'])) { $sql .= " AND c.periodo_id = ?"; $params[] = (int)$filters['periodo_id']; }
+    if (!empty($filters['status']) && in_array($filters['status'], self::ALLOWED_STATUSES, true)) {
+        $sql .= " AND o.status = ?"; $params[] = $filters['status'];
+    }
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute($params);
+    return (int)$stmt->fetchColumn();
+}
+
+public function getCohortesByPeriodoForOferta(int $periodoId): array
+{
+    $stmt = $this->db->prepare(
+        "SELECT id, cohort_code, name, enrollment_start, enrollment_end, start_date, end_date
+         FROM tbl_cohortes
+         WHERE periodo_id = ? AND is_active = 1 AND cohort_status = 'Planificada'
+         ORDER BY id ASC"
+    );
+    $stmt->execute([$periodoId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

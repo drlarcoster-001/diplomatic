@@ -127,6 +127,38 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+
+
+    // FILTRO DE PERÍODO → COHORTES
+    const selPeriodo = document.getElementById('sel_periodo');
+    const cohSel2    = document.getElementById('cohort_id');
+    const todasCohortes = cohSel2 ? Array.from(cohSel2.options) : [];
+
+    if (selPeriodo && cohSel2) {
+        selPeriodo.addEventListener('change', () => {
+            const periodoId = selPeriodo.value;
+            cohSel2.innerHTML = '<option value="">Seleccione...</option>';
+            cohSel2.disabled = !periodoId;
+
+            if (periodoId) {
+                fetch(`/diplomatic/public/academic/oferta/getCohortesByPeriodo?periodo_id=${periodoId}`)
+                    .then(r => r.json())
+                    .then(data => {
+                        data.forEach(c => {
+                            const opt = document.createElement('option');
+                            opt.value = c.id;
+                            opt.text  = `[${c.cohort_code}] ${c.name}`;
+                            opt.dataset.rstart = c.enrollment_start || '';
+                            opt.dataset.rend   = c.enrollment_end   || '';
+                            opt.dataset.cstart = c.start_date       || '';
+                            opt.dataset.cend   = c.end_date         || '';
+                            cohSel2.appendChild(opt);
+                        });
+                    });
+            }
+        });
+    }
+
     // 5. LÓGICA DE COHORTE (Fechas y Sedes dinámicas)
     const cohSel = document.getElementById('cohort_id');
     if (cohSel) {
@@ -322,4 +354,35 @@ window.calculatePayments = function() {
             idx++;
         }
     }
+
+    // FILTRO DE PERÍODO → COHORTES
+document.addEventListener('DOMContentLoaded', () => {
+    const selPeriodo = document.getElementById('sel_periodo');
+    const cohSel     = document.getElementById('cohort_id');
+
+    if (selPeriodo && cohSel) {
+        selPeriodo.addEventListener('change', () => {
+            const periodoId = selPeriodo.value;
+            cohSel.innerHTML = '<option value="">Seleccione...</option>';
+            cohSel.disabled  = !periodoId;
+
+            if (periodoId) {
+                fetch(`/diplomatic/public/academic/oferta/getCohortesByPeriodo?periodo_id=${periodoId}`)
+                    .then(r => r.json())
+                    .then(data => {
+                        data.forEach(c => {
+                            const opt       = document.createElement('option');
+                            opt.value       = c.id;
+                            opt.text        = `[${c.cohort_code}] ${c.name}`;
+                            opt.dataset.rstart = c.enrollment_start || '';
+                            opt.dataset.rend   = c.enrollment_end   || '';
+                            opt.dataset.cstart = c.start_date       || '';
+                            opt.dataset.cend   = c.end_date         || '';
+                            cohSel.appendChild(opt);
+                        });
+                    });
+            }
+        });
+    }
+});
 };

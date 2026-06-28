@@ -58,6 +58,9 @@ use App\Controllers\AcademicProfesorModalidadController;
 use App\Controllers\AcademicAprobarActasController;
 use App\Controllers\AcademicCierreController;
 use App\Controllers\AcademicHistoricoController;
+use App\Controllers\AcademicImportadorController;
+
+
 
 
 use App\Controllers\DocumentVerificationController;
@@ -342,6 +345,10 @@ final class Bootstrap
         $router->post('/academic/oferta/changeStatus', [OfertaAcademicaController::class, 'changeStatus']);
         $router->post('/academic/oferta/toggleActive', [OfertaAcademicaController::class, 'toggleActive']);
         $router->get('/academic/oferta/getCohortCampuses', [OfertaAcademicaController::class, 'getCohortCampuses']);
+        $router->get('/academic/oferta/pdf', [OfertaAcademicaController::class, 'pdf']);
+        $router->get('/academic/oferta/getCohortesByPeriodo', [OfertaAcademicaController::class, 'getCohortesByPeriodo']);
+
+
 
         // --- GESTIÓN ACADÉMICA (PERÍODOS INSTITUCIONALES) ---
         $router->get('/academic/periodos', [AcademicPeriodosController::class, 'index']);
@@ -408,6 +415,11 @@ final class Bootstrap
         $router->get('/academic/historico',        [AcademicHistoricoController::class, 'index']);
         $router->get('/academic/historico/manage', [AcademicHistoricoController::class, 'manage']);
         $router->get('/academic/historico/pdf',    [AcademicHistoricoController::class, 'pdf']);
+
+        // --- PANEL ACADEMICO: Modulo Importador
+        $router->get('/academic/importador',         [AcademicImportadorController::class, 'index']);
+        $router->post('/academic/importador/importar', [AcademicImportadorController::class, 'importar']);
+        $router->post('/academic/importador/reversar', [AcademicImportadorController::class, 'reversar']);
 
 
         // --- PANEL ADMINISTRATIVO GENERAL ---

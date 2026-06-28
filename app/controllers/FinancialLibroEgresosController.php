@@ -43,9 +43,23 @@ class FinancialLibroEgresosController extends Controller
 
     public function index(): void
     {
+        $periodoId = (int) ($_GET['periodo_id'] ?? 0);
+        $periodos  = $this->model->getPeriodos();
+
+        $desde = $_GET['desde'] ?? '';
+        $hasta = $_GET['hasta'] ?? '';
+
+        if ($periodoId) {
+            $periodo = array_values(array_filter($periodos, fn($p) => (int)$p['id'] === $periodoId))[0] ?? null;
+            if ($periodo) {
+                $desde = $periodo['fecha_inicio'];
+                $hasta = $periodo['fecha_fin'];
+            }
+        }
+
         $filtros = [
-            'desde'     => $_GET['desde']     ?? '',
-            'hasta'     => $_GET['hasta']     ?? '',
+            'desde'     => $desde,
+            'hasta'     => $hasta,
             'tipo'      => $_GET['tipo']      ?? '',
             'movimiento'=> $_GET['movimiento']?? '',
             'search'    => trim($_GET['search'] ?? ''),
@@ -59,13 +73,15 @@ class FinancialLibroEgresosController extends Controller
         $totales = $this->model->getTotales($filtros);
 
         $this->view('financial/libro_egresos/index', [
-            'egresos' => $egresos,
-            'filtros' => $filtros,
-            'totales' => $totales,
-            'page'    => $page,
-            'pages'   => $pages,
-            'total'   => $total,
-            'perPage' => $perPage,
+            'egresos'   => $egresos,
+            'filtros'   => $filtros,
+            'totales'   => $totales,
+            'page'      => $page,
+            'pages'     => $pages,
+            'total'     => $total,
+            'perPage'   => $perPage,
+            'periodos'  => $periodos,
+            'periodoId' => $periodoId,
         ]);
     }
 
@@ -78,9 +94,24 @@ class FinancialLibroEgresosController extends Controller
         while (ob_get_level() > 0) ob_end_clean();
 
         try {
+            $periodoId     = (int) ($_GET['periodo_id'] ?? 0);
+            $nombrePeriodo = '';
+            $desde         = $_GET['desde'] ?? '';
+            $hasta         = $_GET['hasta'] ?? '';
+
+            if ($periodoId) {
+                $periodos = $this->model->getPeriodos();
+                $periodo  = array_values(array_filter($periodos, fn($p) => (int)$p['id'] === $periodoId))[0] ?? null;
+                if ($periodo) {
+                    $desde         = $periodo['fecha_inicio'];
+                    $hasta         = $periodo['fecha_fin'];
+                    $nombrePeriodo = $periodo['nombre'];
+                }
+            }
+
             $filtros = [
-                'desde'     => $_GET['desde']     ?? '',
-                'hasta'     => $_GET['hasta']     ?? '',
+                'desde'     => $desde,
+                'hasta'     => $hasta,
                 'tipo'      => $_GET['tipo']      ?? '',
                 'movimiento'=> $_GET['movimiento']?? '',
                 'search'    => trim($_GET['search'] ?? ''),
@@ -103,7 +134,7 @@ class FinancialLibroEgresosController extends Controller
             if ($filtros['hasta'])     $filtroTexto[] = 'Hasta: ' . $filtros['hasta'];
             if ($filtros['tipo'])      $filtroTexto[] = 'Tipo: ' . ($labelTipos[$filtros['tipo']] ?? $filtros['tipo']);
             if ($filtros['movimiento']) $filtroTexto[] = 'Movimiento: ' . $filtros['movimiento'];
-            $filtroLabel = !empty($filtroTexto) ? implode(' · ', $filtroTexto) : 'Sin filtros aplicados';
+            $filtroLabel = $nombrePeriodo ?: (!empty($filtroTexto) ? implode(' · ', $filtroTexto) : 'Sin filtros aplicados');
 
             $filas = '';
             foreach ($egresos as $idx => $e) {

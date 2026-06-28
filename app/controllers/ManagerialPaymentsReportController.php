@@ -48,8 +48,13 @@ final class ManagerialPaymentsReportController extends Controller
     public function index(): void {
         if (ob_get_level() > 0) ob_clean(); 
         
+        $periodoId = (int) ($_GET['periodo_id'] ?? 0);
         $this->view('managerial/payments_report/index', [
-            'offerings' => $this->reportModel->getOfferingsList()
+            'offerings' => $periodoId
+                ? $this->reportModel->getOfferingsByPeriodo($periodoId)
+                : $this->reportModel->getOfferingsList(),
+            'periodos'  => $this->reportModel->getPeriodos(),
+            'periodoId' => $periodoId,
         ]);
     }
 
@@ -119,11 +124,18 @@ final class ManagerialPaymentsReportController extends Controller
         while (ob_get_level() > 0) ob_end_clean();
 
         try {
-            $f = [
-                'student'     => trim($_GET['student'] ?? ''),
-                'offering_id' => trim($_GET['offering_id'] ?? 'ALL'),
-                'status'      => trim($_GET['status'] ?? 'ALL')
-            ];
+            $periodoId     = (int) ($_GET['periodo_id'] ?? 0);
+                $nombrePeriodo = '';
+                if ($periodoId) {
+                    $periodos = $this->reportModel->getPeriodos();
+                    $periodo  = array_values(array_filter($periodos, fn($p) => (int)$p['id'] === $periodoId))[0] ?? null;
+                    if ($periodo) $nombrePeriodo = $periodo['nombre'];
+                }
+                $f = [
+                    'student'     => trim($_GET['student'] ?? ''),
+                    'offering_id' => trim($_GET['offering_id'] ?? 'ALL'),
+                    'status'      => trim($_GET['status'] ?? 'ALL')
+                ];
 
             // A. DATA PÁGINA 1: Resumen Ejecutivo
             $summary = $this->reportModel->getSummaryByDiploma($f);
@@ -164,13 +176,14 @@ final class ManagerialPaymentsReportController extends Controller
 
             // Extraemos las variables manualmente para inyectarlas en el archivo crudo
             $viewData = [
-                'summary'     => $summary,
-                'fullMatrix'  => $fullMatrix,
-                'groupedData' => $groupedData,
-                'totals'      => $totals,
-                'filters'     => $f,
-                'title'       => 'INFORME EJECUTIVO DE RECAUDACIÓN CONSOLIDADA'
-            ];
+    'summary'       => $summary,
+    'fullMatrix'    => $fullMatrix,
+    'groupedData'   => $groupedData,
+    'totals'        => $totals,
+    'filters'       => $f,
+    'nombrePeriodo' => $nombrePeriodo,
+    'title'         => 'INFORME EJECUTIVO DE RECAUDACIÓN CONSOLIDADA'
+];
             extract($viewData);
 
             // Importamos el archivo directamente. HTML puro, sin el Layout del sistema.

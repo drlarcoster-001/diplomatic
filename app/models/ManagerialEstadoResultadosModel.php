@@ -50,4 +50,14 @@ class ManagerialEstadoResultadosModel
         $stmt->execute([':desde' => $desde, ':hasta' => $hasta]);
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: ['nomina' => 0, 'proveedor' => 0, 'directa' => 0, 'reversas' => 0];
     }
+
+    public function getPeriodos(): array
+        {
+            $stmt = $this->db->query(
+                "SELECT id, nombre, fecha_inicio, fecha_fin, estado
+                FROM tbl_periodos_cohorte
+                WHERE is_active = 1 ORDER BY id DESC"
+            );
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
 }

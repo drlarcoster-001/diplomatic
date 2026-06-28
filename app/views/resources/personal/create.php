@@ -134,9 +134,15 @@ function buscarProfesor(cedula) {
             if (data.ok && data.profesor) {
                 const p = data.profesor;
 
-                document.getElementById('input_nombres').value  = p.first_name;
-                document.getElementById('input_apellidos').value = p.last_name;
+                document.getElementById('input_nombres').value   = p.first_name;
+                document.getElementById('input_apellidos').value  = p.last_name;
                 document.getElementById('profesor_id_hidden').value = p.id;
+                if (p.email && document.getElementById('input_email')) {
+                    document.getElementById('input_email').value = p.email;
+                }
+                if (p.phone && document.getElementById('input_phone')) {
+                    document.getElementById('input_phone').value = p.phone;
+                }
 
                 document.getElementById('ficha-nombre').innerText       = p.first_name + ' ' + p.last_name;
                 document.getElementById('ficha-tipo-profesor').innerText = p.professor_type ?? '';

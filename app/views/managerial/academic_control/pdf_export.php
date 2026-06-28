@@ -136,6 +136,11 @@ foreach ($data as $row) {
     </table>
 
     <div class="report-title"><?= $title ?></div>
+        <?php if (!empty($nombrePeriodo)): ?>
+        <div style="text-align:center;font-size:10pt;color:#555;margin-bottom:8px">
+            Período: <strong><?= htmlspecialchars($nombrePeriodo) ?></strong>
+        </div>
+        <?php endif; ?>
     <div class="filter-info">
         Filtros aplicados: 
         [Estudiante: <?= $filters['student'] ?: 'TODOS' ?>] | 

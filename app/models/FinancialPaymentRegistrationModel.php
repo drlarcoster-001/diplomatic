@@ -48,6 +48,8 @@ class FinancialPaymentRegistrationModel
                 LEFT JOIN tbl_diplomados d ON o.diploma_id = d.id
                 LEFT JOIN tbl_cohortes c ON o.cohort_id = c.id
                 WHERE u.id = :uid
+                AND o.status = 'ABIERTA'
+                AND c.cohort_status IN ('En curso', 'Reabierta')
                 GROUP BY o.id, d.name, c.cohort_code, o.class_start, sm.enrollment_id";
 
         $stmt = $this->db->prepare($sql);

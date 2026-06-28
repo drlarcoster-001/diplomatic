@@ -39,6 +39,10 @@
                     <div class="card-header bg-white fw-bold text-primary">A. Parámetros Base</div>
                     <div class="card-body">
                         <div class="row g-3 mb-3">
+                            <div class="col-md-12 mb-2">
+                                <label class="form-label fw-bold small">Período</label>
+                                <input type="text" class="form-control bg-light" value="<?= htmlspecialchars($oferta['periodo_nombre'] ?? 'Sin período') ?>" readonly>
+                            </div>
                             <div class="col-md-6">
                                 <label class="form-label fw-bold small">Diplomado</label>
                                 <input type="text" class="form-control bg-light" value="<?= htmlspecialchars($oferta['diplomado_name'] ?? '') ?>" readonly>

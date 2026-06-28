@@ -47,10 +47,15 @@ final class ManagerialAcademicControlController extends Controller
     public function index(): void {
         if (ob_get_level() > 0) ob_clean(); 
         
-        $this->view('managerial/academic_control/index', [
-            'offerings'   => $this->academicModel->getOfferingsList(),
-            'db_statuses' => $this->academicModel->getStudentStatuses() // <-- Inyección dinámica
-        ]);
+        $periodoId = (int) ($_GET['periodo_id'] ?? 0);
+            $this->view('managerial/academic_control/index', [
+                'offerings'   => $periodoId
+                    ? $this->academicModel->getOfferingsByPeriodo($periodoId)
+                    : $this->academicModel->getOfferingsList(),
+                'db_statuses' => $this->academicModel->getStudentStatuses(),
+                'periodos'    => $this->academicModel->getPeriodos(),
+                'periodoId'   => $periodoId,
+            ]);
     }
 
     /**
@@ -103,6 +108,13 @@ final class ManagerialAcademicControlController extends Controller
         while (ob_get_level() > 0) ob_end_clean();
 
         try {
+            $periodoId     = (int) ($_GET['periodo_id'] ?? 0);
+            $nombrePeriodo = '';
+            if ($periodoId) {
+                $periodos = $this->academicModel->getPeriodos();
+                $periodo  = array_values(array_filter($periodos, fn($p) => (int)$p['id'] === $periodoId))[0] ?? null;
+                if ($periodo) $nombrePeriodo = $periodo['nombre'];
+            }
             $f = [
                 'student'            => trim($_GET['student'] ?? ''),
                 'offering_id'        => trim($_GET['offering_id'] ?? 'ALL'),
@@ -135,9 +147,10 @@ ob_start();
 
             // 1. Definimos los datos en una variable para evitar el error del IDE
             $viewData = [
-                'data'    => $fullData, 
-                'filters' => $f, 
-                'title'   => 'TRAZABILIDAD ACADÉMICA - REPORTE GERENCIAL'
+                'data'          => $fullData, 
+                'filters'       => $f, 
+                'nombrePeriodo' => $nombrePeriodo,
+                'title'         => 'TRAZABILIDAD ACADÉMICA - REPORTE GERENCIAL'
             ];
 
             // 2. Ahora extraemos la variable, no el array literal

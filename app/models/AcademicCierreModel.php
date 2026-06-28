@@ -63,6 +63,7 @@ class AcademicCierreModel
         $stmt = $this->db->prepare(
             "SELECT ao.id AS offering_id, ao.status, ao.diploma_id, ao.total_cost,
                     d.name AS diplomado_nombre, c.name AS cohorte_nombre,
+                    c.cohort_status,
                     (SELECT GROUP_CONCAT(g2.name ORDER BY g2.name SEPARATOR ', ')
                      FROM tbl_academic_offering_groups og2
                      INNER JOIN tbl_grupos g2 ON g2.id = og2.group_id
@@ -166,12 +167,20 @@ class AcademicCierreModel
     // =========================================================================
 
     public function cerrarOferta(int $offeringId, int $userId): void
-    {
-        $this->db->prepare(
-            "UPDATE tbl_academic_offerings
-             SET status = 'CERRADA', updated_by = :uid WHERE id = :id"
-        )->execute([':uid' => $userId, ':id' => $offeringId]);
-    }
+{
+    $this->db->prepare(
+        "UPDATE tbl_academic_offerings
+         SET status = 'CERRADA', updated_by = :uid WHERE id = :id"
+    )->execute([':uid' => $userId, ':id' => $offeringId]);
+
+    // Cambiar cohorte a Finalizada
+    $this->db->prepare(
+        "UPDATE tbl_cohortes c
+         INNER JOIN tbl_academic_offerings ao ON ao.cohort_id = c.id
+         SET c.cohort_status = 'Finalizada'
+         WHERE ao.id = :id"
+    )->execute([':id' => $offeringId]);
+}
 
     // =========================================================================
     // VERIFICAR SI TODOS LOS ESTUDIANTES SON APTOS
@@ -193,10 +202,13 @@ class AcademicCierreModel
 
     public function reversarCierre(int $offeringId, int $userId, string $motivo): void
 {
-    $this->db->prepare(
-        "UPDATE tbl_academic_offerings
-         SET status = 'ABIERTA', updated_by = :uid WHERE id = :id"
-    )->execute([':uid' => $userId, ':id' => $offeringId]);
+    // Cambiar cohorte a Reabierta
+$this->db->prepare(
+    "UPDATE tbl_cohortes c
+     INNER JOIN tbl_academic_offerings ao ON ao.cohort_id = c.id
+     SET c.cohort_status = 'Reabierta'
+     WHERE ao.id = :id"
+)->execute([':id' => $offeringId]);
 
     $this->db->prepare(
         "UPDATE tbl_actas SET estado = 'BORRADOR', aprobada_por = NULL

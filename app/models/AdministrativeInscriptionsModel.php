@@ -46,8 +46,15 @@ final class AdministrativeInscriptionsModel
                 FROM tbl_academic_offerings o
                 INNER JOIN tbl_diplomados d ON o.diploma_id = d.id
                 INNER JOIN tbl_cohortes c ON o.cohort_id = c.id
-                WHERE o.status = 'ABIERTA' AND o.is_active = 1
-                ORDER BY o.registration_end ASC";
+                WHERE o.status = 'ABIERTA' 
+                    AND o.is_active = 1
+                    AND c.cohort_status = 'Planificada'
+                    AND EXISTS (
+                        SELECT 1 FROM tbl_periodos_cohorte p
+                        WHERE p.id = c.periodo_id AND p.estado = 'Activo'
+                    )
+                    AND d.status = 'ACTIVO'
+                    ORDER BY o.registration_end ASC";
         
         $offerings = $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
         foreach ($offerings as &$off) {

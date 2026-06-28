@@ -115,7 +115,7 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
 
                 <div class="card-body p-4">
                     <div class="row g-4">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="card h-100 border rounded-4 action-card-btn shadow-sm" id="btn-generate-inscripcion" style="cursor: pointer;">
                                 <div class="card-body text-center p-4">
                                     <div class="icon-circle bg-light text-primary mb-3">
@@ -127,7 +127,7 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="card h-100 border rounded-4 action-card-btn shadow-sm" id="btn-generate-estudios" style="cursor: pointer;">
                                 <div class="card-body text-center p-4">
                                     <div class="icon-circle bg-light text-success mb-3">
@@ -135,6 +135,17 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
                                     </div>
                                     <h5 class="fw-bold text-dark mb-1">Constancia de Estudios</h5>
                                     <p class="text-muted small mb-0">Certifica el estatus de alumno regular y activo durante el periodo actual.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card h-100 border rounded-4 action-card-btn shadow-sm" id="btn-generate-estudios-horario" style="cursor: pointer;">
+                                <div class="card-body text-center p-4">
+                                    <div class="icon-circle bg-light text-warning mb-3">
+                                        <i class="bi bi-calendar-week-fill fs-2"></i>
+                                    </div>
+                                    <h5 class="fw-bold text-dark mb-1">Constancia con Horario</h5>
+                                    <p class="text-muted small mb-0">Certifica el estatus de alumno e incluye el horario de clases teóricas y prácticas.</p>
                                 </div>
                             </div>
                         </div>

@@ -51,7 +51,7 @@ function buildUrlLE(array $params): string {
       </small>
     </div>
     <div class="d-flex gap-2">
-      <a href="<?= $basePath ?>/financial/libro-egresos/pdf?<?= http_build_query($filtros) ?>"
+      <a href="<?= $basePath ?>/financial/libro-egresos/pdf?<?= http_build_query(array_merge($filtros, ['periodo_id' => $periodoId])) ?>"
          target="_blank"
          class="btn btn-outline-dark rounded-pill px-3 shadow-sm">
         <i class="bi bi-file-earmark-pdf me-1"></i> PDF
@@ -98,7 +98,21 @@ function buildUrlLE(array $params): string {
   <!-- FILTROS -->
   <div class="card border-0 shadow-sm mb-4">
     <div class="card-body p-3">
-      <form method="GET" class="row g-2">
+        <form method="GET" class="row g-2">
+        <div class="col-12 mb-2">
+          <label class="form-label small fw-bold mb-1">Período</label>
+          <select name="periodo_id" id="selPeriodo" class="form-select form-select-sm">
+            <option value="">— Filtrar por fechas manuales —</option>
+            <?php foreach ($periodos as $p): ?>
+              <option value="<?= $p['id'] ?>"
+                      data-inicio="<?= $p['fecha_inicio'] ?>"
+                      data-fin="<?= $p['fecha_fin'] ?>"
+                      <?= $periodoId === (int)$p['id'] ? 'selected' : '' ?>>
+                <?= htmlspecialchars($p['nombre']) ?><?= $p['estado'] === 'Finalizado' ? ' (Finalizado)' : '' ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </div>
         <div class="col-6 col-md-2">
           <label class="form-label small fw-bold mb-1">Desde</label>
           <input type="date" name="desde" class="form-control form-control-sm"
@@ -256,3 +270,5 @@ function buildUrlLE(array $params): string {
 
   <?php endif; ?>
 </div>
+
+<script src="<?= $basePath ?>/assets/js/financial_libro_egresos.js?v=<?= time() ?>"></script>

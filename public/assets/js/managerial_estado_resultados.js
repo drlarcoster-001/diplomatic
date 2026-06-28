@@ -10,6 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const formFiltro = document.getElementById('formFiltro');
     const inputDesde = document.getElementById('inputDesde');
     const inputHasta = document.getElementById('inputHasta');
+    const selPeriodo = document.getElementById('selPeriodo');
+
+    selPeriodo?.addEventListener('change', () => {
+        const opt = selPeriodo.options[selPeriodo.selectedIndex];
+        if (opt.value) {
+            inputDesde.value = opt.dataset.inicio;
+            inputHasta.value = opt.dataset.fin;
+        }
+    });
 
     if (!formFiltro) return;
 

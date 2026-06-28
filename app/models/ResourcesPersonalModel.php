@@ -43,12 +43,17 @@ final class ResourcesPersonalModel
 public function getById(int $id): ?array
 {
     $stmt = $this->db->prepare("SELECT p.*, t.nombre as tipo_nombre, t.siglas,
-        pr.photo_path as profesor_foto, pr.biography as profesor_bio,
-        pr.professor_type as profesor_type
-        FROM tbl_personal p 
-        JOIN tbl_personal_tipos t ON p.tipo_personal_id = t.id 
-        LEFT JOIN tbl_professors pr ON p.profesor_id = pr.id
-        WHERE p.id = ? LIMIT 1");
+    pr.photo_path as profesor_foto, pr.biography as profesor_bio,
+    pr.professor_type as profesor_type,
+    COALESCE(p.email, u.email) as email,
+    COALESCE(p.telefono_celular, u.phone) as telefono_celular
+    FROM tbl_personal p 
+    JOIN tbl_personal_tipos t ON p.tipo_personal_id = t.id 
+    LEFT JOIN tbl_professors pr ON p.profesor_id = pr.id
+    LEFT JOIN tbl_users u ON u.id = pr.user_id
+    WHERE p.id = ? LIMIT 1");
+
+
         $stmt->execute([$id]);
         $persona = $stmt->fetch(PDO::FETCH_ASSOC);
         return $persona ?: null;
@@ -175,7 +180,13 @@ public function getById(int $id): ?array
 
     public function buscarProfesorPorCedula(string $cedula): ?array
 {
-    $stmt = $this->db->prepare("SELECT id, first_name, last_name, photo_path, professor_type FROM tbl_professors WHERE identification = ? AND is_active = 1 LIMIT 1");
+    $stmt = $this->db->prepare(
+    "SELECT p.id, p.first_name, p.last_name, p.photo_path, p.professor_type,
+            u.email, u.phone
+     FROM tbl_professors p
+     LEFT JOIN tbl_users u ON u.id = p.user_id
+     WHERE p.identification = ? AND p.is_active = 1 LIMIT 1"
+);
     $stmt->execute([trim($cedula)]);
     $profesor = $stmt->fetch(\PDO::FETCH_ASSOC);
     return $profesor ?: null;

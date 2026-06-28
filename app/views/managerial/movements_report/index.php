@@ -59,7 +59,19 @@ $actualBase = (strpos($basePath, 'public') === false) ? $basePath . '/public' : 
     <div class="card card-helium border-0 shadow-sm mb-4 animate__animated animate__fadeInUp">
         <div class="card-body p-4">
             <form id="form-movements-filters" class="row g-3 align-items-end">
-                
+
+                <div class="col-md-12">
+                    <div class="helium-label-container"><span class="helium-label">PERÍODO</span></div>
+                    <select name="periodo_id" id="filter_periodo" class="helium-select shadow-none">
+                        <option value="">— Todos los períodos —</option>
+                        <?php foreach ($periodos as $p): ?>
+                            <option value="<?= $p['id'] ?>" <?= $periodoId === (int)$p['id'] ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($p['nombre']) ?><?= $p['estado'] === 'Finalizado' ? ' (Finalizado)' : '' ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
                 <div class="col-md-3">
                     <div class="helium-label-container"><span class="helium-label">BÚSQUEDA DE PARTICIPANTE</span></div>
                     <div class="helium-input-wrapper">

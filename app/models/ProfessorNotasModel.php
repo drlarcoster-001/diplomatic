@@ -45,6 +45,8 @@ class ProfessorNotasModel
              INNER JOIN tbl_cohortes   c ON c.id = ao.cohort_id
              WHERE pm.professor_id = :pid
                AND ao.is_active = 1
+               AND ao.status = 'ABIERTA'
+               AND c.cohort_status IN ('En curso', 'Reabierta')
              GROUP BY ao.id, d.name, c.name
              ORDER BY d.name ASC, c.name ASC"
         );

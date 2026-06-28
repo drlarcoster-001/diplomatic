@@ -94,10 +94,11 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
         </div>
 
         <div class="row g-4">
-            <div class="col-md-6">
+            <div class="row g-4">
+            <div class="col-md-4">
                 <div class="card h-100 border-0 shadow-sm card-cert-student p-3" id="btn-cert-inscripcion" style="cursor:pointer;">
                     <div class="d-flex align-items-center">
-                        <div class="icon-box-cert me-3 bg-info bg-opacity-10 text-info" style="width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                        <div class="icon-box-cert me-3 bg-info bg-opacity-10 text-info" style="width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">
                             <i class="bi bi-file-earmark-check"></i>
                         </div>
                         <div>
@@ -107,16 +108,28 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="card h-100 border-0 shadow-sm card-cert-student p-3" id="btn-cert-estudios" style="cursor:pointer;">
                     <div class="d-flex align-items-center">
-                        <div class="icon-box-cert me-3 bg-primary bg-opacity-10 text-primary" style="width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                        <div class="icon-box-cert me-3 bg-primary bg-opacity-10 text-primary" style="width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">
                             <i class="bi bi-journal-bookmark-fill"></i>
                         </div>
                         <div>
                             <h5 class="fw-bold mb-1 text-dark">Constancia de Estudios</h5>
                             <p class="text-muted small mb-0">Documento que acredita que eres alumno regular.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm card-cert-student p-3" id="btn-cert-estudios-horario" style="cursor:pointer;">
+                    <div class="d-flex align-items-center">
+                        <div class="icon-box-cert me-3 bg-warning bg-opacity-10 text-warning" style="width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">
+                            <i class="bi bi-calendar-week-fill"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-1 text-dark">Constancia con Horario</h5>
+                            <p class="text-muted small mb-0">Constancia de estudios con horario de clases.</p>
                         </div>
                     </div>
                 </div>

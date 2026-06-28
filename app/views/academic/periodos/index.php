@@ -96,10 +96,30 @@
                                             <button type="button" class="btn btn-sm btn-white border text-success btn-edit" data-id="<?= $p['id'] ?>" title="Editar">
                                                 <i class="bi bi-pencil"></i>
                                             </button>
+                                            <?php if ($estadoClean === 'activo'): ?>
+                                            <a href="/diplomatic/public/academic/periodos/changeStatus?id=<?= $p['id'] ?>&status=Planificado"
+                                            class="btn btn-sm btn-white border text-secondary btn-change-status"
+                                            data-label="Planificado" data-color="#6c757d" title="Pasar a Planificado">
+                                                <i class="bi bi-arrow-counterclockwise"></i>
+                                            </a>
+
+                                            <a href="/diplomatic/public/academic/periodos/changeStatus?id=<?= $p['id'] ?>&status=Finalizado"
+                                            class="btn btn-sm btn-white border text-dark btn-change-status"
+                                            data-label="Finalizado" data-color="#212529" title="Finalizar período">
+                                                <i class="bi bi-lock-fill"></i>
+                                            </a>
+
+                                            <a href="/diplomatic/public/academic/periodos/changeStatus?id=<?= $p['id'] ?>&status=Activo"
+                                            class="btn btn-sm btn-white border text-success btn-change-status"
+                                            data-label="Activo" data-color="#198754" title="Activar período">
+                                                <i class="bi bi-play-fill"></i>
+                                            </a>
+                                            <?php endif; ?>
                                             <button type="button" class="btn btn-sm btn-white border text-danger btn-delete" data-id="<?= $p['id'] ?>" data-name="<?= htmlspecialchars($p['nombre']) ?>" title="Eliminar">
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </div>
+
                                     <?php else: ?>
                                         <div class="d-inline-block text-muted pe-3" title="Período Finalizado: No permite modificaciones">
                                             <i class="bi bi-lock-fill" style="font-size: 1.1rem; opacity: 0.5;"></i>

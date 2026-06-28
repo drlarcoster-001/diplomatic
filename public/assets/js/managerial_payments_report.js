@@ -244,7 +244,8 @@
                 rF1.height = 28;
 
                 // Subtítulo
-                wsRes.addRow(['Este resumen consolidado muestra el estado financiero por oferta académica abierta.']);
+                const periodoLabel = document.getElementById('filter_periodo')?.options[document.getElementById('filter_periodo')?.selectedIndex]?.text || 'Todos los períodos';
+                wsRes.addRow([`Período: ${periodoLabel} — Este resumen consolidado muestra el estado financiero por oferta académica abierta.`]);
                 wsRes.getRow(2).getCell(1).font = { italic: true, size: 9, color: { argb: 'FF888888' } };
 
                 // Generado
@@ -572,5 +573,16 @@
         // Ejecutar una vez al inicializar
         updateGroups();
     }
+
+    // --- 9. FILTRO DE PERÍODO — recarga la página al cambiar ---
+const periodoSelect = document.getElementById('filter_periodo');
+if (periodoSelect) {
+    periodoSelect.addEventListener('change', () => {
+        const periodoId = periodoSelect.value;
+        const url = new URL(window.location.href);
+        url.searchParams.set('periodo_id', periodoId);
+        window.location.href = url.toString();
+    });
+}
 
 })();

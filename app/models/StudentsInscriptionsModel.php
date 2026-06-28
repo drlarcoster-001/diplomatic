@@ -94,7 +94,15 @@ public function getEffectiveRate(string $date): array|false
                 FROM tbl_academic_offerings o
                 JOIN tbl_diplomados d ON o.diploma_id = d.id
                 JOIN tbl_cohortes c ON o.cohort_id = c.id
-                WHERE o.id = ? AND o.is_active = 1 LIMIT 1";
+                WHERE o.id = ? 
+                    AND o.is_active = 1 
+                    AND o.status = 'ABIERTA'
+                    AND c.cohort_status = 'Planificada'
+                    AND EXISTS (
+                        SELECT 1 FROM tbl_periodos_cohorte p
+                        WHERE p.id = c.periodo_id AND p.estado = 'Activo'
+                    )
+                    LIMIT 1";
         
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$offeringId]);
@@ -156,7 +164,14 @@ public function getEffectiveRate(string $date): array|false
                 FROM tbl_academic_offerings o
                 JOIN tbl_diplomados d ON o.diploma_id = d.id
                 JOIN tbl_cohortes c ON o.cohort_id = c.id
-                WHERE o.status = 'ABIERTA' AND o.is_active = 1";
+                WHERE o.status = 'ABIERTA' 
+                    AND o.is_active = 1
+                    AND c.cohort_status = 'Planificada'
+                    AND EXISTS (
+                        SELECT 1 FROM tbl_periodos_cohorte p
+                        WHERE p.id = c.periodo_id AND p.estado = 'Activo'
+                    )
+                    AND d.status = 'ACTIVO'";
         
         $stmt = $this->db->prepare($sql);
         $stmt->execute();

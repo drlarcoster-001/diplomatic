@@ -134,8 +134,12 @@ class AcademicCierreController extends Controller
                 $this->jsonFinal(['success' => false, 'message' => 'Oferta no encontrada.'], 404);
                 return;
             }
-            if ($oferta['status'] === 'CERRADA') {
-                $this->jsonFinal(['success' => false, 'message' => 'Esta oferta ya está cerrada.'], 422);
+            if ($oferta['cohort_status'] !== 'En curso') {
+                $this->jsonFinal(['success' => false, 'message' => 'La cohorte debe estar En curso para cerrar el acta.'], 422);
+                return;
+            }
+            if ($oferta['cohort_status'] !== 'En curso') {
+                $this->jsonFinal(['success' => false, 'message' => 'La cohorte debe estar En curso para cerrar el acta.'], 422);
                 return;
             }
 
@@ -164,6 +168,10 @@ class AcademicCierreController extends Controller
         }
         if ($oferta['status'] !== 'CERRADA') {
             $this->jsonFinal(['success' => false, 'message' => 'La oferta no está cerrada.'], 422);
+            return;
+        }
+        if ($oferta['cohort_status'] !== 'Finalizada') {
+            $this->jsonFinal(['success' => false, 'message' => 'La cohorte debe estar Finalizada para reversar el cierre.'], 422);
             return;
         }
 

@@ -99,6 +99,11 @@ $imgMedicina = file_exists($pathMedicina) ? 'data:image/jpeg;base64,' . base64_e
     </table>
 
     <div class="report-title">Auditoría de Pagos en Tránsito</div>
+        <?php if (!empty($nombrePeriodo)): ?>
+        <div style="text-align:center;font-size:10pt;color:#555;margin-bottom:8px">
+            Período: <strong><?= htmlspecialchars($nombrePeriodo) ?></strong>
+        </div>
+        <?php endif; ?>
     <div class="section-banner">CONSOLIDADO GENERAL DE PAGOS PENDIENTES</div>
 
     <table class="data-table">

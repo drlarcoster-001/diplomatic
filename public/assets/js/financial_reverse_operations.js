@@ -196,7 +196,20 @@ function buildPaginCuotas(page, pages) {
 }
 
     // 4. EVENTOS DE BÚSQUEDA
-    document.getElementById('search-inscripcion').addEventListener('keyup', (e) => { if(e.key === 'Enter') loadInscripciones(); });
+    const inputInscripcion = document.getElementById('search-inscripcion');
+    inputInscripcion.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter') loadInscripciones();
+    });
+    inputInscripcion.addEventListener('input', () => {
+        clearTimeout(window._searchTimer);
+        window._searchTimer = setTimeout(() => loadInscripciones(), 400);
+    });
+    document.getElementById('btn-search-inscripcion')?.addEventListener('click', () => loadInscripciones());
+    document.getElementById('btn-clear-inscripcion')?.addEventListener('click', () => {
+        inputInscripcion.value = '';
+        loadInscripciones();
+    });
+
     document.getElementById('search-cuota').addEventListener('keyup', (e) => { if(e.key === 'Enter') loadEstudiantesCuotas(1); });
     document.getElementById('btn-search-cuota')?.addEventListener('click', () => loadEstudiantesCuotas(1));
     document.getElementById('btn-clear-cuota')?.addEventListener('click', () => {

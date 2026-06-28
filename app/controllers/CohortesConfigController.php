@@ -46,18 +46,20 @@ final class CohortesConfigController extends Controller
             'description' => 'Ingreso al panel de configuración avanzada de cohortes.'
         ]);
 
-        $search      = $_GET['search'] ?? '';
+        $search      = $_GET['search']    ?? '';
+        $periodoId   = (int)($_GET['periodo_id'] ?? 0);
         $currentPage = max(1, (int)($_GET['page'] ?? 1));
         $perPage     = 25;
-        $total       = $this->model->countAll($search);
+        $total       = $this->model->countAll($search, $periodoId);
         $totalPages  = (int)ceil($total / $perPage);
-
         $this->view('academic/cohortes_config/index', [
-            'cohortes'    => $this->model->getAll($search, $currentPage, $perPage),
+            'cohortes'    => $this->model->getAll($search, $currentPage, $perPage, $periodoId),
+            'periodos'    => $this->model->getPeriodos(),
+            'periodoId'   => $periodoId,
             'search'      => $search,
             'currentPage' => $currentPage,
             'totalPages'  => $totalPages,
-        ]);
+]);
     }
 
     /**

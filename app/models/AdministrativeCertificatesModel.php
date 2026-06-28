@@ -238,4 +238,30 @@ public function countStudents(string $term): int
         return 0;
     }
 }
+
+public function getHorarioForCert(int $offeringId): array
+{
+    $teoricas = $this->db->prepare(
+        "SELECT dia_semana, hora_inicio, hora_fin
+         FROM tbl_horarios_teoricos
+         WHERE offering_id = :oid AND is_active = 1
+         ORDER BY FIELD(dia_semana,'Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo')"
+    );
+    $teoricas->execute([':oid' => $offeringId]);
+
+    $practicas = $this->db->prepare(
+        "SELECT hpf.fecha, cm.nombre AS centro_medico
+         FROM tbl_horario_practica_fechas hpf
+         INNER JOIN tbl_horarios_practicas hp ON hp.id = hpf.horario_practica_id
+         LEFT JOIN tbl_centros_medicos cm ON cm.id = hp.centro_medico_id
+         WHERE hp.offering_id = :oid AND hpf.is_active = 1
+         ORDER BY hpf.fecha ASC"
+    );
+    $practicas->execute([':oid' => $offeringId]);
+
+    return [
+        'teoricas'  => $teoricas->fetchAll(\PDO::FETCH_ASSOC),
+        'practicas' => $practicas->fetchAll(\PDO::FETCH_ASSOC),
+    ];
+}
 }

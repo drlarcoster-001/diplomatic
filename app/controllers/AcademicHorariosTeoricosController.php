@@ -53,8 +53,16 @@ class AcademicHorariosTeoricosController extends Controller
      */
     public function index(): void
     {
-        $ofertas = $this->model->getOfertasConHorarios();
-        $this->view('academic/horarios_teoricos/index', ['ofertas' => $ofertas]);
+        $search    = $_GET['search']     ?? '';
+        $periodoId = (int)($_GET['periodo_id'] ?? 0);
+        $page      = max(1, (int)($_GET['page'] ?? 1));
+        $ofertas   = $this->model->getOfertasConHorarios($search, $page, 25, $periodoId);
+        $this->view('academic/horarios_teoricos/index', [
+            'ofertas'   => $ofertas,
+            'periodos'  => $this->model->getPeriodos(),
+            'periodoId' => $periodoId,
+            'search'    => $search,
+        ]);
     }
 
     /**

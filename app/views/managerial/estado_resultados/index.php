@@ -55,6 +55,20 @@ $signoSaldo = $saldo >= 0 ? '+' : '-';
   <div class="card border-0 shadow-sm mb-4">
     <div class="card-body p-3">
       <form method="GET" id="formFiltro" class="row g-2 align-items-end">
+        <div class="col-md-12 mb-2">
+          <label class="form-label small fw-bold mb-1">Período</label>
+          <select name="periodo_id" id="selPeriodo" class="form-select">
+            <option value="">— Filtrar por fechas manuales —</option>
+            <?php foreach ($periodos as $p): ?>
+              <option value="<?= $p['id'] ?>"
+                      data-inicio="<?= $p['fecha_inicio'] ?>"
+                      data-fin="<?= $p['fecha_fin'] ?>"
+                      <?= $periodoId === (int)$p['id'] ? 'selected' : '' ?>>
+                <?= htmlspecialchars($p['nombre']) ?><?= $p['estado'] === 'Finalizado' ? ' (Finalizado)' : '' ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </div>
         <div class="col-md-4">
           <label class="form-label small fw-bold mb-1">Desde</label>
           <input type="date" name="desde" id="inputDesde" class="form-control"

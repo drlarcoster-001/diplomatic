@@ -96,7 +96,7 @@ final class AdministrativeCertificatesController extends Controller
             $codigoPreview = 'PRE-' . strtoupper(substr(md5(uniqid()), 0, 8));
             $urlPreview = $this->getFullUrlVerification($codigoPreview);
 
-            $this->streamPdfResponse($type, $data, $codigoPreview, $urlPreview, false);
+            $this->streamPdfResponse($type, $data, $codigoPreview, $urlPreview, false, $offeringId);
         } catch (Throwable $e) { die("Error en previsualización: " . $e->getMessage()); }
     }
 
@@ -112,7 +112,7 @@ final class AdministrativeCertificatesController extends Controller
             $certInfo = $this->issueNewCertificateRecord($userId, $offeringId, $type);
             $data = $this->model->getFullDataForCert($userId, $offeringId);
 
-            $this->streamPdfResponse($type, $data, $certInfo['code'], $certInfo['qr_url'], true);
+            $this->streamPdfResponse($type, $data, $certInfo['code'], $certInfo['qr_url'], true, $offeringId);
         } catch (Throwable $e) { die("Error al procesar emisión oficial: " . $e->getMessage()); }
     }
 
@@ -219,7 +219,7 @@ final class AdministrativeCertificatesController extends Controller
         throw new Exception("Error al registrar el folio.");
     }
 
-    private function streamPdfResponse(string $type, array $data, string $code, string $url, bool $download): void {
+    private function streamPdfResponse(string $type, array $data, string $code, string $url, bool $download, int $offeringId = 0): void {
         while (ob_get_level() > 0) ob_end_clean();
         $qrBase64 = $this->generateQrBase64($url);
         require_once dirname(__DIR__, 2) . '/tools/dompdf/autoload.inc.php';
@@ -229,7 +229,7 @@ final class AdministrativeCertificatesController extends Controller
 
         $dompdf = new Dompdf($options);
         $dompdf->setPaper('letter', 'portrait');
-        $dompdf->loadHtml($this->loadTemplate($type, $data, $qrBase64, $code), 'UTF-8');
+        $dompdf->loadHtml($this->loadTemplate($type, $data, $qrBase64, $code, $offeringId), 'UTF-8');
         $dompdf->render();
 
         $dompdf->stream("Constancia_" . $code . ".pdf", ["Attachment" => $download]);
@@ -247,7 +247,7 @@ final class AdministrativeCertificatesController extends Controller
         return 'data:image/png;base64,' . base64_encode($data);
     }
 
-    private function loadTemplate(string $type, array $d, string $qr, string $code): string {
+    private function loadTemplate(string $type, array $d, string $qr, string $code, int $offeringId = 0): string {
         $pathUcla = $_SERVER['DOCUMENT_ROOT'] . '/diplomatic/public/assets/uploads/logos/logo-ucla.png';
         $pathMedicina = $_SERVER['DOCUMENT_ROOT'] . '/diplomatic/public/assets/uploads/logos/logo-medicina.jpg';
         $imgUcla = file_exists($pathUcla) ? 'data:image/png;base64,' . base64_encode(file_get_contents($pathUcla)) : '';
@@ -275,7 +275,14 @@ final class AdministrativeCertificatesController extends Controller
             </div>
         </div>";
 
-        $htmlContent = (strtoupper($type) === 'INSCRIPCION') ? $this->templateInscripcion($d, $header) : $this->templateEstudios($d, $header);
+        if (strtoupper($type) === 'INSCRIPCION') {
+            $htmlContent = $this->templateInscripcion($d, $header);
+        } elseif (strtoupper($type) === 'ESTUDIOS_HORARIO') {
+            $horario     = $this->model->getHorarioForCert($offeringId);
+            $htmlContent = $this->templateEstudiosConHorario($d, $header, $horario);
+        } else {
+            $htmlContent = $this->templateEstudios($d, $header);
+        }
         return str_replace('</body>', $qrHtml . '</body>', $htmlContent);
     }
 
@@ -324,6 +331,76 @@ final class AdministrativeCertificatesController extends Controller
                 <div style='text-align: center; font-size: 8pt; font-weight: bold; margin-top: 40px; color: #888;'>VALIDACIÓN DIGITAL - SELLO ELECTRÓNICO INSTITUCIONAL</div>
                 </body></html>";
     }
+
+
+    private function templateEstudiosConHorario(array $d, string $header, array $horario): string {
+    $nombres = mb_strtoupper($d['last_name'] . ", " . $d['first_name']);
+    $lapso   = mb_strtoupper(
+        $this->getMesEspanol((int)date('m', strtotime($d['cohorte_inicio']))) . " " .
+        date('Y', strtotime($d['cohorte_inicio'])) . " – " .
+        $this->getMesEspanol((int)date('m', strtotime($d['cohorte_fin']))) . " " .
+        date('Y', strtotime($d['cohorte_fin']))
+    );
+
+    // Tabla teóricas
+    $filasTeoricas = '';
+    if (!empty($horario['teoricas'])) {
+        foreach ($horario['teoricas'] as $t) {
+            $hi = date('h:i A', strtotime($t['hora_inicio']));
+            $hf = date('h:i A', strtotime($t['hora_fin']));
+            $filasTeoricas .= "<tr><td style='padding:6px 12px;border:0.5px solid #ccc;text-align:center'>{$t['dia_semana']} — {$hi} a {$hf}</td></tr>";
+        }
+    } else {
+        $filasTeoricas = "<tr><td style='padding:6px 12px;text-align:center;color:#888'>Sin horario teórico registrado</td></tr>";
+    }
+
+    // Tabla prácticas
+    $filasPracticas = '';
+    if (!empty($horario['practicas'])) {
+        // Agrupar fechas por centro médico
+        $porCentro = [];
+        foreach ($horario['practicas'] as $p) {
+            $centro = $p['centro_medico'] ?? 'Sin centro';
+            $ts     = strtotime($p['fecha']);
+            $dia    = date('d', $ts);
+            $mes    = $this->getMesEspanol((int)date('m', $ts));
+            $anio   = date('Y', $ts);
+            $porCentro[$centro][] = "{$dia} de {$mes} de {$anio}";
+        }
+        foreach ($porCentro as $centro => $fechas) {
+            $filasPracticas .= "<tr><td style='padding:6px 12px;border:0.5px solid #ccc;text-align:center'>" . implode(', ', $fechas) . "</td></tr>";
+        }
+    } else {
+        $filasPracticas = "<tr><td style='padding:6px 12px;text-align:center;color:#888'>Sin fechas de práctica registradas</td></tr>";
+    }
+
+    $fechaHoy = date('d') . ' de ' . $this->getMesEspanol((int)date('m')) . ' de ' . date('Y');
+
+    return "<html><body style='font-family:Times-Roman;font-size:12pt;text-align:justify;padding:2cm'>
+        {$header}
+        <div style='text-align:center;font-weight:bold;font-size:14pt;text-decoration:underline;margin:40px 0 20px'>CONSTANCIA DE ESTUDIO</div>
+        <p>Quien suscribe, <strong>Dr. Rafael Alejandro Camejo Giménez</strong>, titular de la Cédula de Identidad <strong>N° v-14.399.195</strong>, en mi carácter de Coordinador General, hago constar que el (la) participante: <strong>{$nombres}</strong>; titular de la cédula de identidad: <strong>{$d['document_id']}</strong>, actualmente cursa el Diplomado: <strong>" . mb_strtoupper($d['diplomado_name']) . "</strong>, avalado por la Universidad Centroccidental &ldquo;Lisandro Alvarado&rdquo;, con una duración de <strong>{$d['total_hours']} horas académicas</strong>, en el lapso <strong>{$lapso}</strong>.</p>
+
+        <table style='width:100%;border-collapse:collapse;margin-top:20px'>
+            <thead>
+                <tr><th style='background:#f0f0f0;padding:8px 12px;border:0.5px solid #ccc;text-align:center;font-size:11pt'>Clases Teóricas</th></tr>
+            </thead>
+            <tbody>{$filasTeoricas}</tbody>
+        </table>
+
+        <table style='width:100%;border-collapse:collapse;margin-top:10px'>
+            <thead>
+                <tr><th style='background:#f0f0f0;padding:8px 12px;border:0.5px solid #ccc;text-align:center;font-size:11pt'>PRÁCTICAS</th></tr>
+            </thead>
+            <tbody>{$filasPracticas}</tbody>
+        </table>
+
+        <p style='margin-top:30px'>En Barquisimeto, a los {$fechaHoy}.</p>
+        <div style='margin-top:80px;line-height:1.2;text-align:center'>
+            <strong>Dr. Rafael Camejo<br>Coordinador General</strong>
+        </div>
+    </body></html>";
+}
 
     private function getMesEspanol(int $mes): string {
         $meses = [1=>"enero",2=>"febrero",3=>"marzo",4=>"abril",5=>"mayo",6=>"junio",7=>"julio",8=>"agosto",9=>"septiembre",10=>"octubre",11=>"noviembre",12=>"diciembre"];
