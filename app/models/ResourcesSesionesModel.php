@@ -285,6 +285,18 @@ class ResourcesSesionesModel
         return $row ?: null;
     }
 
+    public function personalPerteneceOferta(int $personalId, int $offeringId): bool
+    {
+        $stmt = $this->db->prepare(
+            "SELECT COUNT(*)
+             FROM tbl_personal per
+             INNER JOIN tbl_academic_offering_professors aop ON aop.professor_id = per.profesor_id
+             WHERE per.id = :pid AND aop.offering_id = :oid"
+        );
+        $stmt->execute([':pid' => $personalId, ':oid' => $offeringId]);
+        return (int) $stmt->fetchColumn() > 0;
+    }
+
     public function getPeriodos(): array
     {
         $stmt = $this->db->query(

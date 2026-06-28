@@ -51,7 +51,11 @@ class ResourcesProcesarSesionesModel
             $params[':search1'] = "%{$search}%";
             $params[':search2'] = "%{$search}%";
         }
-
+        $diplomaId = $filters['diploma_id'] ?? null;
+        if ($diplomaId) {
+            $where .= " AND ao.diploma_id = :diploma_id";
+            $params[':diploma_id'] = $diplomaId;
+        }
         $sql = "SELECT ao.id AS offering_id,
                d.name AS diplomado_nombre,
                c.name AS cohorte_nombre,
@@ -105,7 +109,11 @@ class ResourcesProcesarSesionesModel
                 $params[':search1'] = "%{$search}%";
                 $params[':search2'] = "%{$search}%";
             }
-
+            $diplomaId = $filters['diploma_id'] ?? null;
+            if ($diplomaId) {
+                $where .= " AND ao.diploma_id = :diploma_id";
+                $params[':diploma_id'] = $diplomaId;
+            }
         $stmt = $this->db->prepare(
             "SELECT COUNT(DISTINCT ao.id)
              FROM tbl_academic_offerings ao
@@ -337,6 +345,25 @@ class ResourcesProcesarSesionesModel
 
         $estudiantes = $this->getEstudiantesConAsistencia($sesionId, (int) $sesion['offering_id']);
         return ['sesion' => $sesion, 'estudiantes' => $estudiantes];
+    }
+
+    public function getDiplomadosPorPeriodo(int $periodoId = 0): array
+    {
+        $where = $periodoId ? "AND c.periodo_id = :periodo_id" : "";
+        $stmt = $this->db->prepare(
+            "SELECT DISTINCT d.id, d.name
+             FROM tbl_diplomados d
+             INNER JOIN tbl_academic_offerings ao ON ao.diploma_id = d.id
+             INNER JOIN tbl_cohortes c ON c.id = ao.cohort_id
+             WHERE ao.is_active = 1
+               AND ao.status IN ('ABIERTA','EN CURSO')
+               {$where}
+             ORDER BY d.name ASC"
+        );
+        $params = [];
+        if ($periodoId) $params[':periodo_id'] = $periodoId;
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getPeriodos(): array

@@ -62,23 +62,22 @@ function buildUrlPS(array $params): string {
             <?php endforeach; ?>
         </select>
     </div>
-    <div class="col-md-7">
-        <div class="input-group">
-            <span class="input-group-text bg-white border-end-0">
-                <i class="bi bi-search text-muted"></i>
-            </span>
-            <input type="text" name="search" class="form-control border-start-0"
-                   placeholder="Buscar por diplomado o cohorte..."
-                   value="<?= htmlspecialchars($filters['search'] ?? '') ?>">
-            <?php if (!empty($filters['search']) || !empty($filters['periodo_id'])): ?>
-                <a href="<?= $basePath ?>/resources/procesar-sesiones" class="btn btn-outline-secondary">
-                    <i class="bi bi-x-lg"></i>
-                </a>
-            <?php endif; ?>
-        </div>
+    <div class="col-md-6">
+        <select name="diploma_id" class="form-select" onchange="this.form.submit()">
+            <option value="">-- Todos los diplomados --</option>
+            <?php foreach ($diplomados ?? [] as $d): ?>
+                <option value="<?= $d['id'] ?>" <?= ($diplomaId ?? 0) == $d['id'] ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($d['name']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
     </div>
     <div class="col-md-2">
-        <button type="submit" class="btn btn-dark w-100 rounded-pill">Buscar</button>
+        <?php if (!empty($periodoId) || !empty($diplomaId)): ?>
+            <a href="<?= $basePath ?>/resources/procesar-sesiones" class="btn btn-outline-secondary w-100 rounded-pill">
+                <i class="bi bi-x-lg me-1"></i> Limpiar
+            </a>
+        <?php endif; ?>
     </div>
 </form>
 

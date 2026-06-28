@@ -39,13 +39,19 @@ class AcademicCierreController extends Controller
 
     public function index(): void
     {
-        $search  = trim($_GET['search'] ?? '');
-        $ofertas = $this->model->getOfertas($search);
+        $search    = trim($_GET['search'] ?? '');
+        $periodoId = (int) ($_GET['periodo_id'] ?? 0);
+        $diplomaId = (int) ($_GET['diploma_id'] ?? 0);
+        $ofertas   = $this->model->getOfertas($search, $periodoId, $diplomaId);
 
         $this->view('academic/cierre/index', [
-            'ofertas'   => $ofertas,
-            'search'    => $search,
-            'historial' => $this->model->getHistorialReversas($search),
+            'ofertas'    => $ofertas,
+            'search'     => $search,
+            'historial'  => $this->model->getHistorialReversas($search),
+            'periodos'   => $this->model->getPeriodos(),
+            'diplomados' => $this->model->getDiplomadosPorPeriodo($periodoId),
+            'periodoId'  => $periodoId,
+            'diplomaId'  => $diplomaId,
         ]);
     }
 

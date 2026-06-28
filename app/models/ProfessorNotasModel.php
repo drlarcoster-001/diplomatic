@@ -85,13 +85,52 @@ class ProfessorNotasModel
 
     public function getMisModalidades(int $professorId, int $offeringId): array
     {
+        $modalidades = [];
+
+        // VIRTUAL → tbl_profesor_modalidad
         $stmt = $this->db->prepare(
             "SELECT modalidad FROM tbl_profesor_modalidad
-             WHERE professor_id = :pid AND offering_id = :oid
-             ORDER BY FIELD(modalidad, 'TEORICA', 'PRACTICA', 'VIRTUAL')"
+             WHERE professor_id = :pid AND offering_id = :oid AND modalidad = 'VIRTUAL'"
         );
         $stmt->execute([':pid' => $professorId, ':oid' => $offeringId]);
-        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+        $rows = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        $modalidades = array_merge($modalidades, $rows);
+
+        // TEORICA → tbl_sesiones
+        $stmt2 = $this->db->prepare(
+            "SELECT COUNT(*) FROM tbl_sesiones s
+             INNER JOIN tbl_personal per ON per.id = s.personal_id
+             INNER JOIN tbl_horarios_teoricos ht ON ht.id = s.horario_id AND s.tipo_horario = 'TEORICO'
+             WHERE per.profesor_id = :pid AND ht.offering_id = :oid AND s.is_active = 1"
+        );
+        $stmt2->execute([':pid' => $professorId, ':oid' => $offeringId]);
+        if ((int) $stmt2->fetchColumn() > 0) $modalidades[] = 'TEORICA';
+
+        // PRACTICA → tbl_sesiones
+        $stmt3 = $this->db->prepare(
+            "SELECT COUNT(*) FROM tbl_sesiones s
+             INNER JOIN tbl_personal per ON per.id = s.personal_id
+             INNER JOIN tbl_horarios_practicas hp ON hp.id = s.horario_id AND s.tipo_horario = 'PRACTICA'
+             WHERE per.profesor_id = :pid AND hp.offering_id = :oid AND s.is_active = 1"
+        );
+        $stmt3->execute([':pid' => $professorId, ':oid' => $offeringId]);
+        if ((int) $stmt3->fetchColumn() > 0) $modalidades[] = 'PRACTICA';
+
+        // Si está en tbl_academic_offering_professors y no tiene ninguna modalidad, asumir TEORICA
+        if (empty($modalidades)) {
+            $stmt4 = $this->db->prepare(
+                "SELECT COUNT(*) FROM tbl_academic_offering_professors
+                 WHERE professor_id = :pid AND offering_id = :oid"
+            );
+            $stmt4->execute([':pid' => $professorId, ':oid' => $offeringId]);
+            if ((int) $stmt4->fetchColumn() > 0) $modalidades[] = 'TEORICA';
+        }
+
+        // Ordenar
+        $orden = ['TEORICA' => 1, 'PRACTICA' => 2, 'VIRTUAL' => 3];
+        usort($modalidades, fn($a, $b) => ($orden[$a] ?? 9) - ($orden[$b] ?? 9));
+
+        return array_values(array_unique($modalidades));
     }
 
     // =========================================================================
@@ -99,6 +138,12 @@ class ProfessorNotasModel
     // =========================================================================
 
     public function profesorTieneModalidad(int $professorId, int $offeringId, string $modalidad): bool
+    {
+        $modalidades = $this->getMisModalidades($professorId, $offeringId);
+        return in_array($modalidad, $modalidades, true);
+    }
+
+    public function profesorTieneModalidadLegacy(int $professorId, int $offeringId, string $modalidad): bool
     {
         $stmt = $this->db->prepare(
             "SELECT COUNT(*) FROM tbl_profesor_modalidad

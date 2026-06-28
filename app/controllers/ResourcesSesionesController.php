@@ -129,6 +129,10 @@ $periodoId  = (int) ($_GET['periodo_id'] ?? 0);
                 $this->jsonFinal(['success' => false, 'message' => 'Faltan datos requeridos.'], 422);
                 return;
             }
+            if (!$this->model->personalPerteneceOferta($personalId, $offeringId)) {
+                $this->jsonFinal(['success' => false, 'message' => 'Este profesor no está asignado a esta oferta académica.'], 422);
+                return;
+            }
 
             $userId   = $_SESSION['user']['id'];
             $creadas  = 0;

@@ -44,29 +44,44 @@ $historial       = $historial ?? [];
     </a>
   </div>
 
-  <!-- BUSCADOR -->
+ <!-- FILTROS -->
   <div class="card border-0 shadow-sm mb-4">
     <div class="card-body p-3">
       <form method="GET" class="row g-2">
         <input type="hidden" name="tab" value="<?= htmlspecialchars($tab) ?>">
-        <div class="col-md-10">
-          <div class="input-group">
-            <span class="input-group-text bg-white border-end-0">
-              <i class="bi bi-search text-muted"></i>
-            </span>
-            <input type="text" name="search" class="form-control border-start-0"
-                   placeholder="Buscar por diplomado o cohorte..."
-                   value="<?= htmlspecialchars($search ?? '') ?>">
-            <?php if (!empty($search)): ?>
-              <a href="<?= $basePath ?>/academic/cierre?tab=<?= $tab ?>" class="btn btn-outline-secondary">
-                <i class="bi bi-x-lg"></i>
-              </a>
-            <?php endif; ?>
-          </div>
+
+        <!-- PERÍODO -->
+        <div class="col-md-4">
+          <select name="periodo_id" class="form-select" onchange="this.form.submit()">
+            <option value="">— Todos los períodos —</option>
+            <?php foreach ($periodos ?? [] as $p): ?>
+              <option value="<?= $p['id'] ?>" <?= ($periodoId ?? 0) == $p['id'] ? 'selected' : '' ?>>
+                <?= htmlspecialchars($p['nombre']) ?><?= $p['estado'] === 'Finalizado' ? ' (Finalizado)' : '' ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
         </div>
+
+        <!-- DIPLOMADO -->
+        <div class="col-md-6">
+          <select name="diploma_id" class="form-select" onchange="this.form.submit()">
+            <option value="">— Todos los diplomados —</option>
+            <?php foreach ($diplomados ?? [] as $d): ?>
+              <option value="<?= $d['id'] ?>" <?= ($diplomaId ?? 0) == $d['id'] ? 'selected' : '' ?>>
+                <?= htmlspecialchars($d['name']) ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+
         <div class="col-md-2">
-          <button type="submit" class="btn btn-dark w-100 rounded-pill">Buscar</button>
+          <?php if (!empty($periodoId) || !empty($diplomaId)): ?>
+            <a href="<?= $basePath ?>/academic/cierre?tab=<?= $tab ?>" class="btn btn-outline-secondary w-100 rounded-pill">
+              <i class="bi bi-x-lg me-1"></i> Limpiar
+            </a>
+          <?php endif; ?>
         </div>
+
       </form>
     </div>
   </div>

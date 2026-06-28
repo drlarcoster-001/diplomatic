@@ -50,9 +50,12 @@ class ResourcesProcesarSesionesController extends Controller
 
     public function index(): void
     {
+    $periodoId = (int) ($_GET['periodo_id'] ?? 0);
+    $diplomaId = (int) ($_GET['diploma_id'] ?? 0);
     $filters = [
-        'periodo_id' => $_GET['periodo_id'] ?? null,
+        'periodo_id' => $periodoId ?: null,
         'search'     => trim($_GET['search'] ?? ''),
+        'diploma_id' => $diplomaId ?: null,
     ];
     $page       = max(1, (int) ($_GET['page'] ?? 1));
     $perPage    = 25;
@@ -64,6 +67,9 @@ class ResourcesProcesarSesionesController extends Controller
         'ofertas'    => $ofertas,
         'filters'    => $filters,
         'periodos'   => $this->model->getPeriodos(),
+        'diplomados' => $this->model->getDiplomadosPorPeriodo($periodoId),
+        'periodoId'  => $periodoId,
+        'diplomaId'  => $diplomaId,
         'page'       => $page,
         'total'      => $total,
         'totalPages' => $totalPages,

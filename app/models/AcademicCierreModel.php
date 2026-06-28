@@ -25,14 +25,21 @@ class AcademicCierreModel
         $this->db = (new Database())->getConnection();
     }
 
-    public function getOfertas(string $search = ''): array
+    public function getOfertas(string $search = '', int $periodoId = 0, int $diplomaId = 0): array
     {
         $where  = "WHERE ao.status IN ('ABIERTA','CERRADA') AND ao.is_active = 1";
         $params = [];
-
         if ($search !== '') {
             $where .= " AND (d.name LIKE :search OR c.name LIKE :search)";
             $params[':search'] = "%{$search}%";
+        }
+        if ($periodoId) {
+            $where .= " AND c.periodo_id = :periodo_id";
+            $params[':periodo_id'] = $periodoId;
+        }
+        if ($diplomaId) {
+            $where .= " AND ao.diploma_id = :diploma_id";
+            $params[':diploma_id'] = $diplomaId;
         }
 
         $stmt = $this->db->prepare(
@@ -72,6 +79,34 @@ class AcademicCierreModel
         $stmt->execute([':id' => $offeringId]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row ?: null;
+    }
+
+    public function getPeriodos(): array
+    {
+        $stmt = $this->db->query(
+            "SELECT id, nombre, estado FROM tbl_periodos_cohorte
+             WHERE is_active = 1 ORDER BY id DESC"
+        );
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getDiplomadosPorPeriodo(int $periodoId = 0): array
+    {
+        $where = $periodoId ? "AND c.periodo_id = :periodo_id" : "";
+        $stmt = $this->db->prepare(
+            "SELECT DISTINCT d.id, d.name
+             FROM tbl_diplomados d
+             INNER JOIN tbl_academic_offerings ao ON ao.diploma_id = d.id
+             INNER JOIN tbl_cohortes c ON c.id = ao.cohort_id
+             WHERE ao.is_active = 1
+               AND ao.status IN ('ABIERTA','CERRADA')
+               {$where}
+             ORDER BY d.name ASC"
+        );
+        $params = [];
+        if ($periodoId) $params[':periodo_id'] = $periodoId;
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getNotaMinima(int $offeringId): float
