@@ -29,15 +29,31 @@ class ResourcesSesionesModel
     // OFERTAS (INDEX)
     // =========================================================================
 
-    public function getOfertasActivas(string $search = '', int $page = 1, int $perPage = 25): array
+    public function getOfertasActivas(array $filters = [], int $page = 1, int $perPage = 25): array
     {
         $offset = ($page - 1) * $perPage;
         $where  = "WHERE ao.is_active = 1 AND ao.status IN ('ABIERTA', 'EN CURSO')";
         $params = [];
 
+        $search = $filters['search'] ?? '';
+        $periodoId = $filters['periodo_id'] ?? null;
+
+        if ($periodoId) {
+            $where .= " AND c.periodo_id = :periodo_id";
+            $params[':periodo_id'] = $periodoId;
+        }
+
         if ($search !== '') {
-            $where .= " AND (d.name LIKE :search OR c.name LIKE :search OR g.name LIKE :search)";
-            $params[':search'] = "%{$search}%";
+            $where .= " AND (d.name LIKE :search1 OR c.name LIKE :search2 OR g.name LIKE :search3)";
+            $params[':search1'] = "%{$search}%";
+            $params[':search2'] = "%{$search}%";
+            $params[':search3'] = "%{$search}%";
+        }
+
+        $diplomaId = $filters['diploma_id'] ?? null;
+        if ($diplomaId) {
+            $where .= " AND ao.diploma_id = :diploma_id";
+            $params[':diploma_id'] = $diplomaId;
         }
 
         $sql = "SELECT ao.id AS offering_id,
@@ -73,14 +89,32 @@ class ResourcesSesionesModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function countOfertas(string $search = ''): int
+    public function countOfertas(array $filters = []): int
     {
         $where  = "WHERE ao.is_active = 1 AND ao.status IN ('ABIERTA', 'EN CURSO')";
         $params = [];
-        if ($search !== '') {
-            $where .= " AND (d.name LIKE :search OR c.name LIKE :search OR g.name LIKE :search)";
-            $params[':search'] = "%{$search}%";
+
+        $search = $filters['search'] ?? '';
+        $periodoId = $filters['periodo_id'] ?? null;
+
+        if ($periodoId) {
+            $where .= " AND c.periodo_id = :periodo_id";
+            $params[':periodo_id'] = $periodoId;
         }
+
+        if ($search !== '') {
+            $where .= " AND (d.name LIKE :search1 OR c.name LIKE :search2 OR g.name LIKE :search3)";
+            $params[':search1'] = "%{$search}%";
+            $params[':search2'] = "%{$search}%";
+            $params[':search3'] = "%{$search}%";
+        }
+
+        $diplomaId = $filters['diploma_id'] ?? null;
+        if ($diplomaId) {
+            $where .= " AND ao.diploma_id = :diploma_id";
+            $params[':diploma_id'] = $diplomaId;
+        }
+        
         $stmt = $this->db->prepare(
             "SELECT COUNT(DISTINCT ao.id)
              FROM tbl_academic_offerings ao
@@ -249,5 +283,32 @@ class ResourcesSesionesModel
         $stmt->execute([':id' => $id]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row ?: null;
+    }
+
+    public function getPeriodos(): array
+    {
+        $stmt = $this->db->query(
+            "SELECT id, nombre, estado FROM tbl_periodos_cohorte
+            WHERE is_active = 1 ORDER BY id DESC"
+        );
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getDiplomadosPorPeriodo(int $periodoId = 0): array
+    {
+        $where = $periodoId ? "AND c.periodo_id = :periodo_id" : "";
+        $stmt = $this->db->prepare(
+            "SELECT DISTINCT d.id, d.name
+             FROM tbl_diplomados d
+             INNER JOIN tbl_academic_offerings ao ON ao.diploma_id = d.id
+             INNER JOIN tbl_cohortes c ON c.id = ao.cohort_id
+             WHERE ao.is_active = 1 AND ao.status IN ('ABIERTA','EN CURSO')
+             {$where}
+             ORDER BY d.name ASC"
+        );
+        $params = [];
+        if ($periodoId) $params[':periodo_id'] = $periodoId;
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

@@ -43,53 +43,67 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
     </a>
   </div>
 
-  <!-- SELECTOR DE OFERTA -->
+  <!-- FILTROS -->
   <div class="card border-0 shadow-sm mb-4">
     <div class="card-body">
       <form method="GET" action="" class="row g-3 align-items-end">
-        <div class="col-md-9">
-          <label class="form-label fw-semibold">Selecciona una oferta académica</label>
-          <select name="offering_id" class="form-select" onchange="this.form.submit()">
-            <option value="">— Elige un diplomado / cohorte —</option>
-            <?php foreach ($ofertas as $o): ?>
-              <option value="<?= $o['offering_id'] ?>"
-                <?= (int)$offeringId === (int)$o['offering_id'] ? 'selected' : '' ?>>
-                <?= htmlspecialchars($o['diplomado_nombre'] . ' — ' . $o['cohorte_nombre'] . (!empty($o['grupos_nombre']) ? ' (' . $o['grupos_nombre'] . ')' : '')) ?>
-                (<?= $o['total_sesiones'] ?> sesiones)
+
+        <!-- PERÍODO -->
+        <div class="col-md-3">
+          <label class="form-label fw-semibold">Período</label>
+          <select name="periodo_id" class="form-select" onchange="this.form.submit()">
+            <option value="">— Todos —</option>
+            <?php foreach ($periodos as $p): ?>
+              <option value="<?= $p['id'] ?>" <?= $periodoId == $p['id'] ? 'selected' : '' ?>>
+                <?= htmlspecialchars($p['nombre']) ?><?= $p['estado'] === 'Finalizado' ? ' (Finalizado)' : '' ?>
               </option>
             <?php endforeach; ?>
           </select>
         </div>
+
+        <!-- OFERTA -->
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Oferta Académica</label>
+          <select name="offering_id" class="form-select" onchange="this.form.submit()">
+            <option value="">— Todas las ofertas —</option>
+            <?php foreach ($ofertas as $o): ?>
+              <option value="<?= $o['offering_id'] ?>" <?= (int)$offeringId === (int)$o['offering_id'] ? 'selected' : '' ?>>
+                <?= htmlspecialchars($o['diplomado_nombre']) ?>
+                <?= !empty($o['grupos_nombre']) ? '(' . htmlspecialchars($o['grupos_nombre']) . ')' : '' ?>
+                — <?= $o['total_sesiones'] ?> sesiones
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+
         <div class="col-md-3">
           <button type="submit" class="btn btn-primary w-100">
-            <i class="bi bi-search me-1"></i> Ver sesiones
+            <i class="bi bi-search me-1"></i> Buscar
           </button>
         </div>
+
       </form>
     </div>
   </div>
 
-  <?php if ($offeringId && $ofertaActiva): ?>
+<?php if (!empty($sesiones)): ?>
 
     <!-- TABLA DE SESIONES -->
     <div class="card border-0 shadow-sm">
       <div class="card-header bg-white border-0 py-3 d-flex align-items-center justify-content-between">
         <h6 class="mb-0 fw-bold">
-          <?= htmlspecialchars($ofertaActiva['diplomado_nombre'] . ' — ' . $ofertaActiva['cohorte_nombre']) ?>
+          <?= $ofertaActiva ? htmlspecialchars($ofertaActiva['diplomado_nombre'] . ' — ' . $ofertaActiva['cohorte_nombre']) : 'Todas las sesiones' ?>
         </h6>
         <span class="badge bg-secondary"><?= count($sesiones) ?> sesiones pendientes</span>
       </div>
       <div class="card-body p-0">
-        <?php if (empty($sesiones)): ?>
-          <div class="text-center text-muted py-5">
-            <i class="bi bi-calendar-check fs-2 d-block mb-2"></i>
-            No tienes sesiones pendientes en esta oferta.
-          </div>
-        <?php else: ?>
           <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
               <thead class="table-light">
                 <tr>
+                  <?php if (!$offeringId): ?>
+                    <th>Diplomado / Grupo</th>
+                  <?php endif; ?>
                   <th>Fecha</th>
                   <th>Tipo</th>
                   <th>Horario / Grupo</th>
@@ -100,6 +114,14 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
               <tbody>
                 <?php foreach ($sesiones as $s): ?>
                   <tr>
+                    <?php if (!$offeringId): ?>
+                      <td class="small fw-bold">
+                        <?= htmlspecialchars($s['diplomado_nombre'] ?? '—') ?>
+                        <?php if (!empty($s['grupos_nombre'])): ?>
+                          <br><span class="text-muted fw-normal"><?= htmlspecialchars($s['grupos_nombre']) ?></span>
+                        <?php endif; ?>
+                      </td>
+                    <?php endif; ?>
                     <td class="fw-semibold"><?= date('d/m/Y', strtotime($s['fecha'])) ?></td>
                     <td>
                       <?php if ($s['tipo_horario'] === 'TEORICO'): ?>
@@ -136,14 +158,15 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
               </tbody>
             </table>
           </div>
-        <?php endif; ?>
       </div>
     </div>
 
-  <?php elseif ($offeringId && !$ofertaActiva): ?>
-    <div class="alert alert-warning">
-      <i class="bi bi-exclamation-triangle me-2"></i>
-      No tienes acceso a esa oferta o no existe.
+<?php elseif (empty($sesiones)): ?>
+    <div class="card border-0 shadow-sm">
+      <div class="card-body text-center py-5 text-muted">
+        <i class="bi bi-calendar-check fs-2 d-block mb-2"></i>
+        No tienes sesiones pendientes.
+      </div>
     </div>
   <?php endif; ?>
 

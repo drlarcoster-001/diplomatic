@@ -27,12 +27,26 @@ class AcademicAprobarActasModel
     // LISTADO DE ACTAS
     // =========================================================================
 
-    public function getActas(string $estado = '', string $search = '', int $page = 1, int $perPage = 25): array
+    public function getPeriodos(): array
+    {
+        $stmt = $this->db->query(
+            "SELECT id, nombre, estado FROM tbl_periodos_cohorte
+            WHERE is_active = 1 ORDER BY id DESC"
+        );
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getActas(string $estado = '', string $search = '', int $page = 1, int $perPage = 25, int $periodoId = 0): array
+
     {
         $offset = ($page - 1) * $perPage;
         $where  = "WHERE a.estado IN ('ENVIADA','APROBADA')";
         $params = [];
 
+        if ($periodoId > 0) {
+            $where .= " AND c.periodo_id = :periodo_id";
+            $params[':periodo_id'] = $periodoId;
+        }
         if ($estado !== '' && in_array($estado, ['ENVIADA','APROBADA'], true)) {
             $where .= " AND a.estado = :estado";
             $params[':estado'] = $estado;
@@ -43,7 +57,7 @@ class AcademicAprobarActasModel
         }
 
         $stmt = $this->db->prepare(
-            "SELECT a.id, a.offering_id, a.modalidad, a.estado, a.created_at, a.updated_at,
+            "SELECT a.id, a.offering_id,
                     d.name AS diplomado_nombre,
                     c.name AS cohorte_nombre,
                     p.full_name AS profesor_nombre,
@@ -76,11 +90,15 @@ class AcademicAprobarActasModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function countActas(string $estado = '', string $search = ''): int
+    public function countActas(string $estado = '', string $search = '', int $periodoId = 0): int
     {
         $where  = "WHERE a.estado IN ('ENVIADA','APROBADA')";
         $params = [];
 
+        if ($periodoId > 0) {
+            $where .= " AND c.periodo_id = :periodo_id";
+            $params[':periodo_id'] = $periodoId;
+        }
         if ($estado !== '' && in_array($estado, ['ENVIADA','APROBADA'], true)) {
             $where .= " AND a.estado = :estado";
             $params[':estado'] = $estado;

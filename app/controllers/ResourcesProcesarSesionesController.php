@@ -5,7 +5,7 @@
  * PROPÓSITO: Procesamiento de sesiones programadas → DICTADAS con registro de
  *            asistencia. PDF generado con DomPDF. Nuevo método reiniciar() permite
  *            al admin limpiar la asistencia cargada por el profesor sin cambiar estado.
- * VERSIÓN: 2.1.0 - Agrega método reiniciar() y ruta correspondiente.
+ * VERSIÓN: 2.2.0 - Agrega filtro por período y columna grupos en index.
  *
  * RUTAS Bootstrap.php:
  *   use App\Controllers\ResourcesProcesarSesionesController;
@@ -50,22 +50,26 @@ class ResourcesProcesarSesionesController extends Controller
 
     public function index(): void
     {
-        $search     = trim($_GET['search'] ?? '');
-        $page       = max(1, (int) ($_GET['page'] ?? 1));
-        $perPage    = 25;
-        $total      = $this->model->countOfertas($search);
-        $totalPages = (int) ceil($total / $perPage);
-        $ofertas    = $this->model->getOfertasConSesiones($search, $page, $perPage);
+    $filters = [
+        'periodo_id' => $_GET['periodo_id'] ?? null,
+        'search'     => trim($_GET['search'] ?? ''),
+    ];
+    $page       = max(1, (int) ($_GET['page'] ?? 1));
+    $perPage    = 25;
+    $total      = $this->model->countOfertas($filters);
+    $totalPages = (int) ceil($total / $perPage);
+    $ofertas    = $this->model->getOfertasConSesiones($filters, $page, $perPage);
 
-        $this->view('resources/procesar_sesiones/index', [
-            'ofertas'    => $ofertas,
-            'search'     => $search,
-            'page'       => $page,
-            'total'      => $total,
-            'totalPages' => $totalPages,
-            'perPage'    => $perPage,
-        ]);
-    }
+    $this->view('resources/procesar_sesiones/index', [
+        'ofertas'    => $ofertas,
+        'filters'    => $filters,
+        'periodos'   => $this->model->getPeriodos(),
+        'page'       => $page,
+        'total'      => $total,
+        'totalPages' => $totalPages,
+        'perPage'    => $perPage,
+    ]);
+}
 
     // =========================================================================
     // MANAGE

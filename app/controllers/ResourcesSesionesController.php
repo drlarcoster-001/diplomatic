@@ -43,21 +43,31 @@ class ResourcesSesionesController extends Controller
 
     public function index(): void
     {
-        $search     = trim($_GET['search'] ?? '');
-        $page       = max(1, (int) ($_GET['page'] ?? 1));
-        $perPage    = 25;
-        $total      = $this->model->countOfertas($search);
-        $totalPages = (int) ceil($total / $perPage);
-        $ofertas    = $this->model->getOfertasActivas($search, $page, $perPage);
+$periodoId  = (int) ($_GET['periodo_id'] ?? 0);
+    $diplomaId  = (int) ($_GET['diploma_id'] ?? 0);
+    $filters = [
+        'periodo_id' => $periodoId ?: null,
+        'search'     => $diplomaId ? '' : trim($_GET['search'] ?? ''),
+        'diploma_id' => $diplomaId ?: null,
+    ];
+    $page       = max(1, (int) ($_GET['page'] ?? 1));
+    $perPage    = 25;
+    $total      = $this->model->countOfertas($filters);
+    $totalPages = (int) ceil($total / $perPage);
+    $ofertas    = $this->model->getOfertasActivas($filters, $page, $perPage);
 
-        $this->view('resources/sesiones/index', [
-            'ofertas'    => $ofertas,
-            'search'     => $search,
-            'page'       => $page,
-            'total'      => $total,
-            'totalPages' => $totalPages,
-            'perPage'    => $perPage,
-        ]);
+    $this->view('resources/sesiones/index', [
+        'ofertas'    => $ofertas,
+        'page'       => $page,
+        'filters'    => $filters,
+        'periodos'   => $this->model->getPeriodos(),
+        'diplomados' => $this->model->getDiplomadosPorPeriodo($periodoId),
+        'periodoId'  => $periodoId,
+        'diplomaId'  => $diplomaId,
+        'total'      => $total,
+        'totalPages' => $totalPages,
+        'perPage'    => $perPage,
+    ]);
     }
 
     public function manage(): void

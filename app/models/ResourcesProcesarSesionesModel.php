@@ -6,7 +6,7 @@
  *            sesiones pendientes, sesiones por oferta, estudiantes matriculados con
  *            su asistencia, y procesa el marcado de asistencia generando el cambio
  *            de estado PROGRAMADA → DICTADA en tbl_sesiones.
- * VERSIÓN: 2.1.0 - getSesionesByOffering agrega tiene_asistencia. Nuevos métodos:
+* VERSIÓN: 2.2.0 - Agrega filtro por período, columna grupos y método getPeriodos.
  *          reiniciarAsistencia() para limpiar tbl_sesion_asistencia desde el admin.
  */
 
@@ -30,26 +30,39 @@ class ResourcesProcesarSesionesModel
     // OFERTAS CON SESIONES PROGRAMADAS (INDEX)
     // =========================================================================
 
-    public function getOfertasConSesiones(string $search = '', int $page = 1, int $perPage = 25): array
+    public function getOfertasConSesiones(array $filters = [], int $page = 1, int $perPage = 25): array
     {
         $offset = ($page - 1) * $perPage;
         $where  = "WHERE ao.is_active = 1
-                     AND ao.status IN ('ABIERTA', 'EN CURSO')
-                     AND s.is_active = 1";
+                    AND ao.status IN ('ABIERTA', 'EN CURSO')
+                    AND s.is_active = 1";
         $params = [];
 
+        $search = $filters['search'] ?? '';
+        $periodoId = $filters['periodo_id'] ?? null;
+
+        if ($periodoId) {
+            $where .= " AND c.periodo_id = :periodo_id";
+            $params[':periodo_id'] = $periodoId;
+        }
+
         if ($search !== '') {
-            $where .= " AND (d.name LIKE :search OR c.name LIKE :search)";
-            $params[':search'] = "%{$search}%";
+            $where .= " AND (d.name LIKE :search1 OR c.name LIKE :search2)";
+            $params[':search1'] = "%{$search}%";
+            $params[':search2'] = "%{$search}%";
         }
 
         $sql = "SELECT ao.id AS offering_id,
-                       d.name AS diplomado_nombre,
-                       c.name AS cohorte_nombre,
-                       ao.general_modality,
-                       ao.status,
-                       SUM(CASE WHEN s.estado = 'PROGRAMADA' THEN 1 ELSE 0 END) AS sesiones_pendientes,
-                       SUM(CASE WHEN s.estado = 'DICTADA'    THEN 1 ELSE 0 END) AS sesiones_dictadas
+               d.name AS diplomado_nombre,
+               c.name AS cohorte_nombre,
+               ao.general_modality,
+               ao.status,
+               (SELECT GROUP_CONCAT(g2.name ORDER BY g2.name SEPARATOR ', ')
+                FROM tbl_academic_offering_groups og2
+                INNER JOIN tbl_grupos g2 ON g2.id = og2.group_id
+                WHERE og2.offering_id = ao.id AND og2.is_enabled = 1) AS grupos_nombre,
+               SUM(CASE WHEN s.estado = 'PROGRAMADA' THEN 1 ELSE 0 END) AS sesiones_pendientes,
+               SUM(CASE WHEN s.estado = 'DICTADA'    THEN 1 ELSE 0 END) AS sesiones_dictadas
                 FROM tbl_academic_offerings ao
                 INNER JOIN tbl_diplomados d ON ao.diploma_id = d.id
                 INNER JOIN tbl_cohortes   c ON ao.cohort_id  = c.id
@@ -72,17 +85,26 @@ class ResourcesProcesarSesionesModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function countOfertas(string $search = ''): int
+    public function countOfertas(array $filters = []): int
     {
         $where  = "WHERE ao.is_active = 1
-                     AND ao.status IN ('ABIERTA', 'EN CURSO')
-                     AND s.is_active = 1";
-        $params = [];
+             AND ao.status IN ('ABIERTA', 'EN CURSO')
+             AND s.is_active = 1";
+            $params = [];
 
-        if ($search !== '') {
-            $where .= " AND (d.name LIKE :search OR c.name LIKE :search)";
-            $params[':search'] = "%{$search}%";
-        }
+            $search = $filters['search'] ?? '';
+            $periodoId = $filters['periodo_id'] ?? null;
+
+            if ($periodoId) {
+                $where .= " AND c.periodo_id = :periodo_id";
+                $params[':periodo_id'] = $periodoId;
+            }
+
+            if ($search !== '') {
+                $where .= " AND (d.name LIKE :search1 OR c.name LIKE :search2)";
+                $params[':search1'] = "%{$search}%";
+                $params[':search2'] = "%{$search}%";
+            }
 
         $stmt = $this->db->prepare(
             "SELECT COUNT(DISTINCT ao.id)
@@ -316,4 +338,13 @@ class ResourcesProcesarSesionesModel
         $estudiantes = $this->getEstudiantesConAsistencia($sesionId, (int) $sesion['offering_id']);
         return ['sesion' => $sesion, 'estudiantes' => $estudiantes];
     }
+
+    public function getPeriodos(): array
+{
+    $stmt = $this->db->query(
+        "SELECT id, nombre, estado FROM tbl_periodos_cohorte
+         WHERE is_active = 1 ORDER BY id DESC"
+    );
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

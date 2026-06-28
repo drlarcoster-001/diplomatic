@@ -47,15 +47,20 @@ class AcademicHorariosPracticasController extends Controller
 
     public function index(): void
     {
-        $search     = trim($_GET['search'] ?? '');
-        $page       = max(1, (int) ($_GET['page'] ?? 1));
-        $perPage    = 25;
-        $total      = $this->model->countOfertas($search);
+        $search    = trim($_GET['search']    ?? '');
+        $periodoId = (int) ($_GET['periodo_id'] ?? 0);
+        $diplomaId = (int) ($_GET['diploma_id'] ?? 0);
+        $page      = max(1, (int) ($_GET['page'] ?? 1));
+        $perPage   = 25;
+        $total     = $this->model->countOfertas($search, $periodoId);
         $totalPages = (int) ceil($total / $perPage);
-        $ofertas    = $this->model->getOfertasConHorarios($search, $page, $perPage);
-
+        $ofertas   = $this->model->getOfertasConHorarios($search, $page, $perPage, $periodoId, $diplomaId);
         $this->view('academic/horarios_practicas/index', [
             'ofertas'    => $ofertas,
+            'periodos'   => $this->model->getPeriodos(),
+            'diplomados' => $this->model->getDiplomadosPorPeriodo($periodoId),
+            'periodoId'  => $periodoId,
+            'diplomaId'  => $diplomaId,
             'search'     => $search,
             'page'       => $page,
             'perPage'    => $perPage,

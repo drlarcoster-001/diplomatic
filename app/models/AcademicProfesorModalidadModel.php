@@ -64,6 +64,7 @@ class AcademicProfesorModalidadModel
     {
         $stmt = $this->db->query(
             "SELECT o.id, d.name AS diplomado_nombre, c.name AS cohorte_nombre, c.start_date,
+                    p.nombre AS periodo_nombre,
                     (SELECT GROUP_CONCAT(g.name SEPARATOR ', ')
                      FROM tbl_academic_offering_groups og
                      INNER JOIN tbl_grupos g ON g.id = og.group_id
@@ -71,6 +72,7 @@ class AcademicProfesorModalidadModel
              FROM tbl_academic_offerings o
              INNER JOIN tbl_diplomados d ON d.id = o.diploma_id
              INNER JOIN tbl_cohortes c ON c.id = o.cohort_id
+             LEFT JOIN tbl_periodos_cohorte p ON p.id = c.periodo_id
              ORDER BY c.start_date DESC"
         );
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -272,4 +274,13 @@ class AcademicProfesorModalidadModel
         $stmt->execute([':pid' => $professorId, ':oid' => $offeringId]);
         return (bool) $stmt->fetch();
     }
+
+    public function getPeriodos(): array
+{
+    $stmt = $this->db->query(
+        "SELECT id, nombre, estado FROM tbl_periodos_cohorte
+         WHERE is_active = 1 ORDER BY id DESC"
+    );
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+}
 }

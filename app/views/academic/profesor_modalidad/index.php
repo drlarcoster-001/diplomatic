@@ -16,9 +16,10 @@ $coloresModalidad = ['TEORICA' => 'primary', 'PRACTICA' => 'success', 'VIRTUAL' 
 // Catálogos en JSON para los buscadores inteligentes
 $profesoresJson = json_encode(array_map(fn($p) => ['id' => $p['id'], 'label' => $p['full_name']], $profesores), JSON_UNESCAPED_UNICODE);
 $ofertasJson    = json_encode(array_map(fn($o) => [
-    'id' => $o['id'],
-    'label' => $o['diplomado_nombre'] . ' — ' . $o['cohorte_nombre'] . ($o['grupos_nombre'] ? ' (' . $o['grupos_nombre'] . ')' : ' (sin grupo configurado)'),
-    'grupos' => $o['grupos_nombre'] ?? ''
+    'id'      => $o['id'],
+    'label'   => '[' . ($o['periodo_nombre'] ?? 'Sin período') . '] ' . $o['diplomado_nombre'] . ' — ' . $o['cohorte_nombre'] . ($o['grupos_nombre'] ? ' (' . $o['grupos_nombre'] . ')' : ' (sin grupo configurado)'),
+    'grupos'  => $o['grupos_nombre'] ?? '',
+    'periodo' => $o['periodo_nombre'] ?? ''
 ], $ofertas), JSON_UNESCAPED_UNICODE);
 $mapaJson       = json_encode($mapaProfesorOfertas, JSON_UNESCAPED_UNICODE);
 $mapaGruposJson = json_encode($mapaOfertaGrupos, JSON_UNESCAPED_UNICODE);
@@ -151,6 +152,18 @@ $mapaGruposJson = json_encode($mapaOfertaGrupos, JSON_UNESCAPED_UNICODE);
                         <div class="buscador-dropdown"></div>
                     </div>
 
+                    <!-- PERÍODO -->
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">PERÍODO</label>
+                        <select id="modal_periodo_id" class="form-select">
+                            <option value="">— Selecciona período —</option>
+                            <?php foreach ($periodos ?? [] as $p): ?>
+                                <option value="<?= $p['id'] ?>">
+                                    <?= htmlspecialchars($p['nombre']) ?> (<?= $p['estado'] ?>)
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
                     <!-- OFERTA CON BOTÓN LIMPIAR -->
                     <div class="mb-3 buscador-inteligente" data-target="offering_id">
                         <label class="form-label small fw-bold">OFERTA / COHORTE</label>

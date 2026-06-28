@@ -6,8 +6,7 @@
  *            oferta; oferta carga grupos y aplica restricción Online), modal
  *            compartido crear/editar, checkboxes de modalidad (múltiples al
  *            crear, exclusivo al editar), botones X para limpiar cada campo.
- * VERSIÓN: 2.2.0 - Fix: el campo Grupo se carga al elegir la oferta sin
- *           importar si Teórica se marcó antes o después; encabezado corregido.
+ * VERSIÓN: 2.3.0 - Agrega filtro por período en popup.
  */
 
 $(document).ready(function () {
@@ -69,7 +68,16 @@ $(document).ready(function () {
 
     function habilitarOfertaPara(professorId) {
         const idsPermitidos = mapaProfesorOfertas[String(professorId)] || [];
-        catalogos.offering_id = catalogoOfertasCompleto.filter(o => idsPermitidos.includes(o.id));
+        const periodoSel    = document.getElementById('modal_periodo_id');
+        const periodoId     = periodoSel ? periodoSel.value : '';
+
+        catalogos.offering_id = catalogoOfertasCompleto.filter(o => {
+            if (!idsPermitidos.map(Number).includes(Number(o.id))) return false;
+            if (periodoId && o.periodo) {
+                return o.periodo === periodoSel.options[periodoSel.selectedIndex]?.text.split(' (')[0];
+            }
+            return true;
+        });
 
         if (inputOferta) {
             inputOferta.disabled = false;
@@ -78,11 +86,6 @@ $(document).ready(function () {
                 : 'Este profesor no tiene ofertas asignadas en Ofertas Académicas';
             inputOferta.value = '';
         }
-
-        const hiddenOferta = wrapperOferta?.querySelector('.buscador-hidden');
-        if (hiddenOferta) hiddenOferta.value = '';
-        actualizarBotonLimpiar(wrapperOferta);
-        limpiarGrupo();
     }
 
     function limpiarGrupo() {
@@ -112,8 +115,6 @@ $(document).ready(function () {
     function actualizarVisibilidadGrupo() {
         const teoricaMarcada = document.getElementById('chkTeorica')?.checked;
         bloqueGrupo?.classList.toggle('d-none', !teoricaMarcada);
-        // NOTA: ya no limpia el grupo al ocultar — los grupos quedan cargados
-        // según la oferta elegida, sin importar el orden en que se marque Teórica.
     }
 
     function aplicarRestriccionOnline(offeringId) {
@@ -328,6 +329,10 @@ $(document).ready(function () {
         form.action = `${basePath}/save`;
         document.getElementById('f_id').value = '';
 
+        // Limpiar período
+        const modalPeriodo = document.getElementById('modal_periodo_id');
+        if (modalPeriodo) modalPeriodo.value = '';
+
         limpiarBuscador('professor_id');
         bloquearOferta();
         limpiarModalidades();
@@ -360,8 +365,6 @@ $(document).ready(function () {
         habilitarOfertaPara(fila.dataset.professorId);
 
         setBuscador('offering_id', fila.dataset.offeringId, fila.dataset.offeringNombre);
-        // Cargar grupos de la oferta SIEMPRE (no solo si es teórica), para que
-        // queden disponibles si el usuario cambia a teórica luego.
         cargarGruposPara(fila.dataset.offeringId);
         aplicarRestriccionOnline(fila.dataset.offeringId);
 
@@ -374,7 +377,6 @@ $(document).ready(function () {
             actualizarBotonLimpiar(wrapperGrupo);
         }
 
-        // Re-marca después de aplicarRestriccionOnline, por si la restricción la desmarcó
         marcarModalidad(fila.dataset.modalidad);
         actualizarVisibilidadGrupo();
 
@@ -405,7 +407,7 @@ $(document).ready(function () {
         const profId  = form.querySelector('[name="professor_id"]')?.value;
         const offId   = form.querySelector('[name="offering_id"]')?.value;
         const hayModalidad = document.querySelectorAll('.chk-modalidad:checked').length > 0
-    || document.querySelector('input[name="modalidad[]"][type="hidden"]') !== null;
+            || document.querySelector('input[name="modalidad[]"][type="hidden"]') !== null;
 
         if (!profId) {
             e.preventDefault();
@@ -462,6 +464,23 @@ $(document).ready(function () {
             });
         });
     });
+
+    // === FILTRO DE PERÍODO EN POPUP ===
+    const modalPeriodo = document.getElementById('modal_periodo_id');
+    if (modalPeriodo) {
+        modalPeriodo.addEventListener('change', () => {
+            const hiddenProf = document.querySelector('.buscador-inteligente[data-target="professor_id"] .buscador-hidden');
+            if (hiddenProf && hiddenProf.value) {
+                habilitarOfertaPara(hiddenProf.value);
+            } else {
+                bloquearOferta();
+            }
+            if (inputOferta) inputOferta.value = '';
+            const hiddenOferta = wrapperOferta?.querySelector('.buscador-hidden');
+            if (hiddenOferta) hiddenOferta.value = '';
+            limpiarGrupo();
+        });
+    }
 
     // === INICIALIZACIÓN ===
     bloquearOferta();

@@ -11,6 +11,8 @@ $page       = $page       ?? 1;
 $total      = $total      ?? 0;
 $totalPages = $totalPages ?? 1;
 $perPage    = $perPage    ?? 25;
+$periodoId  = $periodoId  ?? 0;
+$periodos   = $periodos   ?? [];
 $offset     = ($page - 1) * $perPage;
 
 $labelMod = ['TEORICA' => 'Teórica', 'PRACTICA' => 'Práctica', 'VIRTUAL' => 'Virtual'];
@@ -52,7 +54,7 @@ function buildUrlAA(array $params): string {
       </p>
     </div>
     <div class="d-flex gap-2">
-        <a href="<?= $basePath ?>/academic/aprobar-actas/reporte?<?= http_build_query(['search' => $search, 'estado' => $estado]) ?>"
+        <a href="<?= $basePath ?>/academic/aprobar-actas/reporte?<?= http_build_query(['search' => $search, 'estado' => $estado, 'periodo_id' => $periodoId]) ?>"
           target="_blank"
           class="btn btn-outline-dark rounded-pill px-4 shadow-sm">
             <i class="bi bi-file-earmark-pdf me-1"></i> Reporte PDF
@@ -67,19 +69,29 @@ function buildUrlAA(array $params): string {
   <div class="card border-0 shadow-sm mb-4">
     <div class="card-body p-3">
       <form method="GET" class="row g-2">
-        <div class="col-md-7">
-          <div class="input-group">
-            <span class="input-group-text bg-white border-end-0">
-              <i class="bi bi-search text-muted"></i>
-            </span>
-            <input type="text" name="search" class="form-control border-start-0"
-                   placeholder="Buscar por diplomado, cohorte o profesor..."
-                   value="<?= htmlspecialchars($search ?? '') ?>">
-          </div>
-        </div>
-        <div class="col-md-3">
+      <div class="col-md-5">
+                <div class="input-group">
+                  <span class="input-group-text bg-white border-end-0">
+                    <i class="bi bi-search text-muted"></i>
+                  </span>
+                  <input type="text" name="search" class="form-control border-start-0"
+                        placeholder="Buscar por diplomado, cohorte o profesor..."
+                        value="<?= htmlspecialchars($search ?? '') ?>">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <select name="periodo_id" class="form-select" onchange="this.form.submit()">
+                  <option value="0">-- Todos los períodos --</option>
+                  <?php foreach ($periodos as $p): ?>
+                    <option value="<?= $p['id'] ?>" <?= $periodoId == $p['id'] ? 'selected' : '' ?>>
+                      <?= htmlspecialchars($p['nombre']) ?><?= $p['estado'] === 'Finalizado' ? ' (Finalizado)' : '' ?>
+                    </option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+              <div class="col-md-2">
           <select name="estado" class="form-select" onchange="this.form.submit()">
-            <option value="" <?= $estado === '' ? 'selected' : '' ?>>Todos los estados</option>
+      <option value="" <?= $estado === '' ? 'selected' : '' ?>>Todos los estados</option>
             <option value="ENVIADA"  <?= $estado === 'ENVIADA'  ? 'selected' : '' ?>>Enviadas</option>
             <option value="APROBADA" <?= $estado === 'APROBADA' ? 'selected' : '' ?>>Aprobadas</option>
           </select>

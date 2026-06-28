@@ -5,7 +5,7 @@
  * PROPÓSITO: Obtiene las sesiones del profesor autenticado a través de la
  *            cadena tbl_professors → tbl_personal → tbl_sesiones.
  *            También entrega la lista de estudiantes matriculados para el PDF.
- * VERSIÓN: 1.0.0 - Creación inicial.
+ * VERSIÓN: 1.1.0 - Agrega filtros por período y grupo en oferta.
  */
 
 declare(strict_types=1);
@@ -25,16 +25,51 @@ class ProfessorControlAsistenciaModel
     }
 
     // =========================================================================
+    // PERÍODOS DEL PROFESOR
+    // =========================================================================
+
+    public function getPeriodos(int $professorId): array
+    {
+        $stmt = $this->db->prepare(
+            "SELECT DISTINCT p.id, p.nombre, p.estado
+             FROM tbl_periodos_cohorte p
+             INNER JOIN tbl_cohortes c ON c.periodo_id = p.id
+             INNER JOIN tbl_academic_offerings ao ON ao.cohort_id = c.id
+             INNER JOIN tbl_horarios_teoricos ht ON ht.offering_id = ao.id
+             INNER JOIN tbl_sesiones s ON s.horario_id = ht.id AND s.tipo_horario = 'TEORICO'
+             INNER JOIN tbl_personal per ON per.id = s.personal_id
+             WHERE per.profesor_id = :pid AND p.is_active = 1
+             UNION
+             SELECT DISTINCT p.id, p.nombre, p.estado
+             FROM tbl_periodos_cohorte p
+             INNER JOIN tbl_cohortes c ON c.periodo_id = p.id
+             INNER JOIN tbl_academic_offerings ao ON ao.cohort_id = c.id
+             INNER JOIN tbl_horarios_practicas hp ON hp.offering_id = ao.id
+             INNER JOIN tbl_sesiones s ON s.horario_id = hp.id AND s.tipo_horario = 'PRACTICA'
+             INNER JOIN tbl_personal per ON per.id = s.personal_id
+             WHERE per.profesor_id = :pid2 AND p.is_active = 1
+             ORDER BY id DESC"
+        );
+        $stmt->execute([':pid' => $professorId, ':pid2' => $professorId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // =========================================================================
     // OFERTAS DEL PROFESOR (para el selector)
     // =========================================================================
 
-    public function getMisOfertas(int $professorId): array
+    public function getMisOfertas(int $professorId, int $periodoId = 0): array
     {
+        $filtroPeriodo = $periodoId ? "AND c.periodo_id = :periodo_id" : "";
         $stmt = $this->db->prepare(
             "SELECT ao.id AS offering_id,
                     d.name  AS diplomado_nombre,
                     c.name  AS cohorte_nombre,
                     ao.general_modality,
+                    (SELECT GROUP_CONCAT(g.name SEPARATOR ', ')
+                     FROM tbl_academic_offering_groups og
+                     INNER JOIN tbl_grupos g ON g.id = og.group_id
+                     WHERE og.offering_id = ao.id AND og.is_enabled = 1) AS grupos_nombre,
                     COUNT(DISTINCT s.id) AS total_sesiones,
                     SUM(CASE WHEN s.estado = 'PROGRAMADA' THEN 1 ELSE 0 END) AS programadas,
                     SUM(CASE WHEN s.estado = 'DICTADA'    THEN 1 ELSE 0 END) AS dictadas
@@ -51,10 +86,13 @@ class ProfessorControlAsistenciaModel
              WHERE p.profesor_id = :pid
                AND s.is_active   = 1
                AND ao.id IS NOT NULL
+               {$filtroPeriodo}
              GROUP BY ao.id, d.name, c.name, ao.general_modality
              ORDER BY d.name ASC, c.name ASC"
         );
-        $stmt->execute([':pid' => $professorId]);
+        $params = [':pid' => $professorId];
+        if ($periodoId) $params[':periodo_id'] = $periodoId;
+        $stmt->execute($params);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -94,7 +132,7 @@ class ProfessorControlAsistenciaModel
     }
 
     // =========================================================================
-    // DATOS DE SESIÓN PARA PDF (con validación de pertenencia al profesor)
+    // DATOS DE SESIÓN PARA PDF
     // =========================================================================
 
     public function getSesionParaPdf(int $sesionId, int $professorId): ?array

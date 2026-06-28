@@ -28,8 +28,35 @@ class ProfessorRegistrarAsistenciaModel
     // OFERTAS DEL PROFESOR CON SESIONES PROGRAMADAS
     // =========================================================================
 
-    public function getMisOfertas(int $professorId): array
+    public function getPeriodos(int $professorId): array
     {
+        $stmt = $this->db->prepare(
+            "SELECT DISTINCT p.id, p.nombre, p.estado
+             FROM tbl_periodos_cohorte p
+             INNER JOIN tbl_cohortes c ON c.periodo_id = p.id
+             INNER JOIN tbl_academic_offerings ao ON ao.cohort_id = c.id
+             INNER JOIN tbl_horarios_teoricos ht ON ht.offering_id = ao.id
+             INNER JOIN tbl_sesiones s ON s.horario_id = ht.id AND s.tipo_horario = 'TEORICO'
+             INNER JOIN tbl_personal per ON per.id = s.personal_id
+             WHERE per.profesor_id = :pid AND p.is_active = 1
+             UNION
+             SELECT DISTINCT p.id, p.nombre, p.estado
+             FROM tbl_periodos_cohorte p
+             INNER JOIN tbl_cohortes c ON c.periodo_id = p.id
+             INNER JOIN tbl_academic_offerings ao ON ao.cohort_id = c.id
+             INNER JOIN tbl_horarios_practicas hp ON hp.offering_id = ao.id
+             INNER JOIN tbl_sesiones s ON s.horario_id = hp.id AND s.tipo_horario = 'PRACTICA'
+             INNER JOIN tbl_personal per ON per.id = s.personal_id
+             WHERE per.profesor_id = :pid2 AND p.is_active = 1
+             ORDER BY id DESC"
+        );
+        $stmt->execute([':pid' => $professorId, ':pid2' => $professorId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getMisOfertas(int $professorId, int $periodoId = 0): array
+    {
+        $filtroPeriodo = $periodoId ? "AND c.periodo_id = :periodo_id" : "";
         $stmt = $this->db->prepare(
             "SELECT ao.id AS offering_id,
                     d.name AS diplomado_nombre,
@@ -56,6 +83,51 @@ class ProfessorRegistrarAsistenciaModel
              ORDER BY d.name ASC, c.name ASC"
         );
         $stmt->execute([':pid' => $professorId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // =========================================================================
+    // TODAS LAS SESIONES DEL PROFESOR (sin filtro de oferta)
+    // =========================================================================
+
+    public function getTodasSesiones(int $professorId, int $periodoId = 0): array
+    {
+        $filtroPeriodo = $periodoId ? "AND c.periodo_id = :periodo_id" : "";
+        $stmt = $this->db->prepare(
+            "SELECT s.id, s.tipo_horario, s.fecha, s.estado,
+                    CASE
+                        WHEN s.tipo_horario = 'TEORICO' THEN
+                            CONCAT(ht.dia_semana, ' ',
+                                   TIME_FORMAT(ht.hora_inicio, '%H:%i'), '–',
+                                   TIME_FORMAT(ht.hora_fin, '%H:%i'))
+                        WHEN s.tipo_horario = 'PRACTICA' THEN
+                            CONCAT(gp.nombre, ' / ', cm.nombre)
+                    END AS horario_desc,
+                    d.name AS diplomado_nombre,
+                    (SELECT GROUP_CONCAT(g2.name ORDER BY g2.name SEPARATOR ', ')
+                     FROM tbl_academic_offering_groups og2
+                     INNER JOIN tbl_grupos g2 ON g2.id = og2.group_id
+                     WHERE og2.offering_id = ao.id AND og2.is_enabled = 1) AS grupos_nombre,
+                    (SELECT COUNT(*) FROM tbl_sesion_asistencia WHERE sesion_id = s.id) AS tiene_asistencia
+             FROM tbl_sesiones s
+             INNER JOIN tbl_personal p ON s.personal_id = p.id
+             LEFT JOIN tbl_horarios_teoricos ht ON s.tipo_horario = 'TEORICO' AND s.horario_id = ht.id
+             LEFT JOIN tbl_horarios_practicas hp ON s.tipo_horario = 'PRACTICA' AND s.horario_id = hp.id
+             LEFT JOIN tbl_grupos_practica gp ON hp.grupo_id = gp.id
+             LEFT JOIN tbl_centros_medicos cm ON hp.centro_medico_id = cm.id
+             LEFT JOIN tbl_academic_offerings ao ON COALESCE(ht.offering_id, hp.offering_id) = ao.id
+             LEFT JOIN tbl_diplomados d ON ao.diploma_id = d.id
+             LEFT JOIN tbl_cohortes c ON ao.cohort_id = c.id
+             WHERE p.profesor_id = :pid
+               AND s.estado = 'PROGRAMADA'
+               AND s.is_active = 1
+               AND ao.id IS NOT NULL
+               {$filtroPeriodo}
+             ORDER BY s.fecha ASC"
+        );
+        $params = [':pid' => $professorId];
+        if ($periodoId) $params[':periodo_id'] = $periodoId;
+        $stmt->execute($params);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

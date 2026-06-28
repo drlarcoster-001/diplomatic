@@ -48,6 +48,7 @@ class AcademicProfesorModalidadController extends Controller
             'ofertas'             => $this->model->getOfertas(),
             'mapaProfesorOfertas' => $this->model->getMapaProfesorOfertas(),
             'mapaOfertaGrupos'    => $this->model->getMapaOfertaGrupos(),
+            'periodos'            => $this->model->getPeriodos(),
             'search'              => $search,
         ]);
     }
@@ -160,4 +161,13 @@ class AcademicProfesorModalidadController extends Controller
         header('Location: /diplomatic/public/academic/profesor-modalidad?deleted=1');
         exit;
     }
+
+    public function getPeriodos(): array
+        {
+            $stmt = $this->db->query(
+                "SELECT id, nombre, estado FROM tbl_periodos_cohorte
+                WHERE is_active = 1 ORDER BY id DESC"
+            );
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
 }

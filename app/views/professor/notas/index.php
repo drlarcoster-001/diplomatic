@@ -54,24 +54,41 @@ $colorModalidad = ['TEORICA' => '#0d6efd', 'PRACTICA' => '#198754', 'VIRTUAL' =>
   <div class="card border-0 shadow-sm mb-4">
     <div class="card-body">
       <form method="GET" action="" class="row g-3 align-items-end" id="formOferta">
-        <div class="col-md-9">
-          <label class="form-label fw-semibold">Selecciona una oferta académica</label>
-          <select name="offering_id" class="form-select" onchange="this.form.submit()">
-            <option value="">— Elige un diplomado / cohorte —</option>
-            <?php foreach ($ofertas as $o): ?>
-              <option value="<?= $o['offering_id'] ?>"
-                <?= (int)$offeringId === (int)$o['offering_id'] ? 'selected' : '' ?>>
-                <?= htmlspecialchars($o['diplomado_nombre'] . ' — ' . $o['cohorte_nombre'] .
-                    (!empty($o['grupos_nombre']) ? ' (' . $o['grupos_nombre'] . ')' : '')) ?>
+
+        <!-- PERÍODO -->
+        <div class="col-md-3">
+          <label class="form-label fw-semibold">Período</label>
+          <select name="periodo_id" class="form-select" onchange="this.form.submit()">
+            <option value="">— Todos —</option>
+            <?php foreach ($periodos as $p): ?>
+              <option value="<?= $p['id'] ?>" <?= ($periodoId ?? 0) == $p['id'] ? 'selected' : '' ?>>
+                <?= htmlspecialchars($p['nombre']) ?><?= $p['estado'] === 'Finalizado' ? ' (Finalizado)' : '' ?>
               </option>
             <?php endforeach; ?>
           </select>
         </div>
+
+        <!-- OFERTA -->
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Oferta Académica</label>
+          <select name="offering_id" class="form-select" onchange="this.form.submit()">
+            <option value="">— Todas las ofertas —</option>
+            <?php foreach ($ofertas as $o): ?>
+              <option value="<?= $o['offering_id'] ?>"
+                <?= (int)$offeringId === (int)$o['offering_id'] ? 'selected' : '' ?>>
+                <?= htmlspecialchars($o['diplomado_nombre']) ?>
+                <?= !empty($o['grupos_nombre']) ? '(' . htmlspecialchars($o['grupos_nombre']) . ')' : '' ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+
         <div class="col-md-3">
           <button type="submit" class="btn btn-primary w-100">
             <i class="bi bi-search me-1"></i> Ver
           </button>
         </div>
+
       </form>
     </div>
   </div>

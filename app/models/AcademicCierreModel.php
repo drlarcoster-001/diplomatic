@@ -4,9 +4,9 @@
  * ARCHIVO: app/models/AcademicCierreModel.php
  * PROPÓSITO: Cierre formal de ofertas académicas. Verifica solvencia,
  *            3 notas obligatorias (Teórica/Práctica/Virtual), expediente
- *            completo. Profesor por modalidad desde tbl_profesor_modalidad
- *            con contacto desde tbl_personal (fallback a tbl_users).
- * VERSIÓN: 1.2.0 - 3 notas siempre obligatorias. Contacto profesor.
+ *            completo. Profesor Teórica/Práctica desde tbl_sesiones,
+ *            Virtual desde tbl_profesor_modalidad.
+ * VERSIÓN: 1.3.0 - Profesor por modalidad corregido.
  */
 
 declare(strict_types=1);
@@ -24,10 +24,6 @@ class AcademicCierreModel
     {
         $this->db = (new Database())->getConnection();
     }
-
-    // =========================================================================
-    // OFERTAS DISPONIBLES PARA CIERRE
-    // =========================================================================
 
     public function getOfertas(string $search = ''): array
     {
@@ -78,10 +74,6 @@ class AcademicCierreModel
         return $row ?: null;
     }
 
-    // =========================================================================
-    // NOTA MÍNIMA
-    // =========================================================================
-
     public function getNotaMinima(int $offeringId): float
     {
         $stmt = $this->db->prepare(
@@ -95,38 +87,68 @@ class AcademicCierreModel
         return $val !== false ? (float) $val : 15.00;
     }
 
-    // =========================================================================
-    // PROFESORES POR MODALIDAD (para el modal de contacto)
-    // =========================================================================
-
     public function getProfesoresPorModalidad(int $offeringId): array
     {
+        // VIRTUAL → tbl_profesor_modalidad
         $stmt = $this->db->prepare(
             "SELECT pm.modalidad,
                     prof.full_name,
-                    COALESCE(per.email, u.email)            AS email,
+                    COALESCE(per.email, u.email) AS email,
                     COALESCE(per.telefono_celular, per.telefono_local) AS telefono
              FROM tbl_profesor_modalidad pm
              INNER JOIN tbl_professors prof ON prof.id = pm.professor_id
              LEFT JOIN tbl_personal per ON per.profesor_id = pm.professor_id
              LEFT JOIN tbl_users u ON u.id = prof.user_id
-             WHERE pm.offering_id = :oid
-             ORDER BY FIELD(pm.modalidad, 'TEORICA', 'PRACTICA', 'VIRTUAL')"
+             WHERE pm.offering_id = :oid AND pm.modalidad = 'VIRTUAL'"
         );
         $stmt->execute([':oid' => $offeringId]);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // Mapa modalidad => datos profesor
         $mapa = ['TEORICA' => null, 'PRACTICA' => null, 'VIRTUAL' => null];
         foreach ($rows as $r) {
             $mapa[$r['modalidad']] = $r;
         }
+
+        // TEORICA → tbl_sesiones
+        $stmt2 = $this->db->prepare(
+            "SELECT prof.full_name,
+                    COALESCE(per.email, u.email) AS email,
+                    COALESCE(per.telefono_celular, per.telefono_local) AS telefono
+             FROM tbl_sesiones s
+             INNER JOIN tbl_personal per ON per.id = s.personal_id
+             INNER JOIN tbl_professors prof ON prof.id = per.profesor_id
+             LEFT JOIN tbl_users u ON u.id = prof.user_id
+             INNER JOIN tbl_horarios_teoricos ht ON ht.id = s.horario_id AND s.tipo_horario = 'TEORICO'
+             WHERE ht.offering_id = :oid
+             LIMIT 1"
+        );
+        $stmt2->execute([':oid' => $offeringId]);
+        $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+        if ($row2) {
+            $mapa['TEORICA'] = array_merge(['modalidad' => 'TEORICA'], $row2);
+        }
+
+        // PRACTICA → tbl_sesiones
+        $stmt3 = $this->db->prepare(
+            "SELECT prof.full_name,
+                    COALESCE(per.email, u.email) AS email,
+                    COALESCE(per.telefono_celular, per.telefono_local) AS telefono
+             FROM tbl_sesiones s
+             INNER JOIN tbl_personal per ON per.id = s.personal_id
+             INNER JOIN tbl_professors prof ON prof.id = per.profesor_id
+             LEFT JOIN tbl_users u ON u.id = prof.user_id
+             INNER JOIN tbl_horarios_practicas hp ON hp.id = s.horario_id AND s.tipo_horario = 'PRACTICA'
+             WHERE hp.offering_id = :oid
+             LIMIT 1"
+        );
+        $stmt3->execute([':oid' => $offeringId]);
+        $row3 = $stmt3->fetch(PDO::FETCH_ASSOC);
+        if ($row3) {
+            $mapa['PRACTICA'] = array_merge(['modalidad' => 'PRACTICA'], $row3);
+        }
+
         return $mapa;
     }
-
-    // =========================================================================
-    // ESTUDIANTES CON TODAS SUS CONDICIONES
-    // =========================================================================
 
     public function getEstudiantes(int $offeringId): array
     {
@@ -162,29 +184,20 @@ class AcademicCierreModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // =========================================================================
-    // CERRAR OFERTA
-    // =========================================================================
-
     public function cerrarOferta(int $offeringId, int $userId): void
-{
-    $this->db->prepare(
-        "UPDATE tbl_academic_offerings
-         SET status = 'CERRADA', updated_by = :uid WHERE id = :id"
-    )->execute([':uid' => $userId, ':id' => $offeringId]);
+    {
+        $this->db->prepare(
+            "UPDATE tbl_academic_offerings
+             SET status = 'CERRADA', updated_by = :uid WHERE id = :id"
+        )->execute([':uid' => $userId, ':id' => $offeringId]);
 
-    // Cambiar cohorte a Finalizada
-    $this->db->prepare(
-        "UPDATE tbl_cohortes c
-         INNER JOIN tbl_academic_offerings ao ON ao.cohort_id = c.id
-         SET c.cohort_status = 'Finalizada'
-         WHERE ao.id = :id"
-    )->execute([':id' => $offeringId]);
-}
-
-    // =========================================================================
-    // VERIFICAR SI TODOS LOS ESTUDIANTES SON APTOS
-    // =========================================================================
+        $this->db->prepare(
+            "UPDATE tbl_cohortes c
+             INNER JOIN tbl_academic_offerings ao ON ao.cohort_id = c.id
+             SET c.cohort_status = 'Finalizada'
+             WHERE ao.id = :id"
+        )->execute([':id' => $offeringId]);
+    }
 
     public function todosAptos(int $offeringId, float $notaMinima): bool
     {
@@ -199,53 +212,56 @@ class AcademicCierreModel
         return true;
     }
 
-
     public function reversarCierre(int $offeringId, int $userId, string $motivo): void
-{
-    // Cambiar cohorte a Reabierta
-$this->db->prepare(
-    "UPDATE tbl_cohortes c
-     INNER JOIN tbl_academic_offerings ao ON ao.cohort_id = c.id
-     SET c.cohort_status = 'Reabierta'
-     WHERE ao.id = :id"
-)->execute([':id' => $offeringId]);
+    {
+        $this->db->prepare(
+            "UPDATE tbl_cohortes c
+             INNER JOIN tbl_academic_offerings ao ON ao.cohort_id = c.id
+             SET c.cohort_status = 'Reabierta'
+             WHERE ao.id = :id"
+        )->execute([':id' => $offeringId]);
 
-    $this->db->prepare(
-        "UPDATE tbl_actas SET estado = 'BORRADOR', aprobada_por = NULL
-         WHERE offering_id = :id AND estado = 'APROBADA'"
-    )->execute([':id' => $offeringId]);
+        $this->db->prepare(
+            "UPDATE tbl_academic_offerings
+             SET status = 'ABIERTA', updated_by = :uid WHERE id = :id"
+        )->execute([':uid' => $userId, ':id' => $offeringId]);
 
-    $this->db->prepare(
-        "INSERT INTO tbl_cierre_reversas (offering_id, motivo, reversado_por)
-         VALUES (:oid, :motivo, :uid)"
-    )->execute([':oid' => $offeringId, ':motivo' => $motivo, ':uid' => $userId]);
-}
+        $this->db->prepare(
+            "UPDATE tbl_actas SET estado = 'BORRADOR', aprobada_por = NULL
+             WHERE offering_id = :id AND estado = 'APROBADA'"
+        )->execute([':id' => $offeringId]);
 
-public function getHistorialReversas(string $search = ''): array
-{
-    $where  = "WHERE 1=1";
-    $params = [];
-    if ($search !== '') {
-        $where .= " AND (d.name LIKE :s OR c.name LIKE :s)";
-        $params[':s'] = "%{$search}%";
+        $this->db->prepare(
+            "INSERT INTO tbl_cierre_reversas (offering_id, motivo, reversado_por)
+             VALUES (:oid, :motivo, :uid)"
+        )->execute([':oid' => $offeringId, ':motivo' => $motivo, ':uid' => $userId]);
     }
-    $stmt = $this->db->prepare(
-        "SELECT cr.id, cr.motivo, cr.created_at,
-                d.name AS diplomado_nombre, c.name AS cohorte_nombre,
-                u.first_name, u.last_name,
-                (SELECT GROUP_CONCAT(g2.name ORDER BY g2.name SEPARATOR ', ')
-                 FROM tbl_academic_offering_groups og2
-                 INNER JOIN tbl_grupos g2 ON g2.id = og2.group_id
-                 WHERE og2.offering_id = cr.offering_id AND og2.is_enabled = 1) AS grupos_nombre
-         FROM tbl_cierre_reversas cr
-         INNER JOIN tbl_academic_offerings ao ON ao.id = cr.offering_id
-         INNER JOIN tbl_diplomados d ON d.id = ao.diploma_id
-         INNER JOIN tbl_cohortes   c ON c.id = ao.cohort_id
-         INNER JOIN tbl_users u ON u.id = cr.reversado_por
-         {$where}
-         ORDER BY cr.created_at DESC"
-    );
-    $stmt->execute($params);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+
+    public function getHistorialReversas(string $search = ''): array
+    {
+        $where  = "WHERE 1=1";
+        $params = [];
+        if ($search !== '') {
+            $where .= " AND (d.name LIKE :s OR c.name LIKE :s)";
+            $params[':s'] = "%{$search}%";
+        }
+        $stmt = $this->db->prepare(
+            "SELECT cr.id, cr.motivo, cr.created_at,
+                    d.name AS diplomado_nombre, c.name AS cohorte_nombre,
+                    u.first_name, u.last_name,
+                    (SELECT GROUP_CONCAT(g2.name ORDER BY g2.name SEPARATOR ', ')
+                     FROM tbl_academic_offering_groups og2
+                     INNER JOIN tbl_grupos g2 ON g2.id = og2.group_id
+                     WHERE og2.offering_id = cr.offering_id AND og2.is_enabled = 1) AS grupos_nombre
+             FROM tbl_cierre_reversas cr
+             INNER JOIN tbl_academic_offerings ao ON ao.id = cr.offering_id
+             INNER JOIN tbl_diplomados d ON d.id = ao.diploma_id
+             INNER JOIN tbl_cohortes   c ON c.id = ao.cohort_id
+             INNER JOIN tbl_users u ON u.id = cr.reversado_por
+             {$where}
+             ORDER BY cr.created_at DESC"
+        );
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

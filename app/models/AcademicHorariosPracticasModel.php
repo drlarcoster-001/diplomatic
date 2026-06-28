@@ -4,7 +4,7 @@
  * ARCHIVO: app/models/AcademicHorariosPracticasModel.php
  * PROPÓSITO: Gestión de horarios de práctica con grupos, estudiantes, centros médicos
  *            y fechas específicas por asignación grupo→centro (tbl_horario_practica_fechas).
- * VERSIÓN: 2.0.0 - Agrega manejo de fechas específicas por horario de práctica.
+ * VERSIÓN: 2.1.0 - Agrega filtro por período en index.
  */
 
 declare(strict_types=1);
@@ -24,13 +24,45 @@ class AcademicHorariosPracticasModel
     }
 
     // =========================================================================
+    // PERÍODOS
+    // =========================================================================
+
+    public function getDiplomadosPorPeriodo(int $periodoId = 0): array
+    {
+        $where = $periodoId ? "AND c.periodo_id = :periodo_id" : "";
+        $stmt = $this->db->prepare(
+            "SELECT DISTINCT d.id, d.name
+             FROM tbl_diplomados d
+             INNER JOIN tbl_academic_offerings ao ON ao.diploma_id = d.id
+             INNER JOIN tbl_cohortes c ON c.id = ao.cohort_id
+             WHERE ao.is_active = 1
+               AND ao.status IN ('ABIERTA','CERRADA','EN CURSO')
+               {$where}
+             ORDER BY d.name ASC"
+        );
+        $params = [];
+        if ($periodoId) $params[':periodo_id'] = $periodoId;
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getPeriodos(): array
+    {
+        $stmt = $this->db->query(
+            "SELECT id, nombre, estado FROM tbl_periodos_cohorte
+             WHERE is_active = 1 ORDER BY id DESC"
+        );
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // =========================================================================
     // OFERTAS (INDEX)
     // =========================================================================
 
-    public function getOfertasConHorarios(string $search = '', int $page = 1, int $perPage = 25): array
+    public function getOfertasConHorarios(string $search = '', int $page = 1, int $perPage = 25, int $periodoId = 0, int $diplomaId = 0): array
     {
         $offset = ($page - 1) * $perPage;
-        $where  = "WHERE ao.is_active = 1 AND ao.status IN ('ABIERTA', 'EN CURSO')";
+        $where  = "WHERE ao.is_active = 1 AND ao.status IN ('ABIERTA', 'EN CURSO', 'BORRADOR')";
         $params = [];
 
         if ($search !== '') {
@@ -38,6 +70,14 @@ class AcademicHorariosPracticasModel
             $params[':search'] = "%{$search}%";
         }
 
+        if ($periodoId) {
+            $where .= " AND c.periodo_id = :periodo_id";
+            $params[':periodo_id'] = $periodoId;
+        }
+        if ($diplomaId) {
+            $where .= " AND ao.diploma_id = :diploma_id";
+            $params[':diploma_id'] = $diplomaId;
+        }
         $sql = "SELECT ao.id AS offering_id,
                        d.name AS diplomado_nombre,
                        c.name AS cohorte_nombre,
@@ -68,13 +108,17 @@ class AcademicHorariosPracticasModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function countOfertas(string $search = ''): int
+    public function countOfertas(string $search = '', int $periodoId = 0): int
     {
-        $where  = "WHERE ao.is_active = 1 AND ao.status IN ('ABIERTA', 'EN CURSO')";
+        $where  = "WHERE ao.is_active = 1 AND ao.status IN ('ABIERTA', 'EN CURSO', 'BORRADOR')";
         $params = [];
         if ($search !== '') {
             $where .= " AND (d.name LIKE :search OR c.name LIKE :search OR g.name LIKE :search)";
             $params[':search'] = "%{$search}%";
+        }
+        if ($periodoId) {
+            $where .= " AND c.periodo_id = :periodo_id";
+            $params[':periodo_id'] = $periodoId;
         }
         $stmt = $this->db->prepare(
             "SELECT COUNT(DISTINCT ao.id)
@@ -125,7 +169,6 @@ class AcademicHorariosPracticasModel
         );
         $stmt->execute([':oid' => $offeringId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
     }
 
     public function getGrupoById(int $id): ?array
@@ -321,7 +364,6 @@ class AcademicHorariosPracticasModel
             )->execute([':uid' => $userId, ':id' => $id]);
             return 'inactivated';
         }
-        // Borrar fechas asociadas primero
         $this->db->prepare("DELETE FROM tbl_horario_practica_fechas WHERE horario_practica_id=:id")
                  ->execute([':id' => $id]);
         $this->db->prepare("DELETE FROM tbl_horarios_practicas WHERE id=:id")->execute([':id' => $id]);
@@ -343,10 +385,6 @@ class AcademicHorariosPracticasModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Retorna TODAS las fechas de todos los horarios de una oferta,
-     * con info de grupo y centro para pintar el calendario.
-     */
     public function getFechasByOffering(int $offeringId): array
     {
         $stmt = $this->db->prepare(
@@ -364,13 +402,8 @@ class AcademicHorariosPracticasModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Guarda un lote de fechas para un horario de práctica.
-     * Elimina las anteriores y reemplaza con las nuevas.
-     */
     public function saveFechas(int $horarioPracticaId, array $fechas, int $userId): void
     {
-        // Borrar fechas anteriores de este horario
         $this->db->prepare(
             "DELETE FROM tbl_horario_practica_fechas WHERE horario_practica_id=:id"
         )->execute([':id' => $horarioPracticaId]);

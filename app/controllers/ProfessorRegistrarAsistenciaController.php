@@ -58,7 +58,9 @@ class ProfessorRegistrarAsistenciaController extends Controller
     {
         $professorId  = (int) $this->profesor['id'];
         $offeringId   = (int) ($_GET['offering_id'] ?? 0);
-        $ofertas      = $this->model->getMisOfertas($professorId);
+        $periodoId    = (int) ($_GET['periodo_id'] ?? 0);
+        $periodos     = $this->model->getPeriodos($professorId);
+        $ofertas      = $this->model->getMisOfertas($professorId, $periodoId);
         $sesiones     = [];
         $ofertaActiva = null;
 
@@ -72,6 +74,8 @@ class ProfessorRegistrarAsistenciaController extends Controller
             if ($ofertaActiva) {
                 $sesiones = $this->model->getMisSesiones($professorId, $offeringId);
             }
+        } else {
+            $sesiones = $this->model->getTodasSesiones($professorId, $periodoId);
         }
 
         $this->view('professor/registrar_asistencia/index', [
@@ -80,6 +84,8 @@ class ProfessorRegistrarAsistenciaController extends Controller
             'sesiones'     => $sesiones,
             'offeringId'   => $offeringId,
             'ofertaActiva' => $ofertaActiva,
+            'periodos'     => $periodos,
+            'periodoId'    => $periodoId,
         ]);
     }
 

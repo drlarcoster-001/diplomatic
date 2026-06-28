@@ -48,21 +48,25 @@ class AcademicAprobarActasController extends Controller
 
     public function index(): void
     {
-        $search  = trim($_GET['search'] ?? '');
-        $estado  = $_GET['estado'] ?? '';
-        $page    = max(1, (int) ($_GET['page'] ?? 1));
-        $perPage = 25;
+        $search    = trim($_GET['search'] ?? '');
+        $estado    = $_GET['estado'] ?? '';
+        $periodoId = (int) ($_GET['periodo_id'] ?? 0);
+        $page      = max(1, (int) ($_GET['page'] ?? 1));
+        $perPage   = 25;
 
         if (!in_array($estado, ['ENVIADA', 'APROBADA'], true)) $estado = '';
 
-        $total      = $this->model->countActas($estado, $search);
+        $total      = $this->model->countActas($estado, $search, $periodoId);
         $totalPages = (int) ceil($total / $perPage);
-        $actas      = $this->model->getActas($estado, $search, $page, $perPage);
+        $actas      = $this->model->getActas($estado, $search, $page, $perPage, $periodoId);
+        $periodos   = $this->model->getPeriodos();
 
         $this->view('academic/aprobar_actas/index', [
             'actas'      => $actas,
             'search'     => $search,
             'estado'     => $estado,
+            'periodoId'  => $periodoId,
+            'periodos'   => $periodos,
             'page'       => $page,
             'total'      => $total,
             'totalPages' => $totalPages,
@@ -353,7 +357,8 @@ class AcademicAprobarActasController extends Controller
         $estado = $_GET['estado'] ?? '';
         if (!in_array($estado, ['ENVIADA','APROBADA'], true)) $estado = '';
 
-        $actas    = $this->model->getActas($estado, $search, 1, 1000);
+        $periodoId = (int) ($_GET['periodo_id'] ?? 0);
+        $actas     = $this->model->getActas($estado, $search, 1, 1000, $periodoId);
         $labelMod = ['TEORICA' => 'Teorica', 'PRACTICA' => 'Practica', 'VIRTUAL' => 'Virtual'];
 
         $pathUcla     = $_SERVER['DOCUMENT_ROOT'] . '/diplomatic/public/assets/uploads/logos/logo-ucla.png';

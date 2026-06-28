@@ -51,11 +51,19 @@ class ProfessorMatriculaController extends Controller
     public function index(): void
     {
         $professorId  = (int) $this->profesor['id'];
+        $periodoId    = (int) ($_GET['periodo_id'] ?? 0);
+        $cohorteId    = (int) ($_GET['cohorte_id'] ?? 0);
+        $offeringId   = (int) ($_GET['offering_id'] ?? 0);
+        $cohorteId    = (int) ($_GET['cohorte_id'] ?? 0);
         $offeringId   = (int) ($_GET['offering_id'] ?? 0);
         $estudiantes  = null;
         $ofertaActiva = null;
 
-        $ofertas = $this->matriculaModel->getMisOfertas($professorId);
+        // Si no hay período seleccionado, mostrar TODAS las ofertas del profesor
+$ofertas  = $this->matriculaModel->getMisOfertas($professorId, $periodoId ?: null, $cohorteId ?: null);
+        $cohortes = $this->matriculaModel->getCohortesProfesor($professorId, $periodoId ?: 0);
+$periodos = $this->matriculaModel->getPeriodosProfesor($professorId);
+        $ofertasFiltradas = ($periodoId && $cohorteId) ? $ofertas : [];
 
         if ($offeringId) {
             if ($this->matriculaModel->profesorTieneAccesoOferta($professorId, $offeringId)) {
@@ -64,7 +72,8 @@ class ProfessorMatriculaController extends Controller
                     if ((int) $o['offering_id'] === $offeringId) { $ofertaActiva = $o; break; }
                 }
             }
-            // Si no tiene acceso, simplemente no se carga roster (sin mensaje de error feo).
+        } else {
+            $estudiantes = $this->matriculaModel->getTodosEstudiantes($professorId, $periodoId ?: null, $cohorteId ?: null);
         }
 
         $this->view('professor/matricula/index', [
@@ -73,6 +82,10 @@ class ProfessorMatriculaController extends Controller
             'offeringId'   => $offeringId,
             'estudiantes'  => $estudiantes,
             'ofertaActiva' => $ofertaActiva,
+            'periodos'     => $periodos,
+            'cohortes'     => $cohortes,
+            'periodoId'    => $periodoId,
+            'cohorteId'    => $cohorteId,
         ]);
     }
 

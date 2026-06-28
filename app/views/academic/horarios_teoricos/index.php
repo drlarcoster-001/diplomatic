@@ -57,7 +57,7 @@ function buildUrl(array $params): string {
 
             <form method="GET" action="<?= $basePath ?>/academic/horarios-teoricos" class="row g-2 mb-3">
                 <div class="col-md-4">
-                    <select name="periodo_id" class="form-select">
+                    <select name="periodo_id" class="form-select" onchange="this.form.submit()">
                         <option value="">— Todos los períodos —</option>
                         <?php foreach ($periodos ?? [] as $p): ?>
                             <option value="<?= $p['id'] ?>" <?= $periodoId === (int)$p['id'] ? 'selected' : '' ?>>
@@ -67,23 +67,21 @@ function buildUrl(array $params): string {
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <div class="input-group">
-                        <span class="input-group-text bg-white border-end-0">
-                            <i class="bi bi-search text-muted"></i>
-                        </span>
-                        <input type="text" name="search" class="form-control border-start-0"
-                               placeholder="Buscar por diplomado, cohorte o grupo..."
-                               value="<?= htmlspecialchars($search ?? '') ?>">
-                        <?php if (!empty($search)): ?>
-                            <a href="<?= $basePath ?>/academic/horarios-teoricos"
-                               class="btn btn-outline-secondary" title="Limpiar búsqueda">
-                                <i class="bi bi-x-lg"></i>
-                            </a>
-                        <?php endif; ?>
-                    </div>
+                    <select name="diploma_id" class="form-select" onchange="this.form.submit()">
+                        <option value="">-- Todos los diplomados --</option>
+                        <?php foreach ($diplomados ?? [] as $d): ?>
+                            <option value="<?= $d['id'] ?>" <?= ($diplomaId ?? 0) == $d['id'] ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($d['name']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-dark w-100 rounded-pill">Buscar</button>
+                    <?php if (!empty($periodoId) || !empty($diplomaId)): ?>
+                        <a href="<?= $basePath ?>/academic/horarios-teoricos" class="btn btn-outline-secondary w-100 rounded-pill">
+                            <i class="bi bi-x-lg me-1"></i> Limpiar
+                        </a>
+                    <?php endif; ?>
                 </div>
             </form>
 

@@ -28,8 +28,28 @@ class ProfessorNotasModel
     // OFERTAS DEL PROFESOR (desde tbl_profesor_modalidad)
     // =========================================================================
 
-    public function getMisOfertas(int $professorId): array
+    public function getPeriodos(int $professorId): array
     {
+        $stmt = $this->db->prepare(
+            "SELECT DISTINCT p.id, p.nombre, p.estado
+             FROM tbl_periodos_cohorte p
+             INNER JOIN tbl_cohortes c ON c.periodo_id = p.id
+             INNER JOIN tbl_academic_offerings ao ON ao.cohort_id = c.id
+             WHERE ao.id IN (
+                 SELECT offering_id FROM tbl_academic_offering_professors WHERE professor_id = :pid
+                 UNION
+                 SELECT offering_id FROM tbl_profesor_modalidad WHERE professor_id = :pid2
+             )
+             AND p.is_active = 1
+             ORDER BY p.id DESC"
+        );
+        $stmt->execute([':pid' => $professorId, ':pid2' => $professorId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getMisOfertas(int $professorId, int $periodoId = 0): array
+    {
+        $filtroPeriodo = $periodoId ? "AND c.periodo_id = :periodo_id" : "";
         $stmt = $this->db->prepare(
             "SELECT DISTINCT ao.id AS offering_id,
                     d.name AS diplomado_nombre,
@@ -37,20 +57,25 @@ class ProfessorNotasModel
                     (SELECT GROUP_CONCAT(g2.name ORDER BY g2.name SEPARATOR ', ')
                      FROM tbl_academic_offering_groups og2
                      INNER JOIN tbl_grupos g2 ON g2.id = og2.group_id
-                     WHERE og2.offering_id = ao.id AND og2.is_enabled = 1) AS grupos_nombre,
-                    COUNT(DISTINCT pm.modalidad) AS total_modalidades
-             FROM tbl_profesor_modalidad pm
-             INNER JOIN tbl_academic_offerings ao ON ao.id = pm.offering_id
+                     WHERE og2.offering_id = ao.id AND og2.is_enabled = 1) AS grupos_nombre
+             FROM tbl_academic_offerings ao
              INNER JOIN tbl_diplomados d ON d.id = ao.diploma_id
              INNER JOIN tbl_cohortes   c ON c.id = ao.cohort_id
-             WHERE pm.professor_id = :pid
+             WHERE ao.id IN (
+                 SELECT offering_id FROM tbl_academic_offering_professors WHERE professor_id = :pid2
+                 UNION
+                 SELECT offering_id FROM tbl_profesor_modalidad WHERE professor_id = :pid3
+             )
                AND ao.is_active = 1
                AND ao.status = 'ABIERTA'
                AND c.cohort_status IN ('En curso', 'Reabierta')
+               {$filtroPeriodo}
              GROUP BY ao.id, d.name, c.name
              ORDER BY d.name ASC, c.name ASC"
         );
-        $stmt->execute([':pid' => $professorId]);
+        $params = [':pid2' => $professorId, ':pid3' => $professorId];
+        if ($periodoId) $params[':periodo_id'] = $periodoId;
+        $stmt->execute($params);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

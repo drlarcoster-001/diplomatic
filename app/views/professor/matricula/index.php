@@ -4,9 +4,11 @@
  * ARCHIVO: app/views/professor/matricula/index.php
  * PROPÓSITO: Selector de clases + roster completo de estudiantes +
  *            botón Imprimir PDF de matrícula oficial.
- * VERSIÓN: 2.2.0 - Agrega miga de pan completa y botón Volver.
+* VERSIÓN: 2.3.0 - Agrega tres selectores en cascada: Período, Cohorte, Oferta.
  */
 $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
+
+
 
 $ofertasUnicas = [];
 foreach ($ofertas as $o) {
@@ -54,26 +56,56 @@ foreach ($ofertas as $o) {
     <?php else: ?>
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-body p-3">
-                <label class="form-label small fw-bold text-secondary text-uppercase">Selecciona una clase</label>
-                <select class="form-select form-select-lg" id="selectorClase" onchange="if(this.value) window.location.href=this.value;">
-                    <option value="" <?= !$offeringId ? 'selected' : '' ?> disabled>Elige una clase...</option>
-                    <?php foreach ($ofertasUnicas as $o):
-                        $activo  = ((int) $o['offering_id'] === $offeringId);
-                        $url     = $basePath . '/professor/matricula?offering_id=' . $o['offering_id'];
-                        $grupos  = !empty($o['grupos_nombre']) ? ' (' . $o['grupos_nombre'] . ')' : '';
-                    ?>
-                        <option value="<?= $url ?>" <?= $activo ? 'selected' : '' ?>>
-                            <?= htmlspecialchars($o['diplomado_nombre']) ?> — <?= htmlspecialchars($o['cohorte_nombre']) ?><?= htmlspecialchars($grupos) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+                <form method="GET" action="<?= $basePath ?>/professor/matricula" class="row g-3">
+                    
+                    <!-- SELECTOR PERÍODO -->
+                    <div class="col-md-4">
+                        <label class="form-label small fw-bold text-secondary text-uppercase">Período</label>
+                        <select name="periodo_id" class="form-select" onchange="this.form.submit()">
+                            <option value="">— Selecciona período —</option>
+                            <?php foreach ($periodos as $p): ?>
+                                <option value="<?= $p['id'] ?>" <?= ($periodoId ?? 0) == $p['id'] ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($p['nombre']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <!-- SELECTOR COHORTE -->
+                    <div class="col-md-4">
+                        <label class="form-label small fw-bold text-secondary text-uppercase">Cohorte</label>
+                        <select name="cohorte_id" class="form-select" onchange="this.form.submit()" <?= empty($periodoId) ? 'disabled' : '' ?>>
+                            <option value="">— Selecciona cohorte —</option>
+                            <?php foreach ($cohortes as $c): ?>
+                                <option value="<?= $c['id'] ?>" <?= ($cohorteId ?? 0) == $c['id'] ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($c['name']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <!-- SELECTOR OFERTA -->
+                    <div class="col-md-4">
+                        <label class="form-label small fw-bold text-secondary text-uppercase">Oferta / Diplomado</label>
+                        <select name="offering_id" class="form-select" onchange="this.form.submit()">
+                            <option value="">— Todas las ofertas —</option>
+                            <?php foreach ($ofertasUnicas as $o): ?>
+                                <option value="<?= $o['offering_id'] ?>" <?= $offeringId == $o['offering_id'] ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($o['diplomado_nombre']) ?>
+                                    <?= !empty($o['grupos_nombre']) ? ' (' . $o['grupos_nombre'] . ')' : '' ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                </form>
             </div>
         </div>
     <?php endif; ?>
 
     <?php if ($offeringId && $estudiantes === null): ?>
         <div class="alert alert-warning">No tienes acceso a esa clase.</div>
-    <?php elseif ($ofertaActiva): ?>
+    <?php elseif ($estudiantes !== null): ?>
         <div class="card border-0 shadow-sm">
             <div class="card-header bg-white py-3 px-4 border-bottom d-flex justify-content-between align-items-center">
                 <div>

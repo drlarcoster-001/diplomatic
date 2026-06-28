@@ -53,10 +53,11 @@ class ProfessorControlAsistenciaController extends Controller
     {
         $professorId  = (int) $this->profesor['id'];
         $offeringId   = (int) ($_GET['offering_id'] ?? 0);
-        $ofertas      = $this->model->getMisOfertas($professorId);
+        $periodoId    = (int) ($_GET['periodo_id'] ?? 0);
+        $periodos     = $this->model->getPeriodos($professorId);
+        $ofertas      = $this->model->getMisOfertas($professorId, $periodoId);
         $sesiones     = [];
         $ofertaActiva = null;
-
         if ($offeringId) {
             foreach ($ofertas as $o) {
                 if ((int) $o['offering_id'] === $offeringId) {
@@ -75,6 +76,8 @@ class ProfessorControlAsistenciaController extends Controller
             'sesiones'     => $sesiones,
             'offeringId'   => $offeringId,
             'ofertaActiva' => $ofertaActiva,
+            'periodos'     => $periodos,
+            'periodoId'    => $periodoId,
         ]);
     }
 

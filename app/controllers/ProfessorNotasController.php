@@ -59,11 +59,13 @@ class ProfessorNotasController extends Controller
         $professorId = (int) $this->profesor['id'];
         $offeringId  = (int) ($_GET['offering_id'] ?? 0);
         $modalidad   = $_GET['modalidad'] ?? '';
+        $periodoId   = (int) ($_GET['periodo_id'] ?? 0);
 
         $modalidadesValidas = ['TEORICA', 'PRACTICA', 'VIRTUAL'];
         if (!in_array($modalidad, $modalidadesValidas, true)) $modalidad = '';
 
-        $ofertas      = $this->model->getMisOfertas($professorId);
+        $periodos     = $this->model->getPeriodos($professorId);
+        $ofertas      = $this->model->getMisOfertas($professorId, $periodoId);
         $ofertaActiva = null;
         $modalidades  = [];
         $estudiantes  = [];
@@ -106,6 +108,8 @@ class ProfessorNotasController extends Controller
             'notaMinima'    => $notaMinima,
             'acta'          => $acta,
             'todasCargadas' => $todasCargadas,
+            'periodos'      => $periodos,
+            'periodoId'     => $periodoId,
         ]);
     }
 
