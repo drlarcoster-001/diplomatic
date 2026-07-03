@@ -2,15 +2,14 @@
 /**
  * MÓDULO: GESTIÓN GERENCIAL / LÍNEA DE TIEMPO
  * ARCHIVO: app/views/managerial/linea_tiempo/index.php
- * PROPÓSITO: Filtros en cascada Período → Oferta → Estudiante.
+ * PROPÓSITO: Filtros en cascada Usuario (búsqueda global) → Período (solo
+ *            los que ese usuario tiene) → Diplomado (los de ese usuario en
+ *            ese período). Soporta usuarios con varios diplomados inscritos.
  *            Muestra la línea de tiempo completa del ciclo del estudiante
  *            junto con sus datos de contacto.
- * VERSIÓN: 1.0.0 - Creación inicial.
+ * VERSIÓN: 2.0.0 - Cascada invertida: Usuario → Período → Diplomado.
  */
 $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
-
-$labelStatus = ['APPROVED' => 'Aprobado', 'PENDING' => 'Pendiente', 'REJECTED' => 'Rechazado'];
-$colorStatus = ['APPROVED' => 'success',  'PENDING' => 'warning',   'REJECTED' => 'danger'];
 ?>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 <link rel="stylesheet" href="<?= $basePath ?>/assets/css/managerial_linea_tiempo.css">
@@ -48,43 +47,38 @@ $colorStatus = ['APPROVED' => 'success',  'PENDING' => 'warning',   'REJECTED' =
     <div class="card-body p-3">
       <div class="row g-3">
 
-        <!-- PERÍODO -->
-        <div class="col-md-3">
-          <label class="form-label small fw-bold mb-1">Período</label>
-          <select id="selPeriodo" class="form-select">
-            <option value="">— Selecciona —</option>
-            <?php foreach ($periodos as $p): ?>
-              <option value="<?= $p['id'] ?>" <?= $periodoId === (int)$p['id'] ? 'selected' : '' ?>>
-                <?= htmlspecialchars($p['nombre']) ?><?= $p['estado'] === 'Finalizado' ? ' (Finalizado)' : '' ?>
-              </option>
-            <?php endforeach; ?>
-          </select>
-        </div>
-
-        <!-- OFERTA -->
-        <div class="col-md-4">
-          <label class="form-label small fw-bold mb-1">Diplomado / Grupo</label>
-          <select id="selOferta" class="form-select" disabled>
-            <option value="">— Primero elige período —</option>
-          </select>
-        </div>
-
-        <!-- ESTUDIANTE -->
+        <!-- PASO 1: USUARIO (búsqueda global) -->
         <div class="col-md-4 position-relative">
-          <label class="form-label small fw-bold mb-1">Estudiante</label>
+          <label class="form-label small fw-bold mb-1">Usuario</label>
           <div class="input-group">
-            <input type="text" id="inputEstudiante" class="form-control"
+            <input type="text" id="inputUsuario" class="form-control"
                    placeholder="Buscar por nombre, cédula o correo..."
                    value="<?= htmlspecialchars($userSearch ?? '') ?>"
-                   disabled autocomplete="off">
-            <button type="button" id="btnLimpiarEst"
+                   autocomplete="off">
+            <button type="button" id="btnLimpiarUsuario"
                     class="btn btn-outline-secondary d-none" title="Limpiar">
               <i class="bi bi-x-lg"></i>
             </button>
           </div>
-          <input type="hidden" id="hidEnrollment" value="<?= (int)$enrollmentId ?>">
-          <div id="estudianteResultados" class="list-group mt-1 position-absolute shadow-sm"
+          <input type="hidden" id="hidUserId" value="<?= (int)$userId ?>">
+          <div id="usuarioResultados" class="list-group mt-1 position-absolute shadow-sm"
                style="max-height:220px;overflow-y:auto;z-index:200;left:0;right:0"></div>
+        </div>
+
+        <!-- PASO 2: PERÍODO (solo los de ese usuario) -->
+        <div class="col-md-3">
+          <label class="form-label small fw-bold mb-1">Período</label>
+          <select id="selPeriodo" class="form-select" disabled>
+            <option value="">— Primero elige un usuario —</option>
+          </select>
+        </div>
+
+        <!-- PASO 3: DIPLOMADO (los de ese usuario en ese período) -->
+        <div class="col-md-5">
+          <label class="form-label small fw-bold mb-1">Diplomado / Grupo</label>
+          <select id="selOferta" class="form-select" disabled>
+            <option value="">— Primero elige un período —</option>
+          </select>
         </div>
 
       </div>
@@ -214,17 +208,17 @@ $colorStatus = ['APPROVED' => 'success',  'PENDING' => 'warning',   'REJECTED' =
   <?php elseif (!$enrollmentId): ?>
     <div class="text-center text-muted py-5">
       <i class="bi bi-person-lines-fill fs-2 d-block mb-2 opacity-25"></i>
-      Selecciona un período, diplomado y estudiante para ver su línea de tiempo.
+      Busca un usuario, elige el período y el diplomado para ver su línea de tiempo.
     </div>
   <?php endif; ?>
 
 </div>
 
 <script>
-  window.APP_BASE_PATH  = '<?= $basePath ?>';
+  window.APP_BASE_PATH = '<?= $basePath ?>';
+  window.USER_ID        = <?= (int)$userId ?>;
   window.PERIODO_ID     = <?= (int)$periodoId ?>;
-  window.OFFERING_ID    = <?= (int)$offeringId ?>;
   window.ENROLLMENT_ID  = <?= (int)$enrollmentId ?>;
-  window.USER_SEARCH    = '<?= htmlspecialchars($userSearch ?? '') ?>';
+  window.USER_SEARCH    = <?= json_encode($userSearch ?? '') ?>;
 </script>
 <script src="<?= $basePath ?>/assets/js/managerial_linea_tiempo.js?v=<?= time() ?>"></script>

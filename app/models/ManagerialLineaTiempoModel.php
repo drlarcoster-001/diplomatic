@@ -5,7 +5,17 @@
  * PROPÓSITO: Obtiene todos los eventos del ciclo de vida de un estudiante
  *            dentro de un diplomado: registro, inscripción, documentos,
  *            pagos, validaciones, matrícula, notas y cierre de acta.
- * VERSIÓN: 1.0.0 - Creación inicial.
+ *            Cascada de filtros: Usuario (búsqueda global) → Períodos donde
+ *            ese usuario tiene inscripciones → Diplomados de ese usuario en
+ *            ese período (soporta usuarios con múltiples inscripciones).
+ * VERSIÓN: 2.0.1 - Cascada invertida (Usuario → Período → Diplomado) para
+ *          soportar usuarios con varios diplomados inscritos. Fix: getActa
+ *          ahora recibe el offering_id real (antes caía en enrollment_id
+ *          por error cuando offering_id llegaba en 0). Fix crítico:
+ *          buscarUsuarios() reutilizaba el mismo parámetro con nombre :s
+ *          cuatro veces, lo cual PDO con prepares nativos rechaza
+ *          (SQLSTATE[HY093] Invalid parameter number) — cada LIKE ahora
+ *          usa su propio nombre de parámetro (:s1..:s4).
  */
 
 declare(strict_types=1);
@@ -25,71 +35,83 @@ class ManagerialLineaTiempoModel
     }
 
     // =========================================================================
-    // CASCADA: PERÍODOS
+    // PASO 1: BÚSQUEDA GLOBAL DE USUARIO (por nombre, cédula o correo)
+    // Solo devuelve usuarios que tengan al menos una inscripción, ya que la
+    // línea de tiempo necesita un enrollment para construirse.
     // =========================================================================
 
-    public function getPeriodos(): array
+    public function buscarUsuarios(string $search): array
     {
-        $stmt = $this->db->query(
-            "SELECT id, periodo_code, nombre, estado FROM tbl_periodos_cohorte
-            WHERE is_active = 1 ORDER BY id DESC"
+        if ($search === '') return [];
+
+        // PDO con prepares nativos (MySQL) NO permite reutilizar un mismo
+        // parámetro con nombre varias veces en la misma consulta — provoca
+        // "SQLSTATE[HY093]: Invalid parameter number". Cada aparición debe
+        // tener su propio nombre, aunque el valor sea idéntico.
+        $term = "%{$search}%";
+        $stmt = $this->db->prepare(
+            "SELECT DISTINCT u.id,
+                    CONCAT(u.last_name, ', ', u.first_name) AS nombre,
+                    u.document_id, u.email
+             FROM tbl_users u
+             INNER JOIN tbl_enrollments e ON e.user_id = u.id
+             WHERE u.first_name LIKE :s1 OR u.last_name LIKE :s2
+                OR u.document_id LIKE :s3 OR u.email LIKE :s4
+             ORDER BY u.last_name ASC, u.first_name ASC
+             LIMIT 30"
         );
+        $stmt->execute([':s1' => $term, ':s2' => $term, ':s3' => $term, ':s4' => $term]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // =========================================================================
-    // CASCADA: OFERTAS POR PERÍODO
+    // PASO 2: PERÍODOS donde ESE usuario tiene al menos una inscripción
     // =========================================================================
 
-    public function getOfertasByPeriodo(int $periodoId): array
+    public function getPeriodosByUsuario(int $userId): array
     {
         $stmt = $this->db->prepare(
-            "SELECT ao.id,
+            "SELECT DISTINCT p.id, p.periodo_code, p.nombre, p.estado
+             FROM tbl_periodos_cohorte p
+             INNER JOIN tbl_cohortes c ON c.periodo_id = p.id
+             INNER JOIN tbl_academic_offerings ao ON ao.cohort_id = c.id
+             INNER JOIN tbl_enrollments e ON e.offering_id = ao.id
+             WHERE e.user_id = :uid
+             ORDER BY p.id DESC"
+        );
+        $stmt->execute([':uid' => $userId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // =========================================================================
+    // PASO 3: DIPLOMADOS de ESE usuario dentro de ESE período
+    // Devuelve el enrollment_id directamente (una fila = una inscripción)
+    // =========================================================================
+
+    public function getOfertasByUsuarioPeriodo(int $userId, int $periodoId): array
+    {
+        $stmt = $this->db->prepare(
+            "SELECT e.id AS enrollment_id, ao.id AS offering_id,
                     CONCAT(d.name, COALESCE(
                         (SELECT CONCAT(' — ', GROUP_CONCAT(g.name ORDER BY g.name SEPARATOR ', '))
                          FROM tbl_academic_offering_groups og
                          INNER JOIN tbl_grupos g ON g.id = og.group_id
                          WHERE og.offering_id = ao.id AND og.is_enabled = 1), ''
-                    )) AS name
-             FROM tbl_academic_offerings ao
+                    )) AS name,
+                    e.status AS expediente_status
+             FROM tbl_enrollments e
+             INNER JOIN tbl_academic_offerings ao ON ao.id = e.offering_id
              INNER JOIN tbl_diplomados d ON d.id = ao.diploma_id
              INNER JOIN tbl_cohortes c ON c.id = ao.cohort_id
-             WHERE c.periodo_id = :pid AND c.is_active = 1 AND ao.is_active = 1
+             WHERE e.user_id = :uid AND c.periodo_id = :pid
              ORDER BY d.name ASC"
         );
-        $stmt->execute([':pid' => $periodoId]);
+        $stmt->execute([':uid' => $userId, ':pid' => $periodoId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // =========================================================================
-    // CASCADA: ESTUDIANTES POR OFERTA
-    // =========================================================================
-
-    public function getEstudiantesByOferta(int $offeringId, string $search = ''): array
-    {
-        $where  = "WHERE e.offering_id = :oid";
-        $params = [':oid' => $offeringId];
-
-        if ($search !== '') {
-            $where .= " AND (u.first_name LIKE :s OR u.last_name LIKE :s OR u.document_id LIKE :s OR u.email LIKE :s)";
-            $params[':s'] = "%{$search}%";
-        }
-
-        $stmt = $this->db->prepare(
-            "SELECT DISTINCT u.id, e.id AS enrollment_id,
-                    CONCAT(u.last_name, ', ', u.first_name) AS nombre,
-                    u.document_id
-             FROM tbl_users u
-             INNER JOIN tbl_enrollments e ON e.user_id = u.id
-             {$where}
-             ORDER BY u.last_name ASC, u.first_name ASC"
-        );
-        $stmt->execute($params);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    // =========================================================================
-    // DATOS DEL ESTUDIANTE
+    // DATOS DEL ESTUDIANTE (incluye offering_id real, usado luego para getActa)
     // =========================================================================
 
     public function getDatosEstudiante(int $enrollmentId): ?array
@@ -101,6 +123,7 @@ class ManagerialLineaTiempoModel
                     e.status AS expediente_status, e.updated_at AS fecha_expediente,
                     e.doc_id_card, e.doc_degree, e.doc_cv,
                     e.document_status,
+                    ao.id AS offering_id,
                     d.name AS diplomado_nombre,
                     c.name AS cohorte_nombre,
                     COALESCE(
@@ -207,7 +230,7 @@ class ManagerialLineaTiempoModel
     }
 
     // =========================================================================
-    // ACTA
+    // ACTA (recibe el offering_id real del enrollment, no un valor de fallback)
     // =========================================================================
 
     public function getActa(int $offeringId, int $enrollmentId): ?array

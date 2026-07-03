@@ -1,34 +1,30 @@
 /**
  * MÓDULO: GESTIÓN GERENCIAL / LÍNEA DE TIEMPO
  * ARCHIVO: public/assets/js/managerial_linea_tiempo.js
- * PROPÓSITO: Cascada Período → Oferta → Estudiante.
- *            Buscador con lista inmediata de estudiantes.
- *            Botón Limpiar y Buscar.
- * VERSIÓN: 1.0.0 - Creación inicial.
+ * PROPÓSITO: Cascada Usuario (búsqueda global con debounce) → Período
+ *            (solo los que ese usuario tiene) → Diplomado (los de ese
+ *            usuario en ese período, value = enrollment_id).
+ * VERSIÓN: 2.0.0 - Cascada invertida: Usuario → Período → Diplomado.
+ *          Reemplaza el buscador de "estudiante por oferta" por búsqueda
+ *          global de usuario con debounce contra el servidor.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    const BASE            = window.APP_BASE_PATH || '';
-    const selPeriodo      = document.getElementById('selPeriodo');
-    const selOferta       = document.getElementById('selOferta');
-    const inputEstudiante = document.getElementById('inputEstudiante');
-    const hidEnrollment   = document.getElementById('hidEnrollment');
-    const resultados      = document.getElementById('estudianteResultados');
-    const btnLimpiarEst   = document.getElementById('btnLimpiarEst');
-    const btnBuscar       = document.getElementById('btnBuscar');
-    const btnLimpiar      = document.getElementById('btnLimpiar');
+    const BASE              = window.APP_BASE_PATH || '';
+    const inputUsuario      = document.getElementById('inputUsuario');
+    const hidUserId         = document.getElementById('hidUserId');
+    const usuarioResultados = document.getElementById('usuarioResultados');
+    const btnLimpiarUsuario = document.getElementById('btnLimpiarUsuario');
+    const selPeriodo        = document.getElementById('selPeriodo');
+    const selOferta         = document.getElementById('selOferta');
+    const btnBuscar         = document.getElementById('btnBuscar');
+    const btnLimpiar        = document.getElementById('btnLimpiar');
 
-    let estTimer   = null;
-    let todosEst   = [];
+    let usuarioTimer = null;
 
     // =========================================================================
     // HELPERS
     // =========================================================================
-
-    function resetSelect(sel, placeholder) {
-        sel.innerHTML = `<option value="">${placeholder}</option>`;
-        sel.disabled  = true;
-    }
 
     async function fetchData(url) {
         const resp = await fetch(url);
@@ -36,8 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return json.data || [];
     }
 
+    function resetSelect(sel, placeholder) {
+        sel.innerHTML = `<option value="">${placeholder}</option>`;
+        sel.disabled  = true;
+    }
+
     function populateSelect(sel, items, labelKey, valKey, selectedVal) {
-        sel.innerHTML = '<option value="">Todos</option>';
+        sel.innerHTML = '<option value="">— Selecciona —</option>';
         items.forEach(item => {
             const opt       = document.createElement('option');
             opt.value       = item[valKey];
@@ -49,136 +50,103 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================================
-    // BUSCADOR ESTUDIANTE
+    // PASO 1: BÚSQUEDA GLOBAL DE USUARIO
     // =========================================================================
 
-    function resetEstudiante() {
-        todosEst = [];
-        if (inputEstudiante) { inputEstudiante.value = ''; inputEstudiante.disabled = true; }
-        if (hidEnrollment)    hidEnrollment.value = '0';
-        if (resultados)       resultados.innerHTML = '';
-        if (btnLimpiarEst)    btnLimpiarEst.classList.add('d-none');
-        if (btnBuscar)        btnBuscar.disabled = true;
+    function resetDesdeUsuario() {
+        hidUserId.value = '0';
+        resetSelect(selPeriodo, '— Primero elige un usuario —');
+        resetSelect(selOferta, '— Primero elige un período —');
+        btnBuscar.disabled = true;
     }
 
-    function renderResultados(lista) {
+    function renderResultadosUsuario(lista) {
         if (!lista.length) {
-            resultados.innerHTML = '<div class="list-group-item text-muted small py-2">Sin resultados.</div>';
+            usuarioResultados.innerHTML = '<div class="list-group-item text-muted small py-2">Sin resultados.</div>';
             return;
         }
-        resultados.innerHTML = lista.map(e => `
+        usuarioResultados.innerHTML = lista.map(u => `
             <button type="button"
-                    class="list-group-item list-group-item-action small py-2 est-item"
-                    data-eid="${e.enrollment_id}" data-nombre="${e.nombre}">
+                    class="list-group-item list-group-item-action small py-2 usr-item"
+                    data-uid="${u.id}" data-nombre="${u.nombre}">
                 <i class="bi bi-person me-1 text-muted"></i>
-                <strong>${e.nombre}</strong>
-                ${e.document_id ? `<span class="text-muted"> — ${e.document_id}</span>` : ''}
+                <strong>${u.nombre}</strong>
+                ${u.document_id ? `<span class="text-muted"> — ${u.document_id}</span>` : ''}
             </button>`).join('');
 
-        resultados.querySelectorAll('.est-item').forEach(btn => {
-            btn.addEventListener('click', () => {
-                hidEnrollment.value      = btn.dataset.eid;
-                inputEstudiante.value    = btn.dataset.nombre;
-                resultados.innerHTML     = '';
-                if (btnLimpiarEst) btnLimpiarEst.classList.remove('d-none');
-                if (btnBuscar)     btnBuscar.disabled = false;
+        usuarioResultados.querySelectorAll('.usr-item').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                hidUserId.value    = btn.dataset.uid;
+                inputUsuario.value = btn.dataset.nombre;
+                usuarioResultados.innerHTML = '';
+                btnLimpiarUsuario.classList.remove('d-none');
+
+                resetSelect(selOferta, '— Primero elige un período —');
+                btnBuscar.disabled = true;
+
+                resetSelect(selPeriodo, '— Cargando... —');
+                const periodos = await fetchData(`${BASE}/managerial/linea-tiempo/periodos?user_id=${hidUserId.value}`);
+                populateSelect(selPeriodo, periodos, 'nombre', 'id', 0);
             });
         });
     }
 
-    inputEstudiante?.addEventListener('focus', () => {
-        if (!inputEstudiante.value.trim() && todosEst.length) renderResultados(todosEst);
-    });
+    inputUsuario?.addEventListener('input', () => {
+        clearTimeout(usuarioTimer);
+        resetDesdeUsuario();
+        btnLimpiarUsuario.classList.add('d-none');
 
-    inputEstudiante?.addEventListener('input', () => {
-        clearTimeout(estTimer);
-        hidEnrollment.value = '0';
-        btnBuscar.disabled  = true;
-        if (btnLimpiarEst) btnLimpiarEst.classList.add('d-none');
+        const term = inputUsuario.value.trim();
+        if (term.length < 2) {
+            usuarioResultados.innerHTML = '';
+            return;
+        }
 
-        const term = inputEstudiante.value.trim().toLowerCase();
-        estTimer = setTimeout(() => {
-            if (!term) { renderResultados(todosEst); return; }
-            const filtrados = todosEst.filter(e =>
-                e.nombre.toLowerCase().includes(term) ||
-                (e.document_id && e.document_id.toLowerCase().includes(term))
-            );
-            renderResultados(filtrados);
-        }, 200);
+        usuarioTimer = setTimeout(async () => {
+            const resultados = await fetchData(`${BASE}/managerial/linea-tiempo/usuarios?search=${encodeURIComponent(term)}`);
+            renderResultadosUsuario(resultados);
+        }, 250);
     });
 
     document.addEventListener('click', (e) => {
-        if (!inputEstudiante?.contains(e.target) && !resultados?.contains(e.target)) {
-            if (resultados) resultados.innerHTML = '';
+        if (!inputUsuario?.contains(e.target) && !usuarioResultados?.contains(e.target)) {
+            if (usuarioResultados) usuarioResultados.innerHTML = '';
         }
     });
 
-    btnLimpiarEst?.addEventListener('click', () => {
-        inputEstudiante.value = '';
-        hidEnrollment.value   = '0';
-        resultados.innerHTML  = '';
-        btnLimpiarEst.classList.add('d-none');
-        btnBuscar.disabled    = true;
-        inputEstudiante.focus();
-        if (todosEst.length) renderResultados(todosEst);
+    btnLimpiarUsuario?.addEventListener('click', () => {
+        inputUsuario.value = '';
+        usuarioResultados.innerHTML = '';
+        btnLimpiarUsuario.classList.add('d-none');
+        resetDesdeUsuario();
+        inputUsuario.focus();
     });
 
-    async function cargarEstudiantes(offeringId, selectedEid) {
-        todosEst = await fetchData(`${BASE}/managerial/linea-tiempo/estudiantes?offering_id=${offeringId}`);
-        if (inputEstudiante) inputEstudiante.disabled = false;
-        if (selectedEid) {
-            const e = todosEst.find(e => parseInt(e.enrollment_id) === parseInt(selectedEid));
-            if (e) {
-                inputEstudiante.value = e.nombre;
-                hidEnrollment.value   = e.enrollment_id;
-                if (btnLimpiarEst) btnLimpiarEst.classList.remove('d-none');
-                if (btnBuscar)     btnBuscar.disabled = false;
-            }
-        }
-    }
-
     // =========================================================================
-    // INICIALIZACIÓN
-    // =========================================================================
-
-    async function init() {
-        const pId = window.PERIODO_ID;
-        const oId = window.OFFERING_ID;
-        const eId = window.ENROLLMENT_ID;
-
-        if (pId) {
-            const ofertas = await fetchData(`${BASE}/managerial/linea-tiempo/ofertas?periodo_id=${pId}`);
-            populateSelect(selOferta, ofertas, 'name', 'id', oId);
-            if (oId) await cargarEstudiantes(oId, eId);
-            if (btnBuscar && !eId) btnBuscar.disabled = true;
-        }
-    }
-
-    init();
-
-    // =========================================================================
-    // CASCADA: PERÍODO → OFERTAS
+    // PASO 2: CASCADA PERÍODO → DIPLOMADOS DE ESE USUARIO
     // =========================================================================
 
     selPeriodo.addEventListener('change', async () => {
         resetSelect(selOferta, '— Cargando... —');
-        resetEstudiante();
+        btnBuscar.disabled = true;
 
         const pId = selPeriodo.value;
-        if (!pId) { resetSelect(selOferta, '— Primero elige período —'); return; }
+        const uId = hidUserId.value;
+        if (!pId || !uId || uId === '0') {
+            resetSelect(selOferta, '— Primero elige un período —');
+            return;
+        }
 
-        const ofertas = await fetchData(`${BASE}/managerial/linea-tiempo/ofertas?periodo_id=${pId}`);
-        populateSelect(selOferta, ofertas, 'name', 'id', 0);
+        const ofertas = await fetchData(`${BASE}/managerial/linea-tiempo/ofertas?user_id=${uId}&periodo_id=${pId}`);
+        populateSelect(selOferta, ofertas, 'name', 'enrollment_id', 0);
     });
 
     // =========================================================================
-    // CASCADA: OFERTA → ESTUDIANTES
+    // PASO 3: SELECCIÓN DE DIPLOMADO → HABILITA BÚSQUEDA
     // =========================================================================
 
-    selOferta.addEventListener('change', async () => {
-        resetEstudiante();
-        const oId = selOferta.value;
-        if (oId) await cargarEstudiantes(oId, 0);
+    selOferta.addEventListener('change', () => {
+        btnBuscar.disabled = !selOferta.value;
     });
 
     // =========================================================================
@@ -186,14 +154,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================================
 
     btnBuscar.addEventListener('click', () => {
-        const eId = hidEnrollment.value;
-        if (!eId || eId === '0') return;
+        const enrollmentId = selOferta.value;
+        if (!enrollmentId) return;
 
         const params = new URLSearchParams({
-            periodo_id:    selPeriodo.value   || 0,
-            offering_id:   selOferta.value    || 0,
-            enrollment_id: eId,
-            user_search:   inputEstudiante?.value || '',
+            user_id:       hidUserId.value    || 0,
+            periodo_id:    selPeriodo.value    || 0,
+            enrollment_id: enrollmentId,
+            user_search:   inputUsuario?.value || '',
         });
 
         window.location.href = `${BASE}/managerial/linea-tiempo?${params.toString()}`;
@@ -206,4 +174,31 @@ document.addEventListener('DOMContentLoaded', () => {
     btnLimpiar?.addEventListener('click', () => {
         window.location.href = `${BASE}/managerial/linea-tiempo`;
     });
+
+    // =========================================================================
+    // INICIALIZACIÓN (repoblar cascada si venimos de una búsqueda ya hecha)
+    // =========================================================================
+
+    async function init() {
+        const uId = window.USER_ID;
+        const pId = window.PERIODO_ID;
+        const eId = window.ENROLLMENT_ID;
+
+        if (!uId) return;
+
+        hidUserId.value = uId;
+        if (inputUsuario) inputUsuario.value = window.USER_SEARCH || '';
+        if (btnLimpiarUsuario) btnLimpiarUsuario.classList.remove('d-none');
+
+        const periodos = await fetchData(`${BASE}/managerial/linea-tiempo/periodos?user_id=${uId}`);
+        populateSelect(selPeriodo, periodos, 'nombre', 'id', pId);
+
+        if (pId) {
+            const ofertas = await fetchData(`${BASE}/managerial/linea-tiempo/ofertas?user_id=${uId}&periodo_id=${pId}`);
+            populateSelect(selOferta, ofertas, 'name', 'enrollment_id', eId);
+            if (eId) btnBuscar.disabled = false;
+        }
+    }
+
+    init();
 });

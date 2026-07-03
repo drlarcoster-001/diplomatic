@@ -2,15 +2,24 @@
 /**
  * MÓDULO: GESTIÓN GERENCIAL / LÍNEA DE TIEMPO DEL ESTUDIANTE
  * ARCHIVO: app/controllers/ManagerialLineaTiempoController.php
- * PROPÓSITO: index() muestra filtros en cascada y línea de tiempo del estudiante.
- *            getOfertas() y getEstudiantes() devuelven datos AJAX para la cascada.
- * VERSIÓN: 1.0.0 - Creación inicial.
+ * PROPÓSITO: index() muestra la línea de tiempo de una inscripción puntual.
+ *            getUsuarios() busca usuarios en todo el sistema (paso 1).
+ *            getPeriodosPorUsuario() trae solo los períodos donde ese
+ *            usuario tiene inscripciones (paso 2).
+ *            getOfertasPorUsuario() trae los diplomados de ese usuario en
+ *            ese período, con su enrollment_id (paso 3) — soporta usuarios
+ *            con varios diplomados inscritos.
+ * VERSIÓN: 2.0.0 - Cascada invertida: Usuario → Período → Diplomado.
+ *          Reemplaza getOfertas()/getEstudiantes() por getUsuarios(),
+ *          getPeriodosPorUsuario() y getOfertasPorUsuario(). Fix: getActa
+ *          ahora recibe siempre el offering_id real del enrollment.
  *
  * RUTAS Bootstrap.php:
  *   use App\Controllers\ManagerialLineaTiempoController;
- *   $router->get('/managerial/linea-tiempo',           [ManagerialLineaTiempoController::class, 'index']);
- *   $router->get('/managerial/linea-tiempo/ofertas',   [ManagerialLineaTiempoController::class, 'getOfertas']);
- *   $router->get('/managerial/linea-tiempo/estudiantes', [ManagerialLineaTiempoController::class, 'getEstudiantes']);
+ *   $router->get('/managerial/linea-tiempo',          [ManagerialLineaTiempoController::class, 'index']);
+ *   $router->get('/managerial/linea-tiempo/usuarios', [ManagerialLineaTiempoController::class, 'getUsuarios']);
+ *   $router->get('/managerial/linea-tiempo/periodos', [ManagerialLineaTiempoController::class, 'getPeriodosPorUsuario']);
+ *   $router->get('/managerial/linea-tiempo/ofertas',  [ManagerialLineaTiempoController::class, 'getOfertasPorUsuario']);
  */
 
 declare(strict_types=1);
@@ -41,12 +50,11 @@ class ManagerialLineaTiempoController extends Controller
 
     public function index(): void
     {
-        $periodoId    = (int)  ($_GET['periodo_id']    ?? 0);
-        $offeringId   = (int)  ($_GET['offering_id']   ?? 0);
-        $enrollmentId = (int)  ($_GET['enrollment_id'] ?? 0);
-        $userSearch   = trim(  $_GET['user_search']    ?? '');
+        $userId       = (int)   ($_GET['user_id']       ?? 0);
+        $periodoId    = (int)   ($_GET['periodo_id']    ?? 0);
+        $enrollmentId = (int)   ($_GET['enrollment_id'] ?? 0);
+        $userSearch   = trim(   $_GET['user_search']    ?? '');
 
-        $periodos   = $this->model->getPeriodos();
         $estudiante = null;
         $eventos    = [];
 
@@ -54,11 +62,13 @@ class ManagerialLineaTiempoController extends Controller
             $estudiante = $this->model->getDatosEstudiante($enrollmentId);
 
             if ($estudiante) {
+                $offeringId = (int) $estudiante['offering_id'];
+
                 $pagosInsc  = $this->model->getPagosInscripcion($enrollmentId);
                 $ledger     = $this->model->getLedger($enrollmentId);
                 $pagosCuota = $this->model->getPagosCuotas($enrollmentId);
                 $notas      = $this->model->getNotas($enrollmentId);
-                $acta       = $this->model->getActa($offeringId ?: (int)$estudiante['enrollment_id'], $enrollmentId);
+                $acta       = $this->model->getActa($offeringId, $enrollmentId);
 
                 // Armar ledger por payment_id para lookup rápido
                 $ledgerPorPago = [];
@@ -73,9 +83,8 @@ class ManagerialLineaTiempoController extends Controller
         }
 
         $this->view('managerial/linea_tiempo/index', [
-            'periodos'     => $periodos,
+            'userId'       => $userId,
             'periodoId'    => $periodoId,
-            'offeringId'   => $offeringId,
             'enrollmentId' => $enrollmentId,
             'userSearch'   => $userSearch,
             'estudiante'   => $estudiante,
@@ -128,7 +137,6 @@ class ManagerialLineaTiempoController extends Controller
         foreach ($pagosInsc as $pago) {
             $meta   = json_decode($pago['payment_metadata'] ?? '{}', true);
             $usd    = $meta['monto_sistema_usd'] ?? null;
-            $tasa   = $meta['tasa_cambio'] ?? null;
 
             $ledgerItems = $ledgerPorPago[$pago['id']] ?? [];
             $conceptos   = array_column($ledgerItems, 'concept');
@@ -259,24 +267,33 @@ class ManagerialLineaTiempoController extends Controller
     }
 
     // =========================================================================
-    // AJAX — OFERTAS
+    // AJAX — PASO 1: BÚSQUEDA GLOBAL DE USUARIO
     // =========================================================================
 
-    public function getOfertas(): void
+    public function getUsuarios(): void
     {
-        $this->jsonResponse($this->model->getOfertasByPeriodo((int)($_GET['periodo_id'] ?? 0)));
+        $search = trim($_GET['search'] ?? '');
+        $this->jsonResponse($this->model->buscarUsuarios($search));
     }
 
     // =========================================================================
-    // AJAX — ESTUDIANTES
+    // AJAX — PASO 2: PERÍODOS DONDE ESE USUARIO TIENE INSCRIPCIONES
     // =========================================================================
 
-    public function getEstudiantes(): void
+    public function getPeriodosPorUsuario(): void
     {
-        $search = trim($_GET['search'] ?? '');
-        $this->jsonResponse($this->model->getEstudiantesByOferta(
-            (int)($_GET['offering_id'] ?? 0),
-            $search
+        $this->jsonResponse($this->model->getPeriodosByUsuario((int)($_GET['user_id'] ?? 0)));
+    }
+
+    // =========================================================================
+    // AJAX — PASO 3: DIPLOMADOS DE ESE USUARIO EN ESE PERÍODO
+    // =========================================================================
+
+    public function getOfertasPorUsuario(): void
+    {
+        $this->jsonResponse($this->model->getOfertasByUsuarioPeriodo(
+            (int) ($_GET['user_id']    ?? 0),
+            (int) ($_GET['periodo_id'] ?? 0)
         ));
     }
 

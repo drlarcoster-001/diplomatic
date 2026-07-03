@@ -1098,8 +1098,9 @@ final class Bootstrap
         
         // Modulo Gerencial - Linea de Tiempo
         $router->get('/managerial/linea-tiempo',             [ManagerialLineaTiempoController::class, 'index']);
-        $router->get('/managerial/linea-tiempo/ofertas',     [ManagerialLineaTiempoController::class, 'getOfertas']);
-        $router->get('/managerial/linea-tiempo/estudiantes', [ManagerialLineaTiempoController::class, 'getEstudiantes']);
+        $router->get('/managerial/linea-tiempo/usuarios',    [ManagerialLineaTiempoController::class, 'getUsuarios']);
+        $router->get('/managerial/linea-tiempo/periodos',    [ManagerialLineaTiempoController::class, 'getPeriodosPorUsuario']);
+        $router->get('/managerial/linea-tiempo/ofertas',     [ManagerialLineaTiempoController::class, 'getOfertasPorUsuario']);
 
         // --- MÓDULO: ESTADOS DE CUENTA BANCARIOS ---
         $router->get('/financial/bank_statements', [FinancialBankStatementsController::class, 'index']);
