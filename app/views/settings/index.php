@@ -78,13 +78,15 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
         </div>
 
         <div class="col-md-6 col-lg-4">
-            <div class="card h-100 border-0 shadow-sm p-4 text-center opacity-75 grayscale">
-                <div class="bg-danger bg-opacity-10 text-danger p-3 rounded-circle mx-auto mb-3" style="width: fit-content;">
-                    <i class="bi bi-database-fill-gear fs-2"></i>
+            <a href="<?= htmlspecialchars($basePath) ?>/settings/database" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item">
+                    <div class="bg-danger bg-opacity-10 text-danger p-3 rounded-circle mx-auto mb-3" style="width: fit-content;">
+                        <i class="bi bi-database-fill-gear fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold">Base de Datos</h5>
+                    <p class="text-muted small">Respaldos y optimización.</p>
                 </div>
-                <h5 class="fw-bold">Base de Datos</h5>
-                <p class="text-muted small">Respaldos y optimización.</p>
-            </div>
+            </a>
         </div>
 
         <div class="col-md-6 col-lg-4">

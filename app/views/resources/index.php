@@ -3,7 +3,7 @@
  * MÓDULO: GESTIÓN DE RECURSOS
  * Archivo: app/views/resources/index.php
  * Propósito: Dashboard modular del Panel de Recursos Humanos del programa de diplomados.
- * Versión: 1.1.0
+ * Versión: 1.2.0 - Tarjetas reorganizadas.
  *
  * @var string $basePath
  */
@@ -20,19 +20,6 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
 
     <div class="row g-4">
 
-        <!-- Personal -->
-        <div class="col-md-6 col-lg-3">
-            <a href="<?= htmlspecialchars($basePath) ?>/resources/personal" class="text-decoration-none text-dark">
-                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #a855f7 !important;">
-                    <div class="p-3 rounded-circle mx-auto mb-3" style="width: fit-content; background-color: rgba(168, 85, 247, 0.1); color: #a855f7;">
-                        <i class="bi bi-person-lines-fill fs-2"></i>
-                    </div>
-                    <h5 class="fw-bold" style="color: #a855f7;">Personal</h5>
-                    <p class="text-muted small">Catálogo del personal vinculado al programa. Registro, carnet y gestión de expedientes.</p>
-                </div>
-            </a>
-        </div>
-
         <!-- Tipos de Personal -->
         <div class="col-md-6 col-lg-3">
             <a href="<?= htmlspecialchars($basePath) ?>/resources/tipos-personal" class="text-decoration-none text-dark">
@@ -46,15 +33,15 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
             </a>
         </div>
 
-        <!-- Plantillas de Contratos -->
+        <!-- Personal -->
         <div class="col-md-6 col-lg-3">
-            <a href="<?= htmlspecialchars($basePath) ?>/resources/contratos/plantillas" class="text-decoration-none text-dark">
-                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #0d6efd !important;">
-                    <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-circle mx-auto mb-3" style="width: fit-content;">
-                        <i class="bi bi-file-earmark-text-fill fs-2"></i>
+            <a href="<?= htmlspecialchars($basePath) ?>/resources/personal" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #a855f7 !important;">
+                    <div class="p-3 rounded-circle mx-auto mb-3" style="width: fit-content; background-color: rgba(168, 85, 247, 0.1); color: #a855f7;">
+                        <i class="bi bi-person-lines-fill fs-2"></i>
                     </div>
-                    <h5 class="fw-bold" style="color: #0d6efd;">Plantillas de Contratos</h5>
-                    <p class="text-muted small">Diseño y gestión de plantillas de contratos institucionales.</p>
+                    <h5 class="fw-bold" style="color: #a855f7;">Personal</h5>
+                    <p class="text-muted small">Catálogo del personal vinculado al programa. Registro, carnet y gestión de expedientes.</p>
                 </div>
             </a>
         </div>
@@ -68,6 +55,19 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
                     </div>
                     <h5 class="fw-bold" style="color: #06b6d4;">Tipos de Contrato</h5>
                     <p class="text-muted small">Catálogo de tipos y siglas para la generación de contratos institucionales.</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Plantillas de Contratos -->
+        <div class="col-md-6 col-lg-3">
+            <a href="<?= htmlspecialchars($basePath) ?>/resources/contratos/plantillas" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #0d6efd !important;">
+                    <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-circle mx-auto mb-3" style="width: fit-content;">
+                        <i class="bi bi-file-earmark-text-fill fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold" style="color: #0d6efd;">Plantillas de Contratos</h5>
+                    <p class="text-muted small">Diseño y gestión de plantillas de contratos institucionales.</p>
                 </div>
             </a>
         </div>
@@ -98,20 +98,7 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
             </a>
         </div>
 
-        <!-- Nómina -->
-        <div class="col-md-6 col-lg-3">
-            <a href="<?= htmlspecialchars($basePath) ?>/resources/nomina" class="text-decoration-none text-dark">
-                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #dc3545 !important;">
-                    <div class="p-3 rounded-circle mx-auto mb-3" style="width: fit-content; background-color: rgba(220, 53, 69, 0.1); color: #dc3545;">
-                        <i class="bi bi-cash-stack fs-2"></i>
-                    </div>
-                    <h5 class="fw-bold" style="color: #dc3545;">Nómina</h5>
-                    <p class="text-muted small">Gestión de nóminas y generación automática de órdenes de pago por tipo de personal.</p>
-                </div>
-            </a>
-        </div>
-
-        <!--Procesar Sesiones-->
+        <!-- Procesar Sesiones -->
         <div class="col-md-6 col-lg-3">
             <a href="<?= htmlspecialchars($basePath) ?>/resources/procesar-sesiones" class="text-decoration-none text-dark">
                 <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #BA7517 !important;">
@@ -136,6 +123,20 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
                 </div>
             </a>
         </div>
+
+        <!-- Nómina -->
+        <div class="col-md-6 col-lg-3">
+            <a href="<?= htmlspecialchars($basePath) ?>/resources/nomina" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center settings-card-item" style="border-top: 4px solid #dc3545 !important;">
+                    <div class="p-3 rounded-circle mx-auto mb-3" style="width: fit-content; background-color: rgba(220, 53, 69, 0.1); color: #dc3545;">
+                        <i class="bi bi-cash-stack fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold" style="color: #dc3545;">Nómina</h5>
+                    <p class="text-muted small">Gestión de nóminas y generación automática de órdenes de pago por tipo de personal.</p>
+                </div>
+            </a>
+        </div>
+
         <!-- Aprobar Nóminas -->
         <div class="col-md-6 col-lg-3">
             <a href="<?= htmlspecialchars($basePath) ?>/resources/aprobar-nomina" class="text-decoration-none text-dark">
@@ -148,7 +149,6 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
                 </div>
             </a>
         </div>
-
 
     </div>
 </div>

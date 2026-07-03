@@ -91,7 +91,7 @@ class ResourcesConceptosNominaModel
     public function deleteAsignacion(int $id, int $userId): string
     {
         $stmt = $this->db->prepare(
-            "SELECT COUNT(*) FROM tbl_nomina_asignaciones WHERE asignacion_id = :id"
+            "SELECT COUNT(*) FROM tbl_nomina_personal_asignaciones WHERE asignacion_id = :id"
         );
         $stmt->execute([':id' => $id]);
         if ((int) $stmt->fetchColumn() > 0) {
@@ -173,7 +173,7 @@ class ResourcesConceptosNominaModel
     public function deleteDeduccion(int $id, int $userId): string
     {
         $stmt = $this->db->prepare(
-            "SELECT COUNT(*) FROM tbl_nomina_deducciones WHERE deduccion_id = :id"
+            "SELECT COUNT(*) FROM tbl_nomina_personal_deducciones WHERE deduccion_id = :id"
         );
         $stmt->execute([':id' => $id]);
         if ((int) $stmt->fetchColumn() > 0) {

@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 return [
     'host'    => '127.0.0.1',             // Host local para el servidor plataformadiplomados.com
-    'dbname'  => 'platafo2_db_diplomatic',// Base de datos principal según estructura cPanel
+    'dbname'  => 'platafo2_db_diplomatic_v2',// Base de datos principal según estructura cPanel
     'user'    => 'root',   // Usuario administrativo de base de datos
     'pass'    => 'Diplomatic2026',      // Contraseña validada para entorno de producción
     'charset' => 'utf8mb4',               // Soporte para caracteres especiales y emojis

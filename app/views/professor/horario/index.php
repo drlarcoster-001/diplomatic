@@ -85,28 +85,53 @@ ksort($calendarios);
     </a>
   </div>
 
-  <!-- SELECTOR DE OFERTA -->
+  <!-- FILTROS -->
   <div class="card border-0 shadow-sm mb-4">
     <div class="card-body">
       <form method="GET" action="" class="row g-3 align-items-end">
-        <div class="col-md-9">
-          <label class="form-label fw-semibold">Selecciona una oferta académica</label>
-          <select name="offering_id" class="form-select" onchange="this.form.submit()">
-            <option value="">— Elige un diplomado / cohorte —</option>
-            <?php foreach ($ofertas as $o): ?>
-              <option value="<?= $o['offering_id'] ?>"
-                <?= (int)$offeringId === (int)$o['offering_id'] ? 'selected' : '' ?>>
-                <?= htmlspecialchars($o['diplomado_nombre'] . ' — ' . $o['cohorte_nombre'] .
-                    (!empty($o['grupos_nombre']) ? ' (' . $o['grupos_nombre'] . ')' : '')) ?>
+
+        <!-- PERÍODO -->
+        <div class="col-md-3">
+          <label class="form-label fw-semibold">Período</label>
+          <select name="periodo_id" class="form-select" onchange="this.form.submit()">
+            <option value="">— Todos —</option>
+            <?php foreach ($periodos ?? [] as $p): ?>
+              <option value="<?= $p['id'] ?>" <?= ($periodoId ?? 0) == $p['id'] ? 'selected' : '' ?>>
+                <?= htmlspecialchars($p['nombre']) ?>
               </option>
             <?php endforeach; ?>
           </select>
         </div>
-        <div class="col-md-3">
-          <button type="submit" class="btn btn-primary w-100">
-            <i class="bi bi-search me-1"></i> Ver
-          </button>
+
+        <!-- DIPLOMADO -->
+        <div class="col-md-5">
+          <label class="form-label fw-semibold">Diplomado</label>
+          <select name="diploma_id" class="form-select" onchange="this.form.submit()">
+            <option value="">— Todos los diplomados —</option>
+            <?php foreach ($diplomados ?? [] as $d): ?>
+              <option value="<?= $d['id'] ?>" <?= ($diplomaId ?? 0) == $d['id'] ? 'selected' : '' ?>>
+                <?= htmlspecialchars($d['name']) ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
         </div>
+
+        <!-- OFERTA -->
+        <div class="col-md-4">
+          <label class="form-label fw-semibold">Grupo</label>
+          <select name="offering_id" class="form-select" onchange="this.form.submit()">
+            <option value="">— Selecciona grupo —</option>
+            <?php foreach ($ofertas as $o): ?>
+              <?php
+                $label = !empty($o['grupos_nombre']) ? $o['grupos_nombre'] : $o['cohorte_nombre'];
+              ?>
+              <option value="<?= $o['offering_id'] ?>" <?= (int)$offeringId === (int)$o['offering_id'] ? 'selected' : '' ?>>
+                <?= htmlspecialchars($label) ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+
       </form>
     </div>
   </div>

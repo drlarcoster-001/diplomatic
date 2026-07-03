@@ -1,9 +1,10 @@
 <?php
 /**
+ * MÓDULO: GESTIÓN DE ACCESO
  * Archivo: app/views/auth/token_error.php
+ * Versión: 2.0.0 — Rediseño V2 DIPLOMATIC by Amarellus
  */
 $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
-$cssAccess = $basePath . '/assets/css/access.css';
 ?>
 <!doctype html>
 <html lang="es">
@@ -12,22 +13,33 @@ $cssAccess = $basePath . '/assets/css/access.css';
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DIPLOMATIC · Error de Enlace</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="<?= htmlspecialchars($cssAccess) ?>" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="<?= htmlspecialchars($basePath) ?>/assets/css/access.css" rel="stylesheet">
 </head>
 <body>
-<div class="dp-auth-container px-3">
-  <div class="container" style="max-width: 500px;">
-    <div class="dp-card dp-shadow p-4 p-md-5 text-center">
-      <div class="text-danger mb-4">
-        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
-          <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-        </svg>
-      </div>
-      <h4 class="dp-title mb-2">Enlace no válido</h4>
-      <p class="dp-subtitle mb-4">Lo sentimos, este enlace de activación ya fue utilizado, ha expirado o es incorrecto.</p>
-      <a href="<?= $basePath ?>/" class="btn btn-primary w-100 py-2">Volver al Inicio</a>
+
+<div class="dp-wrapper">
+  <div class="dp-card" style="text-align:center">
+
+    <div class="dp-brand">DIPLOMATIC</div>
+
+    <i class="bi bi-exclamation-triangle" style="font-size:52px;color:#dc3545;margin:20px 0 12px"></i>
+
+    <div style="font-size:20px;font-weight:700;color:#1a1a1a;margin-bottom:8px">Enlace no válido</div>
+    <p class="dp-desc">Este enlace de activación ya fue utilizado, ha expirado o es incorrecto.</p>
+
+    <a href="<?= $basePath ?>/" class="dp-btn-entrar" style="text-decoration:none;display:block;text-align:center">
+      Volver al acceso
+    </a>
+
+    <div class="dp-footer" style="margin-top:24px">
+      &copy; <?= date('Y') ?> DIPLOMATIC by
+      <a href="https://www.amarellus.com" target="_blank" rel="noopener">Amarellus</a>.
+      Todos los derechos reservados.
     </div>
+
   </div>
 </div>
+
 </body>
 </html>

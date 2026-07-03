@@ -428,4 +428,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Carga inicial
     fetchAcademicData(1);
+
+    // --- FILTRO DE PERÍODO ---
+    const periodoSelect = document.getElementById('filter_periodo');
+    if (periodoSelect) {
+        periodoSelect.addEventListener('change', () => {
+            const url = new URL(window.location.href);
+            url.searchParams.set('periodo_id', periodoSelect.value);
+            window.location.href = url.toString();
+        });
+    }
+
 });

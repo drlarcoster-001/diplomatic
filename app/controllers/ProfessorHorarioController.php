@@ -54,6 +54,10 @@ class ProfessorHorarioController extends Controller
     {
         $professorId  = (int) $this->profesor['id'];
         $offeringId   = (int) ($_GET['offering_id'] ?? 0);
+        $periodoId    = (int) ($_GET['periodo_id'] ?? 0);
+        $diplomaId    = (int) ($_GET['diploma_id'] ?? 0);
+        $periodos     = $this->model->getPeriodos($professorId);
+        $diplomados   = $this->model->getDiplomadosPorPeriodo($professorId, $periodoId);
         $ofertas      = $this->model->getMisOfertas($professorId);
         $ofertaActiva = null;
         $teoricos     = [];
@@ -79,6 +83,10 @@ class ProfessorHorarioController extends Controller
             'ofertaActiva' => $ofertaActiva,
             'teoricos'     => $teoricos,
             'practicos'    => $practicos,
+            'periodos'     => $periodos,
+            'diplomados'   => $diplomados,
+            'periodoId'    => $periodoId,
+            'diplomaId'    => $diplomaId,
         ]);
     }
 
@@ -146,34 +154,110 @@ class ProfessorHorarioController extends Controller
         $profesor  = htmlspecialchars($this->profesor['full_name'] ?? '—');
         $fechaHoy  = date('d') . ' de ' . $this->getMes((int) date('m')) . ' de ' . date('Y');
 
-        // Filas teóricas
-        $filasTeorico = '';
+        // ── GRILLA TEÓRICA ────────────────────────────────────────────────────
+        $diasOrden  = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+        $franjas    = [];
+        $diasUsados = [];
+        $gridTeo    = [];
+
+        foreach ($teoricos as $t) {
+            $key = $t['hora_inicio'];
+            if (!isset($franjas[$key])) $franjas[$key] = ['inicio' => $t['hora_inicio'], 'fin' => $t['hora_fin']];
+            if (!in_array($t['dia_semana'], $diasUsados, true)) $diasUsados[] = $t['dia_semana'];
+            $gridTeo[$t['dia_semana']][$key] = $t;
+        }
+        ksort($franjas);
+        usort($diasUsados, fn($a,$b) => array_search($a,$diasOrden) <=> array_search($b,$diasOrden));
+
         if (empty($teoricos)) {
-            $filasTeorico = "<tr><td colspan='3' style='padding:10px;text-align:center;color:#888'>Sin horario teorico asignado.</td></tr>";
+            $htmlTeorico = "<tr><td colspan='8' style='padding:10px;text-align:center;color:#888'>Sin horario teorico asignado.</td></tr>";
         } else {
-            foreach ($teoricos as $idx => $t) {
-                $bg = $idx % 2 === 0 ? '#ffffff' : '#f8f9fa';
-                $filasTeorico .= "<tr style='background:{$bg}'>
-                    <td style='padding:6px 10px;border:0.5px solid #dee2e6'>" . htmlspecialchars($t['dia_semana']) . "</td>
-                    <td style='padding:6px 10px;border:0.5px solid #dee2e6;text-align:center'>{$t['hora_inicio']} – {$t['hora_fin']}</td>
-                    <td style='padding:6px 10px;border:0.5px solid #dee2e6'>" . htmlspecialchars($t['grupo_nombre'] ?? '—') . "</td>
-                </tr>";
+            // Encabezado días
+            $htmlTeorico = "<tr style='background:#533AB7;color:#fff'><th style='padding:6px 8px;border:0.5px solid #4430a0;width:18%'>Horario</th>";
+            foreach ($diasUsados as $dia) {
+                $htmlTeorico .= "<th style='padding:6px 8px;border:0.5px solid #4430a0;text-align:center'>" . htmlspecialchars($dia) . "</th>";
+            }
+            $htmlTeorico .= "</tr>";
+            // Filas
+            foreach ($franjas as $franja) {
+                $htmlTeorico .= "<tr>";
+                $htmlTeorico .= "<td style='padding:6px 8px;border:0.5px solid #dee2e6;font-weight:bold;background:#f8f9fa'>{$franja['inicio']} – {$franja['fin']}</td>";
+                foreach ($diasUsados as $dia) {
+                    $celda = $gridTeo[$dia][$franja['inicio']] ?? null;
+                    if ($celda) {
+                        $grupo = htmlspecialchars($celda['grupo_nombre'] ?? '');
+                        $htmlTeorico .= "<td style='padding:6px 4px;border:0.5px solid #dee2e6;text-align:center;background:#EEEDFE'>
+                            <div style='background:#533AB7;color:#fff;border-radius:4px;padding:4px 6px;font-size:9pt;font-weight:bold'>Teorica</div>
+                            " . ($grupo ? "<div style='font-size:8pt;margin-top:2px;color:#533AB7'>{$grupo}</div>" : '') . "
+                        </td>";
+                    } else {
+                        $htmlTeorico .= "<td style='padding:6px 8px;border:0.5px solid #dee2e6;text-align:center;color:#ccc'>—</td>";
+                    }
+                }
+                $htmlTeorico .= "</tr>";
             }
         }
 
-        // Filas prácticas
-        $filasPractica = '';
+        // ── CALENDARIOS MENSUALES ─────────────────────────────────────────────
+        $calendarios = [];
+        foreach ($practicos as $p) {
+            $ts  = strtotime($p['fecha']);
+            $ym  = date('Y-m', $ts);
+            $dia = (int) date('j', $ts);
+            $calendarios[$ym][$dia][] = $p;
+        }
+        ksort($calendarios);
+
+        $meses = ['','Enero','Febrero','Marzo','Abril','Mayo','Junio',
+                  'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+        $htmlPractica = '';
         if (empty($practicos)) {
-            $filasPractica = "<tr><td colspan='3' style='padding:10px;text-align:center;color:#888'>Sin horario practico asignado.</td></tr>";
+            $htmlPractica = "<p style='text-align:center;color:#888;padding:10px'>Sin horario practico asignado.</p>";
         } else {
-            foreach ($practicos as $idx => $p) {
-                $bg    = $idx % 2 === 0 ? '#ffffff' : '#f8f9fa';
-                $fecha = date('d/m/Y', strtotime($p['fecha']));
-                $filasPractica .= "<tr style='background:{$bg}'>
-                    <td style='padding:6px 10px;border:0.5px solid #dee2e6;text-align:center'>{$fecha}</td>
-                    <td style='padding:6px 10px;border:0.5px solid #dee2e6'>" . htmlspecialchars($p['centro_medico']) . "</td>
-                    <td style='padding:6px 10px;border:0.5px solid #dee2e6'>" . htmlspecialchars($p['grupo_practica']) . "</td>
-                </tr>";
+            foreach ($calendarios as $ym => $diasPractica) {
+                [$anio, $mes] = explode('-', $ym);
+                $nombreMes  = $meses[(int)$mes] . ' ' . $anio;
+                $primerDia  = (int) date('N', strtotime("{$anio}-{$mes}-01"));
+                $diasEnMes  = (int) date('t', strtotime("{$anio}-{$mes}-01"));
+
+                $htmlPractica .= "
+                <table style='width:100%;border-collapse:collapse;margin-bottom:16px'>
+                  <tr>
+                    <td colspan='7' style='background:#198754;color:#fff;text-align:center;padding:7px;font-weight:bold;font-size:11pt;border-radius:4px 4px 0 0'>
+                      {$nombreMes}
+                    </td>
+                  </tr>
+                  <tr style='background:#e8f5ee'>";
+                foreach (['Lu','Ma','Mi','Ju','Vi','Sá','Do'] as $d) {
+                    $htmlPractica .= "<th style='padding:5px;text-align:center;border:0.5px solid #c3e6cb;width:14.28%;font-size:9pt'>{$d}</th>";
+                }
+                $htmlPractica .= "</tr>";
+
+                $diaActual = 1 - ($primerDia - 1);
+                $filas = (int) ceil(($primerDia - 1 + $diasEnMes) / 7);
+                for ($fila = 0; $fila < $filas; $fila++) {
+                    $htmlPractica .= "<tr>";
+                    for ($col = 0; $col < 7; $col++) {
+                        if ($diaActual < 1 || $diaActual > $diasEnMes) {
+                            $htmlPractica .= "<td style='padding:5px;border:0.5px solid #dee2e6;background:#f8f9fa'>&nbsp;</td>";
+                        } else {
+                            $tienePractica = isset($diasPractica[$diaActual]);
+                            $bg = $tienePractica ? '#d1f0e0' : '#fff';
+                            $htmlPractica .= "<td style='padding:4px;border:0.5px solid #dee2e6;background:{$bg};vertical-align:top'>";
+                            $htmlPractica .= "<div style='font-weight:bold;font-size:9pt'>{$diaActual}</div>";
+                            if ($tienePractica) {
+                                foreach ($diasPractica[$diaActual] as $pr) {
+                                    $htmlPractica .= "<div style='font-size:7pt;color:#085041;margin-top:2px'>" . htmlspecialchars($pr['centro_medico']) . "</div>";
+                                }
+                            }
+                            $htmlPractica .= "</td>";
+                        }
+                        $diaActual++;
+                    }
+                    $htmlPractica .= "</tr>";
+                }
+                $htmlPractica .= "</table>";
             }
         }
 
@@ -183,8 +267,6 @@ class ProfessorHorarioController extends Controller
 <style>
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:Times-Roman; font-size:11pt; color:#212529; padding:1.5cm; }
-  table { width:100%; border-collapse:collapse; }
-  th { background:#533AB7; color:#fff; padding:7px 10px; font-size:10pt; text-align:left; }
   .info-label { font-size:8pt; font-weight:bold; text-transform:uppercase; color:#6c757d; }
   .info-val   { font-size:11pt; font-weight:bold; margin-top:2px; }
   .info-cell  { background:#f8f9fa; padding:7px 10px; border:0.5px solid #dee2e6; }
@@ -193,8 +275,7 @@ class ProfessorHorarioController extends Controller
 </head>
 <body>
 
-<!-- ENCABEZADO -->
-<table style='margin-bottom:16px'>
+<table style='width:100%;border-collapse:collapse;margin-bottom:16px'>
   <tr>
     <td style='width:15%;text-align:left'>" . ($imgUcla ? "<img src='{$imgUcla}' style='width:65px'>" : '') . "</td>
     <td style='width:70%;text-align:center;font-weight:bold;font-size:10.5pt;line-height:1.5'>
@@ -207,13 +288,9 @@ class ProfessorHorarioController extends Controller
   </tr>
 </table>
 
-<!-- TÍTULO -->
-<div style='text-align:center;font-weight:bold;font-size:13pt;text-decoration:underline;margin:14px 0 12px'>
-  HORARIO ASIGNADO
-</div>
+<div style='text-align:center;font-weight:bold;font-size:13pt;text-decoration:underline;margin:14px 0 12px'>HORARIO ASIGNADO</div>
 
-<!-- DATOS -->
-<table style='margin-bottom:8px'>
+<table style='width:100%;border-collapse:collapse;margin-bottom:12px'>
   <tr>
     <td style='width:50%;padding-right:6px'>
       <div class='info-cell'><div class='info-label'>Diplomado</div><div class='info-val'>{$diplomado}</div></div>
@@ -232,34 +309,15 @@ class ProfessorHorarioController extends Controller
   </tr>
 </table>
 
-<!-- HORARIO TEÓRICO -->
 <div class='seccion'>Horario Teorico</div>
-<table>
-  <thead>
-    <tr>
-      <th style='width:30%'>Dia</th>
-      <th style='width:30%;text-align:center'>Horario</th>
-      <th style='width:40%'>Grupo</th>
-    </tr>
-  </thead>
-  <tbody>{$filasTeorico}</tbody>
+<table style='width:100%;border-collapse:collapse;margin-bottom:20px'>
+  <tbody>{$htmlTeorico}</tbody>
 </table>
 
-<!-- HORARIO PRÁCTICO -->
 <div class='seccion'>Horario Practico</div>
-<table>
-  <thead>
-    <tr>
-      <th style='width:20%;text-align:center'>Fecha</th>
-      <th style='width:45%'>Centro Medico</th>
-      <th style='width:35%'>Grupo</th>
-    </tr>
-  </thead>
-  <tbody>{$filasPractica}</tbody>
-</table>
+{$htmlPractica}
 
-<!-- FIRMA -->
-<table style='margin-top:50px'>
+<table style='width:100%;border-collapse:collapse;margin-top:50px'>
   <tr>
     <td style='width:40%;text-align:center;border-top:1px solid #333;padding-top:8px'>
       <div style='font-weight:bold;font-size:10pt'>{$profesor}</div>

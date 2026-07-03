@@ -34,6 +34,7 @@ use App\Controllers\CampusesController;
 use App\Controllers\OfertaAcademicaController;
 use App\Controllers\SettingsWordpressController;
 use App\Controllers\SettingsSecurityController;
+use App\Controllers\SettingsBackupController;
 use App\Controllers\AdministrativeController;
 use App\Controllers\ResourcesController;
 
@@ -960,6 +961,17 @@ final class Bootstrap
 
 
         // --- MÓDULO: SEGURIDAD (PRE-USERS Y TOKENS) ---
+        $router->get('/settings/database',                       [SettingsBackupController::class, 'index']);
+        $router->get('/settings/database/get-plan',              [SettingsBackupController::class, 'getPlan']);
+        $router->get('/settings/database/download-sql',          [SettingsBackupController::class, 'downloadSql']);
+        $router->get('/settings/database/download-sistema',      [SettingsBackupController::class, 'downloadSistema']);
+        $router->get('/settings/database/download-publico',      [SettingsBackupController::class, 'downloadPublico']);
+        $router->get('/settings/database/download-uploads',      [SettingsBackupController::class, 'downloadUploads']);
+        $router->get('/settings/database/download-enrollments',  [SettingsBackupController::class, 'downloadEnrollments']);
+        $router->get('/settings/database/download-raiz',         [SettingsBackupController::class, 'downloadRaiz']);
+        $router->get('/settings/database/download-instrucciones',[SettingsBackupController::class, 'downloadInstrucciones']);
+
+
         $router->get('/settings/seguridad', [SettingsSecurityController::class, 'index']);
         $router->get('/settings/seguridad/getPreUsers', [SettingsSecurityController::class, 'getPreUsers']);
         $router->post('/settings/seguridad/deletePreUser', [SettingsSecurityController::class, 'deletePreUser']);

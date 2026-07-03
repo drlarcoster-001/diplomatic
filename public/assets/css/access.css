@@ -1,106 +1,234 @@
 /*
  * MÓDULO: USUARIOS, ROLES Y ACCESO
  * Archivo: public/assets/css/access.css
- * Propósito: Estilos globales de acceso y normalización de la interfaz institucional.
+ * Versión: 2.0.0 — Rediseño V2 DIPLOMATIC by Amarellus
  */
 
-:root{
-  --dp-bg: #f5f7fb;
-  --dp-card: #ffffff;
-  --dp-text: #1f2937;
-  --dp-muted: #6b7280;
-  --dp-border: rgba(0,0,0,.08);
-  --dp-primary: #0d6efd;
+:root {
+  --dp-bg:       #efefef;
+  --dp-gray:     #676767;
+  --dp-primary:  #2076bb;
+  --dp-primary-h:#185fa5;
+  --dp-text:     #1a1a1a;
+  --dp-muted:    #888;
+  --dp-border:   #d0d0d0;
 }
 
-html, body{
+html, body {
   height: 100%;
-}
-
-body{
-  background: var(--dp-bg);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background-color: var(--dp-bg);
   color: var(--dp-text);
 }
 
-.dp-auth-container{
+/* WRAPPER */
+.dp-wrapper {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 24px 16px;
 }
 
-.dp-card{
-  background: var(--dp-card);
-  border: 1px solid var(--dp-border);
-  border-radius: 18px;
+/* CARD */
+.dp-card {
+  width: 100%;
+  max-width: 420px;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
 }
 
-.dp-shadow{
-  box-shadow: 0 12px 32px rgba(17, 24, 39, .08);
-}
-
-.dp-title{
-  font-weight: 700;
-  letter-spacing: .3px;
-}
-
-.dp-subtitle{
-  color: var(--dp-muted);
-  font-size: .95rem;
-}
-
-.dp-brand{
+/* TÍTULO */
+.dp-brand {
+  font-size: 38px;
   font-weight: 800;
-  letter-spacing: .5px;
+  color: var(--dp-text);
+  letter-spacing: -1px;
+  text-align: center;
+  margin-bottom: 4px;
 }
 
-.dp-footer{
+/* SUBTÍTULO */
+.dp-tagline {
+  font-size: 14px;
+  color: var(--dp-gray);
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+/* INPUTS */
+.dp-input-group {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.dp-input-icon {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--dp-gray);
+  font-size: 18px;
+  pointer-events: none;
+}
+
+.dp-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1.5px solid var(--dp-gray);
+  border-radius: 0;
+  padding: 10px 36px 10px 28px;
+  font-size: 15px;
+  background: transparent;
+  color: var(--dp-text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.dp-input::placeholder { color: var(--dp-gray); }
+.dp-input:focus { border-bottom-color: var(--dp-primary); }
+.dp-input-pass { padding-right: 36px; }
+
+.dp-eye-btn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--dp-gray);
+  font-size: 17px;
+  padding: 0;
+  line-height: 1;
+}
+.dp-eye-btn:hover { color: var(--dp-primary); }
+
+/* FILA RECORDARME */
+.dp-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  margin-top: 4px;
+}
+
+.dp-check-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  color: var(--dp-gray);
+  cursor: pointer;
+  user-select: none;
+}
+.dp-check-label input[type=checkbox] {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--dp-primary);
+  cursor: pointer;
+}
+
+.dp-forgot {
+  font-size: 13px;
+  color: var(--dp-gray);
+  text-decoration: none;
+}
+.dp-forgot:hover { color: var(--dp-primary); }
+
+/* BOTONES */
+.dp-btn-entrar {
+  width: 100%;
+  background: var(--dp-primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 13px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+.dp-btn-entrar:hover { background: var(--dp-primary-h); }
+
+.dp-btn-registro {
+  width: 100%;
+  background: transparent;
+  color: var(--dp-primary);
+  border: 1.5px solid var(--dp-primary);
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  display: block;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: background 0.2s, color 0.2s;
+  margin-bottom: 32px;
+}
+.dp-btn-registro:hover {
+  background: var(--dp-primary);
+  color: #fff;
+}
+
+/* ALERTA */
+.dp-alert {
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+  color: #991b1b;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+/* FOOTER */
+.dp-footer {
+  text-align: center;
+  font-size: 12px;
   color: var(--dp-muted);
-  font-size: .85rem;
 }
-
-.form-control{
-  border-radius: 12px;
+.dp-footer a {
+  color: var(--dp-gray);
+  font-weight: 600;
+  text-decoration: none;
 }
+.dp-footer a:hover { color: var(--dp-primary); }
 
-.form-control:focus{
-  box-shadow: 0 0 0 .25rem rgba(13,110,253,.15);
-}
-
-.btn{
-  border-radius: 14px;
-  font-weight: 500;
-}
-
-/* --- NORMALIZACIÓN DE COMPONENTE TELEFÓNICO --- */
-
-/* Forzamos el ancho completo para que no se encoja el input */
-.iti { 
-    display: block !important; 
-    width: 100%; 
-}
-
-/* Ajuste de espacio para que el texto no pise la bandera */
-#phone_mask {
-    padding-left: 95px !important; 
-}
-
-/* SOLUCIÓN A BANDERAS INVISIBLES: Forzamos la ruta local de las imágenes */
-.iti__flag {
-    background-image: url("../img/flags.png") !important;
-}
-
+/* INTLTELINPUT */
+.iti { display: block !important; width: 100%; }
+#phone_mask { padding-left: 95px !important; }
+.iti__flag { background-image: url("../img/flags.png") !important; }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .iti__flag {
-        background-image: url("../img/flags@2x.png") !important;
-    }
+  .iti__flag { background-image: url("../img/flags@2x.png") !important; }
+}
+.iti__country-list {
+  color: #212529 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+  border: 1px solid var(--dp-border) !important;
+  z-index: 1060;
 }
 
-/* Estilo del menú desplegable para que combine con Diplomatic */
-.iti__country-list {
-    color: #212529 !important;
-    border-radius: 12px !important;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
-    border: 1px solid var(--dp-border) !important;
-    z-index: 1060;
+/* DESCRIPCIÓN BAJO TAGLINE */
+.dp-desc {
+  font-size: 13px;
+  color: var(--dp-gray);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* HINT BAJO INPUT */
+.dp-hint {
+  display: block;
+  font-size: 12px;
+  color: var(--dp-muted);
+  margin-top: -8px;
+  margin-bottom: 8px;
 }
