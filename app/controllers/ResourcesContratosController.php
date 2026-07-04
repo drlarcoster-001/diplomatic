@@ -3,7 +3,16 @@
  * MÓDULO: GESTIÓN DE RECURSOS / CONTRATOS
  * ARCHIVO: app/controllers/ResourcesContratosController.php
  * PROPÓSITO: Generación, historial y gestión de contratos institucionales del personal operativo.
- * VERSIÓN: 1.0.0
+ * VERSIÓN: 1.2.0 - Agrega edit()/update() para reasignar personal y/o
+ *          plantilla de un contrato existente (regenera número y
+ *          contenido), y delete() para eliminación permanente (registro
+ *          + PDF físico). Mantiene el fix de chroot de DomPDF y el
+ *          encabezado institucional movido al pie de página.
+ *
+ * RUTAS NUEVAS Bootstrap.php:
+ *   $router->get('/resources/contratos/edit',   [ResourcesContratosController::class, 'edit']);
+ *   $router->post('/resources/contratos/update', [ResourcesContratosController::class, 'update']);
+ *   $router->post('/resources/contratos/delete', [ResourcesContratosController::class, 'delete']);
  */
 
 declare(strict_types=1);
@@ -124,17 +133,7 @@ final class ResourcesContratosController extends Controller
         $numeroContrato  = $this->model->generarNumeroContrato($siglas, $persona['document_id']);
 
         // Construir campos personalizados con sus valores
-        $camposData = [];
-        $fieldIds   = $_POST['field_id']    ?? [];
-        $fieldVals  = $_POST['field_valor'] ?? [];
-
-        foreach ($fieldIds as $i => $fieldId) {
-            $camposData[] = [
-                'field_id'    => (int)$fieldId,
-                'nombre_campo' => $_POST['field_nombre'][$i] ?? '',
-                'valor'        => $fieldVals[$i] ?? ''
-            ];
-        }
+        $camposData = $this->parseCamposPost($_POST);
 
         // Sustituir variables del sistema
         $contenido = $this->model->sustituirVariablesSistema(
@@ -169,6 +168,116 @@ final class ResourcesContratosController extends Controller
         }
 
         header("Location: /diplomatic/public/resources/contratos?created=1");
+        exit();
+    }
+
+    /**
+     * Formulario de edición: reasignar personal y/o plantilla de un
+     * contrato existente.
+     */
+    public function edit(): void
+    {
+        $id       = (int)($_GET['id'] ?? 0);
+        $contrato = $this->model->getById($id);
+
+        if (!$contrato) {
+            header('Location: /diplomatic/public/resources/contratos');
+            exit();
+        }
+
+        AuditService::log([
+            'module'      => 'CONTRATOS',
+            'action'      => 'EDIT_FORM',
+            'description' => "Abrió edición del contrato: {$contrato['numero_contrato']}",
+            'entity_id'   => $id
+        ]);
+
+        $this->view('resources/contratos/edit', [
+            'contrato'   => $contrato,
+            'plantillas' => $this->model->getPlantillas()
+        ]);
+    }
+
+    /**
+     * Procesa la reasignación de personal/plantilla: regenera el número
+     * de contrato y el contenido final, y vuelve a generar el PDF.
+     */
+    public function update(): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') return;
+
+        $id          = (int)$_POST['id'];
+        $personalId  = (int)$_POST['personal_id'];
+        $templateId  = (int)$_POST['template_id'];
+        $persona     = $this->model->getPersonalById($personalId);
+        $plantilla   = $this->model->getPlantillaById($templateId);
+
+        if (!$persona || !$plantilla) {
+            header("Location: /diplomatic/public/resources/contratos/edit?id={$id}&error=invalid");
+            exit();
+        }
+
+        $siglas         = $plantilla['tipo_siglas'] ?? 'GEN';
+        $numeroContrato = $this->model->generarNumeroContrato($siglas, $persona['document_id']);
+
+        $camposData = $this->parseCamposPost($_POST);
+
+        $contenido = $this->model->sustituirVariablesSistema($plantilla['contenido'], $persona, $numeroContrato);
+        $contenido = $this->model->sustituirCamposPersonalizados($contenido, $camposData);
+
+        $this->model->update($id, [
+            'numero_contrato' => $numeroContrato,
+            'template_id'     => $templateId,
+            'personal_id'     => $personalId,
+            'contenido_final' => $contenido,
+        ]);
+        $this->model->syncFieldValues($id, $camposData);
+
+        AuditService::log([
+            'module'      => 'CONTRATOS',
+            'action'      => 'UPDATE_SUCCESS',
+            'description' => "Actualizó contrato #{$id} → nuevo número: {$numeroContrato}",
+            'entity_id'   => $id
+        ]);
+
+        // Regenerar el PDF con los datos nuevos
+        $pdfPath = $this->generarPdf($id, $contenido, $numeroContrato, $persona, $plantilla);
+        if ($pdfPath) {
+            $this->model->savePdfPath($id, $pdfPath);
+        }
+
+        header("Location: /diplomatic/public/resources/contratos?updated=1");
+        exit();
+    }
+
+    /**
+     * Elimina un contrato de forma permanente (registro + PDF físico).
+     */
+    public function delete(): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') return;
+
+        $id       = (int)$_POST['id'];
+        $contrato = $this->model->getById($id);
+
+        if ($contrato) {
+            $pdfPath = $this->model->delete($id);
+
+            if ($pdfPath) {
+                $fullPath = $_SERVER['DOCUMENT_ROOT'] . '/diplomatic/public/' . ltrim($pdfPath, '/');
+                if (is_file($fullPath)) @unlink($fullPath);
+            }
+
+            AuditService::log([
+                'module'      => 'CONTRATOS',
+                'action'      => 'DELETE_SUCCESS',
+                'description' => "Eliminó permanentemente el contrato: {$contrato['numero_contrato']}",
+                'entity_id'   => $id,
+                'event_type'  => 'WARNING'
+            ]);
+        }
+
+        header('Location: /diplomatic/public/resources/contratos?deleted=1');
         exit();
     }
 
@@ -240,6 +349,28 @@ final class ResourcesContratosController extends Controller
     }
 
     /**
+     * Extrae y estructura los campos personalizados del POST (compartido
+     * entre generate() y update()).
+     */
+    private function parseCamposPost(array $post): array
+    {
+        $campos    = [];
+        $fieldIds  = $post['field_id']    ?? [];
+        $fieldNoms = $post['field_nombre'] ?? [];
+        $fieldVals = $post['field_valor']  ?? [];
+
+        foreach ($fieldIds as $i => $fieldId) {
+            $campos[] = [
+                'field_id'     => (int)$fieldId,
+                'nombre_campo' => $fieldNoms[$i] ?? '',
+                'valor'        => $fieldVals[$i] ?? ''
+            ];
+        }
+
+        return $campos;
+    }
+
+    /**
      * Genera y guarda el PDF del contrato en el servidor.
      */
     private function generarPdf(int $contratoId, string $contenido, string $numero, array $persona, array $plantilla): ?string
@@ -252,6 +383,7 @@ final class ResourcesContratosController extends Controller
             $options = new Options();
             $options->set('isRemoteEnabled', true);
             $options->set('defaultFont', 'Arial');
+            $options->setChroot([dirname(__DIR__, 2)]);
 
             $dompdf = new Dompdf($options);
             $dompdf->setPaper('letter', 'portrait');
@@ -285,6 +417,7 @@ final class ResourcesContratosController extends Controller
         $options = new Options();
         $options->set('isRemoteEnabled', true);
         $options->set('defaultFont', 'Arial');
+        $options->setChroot([dirname(__DIR__, 2)]);
 
         $dompdf = new Dompdf($options);
         $dompdf->setPaper('letter', 'portrait');
@@ -304,6 +437,16 @@ final class ResourcesContratosController extends Controller
         $fecha    = date('d/m/Y');
         $tipo     = htmlspecialchars($plantilla['tipo_nombre'] ?? '');
 
+        // DomPDF a veces colapsa a altura cero los párrafos vacíos que
+        // Quill guarda como <p><br></p> (usados para espaciado antes de
+        // firmas, por ejemplo). Se normalizan a un párrafo con altura
+        // mínima explícita para que el espacio en blanco sí se respete.
+        $contenido = preg_replace(
+            '/<p([^>]*)>(\s*<br\s*\/?>\s*)?<\/p>/i',
+            '<p$1 style="min-height:1em;">&nbsp;</p>',
+            $contenido
+        );
+
         return '<!DOCTYPE html>
 <html>
 <head>
@@ -312,12 +455,6 @@ final class ResourcesContratosController extends Controller
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family: Arial, sans-serif; font-size: 11pt; color: #222; padding: 20mm 25mm 25mm 25mm; line-height: 1.7; }
 @page { size: letter portrait; margin: 0; }
-
-.header { text-align: center; margin-bottom: 10mm; border-bottom: 0.5mm solid #333; padding-bottom: 5mm; }
-.header h1 { font-size: 13pt; font-weight: bold; text-transform: uppercase; color: #1a1a2e; }
-.header p { font-size: 9pt; color: #555; margin-top: 2mm; }
-
-.numero { text-align: right; font-size: 9pt; color: #777; margin-bottom: 8mm; }
 
 .contenido { text-align: justify; }
 .contenido h1 { font-size: 14pt; margin-bottom: 4mm; }
@@ -329,6 +466,20 @@ body { font-family: Arial, sans-serif; font-size: 11pt; color: #222; padding: 20
 .contenido ul, .contenido ol { margin: 2mm 0 3mm 8mm; }
 .contenido li { margin-bottom: 1mm; }
 
+/* Clases que genera el editor Quill — DomPDF no las conoce por defecto */
+.ql-align-center  { text-align: center; }
+.ql-align-right   { text-align: right; }
+.ql-align-justify { text-align: justify; }
+.ql-align-left    { text-align: left; }
+.ql-indent-1 { padding-left: 3em; }
+.ql-indent-2 { padding-left: 6em; }
+.ql-indent-3 { padding-left: 9em; }
+.ql-font-serif     { font-family: Georgia, "Times New Roman", serif; }
+.ql-font-monospace { font-family: "Courier New", monospace; }
+.ql-size-small { font-size: 0.75em; }
+.ql-size-large { font-size: 1.5em; }
+.ql-size-huge  { font-size: 2.5em; }
+
 .footer { position: fixed; bottom: 10mm; left: 25mm; right: 25mm; border-top: 0.3mm solid #ccc; padding-top: 3mm; font-size: 8pt; color: #888; display: table; width: 100%; }
 .footer-left  { display: table-cell; text-align: left; }
 .footer-right { display: table-cell; text-align: right; }
@@ -336,20 +487,13 @@ body { font-family: Arial, sans-serif; font-size: 11pt; color: #222; padding: 20
 </head>
 <body>
 
-<div class="header">
-    <h1>Decanato de Ciencias de la Salud — UCLA</h1>
-    <p>Programa de Diplomados · ' . $tipo . '</p>
-</div>
-
-<div class="numero">N° Contrato: <strong>' . htmlspecialchars($numero) . '</strong> · Fecha: ' . $fecha . '</div>
-
 <div class="contenido">
 ' . $contenido . '
 </div>
 
 <div class="footer">
-    <span class="footer-left">' . $nombre . ' · CI: ' . $cedula . '</span>
-    <span class="footer-right">Contrato N° ' . htmlspecialchars($numero) . '</span>
+    <span class="footer-left">DECANATO DE CIENCIAS DE LA SALUD — UCLA · Programa de Diplomados · ' . $tipo . '</span>
+    <span class="footer-right">N° Contrato: ' . htmlspecialchars($numero) . ' · Fecha: ' . $fecha . '</span>
 </div>
 
 </body>

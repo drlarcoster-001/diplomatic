@@ -570,6 +570,9 @@ final class Bootstrap
         $router->get('/resources/contratos', [ResourcesContratosController::class, 'index']);
         $router->get('/resources/contratos/create', [ResourcesContratosController::class, 'create']);
         $router->post('/resources/contratos/generate', [ResourcesContratosController::class, 'generate']);
+        $router->get('/resources/contratos/edit',      [ResourcesContratosController::class, 'edit']);
+        $router->post('/resources/contratos/update',   [ResourcesContratosController::class, 'update']);
+        $router->post('/resources/contratos/delete',   [ResourcesContratosController::class, 'delete']);
         $router->get('/resources/contratos/pdf', [ResourcesContratosController::class, 'descargarPdf']);
         $router->post('/resources/contratos/changeStatus', [ResourcesContratosController::class, 'changeStatus']);
         $router->get('/resources/contratos/getDetails', [ResourcesContratosController::class, 'getDetails']);

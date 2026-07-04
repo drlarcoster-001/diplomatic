@@ -114,6 +114,18 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
                                             title="Cambiar estado">
                                         <i class="bi bi-arrow-repeat"></i>
                                     </button>
+                                    <a href="<?= $basePath ?>/resources/contratos/edit?id=<?= $c['id'] ?>"
+                                       class="btn btn-sm btn-white border text-warning"
+                                       title="Editar / Reasignar">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <button type="button"
+                                            class="btn btn-sm btn-white border text-danger btn-delete-contrato"
+                                            data-id="<?= $c['id'] ?>"
+                                            data-numero="<?= htmlspecialchars($c['numero_contrato']) ?>"
+                                            title="Eliminar permanentemente">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -138,7 +150,7 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
             </div>
             <div class="modal-body p-0">
                 <div style="background:#e9ecef; padding:32px; min-height:500px;">
-                    <div id="modal-contrato-contenido"
+                    <div id="modal-contrato-contenido" class="ql-editor"
                          style="background:white; max-width:800px; margin:0 auto; padding:60px 70px; box-shadow:0 4px 24px rgba(0,0,0,0.10); min-height:400px; font-family:'Segoe UI', serif; font-size:14px; line-height:1.8; color:#222;">
                     </div>
                 </div>

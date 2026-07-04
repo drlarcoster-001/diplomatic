@@ -3,7 +3,11 @@
  * MÓDULO: GESTIÓN DE RECURSOS / CONTRATOS
  * ARCHIVO: app/models/ResourcesContratosModel.php
  * PROPÓSITO: Persistencia de contratos generados, búsqueda de personal y sustitución de variables.
- * VERSIÓN: 1.0.0
+ * VERSIÓN: 2.0.0 - Agrega update() para reasignar personal/plantilla y
+ *          regenerar el contenido, syncFieldValues() para sincronizar
+ *          campos personalizados en la edición, y delete() para
+ *          eliminación permanente (contrato + valores de campos + PDF
+ *          físico, este último se borra desde el controller).
  */
 
 declare(strict_types=1);
@@ -79,7 +83,7 @@ final class ResourcesContratosModel
 
         // Cargar valores de campos personalizados
         $stmtV = $this->db->prepare("
-            SELECT f.etiqueta, f.nombre_campo, f.tipo, v.valor
+            SELECT f.etiqueta, f.nombre_campo, f.tipo, v.field_id, v.valor
             FROM tbl_contract_field_values v
             JOIN tbl_contract_template_fields f ON v.field_id = f.id
             WHERE v.contract_id = ?
@@ -203,9 +207,72 @@ final class ResourcesContratosModel
             '{año_contrato}'      => date('Y'),
             '{mes_contrato}'      => $meses[(int)date('m')],
             '{numero_contrato}'   => $numeroContrato,
+            '{logo_diplomado}'    => $this->logoComoBase64('logo-medicina.jpg', 'image/jpeg', 'margin-right:40px;'),
+            '{logo_ucla}'         => $this->logoComoBase64('logo-ucla.png', 'image/png', 'margin-left:40px;'),
+            '{membrete_institucional}' => $this->getMembreteHtml(),
+            '{membrete_institucional_2}' => $this->getMembreteHtml2(),
         ];
 
         return str_replace(array_keys($vars), array_values($vars), $contenido);
+    }
+
+    /**
+     * Bloque fijo del membrete institucional: logo UCLA a la izquierda,
+     * "UNIVERSIDAD CENTRO OCCIDENTAL" al centro y logo del diplomado a la
+     * derecha (los 3 en la misma fila mediante tabla, que DomPDF sí
+     * respeta de forma confiable), seguido de las 2 líneas centradas
+     * debajo. Se inserta como variable de texto ({membrete_institucional})
+     * en Quill, así el layout nunca se arma dentro del editor.
+     */
+    public function getMembreteHtml(): string
+    {
+        $logoUcla      = $this->logoComoBase64('logo-ucla.png', 'image/png');
+        $logoDiplomado = $this->logoComoBase64('logo-medicina.jpg', 'image/jpeg');
+
+        return '<table style="width:100%;border:none;margin-bottom:6mm;" cellpadding="0" cellspacing="0">
+<tr>
+<td style="width:15%;text-align:left;vertical-align:middle;">' . $logoUcla . '</td>
+<td style="width:70%;text-align:center;vertical-align:middle;">
+<div style="font-weight:bold;font-size:12pt;line-height:1.5;color:#1a1a4e;">UNIVERSIDAD CENTRO OCCIDENTAL</div>
+<div style="font-weight:bold;font-size:12pt;line-height:1.5;color:#1a1a4e;">LISANDRO ALVARADO</div>
+<div style="font-weight:bold;font-size:12pt;line-height:1.5;color:#1a1a4e;">DECANATO DE CIENCIAS DE LA SALUD</div>
+</td>
+<td style="width:15%;text-align:right;vertical-align:middle;">' . $logoDiplomado . '</td>
+</tr>
+</table>';
+    }
+
+    public function getMembreteHtml2(): string
+    {
+        $logoUcla      = $this->logoComoBase64('logo-ucla-documentos.png', 'image/png');
+        $logoDiplomado = $this->logoComoBase64('logo-medicina.jpg', 'image/jpeg');
+
+        return '<table style="width:100%;border:none;margin-bottom:6mm;" cellpadding="0" cellspacing="0">
+<tr>
+<td style="width:15%;text-align:left;vertical-align:middle;">' . $logoUcla . '</td>
+<td style="width:70%;text-align:center;vertical-align:middle;">
+<div style="font-weight:bold;font-size:12pt;line-height:1.5;color:#1a1a4e;">UNIVERSIDAD CENTRO OCCIDENTAL</div>
+<div style="font-weight:bold;font-size:12pt;line-height:1.5;color:#1a1a4e;">LISANDRO ALVARADO</div>
+<div style="font-weight:bold;font-size:12pt;line-height:1.5;color:#1a1a4e;">DECANATO DE CIENCIAS DE LA SALUD</div>
+</td>
+<td style="width:15%;text-align:right;vertical-align:middle;">' . $logoDiplomado . '</td>
+</tr>
+</table>';
+    }
+
+    /**
+     * Convierte un logo fijo del disco a una etiqueta <img> con la imagen
+     * incrustada en base64. Evita el problema de rutas de archivo (válidas
+     * para DomPDF) vs URLs web (válidas para el navegador) — el base64
+     * funciona igual en ambos contextos sin depender de ninguna ruta.
+     */
+    private function logoComoBase64(string $nombreArchivo, string $mimeType, string $margenExtra = ''): string
+    {
+        $ruta = dirname(__DIR__, 2) . '/public/assets/uploads/logos/' . $nombreArchivo;
+        if (!is_file($ruta)) return '';
+
+        $base64 = base64_encode(file_get_contents($ruta));
+        return '<img src="data:' . $mimeType . ';base64,' . $base64 . '" style="height:70px;' . $margenExtra . '">';
     }
 
     /**
@@ -254,6 +321,45 @@ final class ResourcesContratosModel
     }
 
     /**
+     * Actualiza un contrato existente: permite reasignar personal y/o
+     * plantilla, regenerando el número de contrato y el contenido final.
+     */
+    public function update(int $id, array $data): bool
+    {
+        $sql = "UPDATE tbl_contracts SET
+                numero_contrato  = ?,
+                template_id      = ?,
+                personal_id      = ?,
+                contenido_final  = ?,
+                updated_at       = NOW()
+                WHERE id = ?";
+
+        return $this->db->prepare($sql)->execute([
+            $data['numero_contrato'],
+            $data['template_id'],
+            $data['personal_id'],
+            $data['contenido_final'],
+            $id
+        ]);
+    }
+
+    /**
+     * Sincroniza los valores de campos personalizados de un contrato al
+     * editarlo (borra los anteriores e inserta los nuevos).
+     */
+    public function syncFieldValues(int $contratoId, array $campos): void
+    {
+        $this->db->prepare("DELETE FROM tbl_contract_field_values WHERE contract_id = ?")->execute([$contratoId]);
+
+        if (empty($campos)) return;
+
+        $stmt = $this->db->prepare("INSERT INTO tbl_contract_field_values (contract_id, field_id, valor) VALUES (?, ?, ?)");
+        foreach ($campos as $campo) {
+            $stmt->execute([$contratoId, $campo['field_id'], $campo['valor']]);
+        }
+    }
+
+    /**
      * Cambia el estado de un contrato.
      */
     public function changeStatus(int $id, string $estado): bool
@@ -269,6 +375,25 @@ final class ResourcesContratosModel
     {
         return $this->db->prepare("UPDATE tbl_contracts SET pdf_path = ? WHERE id = ?")
                         ->execute([$path, $id]);
+    }
+
+    /**
+     * Elimina un contrato de forma PERMANENTE (registro + valores de
+     * campos personalizados). Devuelve la ruta del PDF asociado para que
+     * el controller borre también el archivo físico, o null si no existía
+     * el contrato.
+     */
+    public function delete(int $id): ?string
+    {
+        $stmt = $this->db->prepare("SELECT pdf_path FROM tbl_contracts WHERE id = ? LIMIT 1");
+        $stmt->execute([$id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$row) return null;
+
+        $this->db->prepare("DELETE FROM tbl_contract_field_values WHERE contract_id = ?")->execute([$id]);
+        $this->db->prepare("DELETE FROM tbl_contracts WHERE id = ?")->execute([$id]);
+
+        return $row['pdf_path'] ?? null;
     }
 
     /**

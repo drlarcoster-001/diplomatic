@@ -61,7 +61,16 @@ $(document).ready(function () {
     // === 2. INSERTAR VARIABLE DEL SISTEMA EN QUILL ===
     document.querySelectorAll('.btn-insertar').forEach(btn => {
         btn.addEventListener('click', function () {
-            insertarEnQuill(this.dataset.variable);
+            const variable = this.dataset.variable;
+            // Los dos logos necesitan un separador visible entre sí; un
+            // espacio normal de teclado se colapsa en HTML y desaparece
+            // al recargar. Usamos espacios "duros" (\u00A0) que sí se
+            // mantienen visibles siempre.
+            if (variable === '{logo_diplomado}') {
+                insertarEnQuill(variable + '\u00A0\u00A0\u00A0\u00A0\u00A0');
+            } else {
+                insertarEnQuill(variable);
+            }
         });
     });
 
@@ -122,9 +131,20 @@ $(document).ready(function () {
             return;
         }
 
-        // Pasar el HTML del editor al input hidden
+        // Pasar el HTML del editor al input hidden. Los párrafos vacíos
+        // (<p><br></p>, usados para espaciado) se convierten a <p>&nbsp;</p>
+        // porque Quill colapsa los realmente vacíos al recargar el
+        // contenido en una próxima edición — con &nbsp; sobreviven.
         if (quill) {
-            document.getElementById('contenido-hidden').value = quill.root.innerHTML;
+            let html = quill.root.innerHTML;
+            // Fix 1: párrafos vacíos (<p><br></p>) se pierden al recargar
+            html = html.replace(/<p([^>]*)>\s*<br\s*\/?>\s*<\/p>/gi, '<p$1>&nbsp;</p>');
+            // Fix 2: secuencias de 2+ espacios de teclado (ej. para separar
+            // "Coordinador" de "Docente" en la línea de firma) se colapsan
+            // a un solo espacio en HTML. Se convierten a espacios duros
+            // para que se respete la cantidad exacta que el usuario tecleó.
+            html = html.replace(/ {2,}/g, (match) => '&nbsp;'.repeat(match.length));
+            document.getElementById('contenido-hidden').value = html;
         }
 
         form.submit();
@@ -204,6 +224,8 @@ document.querySelectorAll('.btn-ver').forEach(btn => {
         quill.insertText(range ? range.index : quill.getLength(), texto, 'user');
         quill.setSelection((range ? range.index : quill.getLength()) + texto.length);
     }
+
+    
 
     function agregarCampo() {
         const container = document.getElementById('campos-container');

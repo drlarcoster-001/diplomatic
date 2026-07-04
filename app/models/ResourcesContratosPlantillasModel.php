@@ -138,13 +138,10 @@ final class ResourcesContratosPlantillasModel
 
         if ($count > 0) return 'referenced';
 
-        $res = $this->db->prepare("UPDATE tbl_contract_templates SET is_active = 0, updated_by = ?, updated_at = NOW() WHERE id = ?")
-                        ->execute([$userId, $id]);
-
-        // Limpiar campos huérfanos si se inactiva
-        if ($res) {
-            $this->db->prepare("DELETE FROM tbl_contract_template_fields WHERE template_id = ?")->execute([$id]);
-        }
+        // Borrado permanente real: primero los campos personalizados
+        // asociados, luego la plantilla misma.
+        $this->db->prepare("DELETE FROM tbl_contract_template_fields WHERE template_id = ?")->execute([$id]);
+        $res = $this->db->prepare("DELETE FROM tbl_contract_templates WHERE id = ?")->execute([$id]);
 
         return $res ? 'deleted' : 'error';
     }
@@ -199,6 +196,10 @@ final class ResourcesContratosPlantillasModel
             '{año_contrato}'      => 'Año del contrato',
             '{mes_contrato}'      => 'Mes del contrato',
             '{numero_contrato}'   => 'Número de contrato',
+            '{logo_diplomado}'    => 'Logo del diplomado',
+            '{logo_ucla}'         => 'Logo de la UCLA',
+            '{membrete_institucional}' => 'Membrete completo (logos + encabezado UCLA)',
+            '{membrete_institucional_2}' => 'Membrete completo v2 (logo UCLA documentos + encabezado)',
         ];
     }
 }

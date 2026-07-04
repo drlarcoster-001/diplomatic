@@ -13,6 +13,7 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.snow.min.css">
+<style>.ql-editor img { cursor: pointer; }</style>
 <link rel="stylesheet" href="<?= $basePath ?>/assets/css/resources_contratos_plantillas.css">
 
 <div class="container-fluid py-4">
@@ -116,11 +117,15 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
                 </div>
             </div>
         </div>
-
+        <script>
+            window.LOGO_DIPLOMADO_SRC = <?= json_encode($logoDiplomadoSrc) ?>;
+            window.LOGO_UCLA_SRC      = <?= json_encode($logoUclaSrc) ?>;
+        </script>
     </form>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.min.js"></script>
+<script src="https://unpkg.com/quill-image-resize-module@3.0.0/image-resize.min.js"></script>
 <script src="<?= $basePath ?>/assets/js/resources_contratos_plantillas.js?v=<?= time() ?>"></script>

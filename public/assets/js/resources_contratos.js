@@ -1,13 +1,14 @@
 /**
  * MÓDULO: GESTIÓN DE RECURSOS / CONTRATOS
  * ARCHIVO: public/assets/js/resources_contratos.js
- * PROPÓSITO: Interactividad del generador de contratos y del historial.
- * VERSIÓN: 1.0.0
+ * PROPÓSITO: Interactividad del generador de contratos, edición y del historial.
+ * VERSIÓN: 1.1.0 - Agrega precarga de personal/plantilla/campos en la
+ *          vista de edición (edit.php) y el manejo del botón Eliminar
+ *          (confirmación + submit) en el historial.
  */
 
 $(document).ready(function () {
     const basePath     = '/diplomatic/public/resources/contratos';
-    const basePersonal = '/diplomatic/public/resources/contratos';
     const MySwal       = (typeof Swal !== 'undefined') ? Swal : { fire: (obj) => alert(obj.text) };
 
     // Estado local
@@ -21,14 +22,17 @@ $(document).ready(function () {
         MySwal.fire({ icon: 'success', title: '¡Contrato generado!', text: 'El contrato fue guardado correctamente.', timer: 2000, showConfirmButton: false });
     }
     if (urlParams.get('updated')) {
-        MySwal.fire({ icon: 'success', title: '¡Estado actualizado!', timer: 1500, showConfirmButton: false });
+        MySwal.fire({ icon: 'success', title: '¡Contrato actualizado!', timer: 1800, showConfirmButton: false });
+    }
+    if (urlParams.get('deleted')) {
+        MySwal.fire({ icon: 'success', title: 'Contrato eliminado.', timer: 1500, showConfirmButton: false });
     }
     if (urlParams.get('error') === 'invalid') {
         MySwal.fire({ icon: 'error', title: 'Error', text: 'Personal o plantilla no válidos.', confirmButtonColor: '#198754' });
     }
 
     // =====================================================
-    // GENERADOR DE CONTRATOS (create.php)
+    // GENERADOR / EDITOR DE CONTRATOS (create.php y edit.php)
     // =====================================================
 
     // === 1. BUSCADOR DE PERSONAL ===
@@ -98,10 +102,14 @@ $(document).ready(function () {
         personalSeleccionado = p;
         document.getElementById('personal_id').value     = p.id;
         document.getElementById('buscar-personal').value = p.nombre;
-        document.getElementById('ficha-nombre').innerText     = p.nombre + ' · CI: ' + p.cedula;
-        document.getElementById('ficha-tipo').innerText       = p.tipo;
-        document.getElementById('ficha-expediente').innerText = p.expediente;
-        document.getElementById('personal-ficha').style.display = 'block';
+        const fichaNombre = document.getElementById('ficha-nombre');
+        const fichaTipo   = document.getElementById('ficha-tipo');
+        const fichaExp    = document.getElementById('ficha-expediente');
+        if (fichaNombre) fichaNombre.innerText = p.nombre + ' · CI: ' + p.cedula;
+        if (fichaTipo)   fichaTipo.innerText   = p.tipo;
+        if (fichaExp)    fichaExp.innerText    = p.expediente;
+        const ficha = document.getElementById('personal-ficha');
+        if (ficha) ficha.style.display = 'block';
         ocultarDropdown();
         actualizarPreview();
         checkAndShowPreview();
@@ -113,7 +121,8 @@ $(document).ready(function () {
             personalSeleccionado = null;
             document.getElementById('personal_id').value         = '';
             document.getElementById('buscar-personal').value     = '';
-            document.getElementById('personal-ficha').style.display = 'none';
+            const ficha = document.getElementById('personal-ficha');
+            if (ficha) ficha.style.display = 'none';
             ocultarPreview();
         });
     }
@@ -129,21 +138,25 @@ $(document).ready(function () {
         selectPlantilla.addEventListener('change', function () {
             const id = this.value;
             if (!id) return;
-
-            fetch(`${basePath}/getPlantilla?id=${id}`)
-                .then(res => res.json())
-                .then(data => {
-                    if (!data.ok) return;
-                    plantillaSeleccionada = data.plantilla;
-                    renderCampos(data.plantilla.campos || []);
-                    actualizarPreview();
-                    checkAndShowPreview();
-                });
+            cargarPlantilla(id, {});
         });
     }
 
-    // === 3. RENDERIZAR CAMPOS PERSONALIZADOS ===
-    function renderCampos(campos) {
+    function cargarPlantilla(id, valoresPrevios) {
+        fetch(`${basePath}/getPlantilla?id=${id}`)
+            .then(res => res.json())
+            .then(data => {
+                if (!data.ok) return;
+                plantillaSeleccionada = data.plantilla;
+                renderCampos(data.plantilla.campos || [], valoresPrevios);
+                actualizarPreview();
+                checkAndShowPreview();
+            });
+    }
+
+    // === 3. RENDERIZAR CAMPOS PERSONALIZADOS (con precarga opcional) ===
+    function renderCampos(campos, valoresPrevios) {
+        valoresPrevios = valoresPrevios || {};
         const container = document.getElementById('campos-dinamicos');
         const seccion   = document.getElementById('seccion-campos');
         if (!container || !seccion) return;
@@ -155,7 +168,8 @@ $(document).ready(function () {
         }
 
         container.innerHTML = campos.map(c => {
-            const tipo = c.tipo === 'fecha' ? 'date' : (c.tipo === 'numero' || c.tipo === 'moneda' ? 'number' : 'text');
+            const tipo  = c.tipo === 'fecha' ? 'date' : (c.tipo === 'numero' || c.tipo === 'moneda' ? 'number' : 'text');
+            const valor = valoresPrevios[c.nombre_campo] ?? '';
             return `
                 <div class="col-md-4">
                     <label class="form-label small fw-bold">${c.etiqueta.toUpperCase()}</label>
@@ -163,7 +177,8 @@ $(document).ready(function () {
                            name="field_valor[]"
                            class="form-control campo-personalizado"
                            placeholder="${c.etiqueta}"
-                           data-campo="${c.nombre_campo}">
+                           data-campo="${c.nombre_campo}"
+                           value="${valor}">
                     <input type="hidden" name="field_id[]"     value="${c.id}">
                     <input type="hidden" name="field_nombre[]" value="${c.nombre_campo}">
                 </div>
@@ -172,20 +187,17 @@ $(document).ready(function () {
 
         seccion.style.display = 'block';
 
-        // Actualizar preview al cambiar campos
         container.querySelectorAll('.campo-personalizado').forEach(inp => {
             inp.addEventListener('input', actualizarPreview);
         });
     }
 
-
-
     function checkAndShowPreview() {
-        const pid = document.getElementById('personal_id').value;
-        const tid = document.getElementById('select-plantilla').value;
-        if (pid && tid) {
-            document.getElementById('seccion-preview').style.display = 'block';
-        }
+        const seccion = document.getElementById('seccion-preview');
+        if (!seccion) return;
+        const pid = document.getElementById('personal_id')?.value;
+        const tid = document.getElementById('select-plantilla')?.value;
+        if (pid && tid) seccion.style.display = 'block';
     }
 
     // === 4. VISTA PREVIA EN TIEMPO REAL ===
@@ -198,7 +210,6 @@ $(document).ready(function () {
 
         seccion.style.display = 'block';
 
-        // Obtener datos del personal vía AJAX
         fetch(`${basePath}/getPersonal?id=${personalSeleccionado.id}`)
             .then(res => res.json())
             .then(data => {
@@ -210,7 +221,6 @@ $(document).ready(function () {
 
                 let contenido = plantillaSeleccionada.contenido || '';
 
-                // Sustituir variables del sistema
                 const vars = {
                     '{nombre_completo}':   (p.first_name + ' ' + p.last_name).trim(),
                     '{primer_nombre}':     p.first_name ?? '',
@@ -230,14 +240,17 @@ $(document).ready(function () {
                     '{fecha_contrato}':    `${hoy.getDate().toString().padStart(2,'0')}/${(hoy.getMonth()+1).toString().padStart(2,'0')}/${hoy.getFullYear()}`,
                     '{año_contrato}':      hoy.getFullYear().toString(),
                     '{mes_contrato}':      meses[hoy.getMonth()],
-                    '{numero_contrato}':   '[ N° SE GENERARÁ AL GUARDAR ]',
+                    '{numero_contrato}':   '[ N° SE REGENERARÁ AL GUARDAR ]',
+                    '{logo_diplomado}':    '<img src="/diplomatic/public/assets/uploads/logos/logo-medicina.jpg" style="height:70px;margin-right:40px;">',
+                    '{logo_ucla}':         '<img src="/diplomatic/public/assets/uploads/logos/logo-ucla.png" style="height:70px;margin-left:40px;">',
+                    '{membrete_institucional}': '<table style="width:100%;border:none;margin-bottom:6mm;" cellpadding="0" cellspacing="0"><tr><td style="width:15%;text-align:left;"><img src="/diplomatic/public/assets/uploads/logos/logo-ucla.png" style="height:70px;"></td><td style="width:70%;text-align:center;"><div style="font-weight:bold;font-size:12pt;color:#1a1a4e;">UNIVERSIDAD CENTRO OCCIDENTAL</div><div style="font-weight:bold;font-size:12pt;color:#1a1a4e;">LISANDRO ALVARADO</div><div style="font-weight:bold;font-size:12pt;color:#1a1a4e;">DECANATO DE CIENCIAS DE LA SALUD</div></td><td style="width:15%;text-align:right;"><img src="/diplomatic/public/assets/uploads/logos/logo-medicina.jpg" style="height:70px;"></td></tr></table>',
+                    '{membrete_institucional_2}': '<table style="width:100%;border:none;margin-bottom:6mm;" cellpadding="0" cellspacing="0"><tr><td style="width:15%;text-align:left;"><img src="/diplomatic/public/assets/uploads/logos/logo-ucla-documentos.png" style="height:70px;"></td><td style="width:70%;text-align:center;"><div style="font-weight:bold;font-size:12pt;color:#1a1a4e;">UNIVERSIDAD CENTRO OCCIDENTAL</div><div style="font-weight:bold;font-size:12pt;color:#1a1a4e;">LISANDRO ALVARADO</div><div style="font-weight:bold;font-size:12pt;color:#1a1a4e;">DECANATO DE CIENCIAS DE LA SALUD</div></td><td style="width:15%;text-align:right;"><img src="/diplomatic/public/assets/uploads/logos/logo-medicina.jpg" style="height:70px;"></td></tr></table>',
                 };
 
                 for (const [key, val] of Object.entries(vars)) {
                     contenido = contenido.split(key).join(`<strong style="color:#198754;">${val}</strong>`);
                 }
 
-                // Sustituir campos personalizados
                 document.querySelectorAll('.campo-personalizado').forEach(inp => {
                     const campo = inp.dataset.campo;
                     const valor = inp.value || `<em style="color:#aaa;">[${campo}]</em>`;
@@ -268,6 +281,29 @@ $(document).ready(function () {
         return `${d.getDate().toString().padStart(2,'0')}/${(d.getMonth()+1).toString().padStart(2,'0')}/${d.getFullYear()}`;
     }
 
+    // === 4.1 PRECARGA EN LA VISTA DE EDICIÓN (edit.php) ===
+    // Si el campo hidden personal_id ya trae un valor al cargar la página,
+    // estamos en edit.php: reconstituye el estado (personalSeleccionado,
+    // plantillaSeleccionada) y precarga los campos personalizados ya
+    // guardados, para que "Actualizar" y el submit funcionen igual que en
+    // create.php sin que el usuario tenga que re-seleccionar todo.
+    (function precargarEdicion() {
+        const hidPersonalId = document.getElementById('personal_id');
+        const hidTemplateId = document.getElementById('select-plantilla');
+        if (!hidPersonalId || !hidPersonalId.value || hidPersonalId.value === '0') return;
+        if (!hidTemplateId || !hidTemplateId.value) return;
+
+        const nombre = document.getElementById('buscar-personal')?.value || '';
+        personalSeleccionado = { id: hidPersonalId.value, nombre: nombre };
+
+        const valoresPrevios = {};
+        (window.CONTRATO_CAMPOS_VALORES || []).forEach(v => {
+            valoresPrevios[v.nombre_campo] = v.valor;
+        });
+
+        cargarPlantilla(hidTemplateId.value, valoresPrevios);
+    })();
+
     // =====================================================
     // HISTORIAL DE CONTRATOS (index.php)
     // =====================================================
@@ -283,28 +319,59 @@ $(document).ready(function () {
         });
     });
 
-   // === VER CONTRATO EN MODAL ===
-document.addEventListener('click', function (e) {
-    if (e.target.closest('.btn-ver-contrato')) {
-        const btn     = e.target.closest('.btn-ver-contrato');
-        const id      = btn.dataset.id;
-        const numero  = btn.dataset.numero;
-        const persona = btn.dataset.persona;
+    // === 6. VER CONTRATO EN MODAL ===
+    document.addEventListener('click', function (e) {
+        if (e.target.closest('.btn-ver-contrato')) {
+            const btn     = e.target.closest('.btn-ver-contrato');
+            const id      = btn.dataset.id;
+            const numero  = btn.dataset.numero;
+            const persona = btn.dataset.persona;
 
-        document.getElementById('modalContratoNumero').innerText = numero;
-        document.getElementById('modalContratoPersona').innerText = persona;
-        document.getElementById('btn-modal-pdf').href = `/diplomatic/public/resources/contratos/pdf?id=${id}`;
-        document.getElementById('modal-contrato-contenido').innerHTML = '<div class="text-center py-4 text-muted"><div class="spinner-border spinner-border-sm me-2"></div> Cargando...</div>';
+            document.getElementById('modalContratoNumero').innerText = numero;
+            document.getElementById('modalContratoPersona').innerText = persona;
+            document.getElementById('btn-modal-pdf').href = `/diplomatic/public/resources/contratos/pdf?id=${id}`;
+            document.getElementById('modal-contrato-contenido').innerHTML = '<div class="text-center py-4 text-muted"><div class="spinner-border spinner-border-sm me-2"></div> Cargando...</div>';
 
-        bootstrap.Modal.getOrCreateInstance(document.getElementById('modalVerContrato')).show();
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('modalVerContrato')).show();
 
-        fetch(`${basePath}/getDetails?id=${id}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.ok && data.contrato) {
-                    document.getElementById('modal-contrato-contenido').innerHTML = data.contrato.contenido_final || '<p class="text-muted">Sin contenido.</p>';
+            fetch(`${basePath}/getDetails?id=${id}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.ok && data.contrato) {
+                        document.getElementById('modal-contrato-contenido').innerHTML = data.contrato.contenido_final || '<p class="text-muted">Sin contenido.</p>';
+                    }
+                });
+        }
+    });
+
+    // === 7. ELIMINAR CONTRATO (permanente) ===
+    document.addEventListener('click', function (e) {
+        if (e.target.closest('.btn-delete-contrato')) {
+            const btn    = e.target.closest('.btn-delete-contrato');
+            const id     = btn.dataset.id;
+            const numero = btn.dataset.numero;
+
+            MySwal.fire({
+                title: '¿Eliminar contrato?',
+                html: `Esta acción es <b>permanente</b> y no se puede deshacer.<br>Se eliminará: <b>${numero}</b>`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor:  '#858796',
+                confirmButtonText:  'Sí, eliminar permanentemente',
+                cancelButtonText:   'Cancelar'
+            }).then(result => {
+                if (result.isConfirmed) {
+                    const f = document.createElement('form');
+                    f.method = 'POST';
+                    f.action = `${basePath}/delete`;
+                    const i  = document.createElement('input');
+                    i.type = 'hidden'; i.name = 'id'; i.value = id;
+                    f.appendChild(i);
+                    document.body.appendChild(f);
+                    f.submit();
                 }
             });
-    }
-}); 
+        }
+    });
 });

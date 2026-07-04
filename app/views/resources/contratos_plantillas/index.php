@@ -13,6 +13,7 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.snow.min.css">
 <link rel="stylesheet" href="<?= $basePath ?>/assets/css/resources_contratos_plantillas.css">
 
 <div class="container-fluid py-4">
@@ -128,8 +129,8 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
             <div class="modal-body p-0">
                 <!-- Hoja de papel simulada -->
                 <div style="background:#e9ecef; padding:32px; min-height:600px;">
-                    <div id="modal-contenido-plantilla"
-                         style="background:white; max-width:800px; margin:0 auto; padding:60px 70px; box-shadow:0 4px 24px rgba(0,0,0,0.10); min-height:500px; font-family:'Segoe UI', serif; font-size:14px; line-height:1.8; color:#222;">
+                    <div id="modal-contenido-plantilla" class="ql-editor"
+                        style="background:white; max-width:800px; margin:0 auto; padding:60px 70px; box-shadow:0 4px 24px rgba(0,0,0,0.10); min-height:500px; font-family:'Segoe UI', serif; font-size:14px; line-height:1.8; color:#222;">
                     </div>
                 </div>
             </div>
